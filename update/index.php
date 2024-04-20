@@ -3,6 +3,14 @@
 
 include("../_init_.php");
 
+
+if ($isAdmin != "1" || $logged != true) {
+    header("Location: ../");
+    exit();
+} else {
+    // echo "Please wait...";
+}
+
 function getLatestReleaseUrl($owner, $repo) {
     $url = "https://api.github.com/repos/$owner/$repo/releases/latest";
     $ch = curl_init($url);
@@ -37,16 +45,42 @@ function downloadAndExtractRepo($repoUrl) {
     }
 }
 
+
+
+function deleteFilesRecursively($folder) {
+    foreach(glob($folder . '/*') as $file) {
+        is_dir($file) ? deleteFilesRecursively($file) : unlink($file);
+    }
+    rmdir($folder);
+}
+
+
+
 function moveFilesToCurrentDirectory($sourceDir) {
     $sourceDir = "./" . rtrim($sourceDir, '/');
-    $destinationDir = './';
-    $files = scandir("./".$sourceDir);
+    $destinationDir = '../../browser/';
+    $files = scandir($sourceDir);
+
+    //print_r($files);
+    //print_r($sourceDir);
+    //echo "$files";
+    //return;
+    //return "";
+
     foreach ($files as $file) {
         if ($file != '.' && $file != '..') {
             $sourcePath = $sourceDir . '/' . $file;
             $destinationPath = $destinationDir . $file;
             if (is_dir($sourcePath)) {
-                rename($sourcePath, $destinationPath);
+                if(!rename($sourcePath, $destinationPath)){
+
+                    deleteFilesRecursively($destinationPath);
+
+                    echo $destinationPath;
+                    
+                    rename($destinationPath, $destinationPath);
+                    unlink($destinationPath);
+                }
             } else {
                 copy($sourcePath, $destinationPath);
                 unlink($sourcePath);
@@ -56,8 +90,6 @@ function moveFilesToCurrentDirectory($sourceDir) {
     rmdir("./".$sourceDir);
     return true;
 }
-
-if (!$isAdmin || !$logged) header("../");
 
 $version_file_path = './version.txt';
 $current_version = trim(file_get_contents($version_file_path));
@@ -80,8 +112,12 @@ if ($latestReleaseUrl) {
 
 $dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latestReleaseUrl";
 $dir = downloadAndExtractRepo($dir);
+
+
 moveFilesToCurrentDirectory($dir);
 unlink("../browser/installer.php");
+
+
 header("Location: ../?alert=installed");
 
 }

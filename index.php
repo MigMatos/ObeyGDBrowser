@@ -15,6 +15,14 @@
 	<meta id="meta-desc" property="og:description" content="Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!">
 	<meta id="meta-image" name="og:image" content="https://gdbrowser.com/assets/coin.png" itemprop="image">
 	<meta name="twitter:card" content="summary">
+
+	<link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+	<?php 
+        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
+        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html");
+    ?>
+
 </head>
 
 
@@ -34,7 +42,7 @@
 	</div>
 
 	<div style="position:absolute; top: 1.7%; right: 2%; text-align: right; width: 10%;">
-		<img id="creditsButton" class="gdButton" src="assets/credits.png" width="60%" onclick="loadCredits()">
+		<img id="creditsButton" class="gdButtonBrowser" src="assets/credits.png" width="60%" onclick="loadCredits()">
 	</div>
 
 	
@@ -52,7 +60,7 @@
 	<p>
 		<?php if(!$logged) echo 'Login here!'; else echo $userName; ?>
 	</p>
-		<a href="./account/login" style="width:30%;"><img class="gdButton" src="assets/user.png" width = "100%"></a>
+		<a href="./account/login" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
 	</div>
 
 	<?php if($logged && $isAdmin) {
@@ -62,7 +70,7 @@
 		flex-direction: column;
 		align-items: center;">
 			<p style="text-align: center;">Click here to check updates!</p>
-			<img class="gdButton" src="assets/plus.png" width="40%" onclick="location.href='./update';"></a>
+			<img class="gdButtonBrowser" src="assets/plus.png" width="40%" onclick="location.href='./update';"></a>
 		</div>; 
 		<?php
 	} ?>
@@ -129,8 +137,17 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="../sizecheck.js?"></script>
+
+<script>
+	$("#loading-main").hide();
+
+
+</script>
+
+
 <script>
 
 let page = 1
@@ -141,6 +158,7 @@ let lastPage
 
 let noDaily = (window.location.search == "?daily=1")
 let noWeekly = (window.location.search == "?daily=2")
+
 
 if (noDaily || noWeekly) {
 	if (noWeekly) $('#noLevel').html("weekly")
