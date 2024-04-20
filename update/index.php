@@ -78,7 +78,7 @@ function moveFilesToCurrentDirectory($sourceDir) {
 
                     echo $destinationPath;
                     
-                    rename($destinationPath, $destinationPath);
+                    rename($sourcePath, $destinationPath);
                     unlink($destinationPath);
                 }
             } else {
