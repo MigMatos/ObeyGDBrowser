@@ -1,0 +1,425 @@
+<head>
+	<title>[[NAME]] ([[ID]])</title>
+	<meta charset="utf-8">
+	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
+	<link rel="icon" href="../assets/difficulties/[[DIFFICULTYFACE]].png">
+	<meta id="meta-title" property="og:title" content="[[NAME]] by [[AUTHOR]]">
+	<meta id="meta-desc" property="og:description" content="ID: [[ID]] | Stars: [[STARS]] | Difficulty: [[DIFFICULTY]] | Downloads: [[DOWNLOADS]] | Likes: [[LIKES]] | Length: [[LENGTH]] | Song: [[SONGNAME]] ([[SONGID]])">
+	<meta id="meta-image" name="og:image" itemprop="image" content="../assets/difficulties/[[DIFFICULTYFACE]].png">
+	<meta name="twitter:card" content="summary">
+</head>
+
+<body class="levelBG" onbeforeunload="saveUrl()">
+
+<div id="everything">
+
+	<div class="popup" id="infoDiv">
+		<div class="fancybox bounce center supercenter">
+			<h2 class="smaller center" style="font-size: 5.5vh">Level Info</h2>
+			<p class="bigger center" id="levelInfo" style="line-height: 5vh; margin-top: 1.5vh;">
+				<span class="pre" style="color:lime">[[NAME]]</span><br>
+				ID: <cy>[[ID]]</cy>[[ORIGINALINFO]][[LOWDETAIL]][[PASS]][[UPLOAD]][[UPDATE]][[TIME1]][[TIME2]][[EXTRA]]
+				<br>Version:  <cy>[[VERSION]]</cy>
+				<br>GD Version:  <cy>[[GAMEVERSION]]</cy>
+				[[OBJECTINFO]][[REQUESTED]]
+			</p>
+			<img src="../assets/ok.png" width=20%; class="gdButton center closeWindow">
+		</div>
+	</div>
+
+	<div class="popup" id="saveDiv">
+		<div class="fancybox bounce center supercenter">
+			<h2 class="smaller center" style="font-size: 5.5vh">Saved!</h2>
+			<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
+				<cy class="pre">[[NAME]]</cy> has been added to your <a class="youCanClickThis2" style="color:lime" href="../search/levels?type=saved">saved levels</a> list.
+			</p>
+			<img src="../assets/ok.png" width=20%; class="gdButton center" onclick="savedLevel()">
+		</div>
+	</div>
+
+	<div class="popup" id="deleteDiv">
+		<div class="fancybox bounce center supercenter" style="width: 60vh; height: 28%">
+			<h2 class="smaller center" style="font-size: 5.5vh">Delete Level</h2>
+			<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
+				Are you sure you want to <cr>delete</cr> this level from your <a class="youCanClickThis2"style="color:lime" href="../search/levels?type=saved">saved levels </a>list?
+			</p>
+			<img src="../assets/btn-no.png" height=25%; class="gdButton center closeWindow">
+			<img src="../assets/btn-yes.png" height=25%; class="gdButton center sideSpaceB" onclick="deleteLevel()">
+		</div>
+	</div>
+
+	<!-- <div class="popup" id="analyzeDisabled">
+		<div class="fancybox bounce center supercenter" style="width: 75vh">
+			<h2 class="smaller center" style="font-size: 5.5vh">Level Analysis</h2>
+			<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
+				<cy>Level analysis</cy> is currently <cr>blocked</cr> by <ca>RobTop</ca>. We don't know when or if it will be re-enabled.<br><a class="youCanClickThis" style="color:aqua" href="./analyze/[[ID]]">(click to try anyways)</a>
+			</p>
+			<img src="../assets/ok.png" width=20%; class="gdButton center" onclick="$('.popup').hide()">
+		</div>
+	</div> -->
+
+	<!-- <div class="popup" id="likeDiv">
+		<div class="brownbox bounce center supercenter" style="height: 75%; width: 100vh">
+			<h1 class="smaller center" style="font-size: 5.5vh">Vote</h1>
+			<img src="../assets/smashLike.png" id="likebtn" class="inline gdButton likeButton">
+		 	<img src="../assets/smashDislike.png" id="dislikebtn" class="inline gdButton likeButton youAreNotTheOne">
+			<form action="nothing lol">
+				<h3 class="center">GD Username</h3>
+				<input type="text" name="gdbrowser" id="like-username" maxlength="50" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%">
+				<h3 class="center" style="margin-top: 2%">GD Password</h3>
+				<input type="password" id="like-password" maxlength="50" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%">
+			</form>
+			<div style="min-height: 18%; max-height: 18%">
+				<p id="message" style="padding: 0% 10%; margin-top: 2.5%"></p>
+			</div>
+			<img src="../assets/btn-cancel.png" height=10%; class="postButton gdButton center" style="margin-right: 1%" onclick="$('#likeDiv').hide(); $('#likebtn').trigger('click');">
+			<img src="../assets/btn-submit.png" type="submit" height=10%; class="postButton gdButton center" style="margin-left: 1%" id="submitVote">
+		</div>
+	</div> -->
+
+	<div style="position:absolute; bottom: 0%; left: 0%; width: 100%">
+		<img class="cornerPiece" src="../assets/corner.png" width=7%;>
+	</div>
+
+	<div style="position:absolute; bottom: 0%; right: 0%; width: 100%; text-align: right;">
+		<img class="cornerPiece" src="../assets/corner.png" width=7%; style="transform: scaleX(-1)">
+	</div>
+
+	<div class="center" style="width: 70%; margin: 1% auto">
+		<h1 class="pre" style="transform: scale(1.2)">[[NAME]]</h1>
+	</div>
+
+	<div class="center" style="position:absolute; top: 9%; left: 0%; right: 0%; height: 5%;">
+		<h2 class="pre inline slightlySmaller normalCursor gdButton" id="authorName"><a class="linkButton" id="authorLink" href="../u/[[ACCOUNTID]].">By [[AUTHOR]]</a></h2>
+		<h2 class="inline slightlySmaller normalCursor sideSpaceC">
+			<img class="inline valign" id="copiedBadge" style="display: none; height: 60%; cursor:help" src="../assets/copied.png" title="Level is a copy or a collaboration">
+			<img class="inline valign" id="largeBadge" style="display: none; height: 60%; margin-left: -7%; cursor:help" src="../assets/large.png" title="Contains more than 40,000 objects">
+			<img class="inline valign" id="2pBadge" style="display: none; height: 60%; margin-left: -7%; cursor:help" src="../assets/twoPlayer.png" title="Two player level">
+		</h2><br>
+		<img class="inline spaced dailyLevel" id="dailyIcon" style="height:90%; display: none; margin-right: 0.5%; margin-top: 0.4%; vertical-align: middle;">
+		<h1 class="inline smallerer spaced dailyLevel" style="display: none; margin: 0 0 0 0">#[[DAILYNUMBER]]<span style="font-size: 2.5vh; vertical-align: middle;" class="h3Size" id="dailyTime"></span></h1>
+	</div>
+
+	<div class="center valign" style="position:absolute; top: 10.5%; left: 27%; transform:scale(0.8); height: 100%; width: 20%">
+		<img class="spaced" src="../assets/difficulties/[[DIFFICULTYFACE]].png" height="15%" style="margin-bottom: 0%">
+		<h1 class="smaller" id="difficultytext" style="transform:scale(0.9);">[[DIFFICULTY]]</h1>
+		<h1 class="smaller inline stars" style="transform:scale(0.9)">[[STARS]]</h1> <img class="inline stars" src="../assets/star.png" height=4%; style="transform:translateY(-12%)"><br class="stars">
+		<h1 class="smaller inline diamonds" style="transform:scale(0.9)">[[DIAMONDS]]</h1> <img class="inline diamonds" src="../assets/diamond.png" height=4%; style="transform:translateY(-12%)">
+		<h1 class="smaller inline demonList" style="transform:scale(0.9); display: none;">#[[DEMONLIST]]</h1> <img class="inline demonList" src="../assets/demon.png" height=4.5%; style="transform:translateY(-7%); display: none; margin-left: 1.5%">
+		<div id="coins" style="margin-top: 3%"></div>
+	</div>
+
+	<div style="position:absolute; top: 20%; right: 0%; height: 38%; width: 40%;">
+		<img class="inline spaced" src="../assets/download.png" height=15% style="margin-right: 2%">
+		<h1 class="inline smaller spaced">[[DOWNLOADS]]</h1><br>
+		<img id="likeImg" class="inline spaced" src="../assets/like.png" height=15% style="margin-right: 2%">
+		<h1 class="inline smaller spaced">[[LIKES]]</h1><br>
+		<img class="inline spaced" src="../assets/time.png" height=15% style="margin-right: 2%">
+		<h1 class="inline smaller spaced">[[LENGTH]]</h1><br>
+		<img class="inline spaced orbs" src="../assets/orbs.png" height=15% style="margin-right: 2%">
+		<h1 class="inline smaller spaced orbs">[[ORBS]]</h1>
+	</div>
+
+	<div class="transparentBox center" style="position:absolute; bottom: 32%; left: 0; right: 0; width: 75vh; margin-left: auto; margin-right: auto">
+		<p class="pre" style="padding: 0 5%; white-space:normal">[[DESCRIPTION]]</p>
+	</div>
+
+	<div class="brownBox" id="songBox" style="position:absolute; bottom: 4%; left: 0; right: 0; width: 85vh; height: 20%; margin-left: auto; margin-right: auto;">
+		<div style="margin-left: 0.5%">
+			<h1 class="pre slightlySmaller" id="songname">[[SONGNAME]]</h1>
+			<h2 class="pre smaller">By: [[SONGAUTHOR]]<!--
+			--><img id="scout" title="Artist is scouted" style="display: none; margin-left: 1.5%; filter: hue-rotate(-55deg);" class="help artistIcon valign" src="../assets/check.png" width="5%"><!--
+			--><img id="whitelist" title="Artist is whitelisted" style="display: none" class="help artistIcon valign" src="../assets/check.png" width="5%"><!--
+			--> <a class="songLink" href="https://[[SONGAUTHOR]].newgrounds.com" target="_blank"><img id="moreSongs" class="gdButton valign" src="../assets/more.png" width="12%"></a></h2>
+			<!-- <img id="checkSong" style="display: none; margin-top: 1%" title="Check song verification" class="gdButton valign" src="../assets/btn-check.png" width="16%"> -->
+			<h3 id="songLoading" style="display: none; margin-top: 0.5%;">Loading...</h3>
+			<h3 id="songAllowed" style="display: none; margin-top: 0.5%; color: lime">Song is allowed for use</h3>
+			<h3 id="songNotAllowed" style="display: none; margin-top: 0.5%; color: red">Song is not allowed for use</h3>
+			<h3 id="artistInfo" style="display: none; margin-top: 0.5%"></h3>
+		</div>
+		<a class="songLink" href="https://www.newgrounds.com/audio/listen/[[SONGID]]" target="_blank"><img class="gdButton sideButton" title="Play Song" id="playSong" src="../assets/playsong.png" style="position:absolute; right: 1%; top: 50%; width: 11%; height: auto;"></a>
+	</div>
+
+	<div class="center" style="position:absolute; bottom: 5%; left: 0; right: 0">
+		<h1 id="songInfo" style="transform: scale(0.5);">SongID: [[SONGID]] &nbsp;&nbsp; Size: [[SONGSIZE]]</h1>
+	</div>
+
+	<div class="center noClick" style="position:absolute; top: 24%; right: 0%; min-width: 100%">
+		<img class="gdButton yesClick" id="playButton" src="../assets/play.png" width="11%">
+	</div>
+
+	<div class="levelButtons" style="position:absolute; top: 46%; right: 3.5%; transform: translateY(-50%); height: 75%;">
+		<!-- <img class="gdButton sideButton" title="Save level" id="saveButton" src="../assets/plus.png" onclick="$('#saveDiv').show(); saveLevel()"><br> -->
+		<img class="gdButton sideButton" title="Level Info" id="infoButton"  src="../assets/info.png" onclick="$('#infoDiv').show()"><br>
+		<!-- <img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/vote.png" onclick="$('#likeDiv').show()"><br> 
+		<a href="./analyze/[[ID]]" id="analyzeLink"><img id="analyzeBtn" title="Analyze Level" class="gdButton sideButton" src="../assets/edit.png"></a><br>
+		<a href="./comments/[[ID]]"><img class="gdButton sideButton" title="View Comments" src="../assets/comment.png"></a><br>
+		<a href="./leaderboard/[[ID]]"><img id="leaderboardbtn" title="View Leaderboard" class="gdButton sideButton" src="../assets/leaderboard.png"></a><br> -->
+	</div>
+
+	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
+		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
+	</div>
+	<div id="copied" style="display: none;">
+		<div class="copied center noClick" style="position:absolute; top: 36%; left: 50%; transform: translate(-50%,-50%); width: 90vh">
+			<h1 class="smaller noSelect" id="copiedText">ID copied to clipboard</h1>
+		</div>
+	</div>
+
+</div>
+
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../sizecheck.js?"></script>
+<script type="text/javascript" src="../misc/global.js"></script>
+<script>
+
+$(document).ready(function() { 
+
+let messageText = 'Your <cy>Geometry Dash password</cy> will <cg>not be stored</cg> anywhere on the site, both <ca>locally and server-side.</ca> You can view the code used for liking a level <a class="menuLink" target="_blank" href="https://github.com/GDColon/GDBrowser/blob/master/api/post/like.js">here</a>.'
+$('#message').html(messageText)
+
+function colonize(secs, timeUp) {
+	if (secs < 0) {
+		if (timeUp) return "Time's up!"
+		else secs = 0
+	}
+	let days = Math.floor(secs / 86400)
+	if (days) secs -= days * 86400
+    return `${days ? `${days}d + ` : ""}${[Math.floor(+secs / 3600), Math.floor(+secs / 60) % 60, +secs % 60].map(v => v < 10 ? "0" + v : v).filter((v,i) => v !== "00" || i > 0).join(":")}`
+}
+
+//if (window.location.href.endsWith('?download')) $('#infoDiv').show()
+
+		let copyMessages = ["ID copied to clipboard", "ID copied x[C]!", "ID copied again!", "ID copied once more!", "ID clipboard to copied!", "ID copied yet again!", "As you wish", "Copy that!", "This one actually works", "You can't play levels, son", "Keep it coming", "Click again, I dare you", "C-C-C-C-COPIED!",
+							"Get a life", "...", "bruh moment", "Etched into thy's memory!", "h", "I feel physical pain", "Play it in GD!", "[[ID]]", "go away", "Every copy costs 2 cents!", "Un-copied!", "Copied++", "C O P I E D", "help me please", "Open GD to play the level!", "pretend you're playing it", "Anotha one!"]
+
+		let copies = 0
+		let animated = false;
+		let freeze = false;
+		let dailyTime = Number('[[NEXTDAILY]]') || null
+
+		$('#playButton').click(function () {
+			if (!($('#copied').is(':animated')) && !animated) {
+				animated = true;
+				copies += 1
+				$('#copied').stop().fadeIn(200).delay(500).fadeOut(500, function() {
+					animated = false
+					if (copies > 1) $('#copiedText').text(copyMessages[Math.floor(Math.random()*(copies > 4 ? copyMessages.length : 6))].replace("[C]", copies))
+				})
+			}
+			var temp = $("<input>");
+			$("body").append(temp);
+			temp.val('[[ID]]').select();
+			document.execCommand("copy"); temp.remove()
+		})
+		$('.closeWindow').click(function () { if (!freeze) $(".popup").attr('style', 'display: none;') })
+
+$('#difficultytext').html('[[DIFFICULTY]]'.replace(' ', "<br>"))
+
+$('#levelInfo').html($('#levelInfo').html()
+	.replace('[[ORIGINALINFO]]', [[COPIEDID]] ==  "0" ? "" : `<br>Original: <a class="youCanClickThis" href="/[[COPIEDID]]"><ca>[[COPIEDID]]</ca></a>`)
+	.replace('[[OBJECTINFO]]', '[[OBJECTS]]' ==  "0" ? "" : `<br>Objects: <cy>${'[[OBJECTS]]' == "65535" ? "65535+" : '[[OBJECTS]]'}</cy>`)
+	.replace('[[REQUESTED]]', [[STARSREQUESTED]] ==  "0" ? "" : `<br>Stars Requested: <cy>[[STARSREQUESTED]]</cy>`))
+
+if (!'[[UPLOADED]]'.startsWith('[')) {
+	$('#levelInfo').html($('#levelInfo').html()
+	.replace('[[PASS]]', `<br>Password: <co>${'[[PASSWORD]]' == '0' || '[[PASSWORD]]'.startsWith("[") ? "No copy" : '[[PASSWORD]]' == 1 ? "Free copy" : '[[PASSWORD]]'}</co>`)
+	.replace('[[LOWDETAIL]]', `<br>Low Detail: <co>${[[LDM]] ? "Yes" : "No"}</co>`)
+	.replace('[[TIME1]]', [[EDITORTIME]] == 0 ? "" : `<br>Editor Time: <span style="color:lightgreen">${colonize([[EDITORTIME]])}</span>`)
+	.replace('[[TIME2]]', [[TOTALEDITORTIME]] == 0 ? "" : `<br>Editor Time (+copies): <span style="color:lightgreen">${colonize([[TOTALEDITORTIME]])}</span>`)
+	.replace('[[EXTRA]]', `<br>Extra String: <span style="color:lightgreen">${'[[EXTRASTRING]]'.length} chars</span>`)
+	.replace('[[UPLOAD]]', '[[UPLOADED]]' == "0" ? "" : `<br>Uploaded: <co>[[UPLOADED]]</co>`)
+	.replace('[[UPDATE]]', '[[UPDATED]]' == "0" ? "" : `<br>Updated: <co>[[UPDATED]]</co>`))}
+
+// else {
+// 	$('#levelInfo').html($('#levelInfo').html()
+// 	.replace('[[PASS]]', "")
+// 	.replace('[[LOWDETAIL]]', "")
+// 	.replace('[[EXTRA]]', "")
+// 	.replace('[[TIME1]]', "")
+// 	.replace('[[TIME2]]', "")
+// 	.replace('[[UPLOAD]]', "")
+// 	.replace('[[UPDATE]]', "") + 
+// 	`<br><a id="additional" class="youCanClickThis" href="/[[ID]]?download"><ca>Download additional info</ca></a>`
+// )}
+
+
+
+if ([[LARGE]]) $('#largeBadge').show()
+if ([[TWOPLAYER]]) $('#2pBadge').show()
+if ([[COPIEDID]] > 0) $('#copiedBadge').show()
+if ([[ORBS]] == 0) $('.orbs').hide();
+if ([[STARS]] == 0) $('.stars').hide()
+if ([[DIAMONDS]] == 0 || !'[[DEMONLIST]]'.startsWith("[")) $('.diamonds').hide()
+
+if (!'[[DEMONLIST]]'.startsWith("[")) {
+	$('.demonList').show()
+	$('#leaderboardbtn').attr('src', '../assets/demonleaderboard.png').parent().attr('href', '../demon/[[DEMONLIST]]')
+}
+else $('.demonList').remove()
+
+if (!'[[DAILYNUMBER]]'.startsWith("[")) {
+	$('#dailyIcon').attr('src', `../assets/crown-${'[[WEEKLY]]'.startsWith("[") ? "daily" : "weekly"}.png`)
+	$('.dailyLevel').show()
+
+	if (dailyTime) {
+		$('#dailyTime').html(` (${colonize(dailyTime, true)})`)
+		setInterval(() => {
+			dailyTime -= 1
+			$('#dailyTime').html(` (${colonize(dailyTime, true)})`)
+		}, 1000);
+	}
+}
+else $('.dailyLevel').remove()
+
+if ("[[SONGID]]".startsWith("Level")) {
+	$('#songInfo').text('[[SONGID]]')
+	$('.songLink').hide()
+}
+else $('#checkSong').show()
+
+if (!"[[GDPS]]".startsWith("[")) {
+	if (!("[[SONGLINK]]").match(/^https?:\/\/\audio\.ngfiles\.com\//)) {
+		$('#playSong').hide()
+		$('#moreSongs').hide()
+	}
+	$('#leaderboardbtn').hide()
+	$('#checkSong').remove()
+} 
+
+if ("[[SONGAUTHOR]]" == "Unknown" || "[[INVALIDSONG]]" == "true") $('.songLink').hide()
+if ("[[DISLIKED]]" == "true") $('#likeImg').attr('src', '../assets/dislike.png').css('transform', 'translateY(20%)')
+
+if ($("#additional").hasClass('downloadDisabled')) {
+	$('#analyzeLink').removeAttr('href')
+	$('#analyzeBtn').click(function() {
+		$('#analyzeDisabled').show()
+	})
+}
+
+let coinColor = [[VERIFIEDCOINS]] ? "silvercoin" : "browncoin"
+if ([[COINS]] > 0) $("#coins").append(`<img src="../assets/${coinColor}.png" height="5%">`)
+if ([[COINS]] > 1) $("#coins").append(`<img class="squeeze" src="../assets/${coinColor}.png" height="5%">`)
+if ([[COINS]] > 2) $("#coins").append(`<img class="squeeze" src="../assets/${coinColor}.png" height="5%">`)
+
+if ("[[GDPS]]".startsWith("1.9/")) $("#authorLink").attr('href', '/search/[[PLAYERID]]?user')
+
+if ("[[ACCOUNTID]]" == "0") {
+	$("#authorName").addClass("green").addClass("unregistered")
+	$("#authorLink").attr('href', '/search/[[PLAYERID]]?user')
+}
+
+if (window.location.pathname.endsWith('?id=weekly')) {
+	$('body').addClass('darkBG')
+	$('.cornerPiece').addClass('grayscale')
+}
+
+$(window).on('load', function() {
+	if ($('#songname')[0].scrollWidth > $('#songBox')[0].scrollWidth) {
+		let overflow = ($('#songname')[0].scrollWidth - $('#songBox')[0].scrollWidth) * 0.007
+		if (overflow > 3) overflow = 3
+		$('#songname').addClass('smaller').css('font-size', (6 - (overflow)) + 'vh')
+		}
+});
+
+let savedLevels = JSON.parse(localStorage.getItem('saved') || '[]');
+let deleteMode = false;
+if (savedLevels.includes('[[ID]]')) $('#saveButton').attr('src', '../assets/delete.png').attr('onclick', '$("#deleteDiv").show()')
+
+function saveLevel() {
+  savedLevels.push('[[ID]]');
+  localStorage.setItem('saved', JSON.stringify(savedLevels));
+}
+
+function savedLevel() {
+	$('#saveButton').attr('src', '../assets/delete.png').attr('onclick', '$("#deleteDiv").show()')
+	$('.popup').hide()
+}
+
+function deleteLevel() {
+  savedLevels = savedLevels.filter(function(el) {return el != '[[ID]]'})
+  localStorage.setItem('saved', JSON.stringify(savedLevels));
+  $('#saveButton').attr('src', '../assets/plus.png').attr('onclick', '$("#saveDiv").show(); saveLevel()')
+  $('.popup').hide()
+}
+
+$('#checkSong').click(function() {
+	$('#checkSong').hide()
+	$('#songLoading').show()
+	fetch(`../api/song/[[SONGID]]`).then(res => res.json()).then(info => {
+		$('#songLoading').hide()
+		$(info && info != -1 ? '#songAllowed' : '#songNotAllowed').show().addClass('songStatus')
+		// if (info.error) return
+		// if (!info.artist.scouted) {
+		// 	$('#scout').attr('src', '../assets/x.png')
+		// 	$('#scout').attr('title', $('#scout').attr('title').replace('is ', 'is NOT '))
+		// 	$('#scout').css('filter', 'saturate(0.4)')
+		// }
+		// if (!info.artist.whitelisted) {
+		// 	$('#whitelist').attr('src', '../assets/x.png')
+		// 	$('#whitelist').attr('title', $('#whitelist').attr('title').replace('is ', 'is NOT '))
+		// }
+		// $('#scout').show(); $('#whitelist').show()
+	})
+})
+
+$('.artistIcon').hover(function() {
+	let title = $(this).attr('title')
+	$('#artistInfo').css('color', title.includes("NOT") ? "red" : "lime")
+	$('.songStatus').hide()
+	$('#artistInfo').show()
+	$('#artistInfo').text(title)
+}, function() {
+	$('#artistInfo').hide()
+	$('.songStatus').show()
+})
+
+// let like;
+// let likedLevels = localStorage.likedLevels ? JSON.parse(localStorage.likedLevels) : []
+// if (likedLevels.includes('[[ID]]')) $('#likeButton').attr('src', '../assets/voted.png').removeClass('gdButton').prop("onclick", null)
+
+// $('#likebtn').click(function() {
+// 	$('#likebtn').removeClass('youAreNotTheOne')
+// 	$('#dislikebtn').addClass('youAreNotTheOne')
+// 	like = true
+// })
+
+// $('#dislikebtn').click(function() {
+// 	$('#likebtn').addClass('youAreNotTheOne')
+// 	$('#dislikebtn').removeClass('youAreNotTheOne')
+// 	like = false
+// })
+
+// $('#submitVote').click(function() {
+
+// 	if (likedLevels.includes('[[ID]]')) return $('#message').text("You've already liked/disliked this level!");
+
+// 	let ID = '[[ID]]'
+// 	let username = $('#like-username').val()
+// 	let password = $('#like-password').val()
+// 	let accountID = 0
+// 	let likeType = like ? "1" : "0"
+
+// 	if (!ID || !username || !password) return $('#commentDiv').hide()
+
+// 	$('#message').text(like ? "Liking..." : "Disliking... :(")
+// 		$('.postbutton').hide()
+// 		allowEsc = false
+
+// 	fetch(`../api/profile/${username}`).then(res => res.json()).then(res => {
+// 		if (!res || res == "-1") {$('.postbutton').show(); return $('#message').text("The username you provided doesn't exist!")}
+// 		else accountID = res.accountID
+
+// 		$.post("../like",  { ID, accountID, password, like: likeType, type: 1, extraID: 0 })
+// 		.done(x => {
+// 			likedLevels.push('[[ID]]')
+// 			localStorage.setItem('likedLevels', JSON.stringify(likedLevels))
+// 			location.reload()
+// 		})		
+// 		.fail(e => {$('.postbutton').show();$('#message').text(e.responseText.includes("DOCTYPE") ? "Something went wrong..." : e.responseText)})
+// 	})
+// })
+});
+</script>

@@ -1,0 +1,14 @@
+{
+    "length": {
+        "0": "Tiny", "1": "Short" , "2":"Medium", "3": "Long", "4":"XL", "5":"Platform"
+    },
+    "featured":{
+        "0":"", "1": "featured"
+    },
+    "epic":{
+        "0":"", "1": "epic", "2":"legendary", "3": "mythic"
+    },
+    "states_demon": {"3": "easy", "4": "medium", "0": "hard", "5": "insane", "6": "extreme"},
+    "states_diff_num": {"0": "unrated", "10": "easy", "20": "normal", "30": "hard", "40": "harder", "50": "insane"}
+    
+}
