@@ -8,6 +8,7 @@
 <body bgcolor="#999999">
     <fieldset>
         <legend><h2>Account Manager</h2></legend>
+        <li> <a href="../">Back</a> </li>
         <li> <a href="close/">Log out</a> </li>
     </fieldset>
 </body>

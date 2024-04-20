@@ -5,115 +5,126 @@
 include("../../incl/lib/connection.php");
 
 function searchLevels($params, $db) {
-
     $time_left_daily = 0;
     $feaID = 0;
     $type_lvl = "none";
-
+    $bindings = [];
+    $paramsSql = [];
+    
     if (isset($params['levelName']) && $params['levelName'] === "*") {
         $sql = "SELECT * FROM levels ";
-        $bindings = array();
-    } 
-    elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
-
-
+    } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
+    
         $type = (strpos($params['levelName'], "!daily") !== false) ? 0 : 1;
         $midnight = ($type == 1) ? strtotime("next monday") : strtotime("tomorrow 00:00:00");
         $current_time = time();
         $query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :current_time AND type = :type ORDER BY timestamp DESC LIMIT 1");
         $query->execute([':current_time' => $current_time, ':type' => $type]);
-
-        
+    
         if ($query->rowCount() == 0) {
             return json_encode(array("error" => "No daily/weekly"));
         }
         $results = $query->fetchAll(PDO::FETCH_ASSOC)[0];
-
+    
         $feaID = $results["feaID"];
         $lvlID = $results["levelID"];
-
-        if ($type == 1) {$feaID += 100001;}
+    
+        if ($type == 1) {
+            $feaID += 100001;
+        }
         $type_lvl = str_replace('!', '', $params['levelName']);
-        // // Calculate the time left until midnight
+        // Calculate the time left until midnight
         $time_left_daily = $midnight - $current_time;
-
-        $sql = "SELECT * FROM levels WHERE levelID = ? ";
-        $bindings = array($lvlID);
-    } 
-    elseif (isset($params['levelName']) && is_numeric($params['levelName'])) {
-        $sql = "SELECT * FROM levels WHERE levelID = ? ";
-        $bindings = array($params['levelName']);
+    
+        $sql = "SELECT * FROM levels";
+        $paramsSql[] = "levelID = ?";
+        $bindings[] = $lvlID;
+    } elseif (isset($params['levelName']) && is_numeric($params['levelName'])) {
+        $sql = "SELECT * FROM levels";
+        $paramsSql[] = "levelID = ?";
+        $bindings[] = $params['levelName'];
     } elseif (isset($params['levelName'])) {
-        $sql = "SELECT * FROM levels WHERE levelName LIKE ? ";
-        $bindings = array('%' . $params['levelName'] . '%');
+        $sql = "SELECT * FROM levels";
+        $paramsSql[] = "WHERE levelName LIKE ?";
+        $bindings[] = '%' . $params['levelName'] . '%';
     } else {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
     }
-
-    //$numericParams = array('diff', 'demonFilter', 'gauntlet', 'songID');
-
-    $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", 
-                "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
-
+    
+    $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
+    
     $demonDiffs = ["1" => "3", "2" => "4", "3" => "0", "4" => "5", "5" => "6"];
     $order = "";
-
-
+    
     foreach ($params as $key => $value) {
         if ($key !== 'levelName') {
             if ($key == "diff" && is_numeric($value)) {
-                $sql .= "AND " . (isset($lvlDiffs[$value]) ? $lvlDiffs[$value] : $lvlDiffs["-1"]) . " ";
-            } elseif ($key == "demonFilter" && is_numeric($value)){
-                $sql .= "AND starDemonDiff = " . (isset($demonDiffs[$value]) ? $demonDiffs[$value] : $demonDiffs["3"]) . " ";
+                $paramsSql[] = (isset($lvlDiffs[$value]) ? $lvlDiffs[$value] : $lvlDiffs["-1"]);
+            } elseif ($key == "demonFilter" && is_numeric($value)) {
+                $paramsSql[] = "starDemonDiff = " . (isset($demonDiffs[$value]) ? $demonDiffs[$value] : $demonDiffs["3"]);
             } elseif ($key == 'type' || $key == 'hof') {
-                $sql .= "AND NOT starEpic = 0 ";
+                $paramsSql[] = "NOT starEpic = 0";
                 $order = "rateDate DESC,uploadDate";
-            }
-            elseif ($key == 'type' || $key == 'creators') {
-                // $sql .= "AND $key = ? ";
-                // $bindings[] = $value;
+            } elseif ($key == 'type' || $key == 'creators') {
+                // $paramsSql[] = "$key = ?";
+                // $paramsSql[] = $value;
             } elseif ($key == 'list' && $value == 'yes') {
-                $sql .= "AND levelID IN (" . implode(',', $params['list']) . ") ";
+                $sql .= " AND levelID IN (" . implode(',', $params['list']) . ") ";
             } elseif ($key == 'featured' && $value == 'yes') {
-                $sql .= "AND starFeatured = 1 ";
+                $paramsSql[] = "starFeatured = 1";
             } elseif ($key == 'original' && $value == 'yes') {
-                $sql .= "AND original = 1 ";
+                $paramsSql[] = "original = 1";
             } elseif ($key == 'twoPlayer' && $value == 'yes') {
-                $sql .= "AND twoPlayer = 1 ";
+                $paramsSql[] = "twoPlayer = 1";
             } elseif ($key == 'coins' && $value == 'yes') {
-                $sql .= "AND coins > 0 ";
+                $paramsSql[] = "coins > 0";
             } elseif ($key == 'epic' && $value == 'yes') {
-                $sql .= "AND starEpic > 0 ";
+                $paramsSql[] = "starEpic > 0";
             } elseif ($key == 'starred' && $value == 'yes') {
-                $sql .= "AND starStars > 0 ";
+                $paramsSql[] = "starStars > 0";
             } elseif ($key == 'noStar' && $value == 'yes') {
-                $sql .= "AND starStars = 0 ";
+                $paramsSql[] = "starStars = 0";
             } elseif ($key == 'customSong') {
-                $sql .= "AND songIDs = ? ";
+                $paramsSql[] = "songIDs = ?";
                 $bindings[] = $value;
             } elseif ($key == 'user') {
-                $sql .= "AND userID = ? ";
+                $paramsSql[] = "userID = ?";
                 $bindings[] = $value;
             } elseif ($key == 'filter' && $value == 'recent') {
-                $sql = rtrim($sql, "AND ");
+                // $sql = rtrim($sql, "AND ");
                 $order = "uploadDate";
             }
         }
     }
+    
+    
+    
+    
+    
+    
 
-    if($order){
-        $sql .= "ORDER BY $order DESC";
+    if(!empty($params)){
+        $sql .= " WHERE (" . implode(" ) AND ( ", $paramsSql) . ")";
     }
 
-    $sql = rtrim($sql, "AND ");
+    if ($order) {
+        $sql .= " ORDER BY $order DESC ";
+    }
+
     $sql .= " LIMIT 10 OFFSET ? ";
     $bindings[] = isset($params['page']) ? ($params['page'] == 0 ? 0 : max(0, ($params['page'] + 10) - 1)) : 0;
 
+    echo $sql;
+
     $stmt = $db->prepare($sql);
+ 
+
 
     foreach ($bindings as $key => $value) {
         $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
     }
+    
+    
 
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
