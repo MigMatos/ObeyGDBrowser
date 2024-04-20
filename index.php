@@ -92,7 +92,7 @@
 					<tr class="menuButtonList">
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
 						<!-- <img src="./assets/exclamation.png" style="position: absolute; height: 18%; left: 3.5%; bottom: 23%; pointer-events: none; z-index: 50;"> -->
-						<td><a tabindex="1" href="./search?levelName=*&type=hof"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
+						<td><a tabindex="1" href="./lvls?levelName=*&type=hof"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
 						<!-- <td><a tabindex="1" href="./mappacks"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td> -->
 						<td><a tabindex="1" href="./search"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
 					</tr>
