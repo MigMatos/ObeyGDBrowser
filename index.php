@@ -70,7 +70,7 @@
 		flex-direction: column;
 		align-items: center;">
 			<p style="text-align: center;">Click here to check updates!</p>
-			<img class="gdButtonBrowser" src="assets/plus.png" width="40%" onclick="location.href='./update';"></a>
+			<img class="gdButtonBrowser" src="assets/plus.png" width="40%" onclick="updateCoreWebButton()"></a>
 		</div>; 
 		<?php
 	} ?>
@@ -143,7 +143,13 @@
 
 <script>
 	$("#loading-main").hide();
-
+	function updateCoreWebButton(){
+		$("#loading-main").show();
+		const event = new Event('initLoadingAlert');
+		document.dispatchEvent(event);
+		changeLoadingAlert("Checking and updating...");
+		window.location.href = "./update";
+	}
 
 </script>
 
