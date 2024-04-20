@@ -159,12 +159,8 @@
 		.then(response => response.json())
 		.then(data => {
 			if (data.body) {
-
 				$releaseNotesDescription = "# `g0 **" + data.name + "** ` \n\n" + data.body;
-
 				CreateFLAlert("Updated to last version!",$releaseNotesDescription)
-				const releaseDescription = unescape(data.body);
-				console.log(`Latest release description: ${releaseDescription}`);
 			} else {
 				console.log('Error: No release notes found.');
 				CreateFLAlert("Updated!","ObeyGDBrowser has been updated to last version!");

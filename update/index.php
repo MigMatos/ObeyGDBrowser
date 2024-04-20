@@ -102,7 +102,7 @@ $latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
 
 
 
-if ($current_version === $latestReleaseUrl) header("Location: ../?alert=lasted");
+if ($current_version == $latestReleaseUrl) header("Location: ../?alert=lasted");
 
 
 

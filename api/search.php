@@ -50,14 +50,26 @@ function searchLevels($params, $db) {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
     }
 
-    $numericParams = array('diff', 'demonFilter', 'gauntlet', 'songID');
+    //$numericParams = array('diff', 'demonFilter', 'gauntlet', 'songID');
+
+    $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", 
+                "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
+
+    $demonDiffs = ["1" => "3", "2" => "4", "3" => "0", "4" => "5", "5" => "6"];
+    $order = "";
+
 
     foreach ($params as $key => $value) {
         if ($key !== 'levelName') {
-            if (in_array($key, $numericParams) && is_numeric($value)) {
-                $sql .= "AND $key = ? ";
-                $bindings[] = $value;
-            } elseif ($key == 'type' || $key == 'creators') {
+            if ($key == "diff" && is_numeric($value)) {
+                $sql .= "AND " . (isset($lvlDiffs[$value]) ? $lvlDiffs[$value] : $lvlDiffs["-1"]) . " ";
+            } elseif ($key == "demonFilter" && is_numeric($value)){
+                $sql .= "AND starDemonDiff = " . (isset($demonDiffs[$value]) ? $demonDiffs[$value] : $demonDiffs["3"]) . " ";
+            } elseif ($key == 'type' || $key == 'hof') {
+                $sql .= "AND NOT starEpic = 0 ";
+                $order = "rateDate DESC,uploadDate";
+            }
+            elseif ($key == 'type' || $key == 'creators') {
                 // $sql .= "AND $key = ? ";
                 // $bindings[] = $value;
             } elseif ($key == 'list' && $value == 'yes') {
@@ -84,9 +96,13 @@ function searchLevels($params, $db) {
                 $bindings[] = $value;
             } elseif ($key == 'filter' && $value == 'recent') {
                 $sql = rtrim($sql, "AND ");
-                $sql .= " ORDER BY uploadDate DESC ";
+                $order = "uploadDate";
             }
         }
+    }
+
+    if($order){
+        $sql .= "ORDER BY $order DESC";
     }
 
     $sql = rtrim($sql, "AND ");
