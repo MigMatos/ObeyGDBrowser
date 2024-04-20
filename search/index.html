@@ -14,17 +14,21 @@
 
 <div id="everything">
 
-	<!-- <div id="filters" class="popup">
+	<div id="filters" class="popup">
 		<div id="filterStuff" class="brownBox bounce center supercenter" style="width: 101vh; height: 50%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
 			<img class="gdButton" src="../assets/close.png" width="9%" style="position: absolute; top: -8.5%; left: -5.5vh" onclick="$('#filters').hide()">
 			<h1 style="margin-bottom: 4%">Advanced Options</h1><br>
-			<div><h1><input type="checkbox" id="box-featured" url="&featured"><label for="box-featured" class="gdcheckbox gdButton"></label>Featured</h1></div>
-			<div><h1><input type="checkbox" id="box-epic" url="&epic"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
-			<div style="margin-bottom: 6%"><h1><input type="checkbox" id="box-nostar" url="&noStar"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
-			<div><h1><input type="checkbox" id="box-original" url="&original"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
-			<div><h1><input type="checkbox" id="box-2player" url="&twoPlayer"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
-			<div style="margin-bottom: 5%"><h1><input type="checkbox" id="box-coins" url="&coins"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
-			<h1 class="smallerer lessSpaced">Song</h1>
+			<div><h1><input type="checkbox" id="box-featured" url="&featured=1"><label for="box-featured" class="gdcheckbox gdButton"></label>Featured</h1></div>
+			
+			<div><h1><input type="checkbox" id="box-epic" url="&epic=1"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
+			<div><h1><input type="checkbox" id="box-epic-2" url="&epic=2"><label for="box-epic-2" class="gdcheckbox gdButton"></label>Legendary</h1></div>
+			<div><h1><input type="checkbox" id="box-epic-3" url="&epic=3"><label for="box-epic-3" class="gdcheckbox gdButton"></label>Mythic</h1></div>
+			
+			<div style="margin-bottom: 6%"><h1><input type="checkbox" id="box-nostar" url="&noStar=1"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
+			<div><h1><input type="checkbox" id="box-original" url="&original=1"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
+			<div><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
+			<div style="margin-bottom: 5%"><h1><input type="checkbox" id="box-coins" url="&coins=1"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
+			<!-- <h1 class="smallerer lessSpaced">Song</h1>
 			<img id="normalSong" class="gdButton inline gray" style="margin-right: 0.5%" src="../assets/song-normal.png" height="8%">
 			<img id="customSong" class="gdButton inline" style="margin-left: 0.5%" src="../assets/song-custom.png" height="8%">
 			<br>
@@ -33,9 +37,9 @@
 				<img style="width: 4%" id="songDown" class="gdButton inline valign songChange" jump="-1" src="../assets/whitearrow-left.png">
 				<h1 class="inline valign smallerer center" id="songName" style="min-width: 60%"></h1>
 				<img style="width: 4%" id="songUp" class="gdButton inline valign songChange" jump="1" id="nextSong" src="../assets/whitearrow-right.png">
-			</div>
+			</div> -->
 		</div>
-	</div>
+	</div> <!--
 
 	<div id="customlist" class="popup">
 		<div class="brownBox bounce center supercenter" style="width: 100vh; height: 56%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
@@ -122,13 +126,14 @@
 		<a id="demonList" style="display: none" href="./search/*?type=demonlist"><div class="gdButton diffDiv" style="filter: none"><img src="../assets/trophy2.png" style="width: 95%"><h3 class="yellow mini center">List</h3></div></a>
 	</div>
 
-	<div class="transparentBox center" style="width: 115vh; height: 6%; margin: 0.5% auto 1% auto; padding-top: 1%; padding-bottom: 0.5%;">
+	<div class="transparentBox center" style="width: 135vh; height: 6%; margin: 0.5% auto 1% auto; padding-top: 1%; padding-bottom: 0.5%;">
 		<!-- <div class="lengthDiv" style="pointer-events: none" len=0><h1 class="gdButton smaller" style="pointer-events: none"><img src="../assets/time.png" height="90%" style="pointer-events: none"></h1></div> -->
 		<div class="lengthDiv" len=0><h1 class="gdButton smaller">Tiny</h1></div>
 		<div class="lengthDiv" len=1><h1 class="gdButton smaller">Short</h1></div>
 		<div class="lengthDiv" len=2><h1 class="gdButton smaller">Medium</h1></div>
 		<div class="lengthDiv" len=3><h1 class="gdButton smaller">Long</h1></div>
 		<div class="lengthDiv" len=4><h1 class="gdButton smaller">XL</h1></div>
+		<div class="lengthDiv" len=5><h1 class="gdButton smaller">Platform</h1></div>
 		<div class="lengthDiv" id="starCheck"><img src="../assets/star.png" class="gdButton" height="90%"></div>
 	</div>
 
@@ -167,7 +172,7 @@ $('#userSearch').click(function() {
 
 $('.levelSearch').click(function() {
 
-	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*") + "?type=" + $(this).attr('search')
+	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*") + "&type=" + $(this).attr('search')
 	if ($(this).attr('search') == "featured") return window.location.href = url
 
 	// === DIFFICULTY === //
@@ -183,7 +188,7 @@ $('.levelSearch').click(function() {
 	let lengths = []
 	$('.lengthDiv').each(function() {if ($(this).hasClass('selectedFilter') && $(this).attr('len')) lengths.push($(this).attr('len'))})
 	if (lengths.length) url += "&length=" + lengths.join(",")
-	if ($('#starCheck').hasClass('selectedFilter')) url += "&starred"
+	if ($('#starCheck').hasClass('selectedFilter')) url += "&type=starred"
 
 	// === CHECKBOXES === //
     $("input:checked").each(function () {
@@ -203,7 +208,7 @@ $('.levelSearch').click(function() {
 	// === FINISHING UP === //
 
 	if (url.endsWith('?type=0')) url = url.slice(0, -7)
-	window.location.href = url.replace(/\?type=0&/, "?")
+	window.location.href = url.replace(/\?type=0&/, "&");
 
 })
 

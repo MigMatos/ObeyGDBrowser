@@ -13,6 +13,7 @@ function searchLevels($params, $db) {
     
     if (isset($params['levelName']) && $params['levelName'] === "*") {
         $sql = "SELECT * FROM levels ";
+
     } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
     
         $type = (strpos($params['levelName'], "!daily") !== false) ? 0 : 1;
@@ -45,7 +46,7 @@ function searchLevels($params, $db) {
         $bindings[] = $params['levelName'];
     } elseif (isset($params['levelName'])) {
         $sql = "SELECT * FROM levels";
-        $paramsSql[] = "WHERE levelName LIKE ?";
+        $paramsSql[] = "levelName LIKE ?";
         $bindings[] = '%' . $params['levelName'] . '%';
     } else {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
@@ -103,7 +104,7 @@ function searchLevels($params, $db) {
     
     
 
-    if(!empty($params)){
+    if(!empty($paramsSql) ){
         $sql .= " WHERE (" . implode(" ) AND ( ", $paramsSql) . ")";
     }
 
@@ -114,7 +115,7 @@ function searchLevels($params, $db) {
     $sql .= " LIMIT 10 OFFSET ? ";
     $bindings[] = isset($params['page']) ? ($params['page'] == 0 ? 0 : max(0, ($params['page'] + 10) - 1)) : 0;
 
-    echo $sql;
+
 
     $stmt = $db->prepare($sql);
  
@@ -140,9 +141,10 @@ function searchLevels($params, $db) {
     if (strpos($path, "api") === false) {$path =  $path . "/api/";}
     
 
-    $path_url = "$protocol://$_SERVER[HTTP_HOST]$path/$gdps_settings_path";
+    //$path_url = "$protocol://$_SERVER[HTTP_HOST]$path/$gdps_settings_path";
 
-    $json_content_settings = file_get_contents($path_url);
+    $json_content_settings = @file_get_contents("./$gdps_settings_path") ?: (@file_get_contents("../api/$gdps_settings_path") ?: file_get_contents("../../api/$gdps_settings_path"));
+    
     $gdps_settings = json_decode($json_content_settings, true);
 
     function getDiffString($isDemon, $demonType, $diffType)
