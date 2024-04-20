@@ -102,43 +102,62 @@
 
         mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
 
-		if(isset($_POST['userName']) && isset($_POST['password'])) {
-			$userName = $_POST['userName'];
-			$password = $_POST['password'];
-    
+        if (isset($_POST['userName']) && isset($_POST['password'])) {
+            $userName = $_POST['userName'];
+            $password = $_POST['password'];
 
-			$pass = GeneratePass::isValidUsrname($userName, $password);
-			
-			if($pass == "1"){
-			
-			
-			$latesttag = getLatestReleaseUrl($owner, $repo);
 
-            
+            $pass = GeneratePass::isValidUsrname($userName, $password);
 
-			if ($latesttag) {
-				
-				echo "<script>";
-				echo 'changeLoadingAlert("Installing...");';
-				echo "</script>";
-				$dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latesttag";
-				$dir = downloadAndExtractRepo($dir);
-                
-				moveFilesToCurrentDirectory("./".$dir);
-                unlink("./installer.php");
-                unlink("./browser/installer.php");
-				header("Location: ./browser/");
-                exit();
-			} else {
-				header("Location: ./installer.php?alert=1");
-				}
-			}
-			else {
-				header("Location: ./installer.php?alert=2");
-			}
-		} else {
-			header("Location: ./installer.php?alert=3");
-		}
+            if ($pass == "1") {
+
+
+                $stmt = $db->prepare("SELECT accountID, isAdmin FROM accounts WHERE userName LIKE :userName");
+                $stmt->bindParam(':userName', $userName);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+                if ($result['isAdmin'] == "1") {
+
+
+
+
+
+
+
+
+
+
+
+                    $latesttag = getLatestReleaseUrl($owner, $repo);
+
+
+
+                    if ($latesttag) {
+
+                        echo "<script>";
+                        echo 'changeLoadingAlert("Installing...");';
+                        echo "</script>";
+                        $dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latesttag";
+                        $dir = downloadAndExtractRepo($dir);
+
+                        moveFilesToCurrentDirectory("./" . $dir);
+                        unlink("./installer.php");
+                        unlink("./browser/installer.php");
+                        header("Location: ./browser/");
+                        exit();
+
+                    } else {
+                        header("Location: ./installer.php?alert=1");
+                    }
+                } else {
+                    header("Location: ./installer.php?alert=2");
+                }
+            } else {
+                header("Location: ./installer.php?alert=3");
+            }
+        }
     } else {
     
 	
@@ -151,7 +170,7 @@
 			echo '<script>CreateFLAlert("Error","`r0 You are not an administrator` \n You need to be an **administrator account** to continue with the installation, if you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
 		}
 		elseif ($num == 3){
-			echo '<script>CreateFLAlert("Error","`r0 Submit empty...`");</script>';
+			echo '<script>CreateFLAlert("Error","`r0 Error, your password or account is wrong...`");</script>';
 		}
 		
 	}
