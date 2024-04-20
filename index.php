@@ -42,7 +42,7 @@
 	</div>
 
 	<div style="position:absolute; top: 1.7%; right: 2%; text-align: right; width: 10%;">
-		<img id="creditsButton" class="gdButtonBrowser" src="assets/credits.png" width="60%" onclick="loadCredits()">
+		<img id="creditsButton" class="gdButtonBrowser" src="assets/credits.png" width="60%" onclick="showCredits()">
 	</div>
 
 	
@@ -151,6 +151,39 @@
 		window.location.href = "./update";
 	}
 
+	let alertValue = (new URLSearchParams(window.location.search)).get("alert");
+	if (alertValue == "installed"){
+		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
+		window.history.pushState(null, null, newURLpush);
+		fetch(`https://api.github.com/repos/migmatos/ObeyGDBrowser/releases/latest`)
+		.then(response => response.json())
+		.then(data => {
+			if (data.body) {
+
+				$releaseNotesDescription = "# `g0 **" + data.name + "** ` \n\n" + data.body;
+
+				CreateFLAlert("Updated to last version!",$releaseNotesDescription)
+				const releaseDescription = unescape(data.body);
+				console.log(`Latest release description: ${releaseDescription}`);
+			} else {
+				console.log('Error: No release notes found.');
+				CreateFLAlert("Updated!","ObeyGDBrowser has been updated to last version!");
+			}
+		})
+		.catch(error => {
+			console.log("Error: Failed fetching release notes from github, debug: ", error);
+			CreateFLAlert("Updated!","ObeyGDBrowser has been updated to last version!");
+		}
+		);
+	}
+
+	function showCredits() {
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n"
+		CreateFLAlert("Credits!",$creditsDesc);
+	}
+
+	
+
 </script>
 
 
@@ -173,68 +206,8 @@ if (noDaily || noWeekly) {
 	window.history.pushState(null, null, newURLpush);
 }
 
-function loadCredits() {
-	$('.subCredits').hide()
-	$('#credits' + page).show()
-	$('#credits').show()
-	if (page == lastPage) $('#closeCredits').css('height', '52%')
-	else $('#closeCredits').css('height', xButtonPos)
-	$('.creditsicon:visible').each(function() {		// only load icons when necessary 
-		$(this).attr('src', $(this).attr('icon'))
-	})
 
-}
 
-Fetch(`./api/credits`).then(res => {
 
-	lastPage = res.credits.length + 1
-	res.credits.forEach((x, y) => {
-		$('#credits').append(`<div id="credits${y+1}" class="subCredits" style="display: none;">
-			<img class="gdButton" src="assets/arrow-left.png" width="60vh" style="${y == 0 ? "display: none; " : ""}position: absolute; top: 45%; right: 75%" tabindex="0" onclick="page -= 1; loadCredits()">
-			<div class="brownBox center supercenter" style="width: 80vh; height: 43%; padding-top: 1.5%; padding-bottom: 3.5%;">
-				<h1>${x.header}</h1>
-				<h2 style="margin-bottom: 1.5%; margin-top: 1.5%" class="gdButton biggerShadow"><a href="https://gdbrowser.com/u/${x.ign || x.name}" title=${x.name}>${x.name}</h2></a>
-				<img class="creditsicon" icon="./icon/${x.ign || x.name}?forceGD=1" height=30%; style="margin-bottom: 7%"><br>
-				<a target=_blank href="${x.youtube[0]}" title="YouTube"><img src="assets/${x.youtube[1]}.png" width="11%" class="gdButton"></a>
-				<a target=_blank href="${x.twitter[0]}" title="Twitter"><img src="assets/${x.twitter[1]}.png" width="11%" class="sideSpace gdButton"></a>
-				<a target=_blank href="${x.github[0]}" title="GitHub"><img src="assets/${x.github[1]}.png" width="11%" class="sideSpace gdButton"></a>
-				<br>
-			</div>
-			<img class="gdButton" src="assets/arrow-right.png" width="60vh" style="position: absolute; top: 45%; left: 75%" tabindex="0" onclick="page += 1; loadCredits()">
-		</div>`)
-	})
-
-	$('#credits').append(`<div id="credits${lastPage}" class="subCredits" style="display: none;">
-			<div id="specialthanks" class="brownBox center supercenter" style="width: 80vh; height: 55%; padding-top: 1.5%; padding-bottom: 3.5%;">
-				<h1>Special Thanks!</h1><br>
-			</div>
-			<img class="gdButton" src="assets/arrow-left.png" width="60vh" style="position: absolute; top: 45%; right: 75%" tabindex="0" onclick="page -= 1; loadCredits()">
-		</div>`)
-
-	res.specialThanks.forEach((x, y) => {
-		n = x.split("/")
-		$('#specialthanks').append(`<div class="specialThanks">
-				<h2 class="gdButton smaller"><a href="https://gdbrowser.com/u/${n[1] || n[0]}" title=${n[0]}>${n[0]}</h2></a>
-				<img class="creditsicon" icon="./icon/${n[1] || n[0]}?forceGD=1" height=77%><br>
-				</div>`)
-		})
-
-	$('#credits').append(`<div id="closeCredits" class="center supercenter" style="width: 80vh; height: ${xButtonPos}%; pointer-events: none;">
-	<img class="closeWindow gdButton" src="assets/close.png" width="14%" style="position: absolute; top: -24%; left: -7vh; pointer-events: all;" tabindex="0" onclick="$('#credits').hide(); page = 1;" title="Close"></div>`)
-
-	$(document).keydown(function(k) {
-
-	if ($('#credits').is(':hidden')) return
-
-    if (k.which == 37 && page > 1) { //left
-		page -= 1; loadCredits();
-	}
-	
-	if (k.which == 39 && page < lastPage) { //right
-		page += 1; loadCredits();
-	}
-	
-});
-});
 
 </script>
