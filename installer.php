@@ -43,8 +43,8 @@
         $response = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($response, true);
-        if (isset($data['html_url'])) {
-            return $data['html_url'];
+        if (isset($data['tag_name'])) {
+            return $data['tag_name'];
         } else {
             return false;
         }
@@ -56,7 +56,7 @@
         if (file_exists($zipFile)) {
             $zip = new ZipArchive;
             if ($zip->open($zipFile) === TRUE) {
-                $zip->extractTo('./');
+                $zip->extractTo('./browser/');
                 $firstDir = $zip->getNameIndex(0);
                 $zip->close();
                 unlink($zipFile);
@@ -70,8 +70,8 @@
     }
 
     function moveFilesToCurrentDirectory($sourceDir) {
-        $sourceDir = rtrim($sourceDir, '/');
-        $destinationDir = './';
+        $sourceDir = "browser/" . rtrim($sourceDir, '/');
+        $destinationDir = './browser/';
         $files = scandir("./".$sourceDir);
         foreach ($files as $file) {
             if ($file != '.' && $file != '..') {
@@ -85,7 +85,7 @@
                 }
             }
         }
-        unlink("./".$sourceDir);
+        rmdir("./".$sourceDir);
         return true;
     }
 
@@ -97,6 +97,11 @@
 		echo "const event = new Event('initLoadingAlert');";
 		echo 'changeLoadingAlert("Checking login...");';
 		echo "</script>";
+
+        $flw = "./browser";
+
+        mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
+
 		if(isset($_POST['userName']) && isset($_POST['password'])) {
 			$userName = $_POST['userName'];
 			$password = $_POST['password'];
@@ -107,25 +112,32 @@
 			if($pass == "1"){
 			
 			
-			$latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
-			if ($latestReleaseUrl) {
+			$latesttag = getLatestReleaseUrl($owner, $repo);
+
+            
+
+			if ($latesttag) {
 				
 				echo "<script>";
 				echo 'changeLoadingAlert("Installing...");';
 				echo "</script>";
-				
-				$dir = downloadAndExtractRepo($latestReleaseUrl);
-				moveFilesToCurrentDirectory($dir);
-				header("Location: ./");
+				$dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latesttag";
+				$dir = downloadAndExtractRepo($dir);
+                
+				moveFilesToCurrentDirectory("./".$dir);
+                unlink("./installer.php");
+                unlink("./browser/installer.php");
+				header("Location: ./browser/");
+                exit();
 			} else {
-				header("Location: ./?alert=1");
+				header("Location: ./installer.php?alert=1");
 				}
 			}
 			else {
-				header("Location: ./?alert=2");
+				header("Location: ./installer.php?alert=2");
 			}
 		} else {
-			header("Location: ./?alert=3");
+			header("Location: ./installer.php?alert=3");
 		}
     } else {
     

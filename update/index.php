@@ -11,8 +11,8 @@ function getLatestReleaseUrl($owner, $repo) {
     $response = curl_exec($ch);
     curl_close($ch);
     $data = json_decode($response, true);
-    if (isset($data['html_url'])) {
-        return $data['html_url'];
+    if (isset($data['tag_name'])) {
+        return $data['tag_name'];
     } else {
         return false;
     }
@@ -38,7 +38,7 @@ function downloadAndExtractRepo($repoUrl) {
 }
 
 function moveFilesToCurrentDirectory($sourceDir) {
-    $sourceDir = rtrim($sourceDir, '/');
+    $sourceDir = "./" . rtrim($sourceDir, '/');
     $destinationDir = './';
     $files = scandir("./".$sourceDir);
     foreach ($files as $file) {
@@ -53,37 +53,35 @@ function moveFilesToCurrentDirectory($sourceDir) {
             }
         }
     }
-    unlink("./".$sourceDir);
+    rmdir("./".$sourceDir);
     return true;
 }
+
+if (!$isAdmin || !$logged) header("../");
 
 $version_file_path = './version.txt';
 $current_version = trim(file_get_contents($version_file_path));
 
-$repo_owner = 'migmatos';
-$repo_name = 'ObeyGDBrowser';
 
-
-$url = "https://api.github.com/repos/{$repo_owner}/{$repo_name}/tags";
-
-$data = file_get_contents($url);
-
-$tags = json_decode($data, true);
-
-if ($tags) {
-    $latest_tag = $tags[0]['name'];
-    if ($current_version === $latest_tag) header("Location: ./?alert=lasted");
-}
-
-if (!$isAdmin || !$logged) header("./");
+$owner = 'MigMatos';
+$repo = 'ObeyGDBrowser';
 
 $latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
+
+
+
+if ($current_version === $latestReleaseUrl) header("Location: ../?alert=lasted");
+
+
+
+
 if ($latestReleaseUrl) {
 
 
-
-$dir = downloadAndExtractRepo($latestReleaseUrl);
+$dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latestReleaseUrl";
+$dir = downloadAndExtractRepo($dir);
 moveFilesToCurrentDirectory($dir);
-header("Location: ./?alert=installed");
+unlink("../browser/installer.php");
+header("Location: ../?alert=installed");
 
 }

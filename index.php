@@ -61,7 +61,7 @@
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;">
-			<p style="text-align: center;">New update!<br>Click here to update!</p>
+			<p style="text-align: center;">Click here to check updates!</p>
 			<img class="gdButton" src="assets/plus.png" width="40%" onclick="location.href='./update';"></a>
 		</div>; 
 		<?php
