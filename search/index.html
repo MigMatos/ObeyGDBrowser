@@ -172,7 +172,7 @@ $('#userSearch').click(function() {
 
 $('.levelSearch').click(function() {
 
-	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*") + "&type=" + $(this).attr('search')
+	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*")
 	if ($(this).attr('search') == "featured") return window.location.href = url
 
 	// === DIFFICULTY === //
