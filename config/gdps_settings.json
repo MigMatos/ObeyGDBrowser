@@ -1,0 +1,37 @@
+{
+    "length": [
+        "Tiny",
+        "Short",
+        "Medium",
+        "Long",
+        "XL",
+        "Platform"
+    ],
+    "featured": [
+        "",
+        "featured"
+    ],
+    "epic": [
+        "",
+        "epic",
+        "legendary",
+        "mythic"
+    ],
+    "states_demon": {
+        "0": "hard",
+        "3": "easy",
+        "4": "medium",
+        "5": "insane",
+        "6": "extreme"
+    },
+    "states_diff_num": {
+        "0": "unrated",
+        "10": "easy",
+        "20": "normal",
+        "30": "hard",
+        "40": "harder",
+        "50": "insane"
+    },
+    "path_connection": "../incl/lib/connection.php",
+    "gdps_version": 22
+}

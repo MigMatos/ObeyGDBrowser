@@ -2,7 +2,7 @@
 
 // error_reporting(-1);
 
-include("../../incl/lib/connection.php");
+include("../_init_.php");
 
 function searchLevels($params, $db) {
     $time_left_daily = 0;
@@ -143,10 +143,7 @@ function searchLevels($params, $db) {
 
     //$path_url = "$protocol://$_SERVER[HTTP_HOST]$path/$gdps_settings_path";
 
-    $json_content_settings = @file_get_contents("./$gdps_settings_path") ?: (@file_get_contents("../api/$gdps_settings_path") ?: file_get_contents("../../api/$gdps_settings_path"));
-
     global $gdps_settings;
-    $gdps_settings = json_decode($json_content_settings, true);
 
     function getDiffString($isDemon, $demonType, $diffType)
     {

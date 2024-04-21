@@ -51,10 +51,10 @@ function deleteFilesRecursively($folder) {
 
     foreach(glob($folder . '/*') as $file) {
         if (is_dir($file)) {
-            if (strpos($file, 'update/') === false) deleteFilesRecursively($file);
+            if (strpos($file, 'update/') === false || strpos($file, 'gdps_settings.json') === false) deleteFilesRecursively($file);
             deleteFilesRecursively($file);
         } else {
-            if (strpos($file, 'update/') === false) {unlink($file);}
+            if (strpos($file, 'update/') === false || strpos($file, 'gdps_settings.json') === false) {unlink($file);}
         }
     }
 }

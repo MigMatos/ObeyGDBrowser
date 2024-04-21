@@ -72,6 +72,14 @@
 			<p style="text-align: center;">Click here to check updates!</p>
 			<img class="gdButtonBrowser" src="assets/plus.png" width="40%" onclick="updateCoreWebButton()"></a>
 		</div>; 
+
+		<div style="position:absolute; bottom: 27%; right: 1%; text-align: right; width: 15%; display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;">
+			<p style="text-align: center;">GDPS Settings</p>
+			<img class="gdButtonBrowser" src="assets/edit.png" width="40%" onclick="openGDPSSettings()"></a>
+		</div>; 
 		<?php
 	} ?>
 	
@@ -151,6 +159,15 @@
 		window.location.href = "./update";
 	}
 
+	function openGDPSSettings(){
+		$("#loading-main").show();
+		const event = new Event('initLoadingAlert');
+		document.dispatchEvent(event);
+		changeLoadingAlert("Opening settings...");
+		window.location.href = "./config";
+	}
+
+
 	let alertValue = (new URLSearchParams(window.location.search)).get("alert");
 	if (alertValue == "installed"){
 		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
@@ -174,7 +191,7 @@
 	}
 
 	function showCredits() {
-		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n\n# `g0 ** Bug Finders ** ` \n- **Unix** \n- **NitroRMX**"
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n"
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 
