@@ -144,7 +144,8 @@ function searchLevels($params, $db) {
     //$path_url = "$protocol://$_SERVER[HTTP_HOST]$path/$gdps_settings_path";
 
     $json_content_settings = @file_get_contents("./$gdps_settings_path") ?: (@file_get_contents("../api/$gdps_settings_path") ?: file_get_contents("../../api/$gdps_settings_path"));
-    
+
+    global $gdps_settings;
     $gdps_settings = json_decode($json_content_settings, true);
 
     function getDiffString($isDemon, $demonType, $diffType)
@@ -152,30 +153,34 @@ function searchLevels($params, $db) {
         global $gdps_settings;
         $diff = ucfirst($gdps_settings["states_diff_num"][$diffType] ?? "unrated");
         if ($isDemon) {
-            $demon = $gdps_settings["states_demon"][$demonType] ?? "";
-            $diff = ucfirst($demon) . " " . $diff;
+            // $demon = $gdps_settings["states_demon"][$demonType] ?? "";
+            $diff = "demon";
         }
         return trim($diff);
     }
 
 
     function partialDiff($isDemon, $demonType, $diffType) {
+
         global $gdps_settings;
 
+
         $default_diff_num = "unrated";
-        $default_demon = "";
+        $default_demon = "hard";
 
         $diff = $gdps_settings["states_diff_num"][$diffType] ?? $default_diff_num;
 
+
         if ($isDemon) {
             $demon = $gdps_settings["states_demon"][$demonType] ?? $default_demon;
-            $diff = $diff . "-" . $demon;
+            $diff = "demon" . "-" . $demon;
         }
     
         return trim($diff);
     }
 
-    function diffFace($partialDiff, $featuredType, $epicType) {
+
+    function getfeatureType($featuredType, $epicType) {
         global $gdps_settings;
     
 
@@ -191,7 +196,7 @@ function searchLevels($params, $db) {
 
         $diff = $epic ? $epic : $featured;
 
-        return trim($partialDiff . ($diff ? "-" . $diff : ""));
+        return trim($diff);
     }
 
     function calcCP($featuredType, $epicType) {
@@ -207,16 +212,20 @@ function searchLevels($params, $db) {
         $level = [];
 
         $partialDiff = partialDiff(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"]);
-        $fullDiff = diffFace($partialDiff, $result["starFeatured"], $result["starEpic"]);
+        $featDiff = getfeatureType($result["starFeatured"], $result["starEpic"]);
+        $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
+
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
         $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"]);
-        $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? $result["levelDesc"] : "(No description provided)";
+        $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? base64_decode(strtr($result["levelDesc"], '-_', '+/')) : "(No description provided)";
         $stars = max(0, intval($result["starStars"]));
         $diamonds = calcDiamonds($stars);
         $objs = intval($result["objects"]);
         $songID = intval($result["songID"]);
         $levelLengthint = intval($result["levelLength"]);
         $likes = intval($result["likes"]);
+        $starFeaturedValue = intval($result["starFeatured"]);
+        $starEpicValue = intval($result["starEpic"]);
 
         if ($time_left_daily !== 0 && $feaID !== 0 && $type_lvl !== "none") {
 
@@ -245,6 +254,7 @@ function searchLevels($params, $db) {
             "stars" => $stars,
             "orbs" => isset($orbs_get[$stars]) ? intval($orbs_get[$stars]) : (intval($result[$stars]) > 10 ? 500 : 0),
             "diamonds" => $diamonds,
+            "featFace" => $featDiff,
             "featured" => ($result["starFeatured"] >= 1),
             "featuredValue" => intval($result["starFeatured"]),
             "epic" => ($result["starEpic"] == 1),

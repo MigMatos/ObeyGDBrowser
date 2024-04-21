@@ -48,10 +48,15 @@ function downloadAndExtractRepo($repoUrl) {
 
 
 function deleteFilesRecursively($folder) {
+
     foreach(glob($folder . '/*') as $file) {
-        is_dir($file) ? deleteFilesRecursively($file) : unlink($file);
+        if (is_dir($file)) {
+            if (strpos($file, 'update/') === false) deleteFilesRecursively($file);
+            deleteFilesRecursively($file);
+        } else {
+            if (strpos($file, 'update/') === false) {unlink($file);}
+        }
     }
-    rmdir($folder);
 }
 
 
@@ -75,8 +80,6 @@ function moveFilesToCurrentDirectory($sourceDir) {
                 if(!rename($sourcePath, $destinationPath)){
 
                     deleteFilesRecursively($destinationPath);
-
-                    echo $destinationPath;
                     
                     rename($sourcePath, $destinationPath);
                     unlink($destinationPath);

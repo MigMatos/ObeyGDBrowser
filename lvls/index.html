@@ -245,7 +245,15 @@ function Append(firstLoad, noCache) {
 			</h3>
 		
 			<div class="center" style="position:absolute; top: ${6.5 + (y * 33.5) + (x.coins == 0 ? 2.5 : 0)}%; left: 4.4%; transform:scale(0.82); height: 10%; width: 12.5%;">
-				<img class="help spaced" id="dFace" title="${x.difficulty}${x.epic ? " (Epic)" : x.featured ? " (Featured)" : ""}" src="../assets/difficulties/${x.difficultyFace}.png" height="150%" style="margin-bottom: 0%; ${x.epic ? 'transform:scale(1.2)' : x.featured ? 'transform:scale(1.1)' : ''}">
+
+
+				<div class="difficultyBox">
+					<img class="help fFace" cp="${x.featFace ? x.featFace  : "none"}" src="../assets/features/${x.featFace}.png">
+					<img class="help" id="dFace" title="${x.difficulty} ${x.featFace ? x.featFace  : ""}" src="../assets/difficulties/${x.partialDiff}.png">
+				</div>
+
+
+
 				<h3 title="">${x.difficulty.includes('Demon') ? "Demon" : x.difficulty}</h3>
 				${x.stars != 0 && !demonList ? `<h3 class="help" title="${x.stars} star${x.stars == 1 ? "" : "s"}${x.starsRequested ? ` (${x.starsRequested} requested)` : ""}">${x.stars}<img class="valign sideSpaceB" src="../assets/star.png" height="35%" style="transform:translateY(-8%)"></h3>` : ""}
 
