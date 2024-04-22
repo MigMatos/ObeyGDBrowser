@@ -32,7 +32,10 @@
         "40": "harder",
         "50": "insane"
     },
-    "show_level_password": 1,
+    "show_level_passwords": 1,
+    "gdps_logo_url": "assets/gdlogo.png",
+    "gdps_level_browser_logo_url": "assets/browser.png",
+    "disable_colored_texture_level_browser": 1,
     "path_connection": "../incl/lib/connection.php",
     "gdps_version": 22
 }

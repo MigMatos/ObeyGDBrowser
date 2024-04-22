@@ -138,8 +138,8 @@
   
 
 	<div class="center" width="100%" style="margin-top: 2%">
-		<img src="assets/gdlogo.png" height="11.5%"><br>
-		<img id="browserlogo" src="assets/browser.png" height="7%" style="margin: 0.5% 0% 0% 30%">
+    	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>
+    	<img id="browserlogo" src="<?php echo isset($gdps_settings["gdps_level_browser_logo_url"]) ? $gdps_settings["gdps_level_browser_logo_url"] : 'assets/browser.png'; ?>" height="7%" style="margin: 0.5% 0% 0% 30%">
 	</div>
 
 	<div id="noDaily" style="display: none;">
@@ -200,6 +200,11 @@
 		window.history.pushState(null, null, newURLpush);
 		CreateFLAlert("Without updates!","No updates available\n\n **Join our support server:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 	}
+	else if (alertValue == "failedinstall"){
+		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
+		window.history.pushState(null, null, newURLpush);
+		CreateFLAlert("Failed Installing!","Report in the Discord Support Server or Github!\n\n **Join our support server:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
+	}
 
 	function showCredits() {
 		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n\n# `g0 ** Bug Finders ** ` \n-Unix \n-NitroRMX \n-Karmagmr0"
@@ -214,8 +219,9 @@
 <script>
 
 let page = 1
-$('#browserlogo').css('filter', `hue-rotate(${Math.floor(Math.random() * (330 - 60)) + 60}deg) saturate(${Math.floor(Math.random() * (150 - 100)) + 100}%)`)
-
+<?php if (isset($gdps_settings["disable_colored_texture_level_browser"]) && $gdps_settings["disable_colored_texture_level_browser"] == 1): ?>
+    $('#browserlogo').css('filter', `hue-rotate(${Math.floor(Math.random() * (330 - 60)) + 60}deg) saturate(${Math.floor(Math.random() * (150 - 100)) + 100}%)`);
+<?php endif; ?>
 let xButtonPos = '43%'
 let lastPage
 
