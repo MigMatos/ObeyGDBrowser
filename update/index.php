@@ -16,6 +16,7 @@ if ($isAdmin != "1" || $logged != true) {
             if (file_exists($destination) && is_writable($destination)) {
                 unlink($destination);
                 rename($source, $destination);
+                unlink($source);
             }
         }
     }

@@ -34,8 +34,8 @@ function rmdir_recursive($dir) {
 
     foreach ($files as $file) {
         $path = $dir . '/' . $file;
-        if ($path !== 'browser/gdps_settings.json' && strpos($path, "customfiles/") === false) {
 
+        if (strpos($path, "browser/gdps_settings.json") === false && strpos($path, "/browser/customfiles/") === false) {
             if (is_dir($path)) {
                 rmdir_recursive($path);
             } else {
