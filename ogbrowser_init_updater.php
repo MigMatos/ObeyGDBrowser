@@ -1,6 +1,11 @@
 <?php
 
-include("./browser/_init_.php");
+if (file_exists("./browser/_init_.php")) {
+    include("./browser/_init_.php");
+} else {
+    echo "Error: GD Browser installation not found.";
+    exit();
+}
 
 
 if ($isAdmin != "1" || $logged != true) {
@@ -29,7 +34,7 @@ function rmdir_recursive($dir) {
     
     foreach ($files as $file) {
         $path = $dir . '/' . $file;
-        if ($file !== 'gdps_settings.json') {
+        if ($file !== 'gdps_settings.json' && $dir !== "./browser/") {
             if (is_dir($path)) {
                 rmdir_recursive($path);
             } else {
@@ -65,7 +70,7 @@ function downloadAndExtractRepo($setDir,$repoUrl) {
     if (file_exists($zipFile)) {
         $zip = new ZipArchive;
         if ($zip->open($zipFile) === TRUE) {
-            $zip->extractTo('./'.$setDir);
+            $zip->extractTo($setDir);
             $firstDir = $zip->getNameIndex(0);
             $zip->close();
             unlink($zipFile);
@@ -112,10 +117,11 @@ $folder_browser = "browser/";
 $latestTagVersion = getLatestReleaseUrl($owner, $repo);
 
 
-$version_file_path = "./" . $folder_browser . 'version.txt';
+$version_file_path = "./" . $folder_browser . 'updater/version.txt';
 $current_version = trim(file_get_contents($version_file_path));
 if ($current_version == $latestTagVersion) {
-    header("Location: ./".$folder_browser."?alert=lasted"); exit();
+    header("Location: ./".$folder_browser."?alert=lasted"); 
+    exit();
 };
 
 /*
@@ -124,16 +130,19 @@ if ($current_version == $latestTagVersion) {
 
 */
 
-$latestReleaseUrl = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/" . $latestReleaseUrl;
-$dir = downloadAndExtractRepo($folder_browser, $latestReleaseUrl);
+$latestReleaseUrl = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/" . $latestTagVersion;
+
+rmdir_recursive("./" . $folder_browser); //Deleting actually version without configuration file!
+$dir = downloadAndExtractRepo("./" . "browser", $latestReleaseUrl);
 if($dir === -1 || $dir === -2){
     header("Location: ./". $folder_browser ."?alert=failedinstall");
+    exit();
 }
+moveFilesToCurrentDirectory($folder_browser , $dir);
 
-rmdir_recursive("./" . $folder_browser);
-moveFilesToCurrentDirectory($folder_browser , "./" . $dir);
+rmdir_recursive("./" . $folder_browser . $dir . "/"); //Deleting the files unzipped
 
-file_put_contents($filePath , "" . $latestTagVersion);
+file_put_contents($version_file_path , "" . $latestTagVersion);
 unlink("./" .$folder_browser . "installer.php");
 header("Location: ./". $folder_browser ."?alert=installed");
 ?>

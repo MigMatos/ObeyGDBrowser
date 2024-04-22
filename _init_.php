@@ -2,7 +2,11 @@
     
     $gdps_settings_path = "gdps_settings.json";
     global $json_content_settings;
-    $json_content_settings = @file_get_contents("./config/$gdps_settings_path") ?: (@file_get_contents("../config/$gdps_settings_path") ?: file_get_contents("../../config/$gdps_settings_path"));
+    $json_content_settings = @file_get_contents("./config/$gdps_settings_path") ?:  
+    (@file_get_contents("../config/$gdps_settings_path") ?: 
+    (@file_get_contents("../../config/$gdps_settings_path") ?: 
+    @file_get_contents("./browser/config/$gdps_settings_path")));
+
     global $gdps_settings;
     $gdps_settings = json_decode($json_content_settings, true);
 
@@ -13,8 +17,13 @@
     if (file_exists($includePath) && is_readable($includePath)) {
         require_once($includePath);
     } else {
-        $includePath = "../" . $includePath;
-        if (file_exists($includePath) && is_readable($includePath)) {require_once($includePath);} else {require_once("../".$includePath);}
+        if (file_exists("../" . $includePath) && is_readable("../" . $includePath)) {
+            require_once("../" . $includePath);
+        } elseif (file_exists("../../" . $includePath) && is_readable("../../" . $includePath)) {
+            require_once("../../" . $includePath);
+        } else {
+            require_once("./incl/lib/connection.php");
+        }
     }
     
 
