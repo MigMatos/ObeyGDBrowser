@@ -1,0 +1,1 @@
+All files in this folder will not be deleted in updates
