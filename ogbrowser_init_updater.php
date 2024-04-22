@@ -144,5 +144,6 @@ rmdir_recursive("./" . $folder_browser . $dir . "/"); //Deleting the files unzip
 
 file_put_contents($version_file_path , "" . $latestTagVersion);
 unlink("./" .$folder_browser . "installer.php");
+unlink("./" .$folder_browser . "README.md");
 header("Location: ./". $folder_browser ."?alert=installed");
 ?>

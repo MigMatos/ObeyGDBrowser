@@ -140,6 +140,7 @@
 
                         moveFilesToCurrentDirectory("./" . $dir);
                         unlink("./installer.php");
+                        unlink("./README.md");
                         unlink("./browser/installer.php");
                         header("Location: ./browser/?alert=installed");
                         exit();
