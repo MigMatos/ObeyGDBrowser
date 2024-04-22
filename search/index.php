@@ -1,3 +1,5 @@
+<?php include("../_init_.php"); ?>
+
 <head>
 	<title>Level Search</title>
 	<meta charset="utf-8">
@@ -19,11 +21,15 @@
 			<img class="gdButton" src="../assets/close.png" width="9%" style="position: absolute; top: -8.5%; left: -5.5vh" onclick="$('#filters').hide()">
 			<h1 style="margin-bottom: 4%">Advanced Options</h1><br>
 			<div><h1><input type="checkbox" id="box-featured" url="&featured=1"><label for="box-featured" class="gdcheckbox gdButton"></label>Featured</h1></div>
-			
+			<?php
+            if ($gdpsVersion > 20) { ?>
 			<div><h1><input type="checkbox" id="box-epic" url="&epic=1"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
+			<?php } ?>
+			<?php
+            if ($gdpsVersion > 21) { ?>
 			<div><h1><input type="checkbox" id="box-epic-2" url="&epic=2"><label for="box-epic-2" class="gdcheckbox gdButton"></label>Legendary</h1></div>
 			<div><h1><input type="checkbox" id="box-epic-3" url="&epic=3"><label for="box-epic-3" class="gdcheckbox gdButton"></label>Mythic</h1></div>
-			
+			<?php } ?>
 			<div style="margin-bottom: 6%"><h1><input type="checkbox" id="box-nostar" url="&noStar=1"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
 			<div><h1><input type="checkbox" id="box-original" url="&original=1"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
 			<div><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
@@ -133,7 +139,9 @@
 		<div class="lengthDiv" len=2><h1 class="gdButton smaller">Medium</h1></div>
 		<div class="lengthDiv" len=3><h1 class="gdButton smaller">Long</h1></div>
 		<div class="lengthDiv" len=4><h1 class="gdButton smaller">XL</h1></div>
-		<div class="lengthDiv" len=5><h1 class="gdButton smaller">Platform</h1></div>
+	<?php 
+		if($gdpsVersion > 21) { ?> <div class="lengthDiv" len=5><h1 class="gdButton smaller">Platform</h1></div> <?php }
+	?>
 		<div class="lengthDiv" id="starCheck"><img src="../assets/star.png" class="gdButton" height="90%"></div>
 	</div>
 
@@ -253,7 +261,7 @@ $('.diffDiv').click(function() {
 	savedFilters.diff = getDiffFilters()
 	savedFilters.demonDiff = demonMode
 
-	if ($(this).attr('diff') == -2) showDemonDiffs()
+	if ($(this).attr('diff') == -2 && <?php echo $gdpsVersion ?> > 20 ) showDemonDiffs()
 
 })
 
@@ -360,8 +368,10 @@ let savedFilters = JSON.parse(localStorage.filters || "{}")
 $('input[url]').prop('checked', false)
 
 if (!savedFilters.diff) savedFilters.diff = []
+<?php if ($gdpsVersion > 20) { ?> 
 else if (savedFilters.demonDiff) { showDemonDiffs(); $(`.demonDiff[diff=${savedFilters.diff}]`).trigger('click') }
-else if (savedFilters.diff[0] == -2) { $('.diffDiv[diff=-2]').first().addClass('selectedFilter'); showDemonDiffs() }
+else if (savedFilters.diff[0] == -2) { $('.diffDiv[diff=-2]').first().addClass('selectedFilter'); showDemonDiffs() } 
+<?php } ?>
 else (savedFilters.diff.forEach(x => $(`.diffDiv:not(.demonDiff)[diff=${x}]`).addClass('selectedFilter')))
 
 if (!savedFilters.len) savedFilters.len = []

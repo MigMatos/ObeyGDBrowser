@@ -133,10 +133,10 @@ function searchLevels($params, $db) {
 
     $orbs_get = [0 => 0, 1 => 0,2 => 50,3 => 75,4 => 125,5 => 175,6 => 225,7 => 275,8 => 350,9 => 425,10 => 500];
 
-    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
+    //$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
     $url_parts = parse_url($_SERVER['REQUEST_URI']);
     $path = dirname($url_parts['path']);
-    $gdps_settings_path = "gdps_settings.json";
+    //$gdps_settings_path = "gdps_settings.json";
 
     if (strpos($path, "api") === false) {$path =  $path . "/api/";}
     
@@ -145,7 +145,7 @@ function searchLevels($params, $db) {
 
     global $gdps_settings;
 
-    function getDiffString($isDemon, $demonType, $diffType)
+    function getDiffString($isDemon, $diffType)
     {
         global $gdps_settings;
         $diff = ucfirst($gdps_settings["states_diff_num"][$diffType] ?? "unrated");
@@ -213,7 +213,7 @@ function searchLevels($params, $db) {
         $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
 
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
-        $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"]);
+        $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDifficulty"]);
         $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? base64_decode(strtr($result["levelDesc"], '-_', '+/')) : "(No description provided)";
         $stars = max(0, intval($result["starStars"]));
         $diamonds = calcDiamonds($stars);
