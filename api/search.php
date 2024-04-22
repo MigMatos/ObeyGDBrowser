@@ -245,7 +245,7 @@ function searchLevels($params, $db, $gdps_settings) {
             "stars" => $stars,
             "orbs" => isset($orbs_get[$stars]) ? intval($orbs_get[$stars]) : (intval($result[$stars]) > 10 ? 500 : 0),
             "diamonds" => $diamonds,
-            "featFace" => $featDiff,
+            "featFace" => (trim($featDiff) !== "") ? $featDiff : "none",
             "featured" => ($result["starFeatured"] >= 1),
             "featuredValue" => intval($result["starFeatured"]),
             "epic" => ($result["starEpic"] == 1),

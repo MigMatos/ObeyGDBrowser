@@ -31,6 +31,16 @@ body {
     top: -35%;
 }
 
+.difficultyBox .fFace[cp="featured"] {
+    height: 175%;
+    top: -19%;
+}
+
+.difficultyBox .fFace[cp="none"] {
+    display: none;
+}
+
+
 .difficultyBox img {
     position: absolute;
     height: 100%;
