@@ -162,7 +162,7 @@
 		const event = new Event('initLoadingAlert');
 		document.dispatchEvent(event);
 		changeLoadingAlert("Checking and updating...");
-		window.location.href = "./update";
+		window.location.href = "./updater";
 	}
 
 	function openGDPSSettings(){
