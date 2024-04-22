@@ -117,7 +117,7 @@ $folder_browser = "browser/";
 $latestTagVersion = getLatestReleaseUrl($owner, $repo);
 
 
-$version_file_path = "./" . $folder_browser . 'updater/version.txt';
+$version_file_path = "./" . $folder_browser . 'update/version.txt';
 $current_version = trim(file_get_contents($version_file_path));
 if ($current_version == $latestTagVersion) {
     header("Location: ./".$folder_browser."?alert=lasted"); 
