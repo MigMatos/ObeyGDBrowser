@@ -170,7 +170,7 @@
 		const event = new Event('initLoadingAlert');
 		document.dispatchEvent(event);
 		changeLoadingAlert("Opening settings...");
-		window.location.href = "./config";
+		window.location.href = "./gdpsettings";
 	}
 
 
