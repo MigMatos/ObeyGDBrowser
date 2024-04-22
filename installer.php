@@ -141,7 +141,7 @@
                         moveFilesToCurrentDirectory("./" . $dir);
                         unlink("./installer.php");
                         unlink("./browser/installer.php");
-                        header("Location: ./browser/");
+                        header("Location: ./browser/?alert=installed");
                         exit();
 
                     } else {
