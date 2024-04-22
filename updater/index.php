@@ -11,6 +11,11 @@ if ($isAdmin != "1" || $logged != true) {
     // echo "Please wait...";
 }
 
+$version_file_path = './version.txt';
+$current_version = trim(file_get_contents($version_file_path));
+if ($current_version == $latestReleaseUrl) {
+    header("Location: ../?alert=lasted"); exit();};
+
 function getLatestReleaseUrl($owner, $repo) {
     $url = "https://api.github.com/repos/$owner/$repo/releases/latest";
     $ch = curl_init($url);
@@ -94,8 +99,6 @@ function moveFilesToCurrentDirectory($sourceDir) {
     return true;
 }
 
-$version_file_path = './version.txt';
-$current_version = trim(file_get_contents($version_file_path));
 
 
 $owner = 'MigMatos';
@@ -105,7 +108,7 @@ $latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
 
 
 
-if ($current_version == $latestReleaseUrl) header("Location: ../?alert=lasted");
+
 
 
 
