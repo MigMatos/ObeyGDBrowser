@@ -34,12 +34,14 @@ function rmdir_recursive($dir) {
     
     foreach ($files as $file) {
         $path = $dir . '/' . $file;
-        if ($file !== 'gdps_settings.json' || strpos($path, "customfiles/") === false ) {
+        if ($file !== 'gdps_settings.json' && strpos($path, "customfiles/") === false) {
+
             if (is_dir($path)) {
                 rmdir_recursive($path);
             } else {
                 unlink($path);
             }
+
         }
     }
     
