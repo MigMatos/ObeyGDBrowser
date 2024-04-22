@@ -11,6 +11,11 @@ if ($isAdmin != "1" || $logged != true) {
     // echo "Please wait...";
 }
 
+
+$owner = 'MigMatos';
+$repo = 'ObeyGDBrowser';
+
+$latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
 $version_file_path = './version.txt';
 $current_version = trim(file_get_contents($version_file_path));
 if ($current_version == $latestReleaseUrl) {
@@ -98,17 +103,6 @@ function moveFilesToCurrentDirectory($sourceDir) {
     rmdir("./".$sourceDir);
     return true;
 }
-
-
-
-$owner = 'MigMatos';
-$repo = 'ObeyGDBrowser';
-
-$latestReleaseUrl = getLatestReleaseUrl($owner, $repo);
-
-
-
-
 
 
 
