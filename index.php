@@ -153,7 +153,7 @@
 </body>
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script type="text/javascript" src="../sizecheck.js?"></script>
+<script type="text/javascript" src="./misc/sizecheck.js"></script>
 
 <script>
 	$("#loading-main").hide();
@@ -202,7 +202,7 @@
 	}
 
 	function showCredits() {
-		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n"
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n\n# `g0 ** Bug Finders ** ` \n-Unix \n-NitroRMX \n-Karmagmr0"
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 

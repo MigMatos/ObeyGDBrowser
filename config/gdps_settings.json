@@ -32,6 +32,7 @@
         "40": "harder",
         "50": "insane"
     },
+    "show_level_password": 1,
     "path_connection": "../incl/lib/connection.php",
     "gdps_version": 22
 }

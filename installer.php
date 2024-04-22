@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instalador</title>
-	<link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=15" rel="stylesheet">
+    <title>Installer</title>
+	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php 
         echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
@@ -92,11 +92,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $owner = 'MigMatos';
         $repo = 'ObeyGDBrowser';
-		echo "<script>";
-		echo '$("#loading-main").show();';
-		echo "const event = new Event('initLoadingAlert');";
-		echo 'changeLoadingAlert("Checking login...");';
-		echo "</script>";
+
 
         $flw = "./browser";
 
