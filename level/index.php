@@ -21,7 +21,7 @@ $html = file_get_contents('./t.html');
 $params = array('levelName' => $id);
 
 
-$response = searchLevels($params, $db);
+$response = searchLevels($params, $db, $gdps_settings);
 
 
 $data = json_decode($response, true);

@@ -145,9 +145,8 @@ function searchLevels($params, $db, $gdps_settings) {
 
     
 
-    function getDiffString($isDemon, $diffType)
+    function getDiffString($isDemon, $diffType, $gdps_settings)
     {
-        global $gdps_settings;
         $diff = ucfirst($gdps_settings["states_diff_num"][$diffType] ?? "unrated");
         if ($isDemon) {
             // $demon = $gdps_settings["states_demon"][$demonType] ?? "";
@@ -208,7 +207,7 @@ function searchLevels($params, $db, $gdps_settings) {
         $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
 
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
-        $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDifficulty"]);
+        $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDifficulty"], $gdps_settings);
         $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? base64_decode(strtr($result["levelDesc"], '-_', '+/')) : "(No description provided)";
         $stars = max(0, intval($result["starStars"]));
         $diamonds = calcDiamonds($stars);
