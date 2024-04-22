@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
-    file_put_contents("./gdps_settings.json", $json_data);
+    file_put_contents("../gdps_settings.json", $json_data);
 
     echo "Configuration saved successfully.";
 } else {
