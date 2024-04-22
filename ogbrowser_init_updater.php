@@ -4,7 +4,7 @@ include("./browser/_init_.php");
 
 
 if ($isAdmin != "1" || $logged != true) {
-    header("Location: ../");
+    header("Location: ../browser/");
     exit();
 } else {
     // echo "Please wait...";
