@@ -31,10 +31,14 @@ function rmdir_recursive($dir) {
     }
     
     $files = array_diff(scandir($dir), array('.', '..'));
-    
+
+    print_r($files);
+
+    exit();
+
     foreach ($files as $file) {
         $path = $dir . '/' . $file;
-        if ($file !== 'gdps_settings.json' && strpos($path, "customfiles/") === false) {
+        if ($path !== 'browser/gdps_settings.json' && strpos($path, "customfiles/") === false) {
 
             if (is_dir($path)) {
                 rmdir_recursive($path);
