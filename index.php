@@ -195,6 +195,11 @@
 		}
 		);
 	}
+	else if (alertValue == "lasted"){
+		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
+		window.history.pushState(null, null, newURLpush);
+		CreateFLAlert("Without updates!","No updates available\n\n **Join our support server:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
+	}
 
 	function showCredits() {
 		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n"
