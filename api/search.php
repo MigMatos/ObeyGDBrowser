@@ -4,7 +4,7 @@
 
 include("../_init_.php");
 
-function searchLevels($params, $db) {
+function searchLevels($params, $db, $gdps_settings) {
     $time_left_daily = 0;
     $feaID = 0;
     $type_lvl = "none";
@@ -143,7 +143,7 @@ function searchLevels($params, $db) {
 
     //$path_url = "$protocol://$_SERVER[HTTP_HOST]$path/$gdps_settings_path";
 
-    global $gdps_settings;
+    
 
     function getDiffString($isDemon, $diffType)
     {
@@ -157,10 +157,7 @@ function searchLevels($params, $db) {
     }
 
 
-    function partialDiff($isDemon, $demonType, $diffType) {
-
-        global $gdps_settings;
-
+    function partialDiff($isDemon, $demonType, $diffType, $gdps_settings) {
 
         $default_diff_num = "unrated";
         $default_demon = "hard";
@@ -177,9 +174,7 @@ function searchLevels($params, $db) {
     }
 
 
-    function getfeatureType($featuredType, $epicType) {
-        global $gdps_settings;
-    
+    function getfeatureType($featuredType, $epicType, $gdps_settings) {
 
         $default_featured = "";
         $default_epic = "";
@@ -208,8 +203,8 @@ function searchLevels($params, $db) {
 
         $level = [];
 
-        $partialDiff = partialDiff(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"]);
-        $featDiff = getfeatureType($result["starFeatured"], $result["starEpic"]);
+        $partialDiff = partialDiff(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"], $gdps_settings);
+        $featDiff = getfeatureType($result["starFeatured"], $result["starEpic"], $gdps_settings);
         $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
 
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
@@ -246,7 +241,7 @@ function searchLevels($params, $db) {
             "downloads" => intval($result["downloads"]),
             "likes" => $likes,
             "disliked" => ($likes < 0), 
-            "length" => $gdps_settings['length'][intval($levelLengthint)],
+            "length" => isset($gdps_settings['length'][$levelLengthint]) ? $gdps_settings['length'][$levelLengthint] : "None",
             "platformer" => ($levelLengthint >= 5), 
             "stars" => $stars,
             "orbs" => isset($orbs_get[$stars]) ? intval($orbs_get[$stars]) : (intval($result[$stars]) > 10 ? 500 : 0),
@@ -303,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
 
     if (!empty($params)) {
-        $results = searchLevels($params, $db);
+        $results = searchLevels($params, $db, $gdps_settings);
         echo $results;
     } else {
         echo json_encode(array("error" => "Please provide at least one search parameter in the GET request."));
