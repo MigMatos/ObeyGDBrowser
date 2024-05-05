@@ -155,6 +155,8 @@
 
 
                     $latesttag = getLatestReleaseUrl($owner, $repo);
+                    
+                    
                     mkdir($flw, 0777, true) ?? rmdir($flw) && mkdir($flw, 0777, true);
 
 
@@ -167,6 +169,11 @@
                         $dir = downloadAndExtractRepo($dir);
 
                         moveFilesToCurrentDirectory("./" . $dir);
+
+                        $version_file_path = "./browser/update/version.txt";
+                        file_put_contents($version_file_path , "" . $latesttag);
+
+
                         unlink("./installer.php");
                         unlink("./README.md");
                         unlink("./browser/installer.php");
