@@ -1,8 +1,16 @@
 <?php
 
 include "../../_init_.php";
-require "../".$includeFolder."generatePass.php";
 
+$includeFile = "../../".$includeFolder."generatePass.php";
+
+// Verificar si el archivo existe
+if (file_exists($includeFile)) {
+    require $includeFile;
+} else {
+    echo "Error, missing key: Lib Folder";
+    exit();
+}
 
 
 if($logged){

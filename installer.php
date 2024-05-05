@@ -29,7 +29,7 @@
 
 <div class="dashboard-container gdbox-brown songs">
     <h1 class="gdfont-Pusab normal">ObeyGDBrowser Installer</h1>
-    <label class="gdfont-Pusab small">Log into an administrator account in your database to install.</label>
+    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED)</label>
     <?php
 	
 	// require "./incl/lib/connection.php";
@@ -126,8 +126,6 @@
 
         $flw = "./browser";
 
-        mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
-
         if (isset($_POST['userName']) && isset($_POST['password'])) {
             $userName = $_POST['userName'];
             $password = $_POST['password'];
@@ -157,7 +155,7 @@
 
 
                     $latesttag = getLatestReleaseUrl($owner, $repo);
-
+                    mkdir($flw, 0777, true) ?? rmdir($flw) && mkdir($flw, 0777, true);
 
 
                     if ($latesttag) {
@@ -194,10 +192,10 @@
 			echo '<script>CreateFLAlert("Error","`r0 Failed to get installation` \n Report in ObeyGDBrowser Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
 		}
 		elseif ($num == 2){
-			echo '<script>CreateFLAlert("Error","`r0 You are not an administrator` \n You need to be an **administrator account** to continue with the installation, if you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
+			echo '<script>CreateFLAlert("Error","`r0 You are not an administrator in that GDPS` \n You need to be an **administrator account** in that GDPS to continue with the installation, if you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
 		}
 		elseif ($num == 3){
-			echo '<script>CreateFLAlert("Error","`r0 Error, your password or account is wrong...`");</script>';
+			echo '<script>CreateFLAlert("Error","`r0 Error, your password or username is wrong...`");</script>';
 		}
         elseif ($num == 4){
 			echo '<script>CreateFLAlert("Error","`r0 Connection folder not found...` \n\n If you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';

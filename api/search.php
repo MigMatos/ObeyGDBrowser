@@ -13,7 +13,7 @@ function searchLevels($params, $db, $gdps_settings) {
     $downloadLevelData = false;
 
     if (isset($params['levelName']) && $params['levelName'] === "*") {
-        $sql = "SELECT * FROM levels ";
+        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
 
     } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
     
@@ -38,11 +38,11 @@ function searchLevels($params, $db, $gdps_settings) {
         // Calculate the time left until midnight
         $time_left_daily = $midnight - $current_time;
     
-        $sql = "SELECT * FROM levels";
+        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
         $paramsSql[] = "levelID = ?";
         $bindings[] = $lvlID;
     } elseif (isset($params['levelName']) && is_numeric($params['levelName'])) {
-        $sql = "SELECT * FROM levels";
+        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
         $paramsSql[] = "levelID = ?";
         $bindings[] = $params['levelName'];
 
@@ -51,12 +51,14 @@ function searchLevels($params, $db, $gdps_settings) {
         }
 
     } elseif (isset($params['levelName'])) {
-        $sql = "SELECT * FROM levels";
+        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
         $paramsSql[] = "levelName LIKE ?";
         $bindings[] = '%' . $params['levelName'] . '%';
     } else {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
     }
+
+    $sql = $sql . " FROM levels LEFT JOIN songs ON levels.songID = songs.ID ";
     
     $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
     
@@ -107,6 +109,7 @@ function searchLevels($params, $db, $gdps_settings) {
     
     
     
+
     
 
     if(!empty($paramsSql) ){
@@ -136,6 +139,8 @@ function searchLevels($params, $db, $gdps_settings) {
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
+    // print_r($results);
+
     $orbs_get = [0 => 0, 1 => 0,2 => 50,3 => 75,4 => 125,5 => 175,6 => 225,7 => 275,8 => 350,9 => 425,10 => 500];
 
     //$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
@@ -150,28 +155,34 @@ function searchLevels($params, $db, $gdps_settings) {
 
     
 
-    function getDiffString($isDemon, $diffType, $gdps_settings)
+    function getDiffString($isAuto, $isDemon, $diffType, $gdps_settings)
     {
         $diff = ucfirst($gdps_settings["states_diff_num"][$diffType] ?? "unrated");
+
         if ($isDemon) {
-            // $demon = $gdps_settings["states_demon"][$demonType] ?? "";
-            $diff = "demon";
+            $diff = "Demon";
         }
+        else if ($isAuto) {
+            $diff = "Auto";
+        }
+
         return trim($diff);
     }
 
 
-    function partialDiff($isDemon, $demonType, $diffType, $gdps_settings) {
+    function partialDiff($isAuto, $isDemon, $demonType, $diffType, $gdps_settings) {
 
         $default_diff_num = "unrated";
         $default_demon = "hard";
 
         $diff = $gdps_settings["states_diff_num"][$diffType] ?? $default_diff_num;
 
-
         if ($isDemon) {
             $demon = $gdps_settings["states_demon"][$demonType] ?? $default_demon;
             $diff = "demon" . "-" . $demon;
+        }
+        else if ($isAuto) {
+            $diff = "auto";
         }
     
         return trim($diff);
@@ -207,12 +218,12 @@ function searchLevels($params, $db, $gdps_settings) {
 
         $level = [];
 
-        $partialDiff = partialDiff(($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"], $gdps_settings);
+        $partialDiff = partialDiff(($result["starAuto"] >= 1), ($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"], $gdps_settings);
         $featDiff = getfeatureType($result["starFeatured"], $result["starEpic"], $gdps_settings);
         $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
 
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
-        $diffString = getDiffString(($result["starDemon"] >= 1), $result["starDifficulty"], $gdps_settings);
+        $diffString = getDiffString(($result["starAuto"] >= 1), ($result["starDemon"] >= 1), $result["starDifficulty"], $gdps_settings);
         $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? base64_decode(strtr($result["levelDesc"], '-_', '+/')) : "(No description provided)";
         $stars = max(0, intval($result["starStars"]));
         $diamonds = calcDiamonds($stars);
@@ -302,11 +313,11 @@ function searchLevels($params, $db, $gdps_settings) {
             "password" => "",
             "uploaded" => "",
             "updated" => "",
-            "songName" => "", // Placeholder value
-            "songAuthor" => "", // Placeholder value
-            "songSize" => "", // Placeholder value
+            "songName" => isset($result["name"]) ? $result["name"] : "",
+            "songAuthor" => isset($result["authorName"]) ? $result["authorName"] : "",
+            "songSize" => isset($result["size"]) ? $result["size"] : "",
             "songID" => $songID,
-            "songLink" => "", // Placeholder value
+            "songLink" => isset($result["download"]) ? $result["download"] : "",
             "results" => 9999, // Placeholder value
             "pages" => 1000 // Placeholder value
         ]);
