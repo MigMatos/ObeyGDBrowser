@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ObeyGDBrowser Installer</title>
-	
+    <title>Installer</title>
+	<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/dashboard.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/dashboard.css" />
 	<?php 
         echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
         echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html");
@@ -29,42 +28,13 @@
 
 <div class="dashboard-container gdbox-brown songs">
     <h1 class="gdfont-Pusab normal">ObeyGDBrowser Installer</h1>
-    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED)</label>
+    <label class="gdfont-Pusab small">Log into an administrator account in your database to install.</label>
     <?php
 	
-	// require "./incl/lib/connection.php";
-	// require "./incl/lib/generatePass.php";
+	require "./incl/lib/connection.php";
+	require "./incl/lib/generatePass.php";
 
-
-    $path_conn = "./incl/lib/";
-
-    $connection_path = $path_conn."connection.php";
-    $generate_pass_path = $path_conn."generatePass.php";
-    $conn_exist = false;
-
-
-    if (file_exists($connection_path) && file_exists($generate_pass_path)) {
-        require $connection_path;
-        require $generate_pass_path;
-        $conn_exist = true;
-    } else {
-        if (isset($_POST['conn'])){
-
-            $connection_path = $_POST['conn']."connection.php";
-            $generate_pass_path = $_POST['conn']."generatePass.php";
-
-            if (file_exists($connection_path) && file_exists($generate_pass_path)) {
-                require $connection_path;
-                require $generate_pass_path;
-                $conn_exist = true;
-            }
-            else {
-                $_GET["alert"] = 4;
-            }
-
-        } 
-    }
-
+	
     function getLatestReleaseUrl($owner, $repo) {
         $url = "https://api.github.com/repos/$owner/$repo/releases/latest";
         $ch = curl_init($url);
@@ -119,12 +89,14 @@
         return true;
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && $conn_exist) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $owner = 'MigMatos';
         $repo = 'ObeyGDBrowser';
 
 
         $flw = "./browser";
+
+        mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
 
         if (isset($_POST['userName']) && isset($_POST['password'])) {
             $userName = $_POST['userName'];
@@ -155,9 +127,7 @@
 
 
                     $latesttag = getLatestReleaseUrl($owner, $repo);
-                    
-                    
-                    mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
+
 
 
                     if ($latesttag) {
@@ -169,11 +139,6 @@
                         $dir = downloadAndExtractRepo($dir);
 
                         moveFilesToCurrentDirectory("./" . $dir);
-
-                        $version_file_path = "./browser/update/version.txt";
-                        file_put_contents($version_file_path , "" . $latesttag);
-
-
                         unlink("./installer.php");
                         unlink("./README.md");
                         unlink("./browser/installer.php");
@@ -199,13 +164,10 @@
 			echo '<script>CreateFLAlert("Error","`r0 Failed to get installation` \n Report in ObeyGDBrowser Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
 		}
 		elseif ($num == 2){
-			echo '<script>CreateFLAlert("Error","`r0 You are not an administrator in that GDPS` \n You need to be an **administrator account** in that GDPS to continue with the installation, if you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
+			echo '<script>CreateFLAlert("Error","`r0 You are not an administrator` \n You need to be an **administrator account** to continue with the installation, if you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
 		}
 		elseif ($num == 3){
-			echo '<script>CreateFLAlert("Error","`r0 Error, your password or username is wrong...`");</script>';
-		}
-        elseif ($num == 4){
-			echo '<script>CreateFLAlert("Error","`r0 Connection folder not found...` \n\n If you need help join our Discord Support Server: [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");</script>';
+			echo '<script>CreateFLAlert("Error","`r0 Error, your password or account is wrong...`");</script>';
 		}
 		
 	}
@@ -226,17 +188,6 @@
 			<label class="gdfont-Pusab small" for="password">Password:</label><br>
 			<input class="gdInput text" type="password" id="password" name="password" required>
 		</div>
-
-        <?php if (!$conn_exist) { ?>
-
-        <div>
-			<label class="gdfont-Pusab small" for="conn">GDPS Connection Folder (lib):</label><br>
-			<input class="gdInput text" type="text" id="conn" name="conn" value="../incl/lib/" required>
-		</div>
-
-        <?php } ?>
-
-
 		<br>
         <button class="gdButton" type="submit" onclick="submitForm()"><label class="gdfont-Pusab small">Install</label></button>
     </form>
@@ -254,16 +205,10 @@
 		}
 		
 		function submitForm(){
-            const userName = $("#userName").val().trim();
-            const password = $("#password").val().trim();
-
-            // Verificar si los campos no están vacíos
-            if (userName !== "" && password !== "") {
-                $("#loading-main").show();
-                const event = new Event('initLoadingAlert');
-                document.dispatchEvent(event);
-                changeLoadingAlert("Loading...");
-            }
+			$("#loading-main").show();
+			const event = new Event('initLoadingAlert');
+			document.dispatchEvent(event);
+			changeLoadingAlert("Loading...");
 		}
 		
 </script>
