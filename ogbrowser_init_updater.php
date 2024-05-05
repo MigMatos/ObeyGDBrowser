@@ -3,7 +3,7 @@
 if (file_exists("./browser/_init_.php")) {
     include("./browser/_init_.php");
 } else {
-    echo "Error: GD Browser installation not found.";
+    echo "Error: GD Browser installation not found. <br> Re-install from https://github.com/MigMatos/ObeyGDBrowser/releases/latest";
     exit();
 }
 
