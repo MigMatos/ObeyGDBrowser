@@ -51,7 +51,7 @@
 
     <fieldset><legend><h2>GDPS Configuration</h2></legend>
 
-    <form id="levelForm">
+    <form id="levelForm" method="POST" action="./savecon.php">
 
 
         <fieldset><legend><h5>Lengths (String)</h5></legend>
@@ -159,17 +159,11 @@
 
         <br>
 
-        <input type="button" value="Save" onclick="saveConfig()">
+        <input type="submit" value="Save">
         <button type="button" onclick="window.location.href = '../';">Back</button>
 
     </form>
     </fieldset>
-
-
-
-
-
-
 
 
 
@@ -199,42 +193,6 @@
 
     loadValues();
 
-    function saveConfig() {
-        var formData = new FormData();
-        var elements = document.getElementsByTagName("input");
-        for (var i = 0; i < elements.length; i++) {
-            var name = elements[i].name;
-            var value = elements[i].value;
-
-            // Check if name contains a dot (.)
-            if (name.indexOf('.') !== -1) {
-                // Split name into parent key and subkey
-                var splitName = name.split('.');
-                var parentKey = splitName[0];
-                var subKey = splitName[1];
-
-                // Append to form data with correct structure
-                if (!formData.has(parentKey)) {
-                    formData.append(parentKey, '{"' + subKey + '":"' + value + '"}');
-                } else {
-                    var existingData = JSON.parse(formData.get(parentKey));
-                    existingData[subKey] = value;
-                    formData.set(parentKey, JSON.stringify(existingData));
-                }
-            } else {
-                formData.append(name, value);
-            }
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "mod.php", true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-        };
-        xhr.send(formData);
-    }
     </script>
 </body>
 </html>
