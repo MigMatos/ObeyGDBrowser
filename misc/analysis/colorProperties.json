@@ -1,0 +1,25 @@
+{
+    "properties": {
+        "1": "r",
+        "2": "g",
+        "3": "b",
+        "4": "pColor",
+        "5": "blending",
+        "6": "channel",
+        "7": "opacity",
+        "9": "copiedChannel",
+        "10": "copiedHSV",
+        "17": "copyOpacity"
+    },
+    
+    "channels": {
+        "1000": "BG",
+        "1001": "G",
+        "1002": "Line",
+        "1003": "3DL",
+        "1004": "Obj",
+        "1009": "G2"
+    },
+
+    "hsv": ["h", "s", "v", "s-checked", "v-checked"]
+}

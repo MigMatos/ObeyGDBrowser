@@ -1,23 +1,27 @@
 {
-    "length": [
-        "Tiny",
-        "Short",
-        "Medium",
-        "Long",
-        "XL",
-        "Platform"
-    ],
-    "featured": [
-        "",
-        "featured"
-    ],
-    "epic": [
-        "",
-        "epic",
-        "legendary",
-        "mythic"
-    ],
+    "length": {
+        "-1": "",
+        "0": "Tiny",
+        "1": "Short",
+        "2": "Medium",
+        "3": "Long",
+        "4": "XL",
+        "5": "Platform"
+    },
+    "featured": {
+        "-1": "",
+        "0": "",
+        "1": "featured"
+    },
+    "epic": {
+        "-1": "",
+        "0": "",
+        "1": "epic",
+        "2": "legendary",
+        "3": "mythic"
+    },
     "states_demon": {
+        "-1": "",
         "0": "hard",
         "3": "easy",
         "4": "medium",
@@ -25,6 +29,7 @@
         "6": "extreme"
     },
     "states_diff_num": {
+        "-1": "",
         "0": "unrated",
         "10": "easy",
         "20": "normal",
@@ -32,10 +37,17 @@
         "40": "harder",
         "50": "insane"
     },
+    "gdbrowser_title": "Geometry Dash Browser!",
+    "gdbrowser_name": "DefaultGDPS",
+    "gdbrowser_icon": "assets/coin.png",
+    "gdbrowser_desc": "Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!",
+    "gdbrowser_assets_full_url": "https://gdbrowser.com/assets/",
     "show_level_passwords": 1,
     "gdps_logo_url": "assets/gdlogo.png",
     "gdps_level_browser_logo_url": "assets/browser.png",
     "disable_colored_texture_level_browser": 1,
     "path_connection": "../incl/lib/connection.php",
+    "path_folder_levels": "../../data/levels/",
+    "path_lib_folder": "../incl/lib/",
     "gdps_version": 22
 }

@@ -6,16 +6,10 @@
 
 
 <head>
-	<title>Geometry Dash Browser!</title>
+	<?php include("customEmbed.php"); ?>
 	<meta charset="utf-8">
 	<link href="assets/css/browser.css" type="text/css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
-	<link rel="icon" href="assets/coin.png">
-	<meta id="meta-title" property="og:title" content="Geometry Dash Browser!">
-	<meta id="meta-desc" property="og:description" content="Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!">
-	<meta id="meta-image" name="og:image" content="https://gdbrowser.com/assets/coin.png" itemprop="image">
-	<meta name="twitter:card" content="summary">
-
 	<link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php 
@@ -153,7 +147,7 @@
 </body>
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script type="text/javascript" src="./misc/sizecheck.js"></script>
+<script type="text/javascript" src="./misc/global.js"></script>
 
 <script>
 	$("#loading-main").hide();

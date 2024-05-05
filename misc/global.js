@@ -22,28 +22,25 @@ $(window).resize(function () {
 });
 
 function saveUrl() {
-        if (window.location.href.endsWith('?download')) return;
+    if (window.location.href.endsWith('?download')) return;
 	sessionStorage.setItem('prevUrl', window.location.href);
 }
 
 function backButton() {
 	if (window.history.length > 1 && document.referrer.startsWith(window.location.origin)){
-            if (window.location.href.endsWith('?download') && sessionStorage.getItem('prevUrl') === window.location.href.replace('?download', '')) window.history.go(-2);
+            if (sessionStorage.getItem('prevUrl') === window.location.href.replace('?download', '')) window.history.back();
             else window.history.back()
         }
-	else window.location.href = "../../../../../"
+	else window.location.href = "../"
 }
 
-let gdps = null
 let onePointNine = false
 
 function Fetch(link) {
-	console.log(link);
+	
 	return new Promise(function (res, rej) {
 		fetch(link).then(resp => {
 			if (!resp.ok) return rej(resp)
-			gdps = resp.headers.get('gdps')
-			if (gdps && gdps.startsWith('1.9/')) { onePointNine = true; gdps = gdps.slice(4) }
 			resp.json().then(res)
 		}).catch(rej)
 	})

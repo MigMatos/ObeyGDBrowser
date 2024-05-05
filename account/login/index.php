@@ -1,8 +1,7 @@
 <?php
 
 include "../../_init_.php";
-require "../../../incl/lib/connection.php";
-require "../../../incl/lib/generatePass.php";
+require "../".$includeFolder."generatePass.php";
 
 
 

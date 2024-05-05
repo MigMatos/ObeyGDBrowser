@@ -10,7 +10,8 @@ function searchLevels($params, $db, $gdps_settings) {
     $type_lvl = "none";
     $bindings = [];
     $paramsSql = [];
-    
+    $downloadLevelData = false;
+
     if (isset($params['levelName']) && $params['levelName'] === "*") {
         $sql = "SELECT * FROM levels ";
 
@@ -44,6 +45,11 @@ function searchLevels($params, $db, $gdps_settings) {
         $sql = "SELECT * FROM levels";
         $paramsSql[] = "levelID = ?";
         $bindings[] = $params['levelName'];
+
+        if(isset($params['downloadData']) && intval($params['downloadData']) == 1) {
+            $downloadLevelData = true;
+        }
+
     } elseif (isset($params['levelName'])) {
         $sql = "SELECT * FROM levels";
         $paramsSql[] = "levelName LIKE ?";
@@ -97,7 +103,6 @@ function searchLevels($params, $db, $gdps_settings) {
             }
         }
     }
-    
     
     
     
@@ -198,7 +203,7 @@ function searchLevels($params, $db, $gdps_settings) {
         if ($stars < 2) {return 0;} else {return $stars + 2;}
     }
 
-    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $type_lvl) {
+    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $type_lvl, $downloadLevelData) {
 
         $level = [];
 
@@ -217,15 +222,40 @@ function searchLevels($params, $db, $gdps_settings) {
         $likes = intval($result["likes"]);
         $starFeaturedValue = intval($result["starFeatured"]);
         $starEpicValue = intval($result["starEpic"]);
+        $gameVersion = intval($result["gameVersion"]);
 
         if ($time_left_daily !== 0 && $feaID !== 0 && $type_lvl !== "none") {
-
-            $level = [
-                "dailynumber" => $feaID,
-                "$type_lvl" => 1,
-                "nextdaily" => $time_left_daily
-            ];
+            $level["dailynumber"] = $feaID;
+            $level["$type_lvl"] = 1;
+            $level["nextdaily"] = $time_left_daily;
         }
+        if($downloadLevelData){
+
+            if(isset($gdps_settings["path_data_levels"]) && file_exists($gdps_settings["path_data_levels"] . $result["levelID"])){
+                $levelstring = file_get_contents($gdps_settings["path_data_levels"] . $result["levelID"]);
+            }else if (isset($result["levelString"])){
+                $levelstring = $result["levelString"];
+            } else {
+                $levelstring = "";
+            }
+
+            
+            if(substr($levelstring,0,3) == 'kS1'){
+                //$levelstring = base64_encode(gzcompress($levelstring));
+                //$levelstring = str_replace("/","_",$levelstring);
+                //$levelstring = str_replace("+","-",$levelstring);
+            } else {
+                $levelstring = str_replace("-","+",$levelstring);
+                $levelstring = str_replace("_","/",$levelstring);
+                $levelstring = base64_decode($levelstring);
+                $levelstring = zlib_decode($levelstring);
+            }
+            
+
+            $level["data"] = "$levelstring";
+        }
+
+
 
        
 
@@ -252,7 +282,7 @@ function searchLevels($params, $db, $gdps_settings) {
             "epicValue" => intval($result["starEpic"]),
             "legendary" => ($result["starEpic"] == 2), 
             "mythic" => ($result["starEpic"] == 3), 
-            "gameVersion" => intval($result["gameVersion"]),
+            "gameVersion" => $gameVersion,
             "editorTime" => 0,
             "totalEditorTime" => 0,
             "version" => intval($result["levelVersion"]),
