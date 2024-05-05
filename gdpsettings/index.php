@@ -268,12 +268,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
 
 } else {
+    if($logged && $isAdmin) {} else {
+        
     ?>
     <script>
         alert("Error saving!");
     </script>
 
     <?php
+    } 
 }
 ?>
 
