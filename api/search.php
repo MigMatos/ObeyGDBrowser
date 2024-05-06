@@ -1,6 +1,6 @@
 <?php
 
-// error_reporting(-1);
+error_reporting(0);
 
 include("../_init_.php");
 
@@ -36,7 +36,7 @@ function searchLevels($params, $db, $gdps_settings) {
         }
         $type_lvl = str_replace('!', '', $params['levelName']);
         
-        
+
         $time_left_daily = $midnight - $current_time;
     
         $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
