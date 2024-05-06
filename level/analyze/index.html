@@ -114,7 +114,10 @@ let sizePortals = ['mini', 'big']
 let dualPortals = ['dual', 'single']
 let mirrorPortals = ['mirrorOn', 'mirrorOff']
 
-fetch(`../../api/search.php?levelName=1&downloadData=1`).then(res => res.json()).then(res => { analyzeLevelData(res[0]).then(res => {
+var id = (new URLSearchParams(window.location.search)).get("id") || "-1";
+
+
+fetch(`../../api/search.php?levelName=${id}&downloadData=1`).then(res => res.json()).then(res => { analyzeLevelData(res[0]).then(res => {
 
     console.log("Loaded: " , res);
 
@@ -122,7 +125,7 @@ fetch(`../../api/search.php?levelName=1&downloadData=1`).then(res => res.json())
 		switch(res) {
 			case -1: $('#errorMessage').html("This level could not be be <cr>downloaded</cr>. Either the servers rejected the request, or the level simply <co>doesn't exist at all</co>."); break;
 			case -2: $('#errorMessage').html("This level's data appears to be <cr>corrupt</cr> and cannot be <cy>parsed</cy>. It most likely won't load in GD."); break;
-			case -3: $('#errorMessage').html("This level's data could not be obtained because <ca>RobTop</ca> has disabled <cg>level downloading</cg>."); break;
+
 		}
 		popupEsc = false
 		$('#analyzeError').show()

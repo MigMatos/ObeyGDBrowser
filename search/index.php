@@ -95,11 +95,11 @@
 		<br>
 		<img src="../assets/btn-trending.png" height="27%" class="valign gdButton spaced levelSearch" search="trending">
 		<img src="../assets/btn-recent.png" height="27%" class="valign gdButton spaced levelSearch" search="recent" style="margin-left: 2%; margin-right: 2%">
-		<img src="../assets/btn-magic.png" height="27%" class="valign gdButton spaced levelSearch" search="magic">
+		<!-- <img src="../assets/btn-magic.png" height="27%" class="valign gdButton spaced levelSearch" search="magic"> -->
 		<br>
 		<img src="../assets/btn-awarded.png" height="27%" class="valign gdButton levelSearch" search="awarded">
-		<img src="../assets/btn-featured.png" height="27%" class="valign gdButton levelSearch" search="featured" style="margin: 0% 2%">
-		<img src="../assets/btn-followed.png" height="27%" id="followedSearch" class="valign gdButton levelSearch" search="followed">
+		<!-- <img src="../assets/btn-featured.png" height="27%" class="valign gdButton levelSearch" search="featured" style="margin: 0% 2%"> -->
+		<!-- <img src="../assets/btn-followed.png" height="27%" id="followedSearch" class="valign gdButton levelSearch" search="followed"> -->
 	</div>
 
 	<div class="center">

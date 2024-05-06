@@ -71,38 +71,54 @@ function searchLevels($params, $db, $gdps_settings) {
                 $paramsSql[] = (isset($lvlDiffs[$value]) ? $lvlDiffs[$value] : $lvlDiffs["-1"]);
             } elseif ($key == "demonFilter" && is_numeric($value)) {
                 $paramsSql[] = "starDemonDiff = " . (isset($demonDiffs[$value]) ? $demonDiffs[$value] : $demonDiffs["3"]);
-            } elseif ($key == 'type' || $key == 'hof') {
-                $paramsSql[] = "NOT starEpic = 0";
+            } elseif ($key == "length" && is_numeric($value)) {
+                $paramsSql[] = "levelLength = " . intval($value);
+            } elseif ($key == 'type' && $value == 'hof') {
+                $paramsSql[] = "NOT starEpic = 0 AND starHall > 0";
                 $order = "rateDate DESC,uploadDate";
-            } elseif ($key == 'type' || $key == 'creators') {
+            // } elseif ($key == 'type' || $key == 'creators') {
                 // $paramsSql[] = "$key = ?";
                 // $paramsSql[] = $value;
-            } elseif ($key == 'list' && $value == 'yes') {
-                $sql .= " AND levelID IN (" . implode(',', $params['list']) . ") ";
-            } elseif ($key == 'featured' && $value == 'yes') {
-                $paramsSql[] = "starFeatured = 1";
-            } elseif ($key == 'original' && $value == 'yes') {
+            // } elseif ($key == 'list' && $value == 'yes') {
+            //     $sql .= " AND levelID IN (" . implode(',', $params['list']) . ") ";
+            } elseif ($key == 'featured' && is_numeric($value) ) {
+                $paramsSql[] = "starFeatured = " . intval($value);
+            } elseif ($key == 'original' && $value == '1') {
                 $paramsSql[] = "original = 1";
-            } elseif ($key == 'twoPlayer' && $value == 'yes') {
+            } elseif ($key == 'twoPlayer' && $value == '1') {
                 $paramsSql[] = "twoPlayer = 1";
-            } elseif ($key == 'coins' && $value == 'yes') {
-                $paramsSql[] = "coins > 0";
-            } elseif ($key == 'epic' && $value == 'yes') {
-                $paramsSql[] = "starEpic > 0";
-            } elseif ($key == 'starred' && $value == 'yes') {
+            } elseif ($key == 'coins' && $value == '1') {
+                $paramsSql[] = "starCoins > 0";
+            } elseif ($key == 'epic' && is_numeric($value)) {
+                $paramsSql[] = "starEpic = " . intval($value);
+            } elseif ($key == 'starred' && $value == '1') {
                 $paramsSql[] = "starStars > 0";
-            } elseif ($key == 'noStar' && $value == 'yes') {
+            } elseif ($key == 'noStar' && $value == '1') {
                 $paramsSql[] = "starStars = 0";
-            } elseif ($key == 'customSong') {
+            } elseif ($key == 'customSong' && is_numeric($value)) {
                 $paramsSql[] = "songIDs = ?";
                 $bindings[] = $value;
-            } elseif ($key == 'user') {
+            } elseif ($key == 'user' && is_numeric($value)) {
                 $paramsSql[] = "userID = ?";
                 $bindings[] = $value;
             } elseif ($key == 'filter' && $value == 'recent') {
                 // $sql = rtrim($sql, "AND ");
                 $order = "uploadDate";
+            } elseif ($key == 'filter' && $value == 'trending') {
+                // $sql = rtrim($sql, "AND ");
+                $order = "downloads DESC,uploadDate";
+            } elseif ($key == 'filter' && $value == 'likes') {
+                // $sql = rtrim($sql, "AND ");
+                $order = "likes";
+            } elseif ($key == 'filter' && $value == 'mostdownloaded') {
+                // $sql = rtrim($sql, "AND ");
+                $order = "downloads";
+            } elseif ($key == 'filter' && $value == 'awarded') {
+                // $sql = rtrim($sql, "AND ");
+                $paramsSql[] = "starStars > 0";
+                $order = "rateDate";
             }
+            
         }
     }
     
