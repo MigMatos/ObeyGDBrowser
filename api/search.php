@@ -35,7 +35,8 @@ function searchLevels($params, $db, $gdps_settings) {
             $feaID += 100001;
         }
         $type_lvl = str_replace('!', '', $params['levelName']);
-        // Calculate the time left until midnight
+        
+        
         $time_left_daily = $midnight - $current_time;
     
         $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
@@ -122,10 +123,6 @@ function searchLevels($params, $db, $gdps_settings) {
         }
     }
     
-    
-    
-    
-
     
 
     if(!empty($paramsSql) ){
@@ -247,8 +244,10 @@ function searchLevels($params, $db, $gdps_settings) {
         $songID = intval($result["songID"]);
         $levelLengthint = intval($result["levelLength"]);
         $likes = intval($result["likes"]);
-        $starFeaturedValue = intval($result["starFeatured"]);
-        $starEpicValue = intval($result["starEpic"]);
+        
+        // $starFeaturedValue = intval($result["starFeatured"]);
+        // $starEpicValue = intval($result["starEpic"]);
+        
         $gameVersion = intval($result["gameVersion"]);
 
         if ($time_left_daily !== 0 && $feaID !== 0 && $type_lvl !== "none") {
@@ -268,9 +267,7 @@ function searchLevels($params, $db, $gdps_settings) {
 
             
             if(substr($levelstring,0,3) == 'kS1'){
-                //$levelstring = base64_encode(gzcompress($levelstring));
-                //$levelstring = str_replace("/","_",$levelstring);
-                //$levelstring = str_replace("+","-",$levelstring);
+
             } else {
                 $levelstring = str_replace("-","+",$levelstring);
                 $levelstring = str_replace("_","/",$levelstring);
