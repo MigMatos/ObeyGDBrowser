@@ -258,8 +258,8 @@ function searchLevels($params, $db, $gdps_settings) {
         }
         if($downloadLevelData){
 
-            if(isset($gdps_settings["path_data_levels"]) && file_exists($gdps_settings["path_data_levels"] . $result["levelID"])){
-                $levelstring = file_get_contents($gdps_settings["path_data_levels"] . $result["levelID"]);
+            if(isset($gdps_settings["path_folder_levels"]) && file_exists($gdps_settings["path_folder_levels"] . $result["levelID"])){
+                $levelstring = file_get_contents($gdps_settings["path_folder_levels"] . $result["levelID"]);
             }else if (isset($result["levelString"])){
                 $levelstring = $result["levelString"];
             } else {
