@@ -59,6 +59,9 @@ function searchLevels($params, $db, $gdps_settings) {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
     }
 
+    // Unlisted lvls
+    $paramsSql[] = "unlisted = 0";
+
     $sql = $sql . " FROM levels LEFT JOIN songs ON levels.songID = songs.ID ";
     
     $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
@@ -111,13 +114,16 @@ function searchLevels($params, $db, $gdps_settings) {
             } elseif ($key == 'filter' && $value == 'likes') {
                 // $sql = rtrim($sql, "AND ");
                 $order = "likes";
+            } elseif ($key == 'filter' && $value == 'magic') {
+                $params[] = "objects > 9999";
+                $order = "uploadDate";
             } elseif ($key == 'filter' && $value == 'mostdownloaded') {
                 // $sql = rtrim($sql, "AND ");
                 $order = "downloads";
             } elseif ($key == 'filter' && $value == 'awarded') {
                 // $sql = rtrim($sql, "AND ");
-                $paramsSql[] = "starStars > 0";
-                $order = "rateDate";
+                $paramsSql[] = "NOT starStars = 0";
+                $order = "rateDate DESC, uploadDate";
             }
             
         }
@@ -341,7 +347,7 @@ function searchLevels($params, $db, $gdps_settings) {
 
 
 
-    return json_encode($json_data);
+    return json_encode(array_reverse($json_data));
 }
 
 $file = str_replace("\\", "/", __FILE__);
