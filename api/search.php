@@ -135,8 +135,8 @@ function searchLevels($params, $db, $gdps_settings) {
     }
 
     $sql .= " LIMIT 10 OFFSET ? ";
-    $bindings[] = isset($params['page']) ? ($params['page'] == 0 ? 0 : max(0, ($params['page'] + 10) ) ) : 0;
-
+    if(!isset($params['page'])) { $params['page'] = intval($params['page']); }
+    $bindings[] = ($params['page'] <= 0) ? 0 : $params['page'] * 10;
 
 
     $stmt = $db->prepare($sql);
