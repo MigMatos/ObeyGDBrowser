@@ -182,7 +182,9 @@ $('.levelSearch').click(function() {
 
 	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*")
 	if ($(this).attr('search') == "featured") return window.location.href = url
-
+	else if ($(this).attr('search') != null && $(this).attr('search') !== "") {
+    	url += $(this).attr('search');
+	}
 	// === DIFFICULTY === //
 	let difficulties = []
 	$('.diffDiv').each(function() {if ($(this).hasClass('selectedFilter')) difficulties.push($(this).attr('diff'))})
