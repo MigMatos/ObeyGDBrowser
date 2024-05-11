@@ -106,22 +106,17 @@ function searchLevels($params, $db, $gdps_settings) {
                 $paramsSql[] = "userID = ?";
                 $bindings[] = $value;
             } elseif ($key == 'filter' && $value == 'recent') {
-                // $sql = rtrim($sql, "AND ");
                 $order = "uploadDate";
             } elseif ($key == 'filter' && $value == 'trending') {
-                // $sql = rtrim($sql, "AND ");
                 $order = "downloads DESC,uploadDate";
             } elseif ($key == 'filter' && $value == 'likes') {
-                // $sql = rtrim($sql, "AND ");
                 $order = "likes";
             } elseif ($key == 'filter' && $value == 'magic') {
-                $params[] = "objects > 9999";
+                $paramsSql[] = "objects > 9999";
                 $order = "uploadDate";
             } elseif ($key == 'filter' && $value == 'mostdownloaded') {
-                // $sql = rtrim($sql, "AND ");
                 $order = "downloads";
             } elseif ($key == 'filter' && $value == 'awarded') {
-                // $sql = rtrim($sql, "AND ");
                 $paramsSql[] = "NOT starStars = 0";
                 $order = "rateDate DESC, uploadDate";
             }
@@ -140,7 +135,7 @@ function searchLevels($params, $db, $gdps_settings) {
     }
 
     $sql .= " LIMIT 10 OFFSET ? ";
-    $bindings[] = isset($params['page']) ? ($params['page'] == 0 ? 0 : max(0, ($params['page'] + 10) - 1)) : 0;
+    $bindings[] = isset($params['page']) ? ($params['page'] == 0 ? 0 : max(0, ($params['page'] + 10) ) ) : 0;
 
 
 
