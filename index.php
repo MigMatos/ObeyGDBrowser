@@ -13,8 +13,9 @@
 	<link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php 
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html");
+		$context = stream_context_create(array('http' => array('timeout'=>2)));
+        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html", false, $context);
+        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html", false, $context);
     ?>
 
 </head>
@@ -98,13 +99,17 @@
 						<?php if ($gdpsVersion > 20) { ?>
 						<td><a tabindex="1" href="./level?id=!daily"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
 						<td style="display: block" id="menu_weekly"><a tabindex="1" href="./level?id=!weekly"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
-						<?php } else { ?>
-						<td style="display: block" id="menu_featured"><a tabindex="1" href="./lvls?levelName=*?type=featured"><img class="menubutton menu-featured" src="assets/category-featured.png" title="Featured"></a></td>
 						<?php } ?>
+						
 						<!-- <td><a tabindex="1" href="./gauntlets"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td> -->
+						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
+					
 					</tr>
 					<tr class="menuButtonList">
-						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
+
+						<td style="display: block" id="menu_featured"><a tabindex="1" href="./lvls?levelName=*?type=featured"><img class="menubutton menu-featured" src="assets/category-featured.png" title="Featured"></a></td>
+						
+						
 						<!-- <img src="./assets/exclamation.png" style="position: absolute; height: 18%; left: 3.5%; bottom: 23%; pointer-events: none; z-index: 50;"> -->
 						<?php if ($gdpsVersion > 20) { ?>
 						<td><a tabindex="1" href="./lvls?levelName=*&type=hof"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>

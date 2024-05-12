@@ -198,7 +198,7 @@ $('.levelSearch').click(function() {
 	let lengths = []
 	$('.lengthDiv').each(function() {if ($(this).hasClass('selectedFilter') && $(this).attr('len')) lengths.push($(this).attr('len'))})
 	if (lengths.length) url += "&length=" + lengths.join(",")
-	if ($('#starCheck').hasClass('selectedFilter')) url += "&type=starred"
+	if ($('#starCheck').hasClass('selectedFilter')) url += "&noStar=0"
 
 	// === CHECKBOXES === //
     $("input:checked").each(function () {
@@ -393,38 +393,38 @@ else if (+savedFilters.song && +savedFilters.song > 0) $('#songID').val(savedFil
 
 checkExtraFilters()
 
-Fetch(`../api/music`).then(music => {
+// Fetch(`../api/music`).then(music => {
 
-	$('#songName').html("1: " + music[1][0])
+// 	$('#songName').html("1: " + music[1][0])
 
-	$(document).on('click', '.songChange', function () { 
-		officialSong += Number($(this).attr('jump'))
-		if (officialSong < 1) officialSong = 1
-		$('#songName').html(`${officialSong}: ${music[officialSong] ? music[officialSong][0] : officialSong == 69 ? "Nice" : "Unknown"}`)
-		savedFilters.song = officialSong
-		savedFilters.defaultSong = true
-		checkExtraFilters()
-	})
+// 	$(document).on('click', '.songChange', function () { 
+// 		officialSong += Number($(this).attr('jump'))
+// 		if (officialSong < 1) officialSong = 1
+// 		$('#songName').html(`${officialSong}: ${music[officialSong] ? music[officialSong][0] : officialSong == 69 ? "Nice" : "Unknown"}`)
+// 		savedFilters.song = officialSong
+// 		savedFilters.defaultSong = true
+// 		checkExtraFilters()
+// 	})
 
-	if (hadDefaultSong) {
-		checkExtraFilters()
-		$('.songChange').trigger('click')
-	}
+// 	if (hadDefaultSong) {
+// 		checkExtraFilters()
+// 		$('.songChange').trigger('click')
+// 	}
 
-	$(document).keydown(function(k) {
-		if (customSong) return;
-		if (k.which == 37) $('#songDown').trigger('click')   // left
-		if (k.which == 39) $('#songUp').trigger('click')     // right
-	});
+// 	$(document).keydown(function(k) {
+// 		if (customSong) return;
+// 		if (k.which == 37) $('#songDown').trigger('click')   // left
+// 		if (k.which == 39) $('#songUp').trigger('click')     // right
+// 	});
 
-	if (onePointNine) {
-		$('#userSearch').hide()
-		$('#followedSearch').addClass('menuDisabled')
-		$('#levelName').css('width', '76%')
-	}
+// 	if (onePointNine) {
+// 		$('#userSearch').hide()
+// 		$('#followedSearch').addClass('menuDisabled')
+// 		$('#levelName').css('width', '76%')
+// 	}
 
-	if (gdps) Fetch(`../api/gdps?current=1`).then(res => { if (res.demonList) $('#demonList').show() })
-	else $('#demonList').show()
-})
+// 	if (gdps) Fetch(`../api/gdps?current=1`).then(res => { if (res.demonList) $('#demonList').show() })
+// 	else $('#demonList').show()
+// })
 
 </script>

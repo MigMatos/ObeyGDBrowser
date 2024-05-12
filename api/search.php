@@ -31,9 +31,9 @@ function searchLevels($params, $db, $gdps_settings) {
         $feaID = $results["feaID"];
         $lvlID = $results["levelID"];
     
-        if ($type == 1) {
-            $feaID += 100001;
-        }
+        // if ($type == 1) {
+        //     $feaID += 100001;
+        // }
         $type_lvl = str_replace('!', '', $params['levelName']);
         
 
@@ -59,15 +59,18 @@ function searchLevels($params, $db, $gdps_settings) {
         return json_encode(array("error" => "The 'levelName' parameter is required in the GET request."));
     }
 
-    // Unlisted lvls
+    // Default settings
     $paramsSql[] = "unlisted = 0";
+    $order = "likes";
 
+    //Another configs
     $sql = $sql . " FROM levels LEFT JOIN songs ON levels.songID = songs.ID ";
     
     $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
     
     $demonDiffs = ["1" => "3", "2" => "4", "3" => "0", "4" => "5", "5" => "6"];
-    $order = "";
+    
+
     
     foreach ($params as $key => $value) {
         if ($key !== 'levelName') {
@@ -77,6 +80,10 @@ function searchLevels($params, $db, $gdps_settings) {
                 $paramsSql[] = "starDemonDiff = " . (isset($demonDiffs[$value]) ? $demonDiffs[$value] : $demonDiffs["3"]);
             } elseif ($key == "length" && is_numeric($value)) {
                 $paramsSql[] = "levelLength = " . intval($value);
+            } elseif ($key == 'type' && $value == 'featured') {
+                if(intval($gdps_settings['gdps_version']) > 21) $paramsSql[] = "NOT starFeatured = 0 OR NOT starEpic = 0";
+                else $paramsSql[] = "NOT starFeatured = 0";
+                $order = "rateDate DESC,uploadDate";
             } elseif ($key == 'type' && $value == 'hof') {
                 $paramsSql[] = "NOT starEpic = 0 AND starHall > 0";
                 $order = "rateDate DESC,uploadDate";
@@ -88,7 +95,7 @@ function searchLevels($params, $db, $gdps_settings) {
             } elseif ($key == 'featured' && is_numeric($value) ) {
                 $paramsSql[] = "starFeatured = " . intval($value);
             } elseif ($key == 'original' && $value == '1') {
-                $paramsSql[] = "original = 1";
+                $paramsSql[] = "original = 0";
             } elseif ($key == 'twoPlayer' && $value == '1') {
                 $paramsSql[] = "twoPlayer = 1";
             } elseif ($key == 'coins' && $value == '1') {
@@ -97,8 +104,9 @@ function searchLevels($params, $db, $gdps_settings) {
                 $paramsSql[] = "starEpic = " . intval($value);
             } elseif ($key == 'starred' && $value == '1') {
                 $paramsSql[] = "starStars > 0";
-            } elseif ($key == 'noStar' && $value == '1') {
-                $paramsSql[] = "starStars = 0";
+            } elseif ($key == 'noStar') {
+                if ($value == '1') {$paramsSql[] = "starStars = 0";}
+                else if ($value == '0') {$paramsSql[] = "NOT starStars = 0";}
             } elseif ($key == 'customSong' && is_numeric($value)) {
                 $paramsSql[] = "songIDs = ?";
                 $bindings[] = $value;
@@ -108,8 +116,9 @@ function searchLevels($params, $db, $gdps_settings) {
             } elseif ($key == 'filter' && $value == 'recent') {
                 $order = "uploadDate";
             } elseif ($key == 'filter' && $value == 'trending') {
-                $order = "downloads DESC,uploadDate";
-            } elseif ($key == 'filter' && $value == 'likes') {
+                $paramsSql[] = "uploadDate > " . time() - (7 * 24 * 60 * 60);
+                $order = "likes";
+            } elseif ($key == 'filter' && $value == 'mostliked') {
                 $order = "likes";
             } elseif ($key == 'filter' && $value == 'magic') {
                 $paramsSql[] = "objects > 9999";
@@ -329,7 +338,7 @@ function searchLevels($params, $db, $gdps_settings) {
             "updated" => "",
             "songName" => isset($result["name"]) ? $result["name"] : "",
             "songAuthor" => isset($result["authorName"]) ? $result["authorName"] : "",
-            "songSize" => isset($result["size"]) ? $result["size"] : "",
+            "songSize" => isset($result["size"]) ? $result["size"]."MB" : "0.00MB",
             "songID" => $songID,
             "songLink" => isset($result["download"]) ? $result["download"] : "",
             "results" => 9999, // Placeholder value
@@ -342,7 +351,7 @@ function searchLevels($params, $db, $gdps_settings) {
 
 
 
-    return json_encode(array_reverse($json_data));
+    return json_encode($json_data);
 }
 
 $file = str_replace("\\", "/", __FILE__);
