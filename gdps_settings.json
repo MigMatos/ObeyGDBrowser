@@ -40,6 +40,7 @@
     "gdbrowser_title": "Geometry Dash Browser!",
     "gdbrowser_name": "DefaultGDPS",
     "gdbrowser_icon": "assets/coin.png",
+    "gdbrowser_icon_embed": "https://gdbrowser.com/assets/coin.png",
     "gdbrowser_desc": "Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!",
     "gdbrowser_assets_full_url": "https://gdbrowser.com/assets/",
     "show_level_passwords": 1,

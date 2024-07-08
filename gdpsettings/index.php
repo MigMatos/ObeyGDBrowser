@@ -115,6 +115,8 @@
         <input type="text" id="gdbrowser_name" name="gdbrowser_name"><br>
         <label for="gdbrowser_icon">GDPS Icon:</label>
         <input type="text" id="gdbrowser_icon" name="gdbrowser_icon"><br>
+        <input type="text" id="gdbrowser_icon_embed" name="gdbrowser_icon_embed"><br>
+        <label for="gdbrowser_icon_embed">GDPS Icon URL (for embeds) <label style="color:#af0000;">[ONLY .JPG, JPEG AND .PNG]</label>: </label>
         <label for="gdbrowser_desc">GDPS Description:</label>
         <input type="text" size="100" id="gdbrowser_desc" name="gdbrowser_desc"><br>
         <label for="gdbrowser_assets_full_url">GDPS Assets Folder URL (for embeds):</label>
@@ -125,6 +127,7 @@
         <label for="gdps_logo_url">GDPS Logo URL:</label>
         <input type="text" id="gdps_logo_url" name="gdps_logo_url"><br>
         <label for="gdps_level_browser_logo_url">GDPS Level Browser Logo URL:</label>
+        >
         <input type="text" id="gdps_level_browser_logo_url" name="gdps_level_browser_logo_url"><br>
         <label for="disable_colored_texture_level_browser">Disable Colored Texture Level Browser:</label>
         <input type="number" id="disable_colored_texture_level_browser" min="0" max="1" name="disable_colored_texture_level_browser"><br>
@@ -245,6 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "gdbrowser_title" => get_post_value("gdbrowser_title"),
         "gdbrowser_name" => get_post_value("gdbrowser_name"),
         "gdbrowser_icon" => get_post_value("gdbrowser_icon"),
+        "gdbrowser_icon_embed" => get_post_value("gdbrowser_icon_embed"),
         "gdbrowser_desc" => get_post_value("gdbrowser_desc"),
         "gdbrowser_assets_full_url" => get_post_value("gdbrowser_assets_full_url"),
         "show_level_passwords" => get_post_value("show_level_passwords"),

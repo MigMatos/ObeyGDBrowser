@@ -174,17 +174,18 @@ function undupe(array) {
 }
 
 $('#userSearch').click(function() {
-	let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
+	let query = "../../profile/" + (encodeURIComponent($('#levelName').val()) || "") 
+	// let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
 	if (query) window.location.href = "./u/" + query
 })
 
 $('.levelSearch').click(function() {
 
-	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*")
+	let url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
 	if ($(this).attr('search') == "featured") return window.location.href = url
-	else if ($(this).attr('search') != "0") {
-    	url += "&filter=" + $(this).attr('search');
-	}
+	// else if ($(this).attr('search') != "0") {
+    // 	url += "?filter=" + $(this).attr('search');
+	// }
 	// === DIFFICULTY === //
 	let difficulties = []
 	$('.diffDiv').each(function() {if ($(this).hasClass('selectedFilter')) difficulties.push($(this).attr('diff'))})
@@ -198,7 +199,7 @@ $('.levelSearch').click(function() {
 	let lengths = []
 	$('.lengthDiv').each(function() {if ($(this).hasClass('selectedFilter') && $(this).attr('len')) lengths.push($(this).attr('len'))})
 	if (lengths.length) url += "&length=" + lengths.join(",")
-	if ($('#starCheck').hasClass('selectedFilter')) url += "&type=starred"
+	if ($('#starCheck').hasClass('selectedFilter')) url += "&noStar=0"
 
 	// === CHECKBOXES === //
     $("input:checked").each(function () {
@@ -217,8 +218,8 @@ $('.levelSearch').click(function() {
 
 	// === FINISHING UP === //
 
-	if (url.endsWith('?type=0')) url = url.slice(0, -7)
-	window.location.href = url.replace(/\?type=0&/, "&");
+	if (url.endsWith('?filter=0')) url = url.slice(0, -7)
+	window.location.href = url.replace(/\?filter=0&/, "?")
 
 })
 
@@ -393,38 +394,38 @@ else if (+savedFilters.song && +savedFilters.song > 0) $('#songID').val(savedFil
 
 checkExtraFilters()
 
-Fetch(`../api/music`).then(music => {
+// Fetch(`../api/music`).then(music => {
 
-	$('#songName').html("1: " + music[1][0])
+// 	$('#songName').html("1: " + music[1][0])
 
-	$(document).on('click', '.songChange', function () { 
-		officialSong += Number($(this).attr('jump'))
-		if (officialSong < 1) officialSong = 1
-		$('#songName').html(`${officialSong}: ${music[officialSong] ? music[officialSong][0] : officialSong == 69 ? "Nice" : "Unknown"}`)
-		savedFilters.song = officialSong
-		savedFilters.defaultSong = true
-		checkExtraFilters()
-	})
+// 	$(document).on('click', '.songChange', function () { 
+// 		officialSong += Number($(this).attr('jump'))
+// 		if (officialSong < 1) officialSong = 1
+// 		$('#songName').html(`${officialSong}: ${music[officialSong] ? music[officialSong][0] : officialSong == 69 ? "Nice" : "Unknown"}`)
+// 		savedFilters.song = officialSong
+// 		savedFilters.defaultSong = true
+// 		checkExtraFilters()
+// 	})
 
-	if (hadDefaultSong) {
-		checkExtraFilters()
-		$('.songChange').trigger('click')
-	}
+// 	if (hadDefaultSong) {
+// 		checkExtraFilters()
+// 		$('.songChange').trigger('click')
+// 	}
 
-	$(document).keydown(function(k) {
-		if (customSong) return;
-		if (k.which == 37) $('#songDown').trigger('click')   // left
-		if (k.which == 39) $('#songUp').trigger('click')     // right
-	});
+// 	$(document).keydown(function(k) {
+// 		if (customSong) return;
+// 		if (k.which == 37) $('#songDown').trigger('click')   // left
+// 		if (k.which == 39) $('#songUp').trigger('click')     // right
+// 	});
 
-	if (onePointNine) {
-		$('#userSearch').hide()
-		$('#followedSearch').addClass('menuDisabled')
-		$('#levelName').css('width', '76%')
-	}
+// 	if (onePointNine) {
+// 		$('#userSearch').hide()
+// 		$('#followedSearch').addClass('menuDisabled')
+// 		$('#levelName').css('width', '76%')
+// 	}
 
-	if (gdps) Fetch(`../api/gdps?current=1`).then(res => { if (res.demonList) $('#demonList').show() })
-	else $('#demonList').show()
-})
+// 	if (gdps) Fetch(`../api/gdps?current=1`).then(res => { if (res.demonList) $('#demonList').show() })
+// 	else $('#demonList').show()
+// })
 
 </script>
