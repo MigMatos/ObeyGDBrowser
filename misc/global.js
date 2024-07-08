@@ -64,58 +64,38 @@ let iconRenderer = null
 let overrideLoader = false
 let renderedIcons = {}
 
-// very shitty code :) i suck at this stuff
 
 async function renderIcons() {
-	if (overrideLoader) return
+
+	//cube - ship - ball - ufo - wave - robot - spider - swing - jetpack
 	let iconsToRender = $('gdicon:not([rendered], [dontload])')
 	if (iconsToRender.length < 1) return
-	if (!iconData) iconData = await Fetch("../api/icons")
-	if (!iconCanvas) iconCanvas = document.createElement('canvas')
-	if (!iconRenderer) iconRenderer = new PIXI.Application({ view: iconCanvas, width: 300, height: 300, backgroundAlpha: 0});
-	if (loader.loading) return overrideLoader = true
-	buildIcon(iconsToRender, 0)
-}
 
-function buildIcon(elements, current) {
-	if (current >= elements.length) return
-	let currentIcon = elements.eq(current)
+	console.log(iconsToRender.length);
 
-	let cacheID = currentIcon.attr('cacheID')
-	let foundCache = renderedIcons[cacheID]
-	if (foundCache) {
-		finishIcon(currentIcon, foundCache.name, foundCache.data)
-		return buildIcon(elements, current + 1)
+	for (let i = 0; i < iconsToRender.length; i++) {
+		let currentIcon = iconsToRender.eq(i);
+		var extraUrlIcon = "";
+		let iconConfig = {
+			id: +currentIcon.attr('iconID') || 1,
+			form: currentIcon.attr('iconForm') || "cube",
+			col1: +currentIcon.attr('col1') || 1,
+			col2: +currentIcon.attr('col2') || 1,
+			colg: (+currentIcon.attr('colg') !== 0 && +currentIcon.attr('colg')) || (+currentIcon.attr('col2') || 1),
+			glow: currentIcon.attr('glow') || 0
+		}
+
+		if (iconConfig.glow == 1) { extraUrlIcon = `&glow=${iconConfig.colg}`; }
+		let urlIcon = `https://gdicon.oat.zone/icon.png?type=${iconConfig.form}&value=${iconConfig.id}&color1=${iconConfig.col1}&color2=${iconConfig.col2}&color3=${iconConfig.colg}${extraUrlIcon}`
+
+
+
+		currentIcon.append(`<img title="${iconConfig.form}" style="${currentIcon.attr("imgStyle") || ""}" src="${urlIcon}">`)
+		currentIcon.attr("rendered", "true")
+
+		console.log(iconConfig);
 	}
 
-	let iconConfig = {
-		id: +currentIcon.attr('iconID'),
-		form: parseIconForm(currentIcon.attr('iconForm')),
-		col1: parseIconColor(currentIcon.attr('col1')),
-		col2: parseIconColor(currentIcon.attr('col2')),
-		glow: currentIcon.attr('glow') == "true",
-		app: iconRenderer
-	}
-
-	loadIconLayers(iconConfig.form, iconConfig.id, function(a, b, c) {
-		if (c) iconConfig.new = true
-		new Icon(iconConfig, function(icon) {
-			let dataURL = icon.toDataURL()
-			let titleStr = `${Object.values(iconData.forms).find(x => x.form == icon.form).name} ${icon.id}`
-			if (cacheID) renderedIcons[cacheID] = {name: titleStr, data: dataURL}
-			finishIcon(currentIcon, titleStr, dataURL)
-			if (overrideLoader) {
-				overrideLoader = false
-				renderIcons()
-			}
-			else buildIcon(elements, current + 1)
-		})
-	})
-}
-
-function finishIcon(currentIcon, name, data) {
-	currentIcon.append(`<img title="${name}" style="${currentIcon.attr("imgStyle") || ""}" src="${data}">`)
-	currentIcon.attr("rendered", "true")
 }
 
 // reset scroll
