@@ -174,14 +174,36 @@ function undupe(array) {
 }
 
 $('#userSearch').click(function() {
-	let query = "../../profile/" + (encodeURIComponent($('#levelName').val()) || "") 
+
+	var query = "";
+
+	<?php if ($serverType != "legacy") { ?>
+
+	query = "../../profile/" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+
+	<?php } else { ?>
+	
+	query = "../../profile/?u=" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+
+	<?php } ?>
 	// let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
 	if (query) window.location.href = "./u/" + query
 })
 
 $('.levelSearch').click(function() {
 
-	let url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
+	var url = "";
+
+	<?php if ($serverType != "legacy") { ?>
+
+	url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
+
+	<?php } else { ?>
+
+	url = "../search/search.html?s=" + (encodeURIComponent($('#levelName').val()) || "0")
+
+	<?php } ?>
+
 	if ($(this).attr('search') == "featured") return window.location.href = url
 	// else if ($(this).attr('search') != "0") {
     // 	url += "?filter=" + $(this).attr('search');

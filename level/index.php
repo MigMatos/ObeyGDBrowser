@@ -35,6 +35,7 @@ $data = $data[0];
 
 
 
+$data["serverType"] = $serverType;
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
     $value = is_numeric($value) ? intval($value) : $value;

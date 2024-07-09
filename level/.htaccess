@@ -3,5 +3,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteCond %{REQUEST_URI} !^/replies
-
-RewriteRule ^ %{REQUEST_URI}/../index.php?u=%{REQUEST_URI} [L]
+RewriteRule ^(.*/)?([^/]+)/?$ index.php?id=$2 [L]

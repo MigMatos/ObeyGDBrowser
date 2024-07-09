@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
 function commentsGD($params, $db, $gdps_settings) {
     $bindings = [];
     $paramsSql = [];
+    $order = "timestamp ASC";
 
     if (isset($params['userID']) && $params['type'] == "profile"){
         $sql = "SELECT * FROM acccomments WHERE (userID = ?)";
@@ -38,7 +39,7 @@ function commentsGD($params, $db, $gdps_settings) {
         $bindings[] = intval($params['userID']);
        
     } else if (isset($params['levelID']) && $params['type'] == "level"){
-        $sql = "SELECT comments.*,users.* FROM comments LEFT JOIN users ON comments.userID = users.userID WHERE (levelID = ?)";
+        $sql = "SELECT comments.*,users.* FROM comments LEFT JOIN users ON users.userID = comments.userID WHERE (levelID = ?)";
 
         $bindings[] = intval($params['levelID']);
        
@@ -49,7 +50,11 @@ function commentsGD($params, $db, $gdps_settings) {
         return json_encode(array("error" => "The '$typeval' parameter is not valid in the GET request."));
     }
 
+    if (isset($params['mode']) && $params['mode'] == "top") {
+        $order = "likes DESC";
+    }
 
+    $sql .= " ORDER BY $order ";
 
     $sql .= " LIMIT 10 OFFSET ? ";
     if(!isset($params['page'])) { $params['page'] = intval($params['page']); }
@@ -86,8 +91,8 @@ function commentsGD($params, $db, $gdps_settings) {
             "date" => strval($timeElapsed),
             "percent" => intval($result["percent"]),
             "username" => strval($result["userName"]),
-            "playerID" => intval($result["playerID"]),
-            "accountID" => intval($result["accountID"]),
+            "playerID" => intval($result["userID"]),
+            "accountID" => intval($result["extID"]),
             "icon" => [
                 "form" => strval($iconTypes[intval($result["iconType"])]),
                 "icon" => intval($result["accIcon"]),

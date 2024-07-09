@@ -333,7 +333,7 @@ input:focus, textarea:focus {
 }
 
 #iconsDiv img {
-    height: 9%;
+    height: 8%;
     margin: 1% 1%;
     vertical-align: middle;
 }
@@ -791,13 +791,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 #collectibles, .leaderboardStats {
-    font-size: 4.3vh;
+    font-size: 4vh;
     white-space: nowrap;
 }
 
 #collectibles img {
     transform: translate(-20%, -7%);
-    height: 6.5%;
+    height: 5%;
 }
 
 .leaderboardStats {

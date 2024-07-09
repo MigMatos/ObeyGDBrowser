@@ -91,7 +91,7 @@
 	</div>
 
 	<div class="center" style="position:absolute; top: 9%; left: 0%; right: 0%; height: 5%;">
-		<h2 class="pre inline slightlySmaller normalCursor gdButton" id="authorName"><a class="linkButton" id="authorLink" href="../u/[[ACCOUNTID]].">By [[AUTHOR]]</a></h2>
+		<h2 class="pre inline slightlySmaller normalCursor gdButton" id="authorName"><a class="linkButton" id="authorLink" onclick="profileRedirect('[[ACCOUNTID]]')">By [[AUTHOR]]</a></h2>
 		<h2 class="inline slightlySmaller normalCursor sideSpaceC">
 			<img class="inline valign" id="copiedBadge" style="display: none; height: 60%; cursor:help" src="../assets/copied.png" title="Level is a copy or a collaboration">
 			<img class="inline valign" id="largeBadge" style="display: none; height: 60%; margin-left: -7%; cursor:help" src="../assets/large.png" title="Contains more than 40,000 objects">
@@ -159,8 +159,8 @@
 		<img class="gdButton sideButton" title="Level Info" id="infoButton"  src="../assets/info.png" onclick="$('#infoDiv').show()"><br>
 		<!-- <img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/vote.png" onclick="$('#likeDiv').show()"><br> -->
 		<a href="./analyze?id=[[ID]]" id="analyzeLink"><img id="analyzeBtn" title="Analyze Level" class="gdButton sideButton" src="../assets/edit.png"></a><br>
-		<!-- <a href="./comments/[[ID]]"><img class="gdButton sideButton" title="View Comments" src="../assets/comment.png"></a><br>
-		<a href="./leaderboard/[[ID]]"><img id="leaderboardbtn" title="View Leaderboard" class="gdButton sideButton" src="../assets/leaderboard.png"></a><br> -->
+		<a onclick="commentRedirect('[[ID]]')"><img class="gdButton sideButton" title="View Comments" src="../assets/comment.png"></a><br>
+		<!-- <a href="./leaderboard/[[ID]]"><img id="leaderboardbtn" title="View Leaderboard" class="gdButton sideButton" src="../assets/leaderboard.png"></a><br> -->
 	</div>
 
 	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
@@ -179,7 +179,49 @@
 <script type="text/javascript" src="../misc/global.js"></script>
 <script>
 
+var legacyServer = true;
+if ('[[SERVERTYPE]]' != "legacy"){
+	legacyServer = false;
+}
+
+function profileRedirect(url) {
+	var queryProfile = "";
+    if (legacyServer == true) {
+		queryProfile = "../../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+	} else {
+		queryProfile = "../../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+	}
+    if (queryProfile) window.location.href = "./u/" + queryProfile
+}
+
+function commentRedirect(url) {
+	var queryLvl = "";
+    if (legacyServer == true) {
+		queryLvl = "/comments/?id=" + (encodeURIComponent(url) || "0")
+	} else {
+		queryLvl = "/comments/" + (encodeURIComponent(url) || "0")
+	}
+    if (queryLvl) window.location.href = "." + queryLvl
+}
+
+
+function levelRedirect(url) {
+	var queryLvl = "";
+    if (legacyServer == true) {
+		queryLvl = "/level/?id=" + (encodeURIComponent(url) || "0")
+	} else {
+		queryLvl = "/level/" + (encodeURIComponent(url) || "0")
+	}
+    if (queryLvl) window.location.href = ".." + queryLvl
+}
+
+//////////////////// ----------- 
+
 $(document).ready(function() { 
+
+if ('[[ID]]'.startsWith('[')) {
+	window.location.href = "./index.php?id=1";
+}
 
 let messageText = 'Your <cy>Geometry Dash password</cy> will <cg>not be stored</cg> anywhere on the site, both <ca>locally and server-side.</ca> You can view the code used for liking a level <a class="menuLink" target="_blank" href="https://github.com/GDColon/GDBrowser/blob/master/api/post/like.js">here</a>.'
 $('#message').html(messageText)
@@ -227,6 +269,7 @@ $('#levelInfo').html($('#levelInfo').html()
 	.replace('[[OBJECTINFO]]', '[[OBJECTS]]' ==  "0" ? "" : `<br>Objects: <cy>${'[[OBJECTS]]' == "65535" ? "65535+" : '[[OBJECTS]]'}</cy>`)
 	.replace('[[REQUESTED]]', [[STARSREQUESTED]] ==  "0" ? "" : `<br>Stars Requested: <cy>[[STARSREQUESTED]]</cy>`))
 
+
 if (!'[[UPLOADED]]'.startsWith('[')) {
 	$('#levelInfo').html($('#levelInfo').html()
 	.replace('[[PASS]]', `<br>Password: <co>${'[[PASSWORD]]' == '0' || '[[PASSWORD]]'.startsWith("[") ? "No copy" : '[[PASSWORD]]' == 1 ? "Free copy" : '[[PASSWORD]]'}</co>`)
@@ -235,7 +278,8 @@ if (!'[[UPLOADED]]'.startsWith('[')) {
 	.replace('[[TIME2]]', [[TOTALEDITORTIME]] == 0 ? "" : `<br>Editor Time (+copies): <span style="color:lightgreen">${colonize([[TOTALEDITORTIME]])}</span>`)
 	.replace('[[EXTRA]]', `<br>Extra String: <span style="color:lightgreen">${'[[EXTRASTRING]]'.length} chars</span>`)
 	.replace('[[UPLOAD]]', '[[UPLOADED]]' == "0" ? "" : `<br>Uploaded: <co>[[UPLOADED]]</co>`)
-	.replace('[[UPDATE]]', '[[UPDATED]]' == "0" ? "" : `<br>Updated: <co>[[UPDATED]]</co>`))}
+	.replace('[[UPDATE]]', '[[UPDATED]]' == "0" ? "" : `<br>Updated: <co>[[UPDATED]]</co>`))
+}
 
 // else {
 // 	$('#levelInfo').html($('#levelInfo').html()
@@ -308,11 +352,11 @@ if ([[COINS]] > 0) $("#coins").append(`<img src="../assets/${coinColor}.png" hei
 if ([[COINS]] > 1) $("#coins").append(`<img class="squeeze" src="../assets/${coinColor}.png" height="5%">`)
 if ([[COINS]] > 2) $("#coins").append(`<img class="squeeze" src="../assets/${coinColor}.png" height="5%">`)
 
-if ("[[GDPS]]".startsWith("1.9/")) $("#authorLink").attr('href', '/search/[[PLAYERID]]?user')
+// if ("[[GDPS]]".startsWith("1.9/")) $("#authorLink").attr('href', '/search/[[PLAYERID]]?user')
 
 if ("[[ACCOUNTID]]" == "0") {
 	$("#authorName").addClass("green").addClass("unregistered")
-	$("#authorLink").attr('href', '/search/[[PLAYERID]]?user')
+	$("#authorLink").attr('onclick', `profileRedirect('[[PLAYERID]]','playerID')`)
 }
 
 if (window.location.pathname.endsWith('?id=weekly')) {

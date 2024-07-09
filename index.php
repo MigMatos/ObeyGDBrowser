@@ -85,11 +85,11 @@
 
 	<div class="menu-messages" style="position:absolute; top: -1.7%; left: 11%; text-align: left; width: 10%;">
 		<a href="../messages"><img class="iconRope" src="assets/messagerope.png" width="40%"></a>
-	</div>
+	</div>  -->
 
 	<div style="position:absolute; top: -1.5%; right: 10%; text-align: right; width: 10%;">
-		<a href="../iconkit"><img class="iconRope" src="assets/iconrope.png" width="40%"></a>
-	</div> -->
+		<a href="./iconkit"><img class="iconRope" src="assets/iconrope.png" width="40%"></a>
+	</div>
 	
 	<div class="supercenter center" id="menuButtons" style="bottom: 5%;">
 			<table>
@@ -206,7 +206,7 @@
 	}
 
 	function showCredits() {
-		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **RobTop:** Developer for Geometry Dash! \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD\n- M366\n- Uproxide\n- YeahhColix \n- Janix"
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **Robtop:** Developer for Geometry dash! \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD"
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 

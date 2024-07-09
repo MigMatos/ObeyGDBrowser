@@ -1,7 +1,7 @@
 <head>
 	<title id="tabTitle">Level Search</title>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=2" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
 	<link rel="icon" href="../assets/coin.png">
 	<meta id="meta-title" property="og:title" content="Level Search">
@@ -123,24 +123,52 @@
 
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="../misc/global.js?v=2"></script>
+<script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 <script>
 
 $('#pageDown').hide()
 $('#pageUp').hide()
 
+
+
+
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
+let url = new URL(window.location.href)
 
-let path = "" + window.location.pathname.split('/')[4]
+var path = urlParams.get('s');
+
+var legacyServer = true;
+if (path == null) {
+	path = "" + window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+	legacyServer = false;
+}
 if (!path || path.trim() === '') window.location.href = './search.php';
 if (path == "0") path = "*"
-console.log(path);
 
-//let path = urlParams.get('s');
+function profileRedirect(url) {
+	var queryProfile = "";
+    if (legacyServer == true) {
+		queryProfile = "../../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+	} else {
+		queryProfile = "../../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+	}
+    if (queryProfile) window.location.href = "./u/" + queryProfile
+}
+
+function levelRedirect(url) {
+	var queryLvl = "";
+    if (legacyServer == true) {
+		queryLvl = "/level/?id=" + (encodeURIComponent(url) || "0")
+	} else {
+		queryLvl = "/level/" + (encodeURIComponent(url) || "0")
+	}
+    if (queryLvl) window.location.href = ".." + queryLvl
+}
+
 //if (!path || path.trim() === '') path = '*';
-let url = new URL(window.location.href)
+
 let gauntlet = url.searchParams.get('gauntlet')
 let userMode = url.searchParams.get('user')
 let type = url.searchParams.get('type')
@@ -235,8 +263,8 @@ function Append(firstLoad, noCache) {
 		$('#searchBox').append(`<div class="searchresult" title="${clean(x.description)}">
 			<h1 class="lessspaced pre" title="${x.name} by ${!x.author || x.author == "-" ? "some nerd" : x.author}" style="width: fit-content; padding-right: 1%">${clean(x.name || " ")}</h1>
 			<h2 class="pre smaller inline gdButton help ${hasAuthor ? "" : "green unregistered"}" title="Account ID: ${x.accountID}\nPlayer ID: ${x.playerID}"><!--
-				-->${hasAuthor && !onePointNine ? `<a style="margin-right: 0.66vh" href="../profile/${x.accountID}.">By ${x.author || "-"}</a>` : `<a ${userSearch ? "" : `href="../search/${x.playerID}?user"`}>By ${x.author || "-"}</a>`}</h2><!--
-				--><h2 class="inline" style="margin-left: 1.5%; transform:translateY(30%)"> ${x.copiedID == '0' ? "" : `<a target="_blank" href="../${x.copiedID}"><!--
+				-->${hasAuthor && !onePointNine ? `<a style="margin-right: 0.66vh" onclick=profileRedirect('${x.accountID}')>By ${x.author || "-"}</a>` : `<a ${userSearch ? "" : `onclick=profileRedirect('${x.playerID}','userID')`}>By ${x.author || "-"}</a>`}</h2><!--
+				--><h2 class="inline" style="margin-left: 1.5%; transform:translateY(30%)"> ${x.copiedID == '0' ? "" : `<a target="_blank" onclick=levelRedirect('${x.copiedID}') "><!--
 				--><img class="gdButton valign sideSpaceD" title="Original: ${x.copiedID}" src="../assets/copied.png" height="12%"></a>`}<!--
 				-->${x.large ? `<img class="help valign sideSpaceD" title="${x.objects}${x.objects == 65535 ? "+" : ""} objects" src="../assets/large.png" height="12%">` : ''}<!--
 				-->${x.twoPlayer ? `<img class="help valign sideSpaceD" title="Two player level" src="../assets/twoPlayer.png" height="12%">` : ''}
@@ -271,7 +299,7 @@ function Append(firstLoad, noCache) {
 				</div>
 			</div>
 			<div class="center" style="position:absolute; right: 7%; transform:translateY(-${demonList ? 19.5 : 16.25}vh); height: 10%">
-				<a title="View level" href="../level/${x.id}""><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
+				<a title="View level" onclick=levelRedirect('${x.id}') "><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
 				${demonList ? `<br><a title="View leaderboard" href="../demon/${x.demonPosition}""><img class="valign gdButton" src="../assets/trophyButton.png" height="110%"></a>
 				<a title="View on Pointercrate" href="${demonListLink}demonlist/${x.demonPosition}" target=_blank><img class="valign gdButton" src="../assets/demonButton.png" height="110%"></a>` : "" }
 				<p title="Level ID" style="text-align: right; color: rgba(0, 0, 0, 0.4); font-size: 2.2vh; transform: translate(2.8vh, ${demonList ? -1.8 : 2.5}vh)">#${x.id}</p>
@@ -373,7 +401,7 @@ $('#shuffle').click(function() {
 	if (superSearch) {
 		$('#searchBox').html('<div style="height: 4.5%"></div>')
 		$('#loading').show()
-		fetch("../api/search?levelName=*?page=0&type=recent").then(res => res.json()).then(recent => {
+		fetch("../api/search.php?levelName=*?page=0&type=recent").then(res => res.json()).then(recent => {
 			let mostRecent = recent[0].id
 			function fetchRandom() {
 				fetch(`../api/level/${Math.floor(Math.random() * (mostRecent)) + 1}`).then(res => res.json()).then(res => {

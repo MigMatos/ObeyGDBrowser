@@ -1,5 +1,6 @@
 <?php
 
+
 include("../api/profile.php");
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
@@ -10,17 +11,21 @@ $path = dirname($url_parts['path'],$levels = 2);
 $id = 0;
 $returnmsg = "";
 
+
+function extractUser($url) {
+    if (empty($url)) return 0;
+    $url = parse_url($url, PHP_URL_PATH);
+    $username = basename($url);
+    return $username;
+}
+
 if (isset($_GET["u"])) {
-    $profile = $_GET["u"];
+    $profile = extractUser($_GET["u"]);
     
     if(is_numeric($profile)) $params = array('accountID' => $profile);
     else $params = array('username' => $profile);
-
 }
 $html = file_get_contents('./t.html');
-
-
-// $params = array('levelName' => $id);
 
 
 $response = profileUsers($params, $db, $gdps_settings);
