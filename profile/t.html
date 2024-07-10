@@ -100,7 +100,7 @@
 		<hr style="margin-bottom: 2%" class="profilePostHide">
 		<h3 id="collectibles" class="profilePostHide">
 			<span id="stars">[[STARS]]</span> <img class="help valign" src="../assets/star.png" title="Stars">
-			<span id="diamonds">[[MOONS]]</span> <img class="help valign" src="../assets/moon.png" title="Diamonds">
+			<span id="moons">[[MOONS]]</span> <img class="help valign" src="../assets/moon.png" title="Moons">
 			<span id="diamonds">[[DIAMONDS]]</span> <img class="help valign" src="../assets/diamond.png" title="Diamonds">
 			<span id="coins">[[COINS]]</span> <img class="help valign" src="../assets/coin.png" title="Secret Coins">
 			<span id="usercoins">[[USERCOINS]]</span> <img class="help valign"src="../assets/silvercoin.png" title="User Coins">
@@ -139,7 +139,7 @@
 		<a id="commentA"><img src="../assets/comments.png" class="gdButton" id="commentButton" style="position: absolute; right: 0.5%; bottom: 50%; width: 6%" onclick="$('#featuredBlockedDiv').show()"></a>
 		<img src="../assets/expanded-off.png" class="gdButton" id="compactMode" style="position: absolute; left: 2%; bottom: 45%; width: 6%">
 
-		<a href="../search/0?user=[[PLAYERID]]"><img src="../assets/levels.png" class="gdButton" style="position: absolute; right: 0.5%; bottom: 1%; width: 6%"></a>
+		<a href="../search/search.html?s=0&user=[[PLAYERID]]"><img src="../assets/levels.png" class="gdButton" style="position: absolute; right: 0.5%; bottom: 1%; width: 6%"></a>
 
 		<div style="position: absolute; right: 0.5%; top: 0%; width: 6%">
 			<a id="youtube" style="display: none" target="_blank" href="https://youtube.com/channel/[[YOUTUBE]]"><img src="../assets/youtube.png" class="gdButton socialButton"></a>
@@ -177,7 +177,7 @@ function clean(text) {return text.replace(/&/g, "&#38;").replace(/</g, "&#60;").
 // remove ID from URL
 if (window.location.pathname.endsWith(".")) window.history.pushState({}, null, window.location.origin + `/u/[[USERNAME]]`);
 
-// icons! (god this code sucks)
+
 renderIcons()
 
 // set favicon

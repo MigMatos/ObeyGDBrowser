@@ -1,6 +1,6 @@
 <?php
 
-
+include("../_init_.php");
 include("../api/profile.php");
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
@@ -40,7 +40,7 @@ if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
 }
 $data = $data[0];
 
-
+// $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
 
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
