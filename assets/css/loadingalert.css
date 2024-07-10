@@ -1,0 +1,75 @@
+.loading-main {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurecido al 50% */
+    z-index: 1000; /* Coloca el overlay por encima de los demas elementos */
+    justify-content: center;
+    align-items: center;
+}
+  
+.loading-main > .rotating-loadermain-image img {
+    animation: rotate 1.5s linear infinite;
+    height: auto;
+    width: 90%;
+}
+  
+
+.loading-alert-buttom-display {
+    display: none;
+    position: fixed;
+    flex-direction: row;
+    opacity: 1;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    max-height: 8%;
+    background-color: rgba(0, 0, 0, 0.5); /* Oscurecido al 50% */
+    z-index: 1000; /* Coloca el overlay por encima de los demas elementos */
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px;
+    align-items: center;
+    transition: all 1s ease;
+}
+
+.loading-alert-buttom-display.hidden {
+    opacity: 0; 
+    pointer-events: none;
+}
+
+.loading-alert-buttom-display > .rotating-loadermain-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.loading-alert-buttom-display > .rotating-loadermain-image img {
+    height: clamp(25px, 2vw, 300px);
+    width: auto;
+    animation: rotate 1.5s linear infinite;
+    
+}
+
+.loading-alert-buttom-display > .rotating-loadermain-image p {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    text-align: center;
+}
+
+
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    }

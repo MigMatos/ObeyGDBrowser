@@ -66,7 +66,7 @@ function searchLevels($params, $db, $gdps_settings) {
     //Another configs
     $sql = $sql . " FROM levels LEFT JOIN songs ON levels.songID = songs.ID ";
     
-    $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDifficulty = 50"];
+    $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDemon = 0  AND starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDemon = 0 AND starAuto = 0 AND starDifficulty = 50"];
     
     $demonDiffs = ["1" => "3", "2" => "4", "3" => "0", "4" => "5", "5" => "6"];
     
@@ -298,8 +298,8 @@ function searchLevels($params, $db, $gdps_settings) {
             "id" => $result["levelID"],
             "description" => $description,
             "author" => $result["userName"],
-            "playerID" => intval($result["extID"]),
-            "accountID" => intval($result["userID"]),
+            "playerID" => intval($result["userID"]),
+            "accountID" => intval($result["extID"]),
             "difficulty" => $diffString,
             "downloads" => intval($result["downloads"]),
             "likes" => $likes,

@@ -37,8 +37,19 @@
             
         }
     }
-    
 
+    global $serverType;
+    $serverType = isset($gdps_settings["server_software"]) ? strval($gdps_settings["server_software"]) : "automatic";
+    if (isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {
+        $server_software = $_SERVER['SERVER_SOFTWARE'];
+        if (strpos($server_software, 'Apache') !== false) {
+            $serverType = "apache";
+        } else {
+            $serverType = "legacy";
+        }
+    }  else if (!isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {$serverType = "legacy";}
+
+    
 
     session_start();
     $logged = false;
@@ -48,5 +59,6 @@
     if (isset($_SESSION['userName']) && isset($_SESSION['accountID']) && isset($_SESSION['isAdmin'])) {
         $logged = true;
     }
+    
     
 ?>

@@ -333,7 +333,7 @@ input:focus, textarea:focus {
 }
 
 #iconsDiv img {
-    height: 9%;
+    height: 8%;
     margin: 1% 1%;
     vertical-align: middle;
 }
@@ -791,13 +791,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 #collectibles, .leaderboardStats {
-    font-size: 4.3vh;
+    font-size: 4vh;
     white-space: nowrap;
 }
 
 #collectibles img {
     transform: translate(-20%, -7%);
-    height: 6.5%;
+    height: 5%;
 }
 
 .leaderboardStats {
@@ -1370,7 +1370,7 @@ cp { color: #ff00ff }
  * Disable all transitions and animations if the user has reduced motion enabled in their sytem settings
  * Also disabled on devices that may be slow to render new frames for performance optimization
  */
-@media screen and
+/* @media screen and
   (prefers-reduced-motion: reduce), 
   (update: slow) {
   *, *::before, *::after {
@@ -1378,4 +1378,4 @@ cp { color: #ff00ff }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-}
+} */

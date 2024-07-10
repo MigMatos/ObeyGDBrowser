@@ -174,17 +174,40 @@ function undupe(array) {
 }
 
 $('#userSearch').click(function() {
-	let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
+
+	var query = "";
+
+	<?php if ($serverType != "legacy") { ?>
+
+	query = "../../profile/" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+
+	<?php } else { ?>
+	
+	query = "../../profile/?u=" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+
+	<?php } ?>
+	// let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
 	if (query) window.location.href = "./u/" + query
 })
 
 $('.levelSearch').click(function() {
 
-	let url = "../lvls?levelName=" + (encodeURIComponent($('#levelName').val()) || "*")
+	var url = "";
+
+	<?php if ($serverType != "legacy") { ?>
+
+	url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
+
+	<?php } else { ?>
+
+	url = "../search/search.html?s=" + (encodeURIComponent($('#levelName').val()) || "0")
+
+	<?php } ?>
+
 	if ($(this).attr('search') == "featured") return window.location.href = url
-	else if ($(this).attr('search') != "0") {
-    	url += "&filter=" + $(this).attr('search');
-	}
+	// else if ($(this).attr('search') != "0") {
+    // 	url += "?filter=" + $(this).attr('search');
+	// }
 	// === DIFFICULTY === //
 	let difficulties = []
 	$('.diffDiv').each(function() {if ($(this).hasClass('selectedFilter')) difficulties.push($(this).attr('diff'))})
@@ -217,8 +240,8 @@ $('.levelSearch').click(function() {
 
 	// === FINISHING UP === //
 
-	if (url.endsWith('?type=0')) url = url.slice(0, -7)
-	window.location.href = url.replace(/\?type=0&/, "&");
+	if (url.endsWith('?filter=0')) url = url.slice(0, -7)
+	window.location.href = url.replace(/\?filter=0&/, "?")
 
 })
 
