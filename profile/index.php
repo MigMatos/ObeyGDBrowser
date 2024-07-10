@@ -6,7 +6,7 @@ include("../api/profile.php");
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
 $url = $_SERVER['REQUEST_URI'];
 $url_parts = parse_url($url);
-$path = dirname($url_parts['path'],$levels = 2);
+$path = dirname($url_parts['path'],$levels = 1);
 
 $id = 0;
 $returnmsg = "";

@@ -180,9 +180,9 @@ if (path == null) {
 function profileRedirect(url) {
 	var queryProfile = "";
     if (legacyServer == true) {
-		queryProfile = "../../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+		queryProfile = "../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
 	} else {
-		queryProfile = "../../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+		queryProfile = "../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
 	}
     if (queryProfile) window.location.href = "./u/" + queryProfile
 }
