@@ -12,13 +12,11 @@ if ($isAdmin != "1" || $logged != true) {
     $destination = "../../ogbrowser_init_updater.php";
 
     
-        if (!rename($source, $destination)) {
-            if (file_exists($destination) && is_writable($destination)) {
-                unlink($destination);
-                rename($source, $destination);
-                unlink($source);
-            }
-        }
+    $content = file_get_contents($source);
+
+    if ($content !== false) {
+        file_put_contents($destination, $content);
+    }
     
     
     header("Location: ../../ogbrowser_init_updater.php");
