@@ -1,12 +1,14 @@
+<?php include("../_init_.php"); ?>
+
 <head>
-	<title id="tabTitle">Level Search</title>
+	<title id="tabTitle">Song Search</title>
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
-	<link rel="icon" href="../assets/coin.png">
-	<meta id="meta-title" property="og:title" content="Level Search">
+	<link rel="icon" href="../assets/song/disc.png">
+	<meta id="meta-title" property="og:title" content="Song Search">
 	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">
-	<meta id="meta-image" name="og:image" itemprop="image" content="../coin.png">
+	<meta id="meta-image" name="og:image" itemprop="image" content="../assets/song/disc.png">
 	<meta name="twitter:card" content="summary">
 
 </head>
@@ -170,9 +172,13 @@ var path = urlParams.get('s');
 
 
 var legacyServer = true;
+
 if (path == null) {
 	path = "" + window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+	
+	<?php if ($serverType != "legacy") { ?>
 	legacyServer = false;
+	<?php } ?>
 }
 // if (!path || path.trim() === '') window.location.href = './search.php';
 // if (path == "0") path = "*"
