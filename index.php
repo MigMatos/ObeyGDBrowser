@@ -213,17 +213,40 @@ function darknessPage(){
     overlay.style.backgroundColor = 'black';
     overlay.style.opacity = '0';
     overlay.style.transition = 'opacity 0.3s ease-in-out';
-    overlay.style.pointerEvents = 'none'; // Para evitar que capture los clics
+    overlay.style.pointerEvents = 'none';
     document.body.appendChild(overlay);
 	setTimeout(function () {
     	overlay.style.opacity = '1';
 	}, 100);  
 }
 
+// Check if page is cached (SAFARI ISSUE)
+window.onpageshow = function(event) {
+    if (event.persisted) {
+		let overlayCache = document.getElementById("overlay");
+        overlayCache.style.opacity = '0';
+    }
+};
+
+function getAbsoluteUrl(relativeUrl) {
+	if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://')) {
+        return relativeUrl;
+    }
+   	// const baseUrl = window.location.origin; 
+    return new URL(relativeUrl, window.location.href).href; 
+}
+
 
 function urlRedirect(url) {
 	const event = new Event('initLoadingAlert');
     document.dispatchEvent(event);
+
+	url = getAbsoluteUrl(url)
+	
+	if (window.location.protocol === 'https:') { 
+		url = url.replace('http:', 'https:')
+	}
+
 
 	fetch(url, { method: 'HEAD' })
     .then(response => {
@@ -235,7 +258,7 @@ function urlRedirect(url) {
             	window.location.href = url;
 			}, 500);
         } else {
-			changeLoadingAlert(`Website error: ${response.status}`)
+			changeLoadingAlert(`Browser error code: ${response.status}`)
 			setTimeout(function () {
 				const event = new Event('finishLoadingAlert');
 				document.dispatchEvent(event);
@@ -243,15 +266,26 @@ function urlRedirect(url) {
         }
     })
     .catch(error => {
-		changeLoadingAlert(`Website fatal error: ${error}`);
-		setTimeout(function () {
-				const event = new Event('finishLoadingAlert');
-				document.dispatchEvent(event);
-		}, 500);
+		if (window.location.protocol === 'https:' && error == "TypeError: Failed to fetch") { //FALSE HTTPS 
+			changeLoadingAlert(`Warning: Redirecting with HTTP due Web host errors`);
+			darknessPage();
+			setTimeout(function () {
+					const event = new Event('finishLoadingAlert');
+					document.dispatchEvent(event);
+					setTimeout(function () {
+						url = url.replace('https:', 'http:')
+						window.location.href = url;
+					}, 500);
+			}, 500);
+		} else {
+			changeLoadingAlert(`Browser fatal error`);
+			setTimeout(function () {
+					const event = new Event('finishLoadingAlert');
+					document.dispatchEvent(event);
+					CreateFLAlert("Fatal error in browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B) \n\n Log Error: `"+error+"`");
+			}, 500);
+		}
     });
-
-
-    //if (url) window.location.href = url;
 }
 
 function profileRedirect(url) {

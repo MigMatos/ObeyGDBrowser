@@ -147,7 +147,7 @@
         </label>
 
         <label for="legacy">
-            <input type="radio" id="server_software-legacy" name="server_software" value="nginx">
+            <input type="radio" id="server_software-legacy" name="server_software" value="legacy">
             Legacy (Compatible with most host servers)
         </label>
 

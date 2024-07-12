@@ -7,8 +7,8 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
 	<link rel="icon" href="../assets/song/disc.png">
 	<meta id="meta-title" property="og:title" content="Song Search">
-	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">
-	<meta id="meta-image" name="og:image" itemprop="image" content="../assets/song/disc.png">
+	<meta id="meta-desc" property="og:description" content="Find songs to use in your levels!">
+	<meta id="meta-image" name="og:image" itemprop="image" content="https://cdn.obeygdbot.xyz/icons/disc.png">
 	<meta name="twitter:card" content="summary">
 
 </head>
@@ -160,9 +160,6 @@
 
 $('#pageDown').hide()
 $('#pageUp').hide()
-
-
-
 
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
@@ -350,11 +347,11 @@ if (true) {
 }
 
 if (!$('#header').text()) {
-	if (path != "*") {
+	if (path != "") {
 		$('#header').text(decodeURIComponent(path))
-		$('#tabTitle').text(decodeURIComponent(path) + " - Level Search")
+		$('#tabTitle').text(decodeURIComponent(path) + " - Song Search")
 	} else
-		$('#header').text("Online Levels")
+		$('#header').text("Song Search")
 }
 
 
