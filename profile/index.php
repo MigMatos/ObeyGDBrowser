@@ -6,7 +6,7 @@ include("../api/profile.php");
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
 $url = $_SERVER['REQUEST_URI'];
 $url_parts = parse_url($url);
-$path = dirname($url_parts['path'],$levels = 1);
+$path = dirname($url_parts['path'],$levels = 2);
 
 $id = 0;
 $returnmsg = "";
@@ -29,7 +29,6 @@ $html = file_get_contents('./t.html');
 
 
 $response = profileUsers($params, $db, $gdps_settings);
-
 
 $data = json_decode($response, true);
 
