@@ -13,9 +13,12 @@
 	<!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php
+		
+		include("./assets/htmlext/flayeralert.php");
+		include("./assets/htmlext/loadingalert.php");
 
-    	echo file_get_contents("./assets/htmlext/flayeralert.html");
-		echo file_get_contents("./assets/htmlext/loadingalert.html");
+    	// echo file_get_contents("./assets/htmlext/flayeralert.php");
+		// echo file_get_contents("./assets/htmlext/loadingalert.php");
 
 		//$context = stream_context_create(array('http' => array('timeout'=>2)));
         //echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html", false, $context);
@@ -105,7 +108,7 @@
 						<td style="display: block" id="menu_weekly"><a tabindex="1" onclick="levelRedirect('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
 						<?php } ?>
 						
-						<td><a tabindex="1" onclick="urlRedirect('./songs')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs"></a></td>
 
 						<!-- <td><a tabindex="1" href="./gauntlets"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td> -->
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->

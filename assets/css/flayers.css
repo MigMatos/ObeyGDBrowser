@@ -87,7 +87,7 @@
 .gdbtn-close {
     background: none;
     border: none;
-    background-image: url("../ok.png");
+    background-image: url("../icons/ok.png");
     background-size: 100% 100%;
     padding: 10px 20px;
     width: 90px;
@@ -97,11 +97,11 @@
 }
 
 .gdbtn-close.fancy-0,.gdbtn-close.brown-0 {
-  background-image: url("../ok.png");
+  background-image: url("../icons/ok.png");
 }
 
 .gdbtn-close.fancy-1,.gdbtn-close.brown-1 {
-  background-image: url("../close.png");
+  background-image: url("../icons/close.png");
   position: fixed;
   display: flex;
   /* transform: translate(60%, -200%); */
@@ -167,12 +167,12 @@
 }
 
 .gdalert.fancy-box {
-  border-image: url("../fancybox.png") 13% round;
+  border-image: url("../icons/fancybox.png") 13% round;
   background-color: rgb(0,25,49);
 }
 
 .gdalert.brown-box {
-  border-image: url("../brownbox.png") 13% round;
+  border-image: url("../icons/brownbox.png") 13% round;
   background-color: #995533;
   max-width: 900px;
   width: 800px;

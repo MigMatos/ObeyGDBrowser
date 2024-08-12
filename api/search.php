@@ -107,9 +107,14 @@ function searchLevels($params, $db, $gdps_settings) {
             } elseif ($key == 'noStar') {
                 if ($value == '1') {$paramsSql[] = "starStars = 0";}
                 else if ($value == '0') {$paramsSql[] = "NOT starStars = 0";}
-            } elseif ($key == 'customSong' && is_numeric($value)) {
-                $paramsSql[] = "songIDs = ?";
-                $bindings[] = $value;
+            } elseif ($key == 'songID' && is_numeric($value)) {
+                if(isset($params['customSong'])){
+                    $paramsSql[] = "songID = ?";
+                    $bindings[] = $value;
+                } else {
+                    $paramsSql[] = "audioTrack = ?";
+                    $bindings[] = $value;
+                }
             } elseif ($key == 'user' && is_numeric($value)) {
                 $paramsSql[] = "userID = ?";
                 $bindings[] = $value;

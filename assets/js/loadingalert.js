@@ -23,7 +23,8 @@ document.addEventListener('initLoadingAlert', function() {
     const alert = document.getElementById('loading-alert-buttom-display')
     alert.style.display = "flex";
     if (alert.classList.contains("hidden")){alert.classList.remove("hidden");};
-    document.getElementById('loading-alert-buttom-display-text').textContent = "Loading...";
+    changeLoadingAlert();
+    //document.getElementById('loading-alert-buttom-display-text').textContent = "Loading...";
 });
 
 document.addEventListener('finishLoadingAlert', function() {
@@ -40,7 +41,19 @@ document.addEventListener('finishLoadingAlert', function() {
  * 
  * **WARNING:** Text content is removed when `finishLoadingAlert` is dispatched.
  * @param Message - The message to be displayed in the loading alert.
+ * @param Status - The icon to be displayed in the loading alert, actually only have "load","done","error".
  */
-function changeLoadingAlert(Message) {
+function changeLoadingAlert(Message = "Loading...",Status = "load") {
     document.getElementById('loading-alert-buttom-display-text').textContent = Message;
+    let IconAlert = document.getElementById('alert-buttom-icon');
+    if(Status == "load"){
+        IconAlert.src = "https://cdn.obeygdbot.xyz/icons/loading.png";
+        IconAlert.className = Status;
+    } else if (Status == "done" || Status == "error") {
+        IconAlert.className = Status;
+        if (Status == "done") IconAlert.src = "https://cdn.obeygdbot.xyz/icons/sucess.png";
+        else IconAlert.src = "https://cdn.obeygdbot.xyz/icons/failed.png";
+    } else {
+        console.log(`Error in changeLoadingAlert(): Status "${Status}" no found.`);
+    }
 }

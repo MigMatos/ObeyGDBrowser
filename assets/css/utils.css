@@ -118,7 +118,7 @@ body code {
 
 /* Buttons */
 
-.gdButton {
+.gdsButton {
     background: linear-gradient(to bottom right, #c7fc57, #47a20d);
     
     background-size: auto;
@@ -134,33 +134,35 @@ body code {
     cursor: pointer;
     margin: 5px 0px 5px 0px;
     transition: all 0.3s;
+    filter: none;
 }
 
-.gdButton > label {
+.gdsButton > label {
     pointer-events: none;
 }
 
-.gdButton[disabled] {
+.gdsButton[disabled] {
     background: linear-gradient(to bottom, #bdc3c7, #95a5a6); 
     cursor: not-allowed; 
+    filter: grayscale(1);
 }
 
-.gdButton[readonly] {
+.gdsButton[readonly] {
     pointer-events: none;
 }
 
-.gdButton:hover,.gdButton[readonly]:hover {
+.gdsButton:hover,.gdsButton[readonly]:hover {
     transform: scale(1.05);
 }
 
 /* Checkboxs */
 
-.gdCheckboxItems {
+.gdsCheckboxItems {
     display: flex;
     align-items: center;
 }
 
-.gdCheckboxItems > .gdfont-Pusab {
+.gdsCheckboxItems > .gdfont-Pusab {
     margin-left: 5px;
     margin-right: 0;
 } 
@@ -173,18 +175,18 @@ body code {
   cursor: pointer;
 }
 
-.gdCheckbox {
+.gdsCheckbox {
     display: none;
 }
 
-.gdCheckbox + .checkbutton-container {
+.gdsCheckbox + .checkbutton-container {
   background-image: url('https://cdn.obeygdbot.xyz/icons/check_00.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.gdCheckbox:checked + .checkbutton-container {
+.gdsCheckbox:checked + .checkbutton-container {
   background-image: url('https://cdn.obeygdbot.xyz/icons/check_01.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -193,7 +195,7 @@ body code {
 
 /* Inputs */
 
-.gdInput {
+.gdsInput {
     display: block;
     width: 100%;
     padding: 0.375rem 0.75rem;
@@ -208,7 +210,7 @@ body code {
     border-radius: 0.25rem;
 }
 
-.gdInput.select {
+.gdsInput.select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -216,7 +218,7 @@ body code {
     overflow-y: hidden;
 }
 
-.gdInput.select option:checked {
+.gdsInput.select option:checked {
     display: inline-block;
     color: white;
     background-color: transparent;
@@ -225,14 +227,22 @@ body code {
     margin-bottom: 5px;
 }
 
-.gdInput.select option {
+.gdsInput.select option {
     display: none;
 }
 
 
-input[type="text"].gdInput:read-only, input[type="number"].gdInput:read-only {
+input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     border: 2.5px solid rgb(126, 126, 126);
     cursor:not-allowed;
 }
 
 
+/* MUSIC */
+
+.gdMusicDisc {
+    width: 150px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 150px; /* Asegúrate de que el ancho y el alto sean iguales para mantener la forma circular */
+    border-radius: 50%;
+    object-fit: cover; /* Ajusta la imagen dentro del contenedor sin distorsionarla */
+  }

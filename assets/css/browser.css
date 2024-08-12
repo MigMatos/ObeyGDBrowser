@@ -60,6 +60,28 @@ body {
     background-image: linear-gradient(#6E00FD, #330074) !important;
 }
 
+
+.dAlbum,.dAlbum[custom="0"] {
+    border: 6.5px solid transparent;
+}
+
+.dAlbum[custom="1"] {
+    border: 6.5px solid white;
+}
+
+.dAlbum[custom="3"] {
+    border: 5.5px solid white;
+    border-radius: 50%;
+}
+
+.dAlbum[cover="0"] {
+    filter: brightness(0);
+}
+
+.dAlbum[cover="1"] {
+    filter: none;
+}
+
 img, .noSelect {
     user-select: none;
 }
@@ -383,6 +405,42 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border-image: url('../../assets/bluebox.png') 10% round;
 }
 
+.purpleBox {
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: #502d7b;
+    border-image: url('../../assets/purplebox.png') 10% round;
+}
+
+.greenBox {
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: #25a745;
+    border-image: url('../../assets/greenbox.png') 10% round;
+}
+
+.grayBox {
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: #545454;
+    border-image: url('../../assets/graybox.png') 10% round;
+}
+
+.whiteBox {
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: #c8c8c8;
+    border-image: url('../../assets/whitebox.png') 10% round;
+}
+
+.invisibleBox {
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: transparent;
+    border-image: url('../../assets/transparentbox.png') 10% round;
+    white-space: nowrap;
+}
+
 .fancybox {
     width: 69vh;
     padding: 1vh 3vh;
@@ -645,6 +703,39 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
    top: 2.45%; 
    width: 100%;
    margin-left: -13.5vh
+}
+
+
+
+#scoreCustomTabs {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    width: 100%;
+    margin-left: -60.5vh;
+    top: 2.8%;
+    left: 50%;
+    align-items: center;
+    -webkit-user-drag: none;
+}
+
+.leaderboardCustomTab {
+    padding: 0px 2.5vh 2vh 2.5vh;
+    margin-left: 2vh;
+    cursor:pointer;
+}
+
+.leaderboardCustomTab[activetab="off"] {
+    background-color: #995522;
+}
+
+.leaderboardCustomTab[activetab="on"] {
+    background-color: #99dd22;
+}
+
+.leaderboardCustomTab[activetab="disabled"] {
+    background-color: #727272;
+    cursor: not-allowed;
 }
 
 #searchBox {

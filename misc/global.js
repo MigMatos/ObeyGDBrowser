@@ -37,7 +37,7 @@ function backButton() {
 let onePointNine = false
 
 function Fetch(link) {
-	
+	console.log(link)
 	return new Promise(function (res, rej) {
 		fetch(link).then(resp => {
 			if (!resp.ok) return rej(resp)

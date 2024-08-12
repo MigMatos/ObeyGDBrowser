@@ -42,21 +42,23 @@
     pointer-events: none;
 }
 
-.loading-alert-buttom-display > .rotating-loadermain-image {
+.loading-alert-buttom-display > .alert-loadermain-image {
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
 }
 
-.loading-alert-buttom-display > .rotating-loadermain-image img {
+.loading-alert-buttom-display > .alert-loadermain-image > .load,.done,.error {
     height: clamp(25px, 2vw, 300px);
     width: auto;
-    animation: rotate 1.5s linear infinite;
-    
 }
 
-.loading-alert-buttom-display > .rotating-loadermain-image p {
+.alert-loadermain-image > .load {
+    animation: rotate 1.5s linear infinite;
+}
+
+.loading-alert-buttom-display > .alert-loadermain-image p {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;

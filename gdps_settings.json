@@ -44,7 +44,7 @@
     "gdbrowser_desc": "Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!",
     "gdbrowser_assets_full_url": "https://gdbrowser.com/assets/",
     "show_level_passwords": 1,
-    "server_software": "automatic",
+    "server_software": "legacy",
     "gdps_logo_url": "assets/gdlogo.png",
     "gdps_level_browser_logo_url": "assets/browser.png",
     "disable_colored_texture_level_browser": 1,

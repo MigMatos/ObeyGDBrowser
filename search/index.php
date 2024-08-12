@@ -167,6 +167,7 @@ let demons = []
 let demonMode = false
 let customSong = true
 let officialSong = 1
+let serverType = "<?php print_r($serverType); ?>"
 
 function undupe(array) {
   if (!Array.isArray(array)) return array
@@ -177,15 +178,10 @@ $('#userSearch').click(function() {
 
 	var query = "";
 
-	<?php if ($serverType != "legacy") { ?>
-
-	query = "../../profile/" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
-
-	<?php } else { ?>
-	
-	query = "../../profile/?u=" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
-
-	<?php } ?>
+	if (serverType != "legacy") {
+		query = "../../profile/" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+	} else {
+		query = "../../profile/?u=" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") }
 	// let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
 	if (query) window.location.href = "./u/" + query
 })
@@ -194,15 +190,11 @@ $('.levelSearch').click(function() {
 
 	var url = "";
 
-	<?php if ($serverType != "legacy") { ?>
-
-	url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
-
-	<?php } else { ?>
-
-	url = "../search/search.html?s=" + (encodeURIComponent($('#levelName').val()) || "0")
-
-	<?php } ?>
+	if (serverType != "legacy") {
+		url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
+	} else {
+		url = "../search/search.html?s=" + (encodeURIComponent($('#levelName').val()) || "0") + "&filter=" + $(this).attr('search')
+	}
 
 	if ($(this).attr('search') == "featured") return window.location.href = url
 	// else if ($(this).attr('search') != "0") {
@@ -240,8 +232,12 @@ $('.levelSearch').click(function() {
 
 	// === FINISHING UP === //
 
-	if (url.endsWith('?filter=0')) url = url.slice(0, -7)
-	window.location.href = url.replace(/\?filter=0&/, "?")
+	if (url.endsWith('filter=0')) url = url.slice(0, -9)
+	if (serverType != "legacy") {
+		window.location.href = url.replace(/\?filter=0&/, "")
+	} else {
+		window.location.href = url.replace(/\&filter=0&/, "&")
+	}
 
 })
 
