@@ -1,5 +1,6 @@
 
 // Función para cambiar el texto de los elementos con parámetros
+let FLIDSelect = null;
 
 function CreateFLSelector(selectId, title = "", maxOptions = 2, desc = "") {
     CreateFLAlert(title, desc, selectId, maxOptions); // Llama a CreateFLAlert con el ID del select como parámetro
@@ -9,7 +10,6 @@ function CreateFLSelector(selectId, title = "", maxOptions = 2, desc = "") {
 function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
     const titleElement = document.getElementById('fllayertitle-fancy');
     const descElement = document.getElementById('fllayerdesc-fancy');
-
     if (titleElement && descElement) {
         titleElement.textContent = title;
         descElement.innerHTML = sanitizerCode(processHTMLContent(desc));
@@ -20,6 +20,7 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
     }
 
     if (idObject) {
+        FLIDSelect = idObject;
         const selectElement = document.getElementById(idObject);
         const optionsContainer = document.getElementById('options-fl-layer-fancy');
         if (selectElement && optionsContainer) {
@@ -31,10 +32,10 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
 
             options.map(option => {
                 const div = document.createElement('div'); // Crear un div contenedor
-                div.classList.add('gdCheckboxItems'); // Agregar la clase gdCheckboxItems
+                div.classList.add('gdsCheckboxItems'); // Agregar la clase gdCheckboxItems
 
                 const checkbox = document.createElement('input');
-                checkbox.classList.add('gdCheckbox'); // Agregar la clase gdCheckbox
+                checkbox.classList.add('gdsCheckbox'); // Agregar la clase gdCheckbox
                 checkbox.type = 'checkbox';
                 checkbox.id = `customsong${option.value}`; // Establecer el ID del checkbox
                 checkbox.value = option.value; // Establecer el valor del checkbox igual al valor del option
@@ -62,10 +63,10 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
                 checkbox.addEventListener('change', function() {
                     
                     if (!isMultiple) {
-                        const checkboxes = Array.from(optionsContainer.querySelectorAll('.gdCheckbox'));
+                        const checkboxes = Array.from(optionsContainer.querySelectorAll('.gdsCheckbox'));
                         checkboxes.map( chk => { if (chk !== this && chk.checked) {chk.checked = false;} });
                     } else {
-                        const checkedArray = Array.from(optionsContainer.querySelectorAll('.gdCheckbox')).map(chk => chk.checked);
+                        const checkedArray = Array.from(optionsContainer.querySelectorAll('.gdsCheckbox')).map(chk => chk.checked);
                         optionsChecked = checkedArray.filter(checked => checked).length;
                     }
 
@@ -117,6 +118,7 @@ document.getElementById("gdclose-fancy-btn").addEventListener("click", function(
     document.querySelector(".fancy-box").style.transform = "scale(0)";
     document.getElementById('options-fl-layer-fancy').innerHTML = "";
     document.dispatchEvent(new Event('FLlayerclosed'));
+    FLIDSelect = null;
 });
 
 document.getElementById("gdclose-brown-btn").addEventListener("click", function() {
@@ -124,6 +126,7 @@ document.getElementById("gdclose-brown-btn").addEventListener("click", function(
     document.querySelector(".brown-box").style.transform = "scale(0)";
     document.getElementById("fllayeriframe-brown").src = "";
     document.dispatchEvent(new Event('FLlayerclosed'));
+    FLIDSelect = null;
 });
 
 document.getElementById("fllayeriframe-brown").onload = function() {

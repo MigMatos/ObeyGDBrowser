@@ -147,6 +147,10 @@ body code {
     filter: grayscale(1);
 }
 
+.noclick {
+    pointer-events: none;
+}
+
 .gdsButton[readonly] {
     pointer-events: none;
 }
@@ -180,14 +184,14 @@ body code {
 }
 
 .gdsCheckbox + .checkbutton-container {
-  background-image: url('https://cdn.obeygdbot.xyz/icons/check_00.png');
+  background-image: url('../../assets/check-off.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .gdsCheckbox:checked + .checkbutton-container {
-  background-image: url('https://cdn.obeygdbot.xyz/icons/check_01.png');
+  background-image: url('../../assets/check-on.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
