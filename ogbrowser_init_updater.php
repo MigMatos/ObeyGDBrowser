@@ -1,5 +1,7 @@
 <?php
 
+$error_installer = false;
+
 if (file_exists("./browser/_init_.php")) {
     include("./browser/_init_.php");
 } else {
@@ -7,6 +9,7 @@ if (file_exists("./browser/_init_.php")) {
     if (file_exists("./ogdbrowser_sourcecode.zip")) {
         $isAdmin = 1;
         $logged = true;
+        $error_installer = true;
         unlink("./ogdbrowser_sourcecode.zip");
 
     } else {
@@ -125,25 +128,21 @@ $owner = 'MigMatos';
 $repo = 'ObeyGDBrowser';
 
 $folder_browser = "browser/";
-
-$latestTagVersion = getLatestReleaseUrl($owner, $repo);
-
-
 $version_file_path = "./" . $folder_browser . 'update/version.txt';
 $current_version = trim(file_get_contents($version_file_path));
+$latestTagVersion = "0";
+
+if ($error_installer || !isset($_POST["lru"]) ) {
+    $latestTagVersion = getLatestReleaseUrl($owner, $repo);
+    $latestReleaseUrl = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/" . $latestTagVersion; /* Download from Github */
+} else {
+
+}
+
 if ($current_version == $latestTagVersion) {
-    header("Location: ./".$folder_browser."?alert=lasted"); 
+    header("Location: ./" . $folder_browser . "?alert=lasted");
     exit();
-};
-
-/*
-
-    Download from Github
-
-*/
-
-$latestReleaseUrl = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/" . $latestTagVersion;
-
+}
 rmdir_recursive("./" . $folder_browser); //Deleting actually version without configuration file!
 $dir = downloadAndExtractRepo("./" . "browser", $latestReleaseUrl);
 if($dir === -1 || $dir === -2){

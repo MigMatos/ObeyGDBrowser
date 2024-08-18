@@ -107,9 +107,12 @@ s
 const progressInfo = document.getElementById('progress-info');
 document.addEventListener('DOMContentLoaded', function() { 
 	const branchSelected = sessionStorage.getItem('branchSelected') || 0;
+	document.getElementById("updateType").selectedIndex = branchSelected;
 	fetchUpdate(branchSelected);
 	document.addEventListener('FLlayerclosed', function() {
 		const selectedValue = document.getElementById(FLIDSelect).value;
+		if (selectedValue == 1) CreateFLAlert("Warning","Pre-release updates may **contain beta or alpha updates**.\n\n\n- `a0 Beta:` is a version with new features and some bugs.\n- `r0 Alpha:` is an early-stage version with new, incomplete features and bugs.")
+		else if (selectedValue == 2) CreateFLAlert("Warning","Unstable updates are **usually unstable, incomplete and unsafe**, these are `r0 not recommended` and their use is mostly for developers.")
 		fetchUpdate(selectedValue);
 	});
 });
@@ -141,10 +144,9 @@ async function fetchGithubVersion(owner, repo, branchType) {
         } 
 
         if (branchType === 'master') {
-            // Obtener la versión de la rama master
             const masterResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/master`);
             const masterData = await masterResponse.json();
-            masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-master"; // Obtener los primeros 10 caracteres del SHA del commit
+            masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-master"; 
             masterData.zipball_url = `https://github.com/${owner}/${repo}/archive/refs/heads/master.zip`;
 			masterData.body = null;
 			const latestDate = new Date(masterData.commit.commit.committer.date)
@@ -163,7 +165,7 @@ async function fetchGithubVersion(owner, repo, branchType) {
             // Obtener la última versión estable
             const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
             const latestData = await latestResponse.json();
-            const latestVersion = latestData.tag_name; // Eliminar la "v" inicial si existe
+            const latestVersion = latestData.tag_name; 
             const latestDate = new Date(latestData.created_at);
 
             if (latestVersion !== currentVersion || isNewerThan(latestDate, currentDate)) {
@@ -177,11 +179,8 @@ async function fetchGithubVersion(owner, repo, branchType) {
                 return null;
             }
         } else if (branchType === 'prerelease') {
-            // Obtener todas las versiones de release
             const releaseResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases`);
             const releases = await releaseResponse.json();
-
-            // Encontrar el primer prerelease que sea diferente a la versión actual y con una fecha más reciente
             const prerelease = releases.find(release => 
                 release.prerelease && 
                 (release.tag_name.replace(/^v/, '') !== currentVersion || 
@@ -207,14 +206,14 @@ async function fetchGithubVersion(owner, repo, branchType) {
     }
 }
 
-
+let lru_branch = null;
 
 function fetchUpdate(branch) {
 	sessionStorage.setItem('branchSelected', branch);
 
 	progressInfo.textContent = "Fetching version..."
 	if(branch == 0) branch = "latest"
-	else if(branch == 1) branch = "prerelease"
+	else if(branch == 1) branch = "prerelease";
 	else if(branch == 2) branch = "master"
 	else branch = "latest"
 
@@ -228,6 +227,7 @@ function fetchUpdate(branch) {
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
 				return;
 			}
+			
 			progressInfo.textContent = "Loading version information..."
 			document.getElementById('last-version').textContent = result.data.tag_name;
 			progressInfo.textContent = "New update available!";
@@ -236,8 +236,11 @@ function fetchUpdate(branch) {
 			} else {
 				document.getElementById('body-github').innerHTML = "(without description)"
 			}
-			document.getElementById('buttonUpdate').removeAttribute('disabled');
-			document.getElementById('buttonUpdate').removeAttribute('readonly');
+			lru_branch = result.data.zipball_url;
+			if(lru_branch) {
+				document.getElementById('buttonUpdate').removeAttribute('disabled');
+				document.getElementById('buttonUpdate').removeAttribute('readonly');
+			}
 		});
 }
 
@@ -249,24 +252,54 @@ function updateOGDWCore(){
 	progressInfo.textContent = "Initializing updater...";
 	document.getElementById('div-progress-bar').style.display = "flex";
 	document.getElementById('progress-rotate').classList.add("spin");
-	testClipPathAnimation();
+	pollingInterval = setInterval(pollServer, 500);
+	// let xhr = new XMLHttpRequest();
+	// xhr.open('POST', '../../ogbrowser_init_updater.php', true);
+	// xhr.withCredentials = true;
+	// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
 }
 
-updateOGDWCore();
+function pollingServer() {
+    fetch('../../ogbrowser_init_updater.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `lru=${lru_branch}`,
+        credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(text => {
+        console.log('Respuesta del servidor:', text);
+        document.getElementById('resultado').textContent += text + '\n';
 
-function testClipPathAnimation() {
-    let percentage = 0;
-	
-    function incrementPercentage() {
-        if (percentage <= 100) {
-            progressBarPercentage(percentage);
-            percentage++;
-            setTimeout(incrementPercentage, 50); // Ajusta el retardo para controlar la velocidad (50ms)
+        // Verificar si el procesamiento está completo
+        if (text.includes('FINISHIED...')) {
+            clearInterval(pollingInterval); // Detener el polling
         }
-    }
-
-    incrementPercentage();
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        clearInterval(pollingInterval); // Detener el polling en caso de error
+    });
 }
+
+// updateOGDWCore();
+
+// function testClipPathAnimation() {
+//     let percentage = 0;
+	
+//     function incrementPercentage() {
+//         if (percentage <= 100) {
+//             progressBarPercentage(percentage);
+//             percentage++;
+//             setTimeout(incrementPercentage, 50); // Ajusta el retardo para controlar la velocidad (50ms)
+//         }
+//     }
+
+//     incrementPercentage();
+// }
 
 
 
