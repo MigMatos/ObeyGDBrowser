@@ -87,47 +87,95 @@ class OGDBrowserUpdater
         $this->updateLogger("Repo extracted to: " . $this->updateDir, $this->progressPercentage);
     }
 
+     /** ---------------------------------------------- **/
+      /** ---------------------------------------------- **/
+       /** ---------------------------------------------- **/
+        /** ---------------------------------------------- **/
+
+
     private function compareDirectories()
     {
+        $fileInfo = [];
+    
+        // Iterar sobre los archivos en $updateDir
         $updateIterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($this->updateDir, RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::SELF_FIRST
         );
-
-        $fileInfo = [];
-
+    
         foreach ($updateIterator as $updateFile) {
             $relativePath = str_replace('\\', '/', substr($updateFile->getPathname(), strlen($this->updateDir) + 1));
-            $relativePath = str_replace('\\', '/', str_replace($this->updateDir, $this->targetDir, $updateFile->getPathname()) );
-
+            
             if ($this->shouldIgnore($relativePath)) {
-                $this->updateLogger("Ignorating file to update: " . $relativePath, $this->progressPercentage);
                 continue;
             }
-
-            $updatePath = str_replace($this->targetDir, $this->updateDir, $relativePath);
-            $isDeleted = !file_exists($updatePath);
-            $status = $isDeleted ? 'Deleted' : 'Present';
-
+    
+            $targetPath = $this->targetDir . '/' . $relativePath;
+            $isDeleted = !file_exists($targetPath);
+            
             $isInAssets = str_starts_with($relativePath, 'assets/');
-
-            if (true) {
+            $isInOverwriteableSubfolders = preg_match('#^assets/(css|js|htmlext)/#', $relativePath);
+    
+            // Manejo especial para assets (si es un archivo nuevo y no está en subcarpetas especiales, agregar)
+            if ($isInAssets && (!str_contains($targetPath, 'css/') && !str_contains($targetPath, 'js/') && !str_contains($targetPath, 'htmlext/')) ) {
+                if ($isDeleted) {
+                    $fileInfo[] = [
+                        'targetPath' => str_replace('\\', '/', $targetPath),
+                        'updatePath' => str_replace('\\', '/', $updateFile->getPathname()),
+                        'deleted' => false,
+                        'isDir' => $updateFile->isDir()
+                    ];
+                    $this->updateLogger("Present in new version (update-assets): " . str_replace('\\', '/', $relativePath) . " (" . ($updateFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage);
+                }
+            } else {
                 $fileInfo[] = [
-                    'targetPath' => str_replace('\\', '/', $relativePath),
-                    'updatePath' => str_replace('\\', '/', $updatePath),
-                    'deleted' => $isDeleted,
+                    'targetPath' => str_replace('\\', '/', $targetPath),
+                    'updatePath' => str_replace('\\', '/', $updateFile->getPathname()),
+                    'deleted' => false,
                     'isDir' => $updateFile->isDir()
                 ];
+                $this->updateLogger("Present in new version (update): " . str_replace('\\', '/', $relativePath) . " (" . ($updateFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage);
             }
-
-            
-            $this->updateLogger($status . " in new version: " . str_replace('\\', '/', $targetFile->getPathname()) . " (" . ($targetFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage);
-
             flush();
         }
 
+        $targetIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->targetDir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+    
+        foreach ($targetIterator as $targetFile) {
+            $relativePath = str_replace('\\', '/', substr($targetFile->getPathname(), strlen($this->targetDir) + 1));
+            
+            if ($this->shouldIgnore($relativePath)) {
+                continue;
+            }
+    
+            $updatePath = $this->updateDir . '/' . $relativePath;
+            $isDeleted = !file_exists($updatePath);
+            
+            if ($isDeleted) {
+                $fileInfo[] = [
+                    'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
+                    'updatePath' => str_replace('\\', '/', $updatePath),
+                    'deleted' => true,
+                    'isDir' => $targetFile->isDir()
+                ];
+    
+                $status = 'Deleted';
+                $this->updateLogger($status . " in new version (target): " . str_replace('\\', '/', $relativePath) . " (" . ($targetFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage);
+                flush();
+            }
+        }
+    
         return json_encode($fileInfo, JSON_PRETTY_PRINT);
     }
+
+    /** ---------------------------------------------- **/
+     /** ---------------------------------------------- **/
+      /** ---------------------------------------------- **/
+       /** ---------------------------------------------- **/
+        /** ---------------------------------------------- **/
 
     private function updateFiles($json)
     {
@@ -206,11 +254,19 @@ class OGDBrowserUpdater
             return true;
         }
 
-        if (str_starts_with($relativePath, 'customfiles/')) {
+        if (str_starts_with($relativePath, '.github')) {
             return true;
         }
 
-        if (str_starts_with($relativePath, $this->updateDir)) {
+        if (str_starts_with($relativePath, 'customfiles')) {
+            return true;
+        }
+
+        if (str_starts_with($relativePath, '.gitignore')) {
+            return true;
+        }
+
+        if (str_starts_with($relativePath, str_replace($this->targetDir . '/', '', $this->updateDir) )) {
             return true;
         }
 
