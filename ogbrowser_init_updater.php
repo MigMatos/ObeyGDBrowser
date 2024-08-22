@@ -83,7 +83,7 @@ class OGDBrowserUpdater
             exit(401);
         }
 
-        $this->updateDir = $this->targetDir . "/" . $updateDir;
+        $this->updateDir = $this->targetDir . "/" . rtrim($updateDir, '/');
         $this->updateLogger("Repo extracted to: " . $this->updateDir, $this->progressPercentage);
     }
 
@@ -109,15 +109,7 @@ class OGDBrowserUpdater
 
             $isInAssets = str_starts_with($relativePath, 'assets/');
 
-            if (!$isDeleted && !file_exists($targetFile->getPathname()) && $isInAssets) {
-                
-                    $fileInfo[] = [
-                        'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
-                        'updatePath' => str_replace('\\', '/', $updatePath),
-                        'deleted' => $isDeleted,
-                        'isDir' => $targetFile->isDir()
-                    ];
-            } else {
+            if (true) {
                 $fileInfo[] = [
                     'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
                     'updatePath' => str_replace('\\', '/', $updatePath),
@@ -125,7 +117,7 @@ class OGDBrowserUpdater
                     'isDir' => $targetFile->isDir()
                 ];
             }
-            
+
             $status = $isDeleted ? 'Deleted' : 'Present';
             $this->updateLogger($status . " in new version: " . str_replace('\\', '/', $targetFile->getPathname()) . " (" . ($targetFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage + ($processedFiles / $totalFiles * 20));
 
