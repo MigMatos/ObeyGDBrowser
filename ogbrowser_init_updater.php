@@ -107,11 +107,9 @@ class OGDBrowserUpdater
             $isDeleted = !file_exists($updatePath);
 
             $isInAssets = str_starts_with($relativePath, 'assets/');
-            // $isInOverwriteableSubfolders = preg_match('#^assets/(css|js|htmlext)/#', $relativePath);
-            $isInOverwriteableSubfolders = ["assets/css/", "assets/js/", "assets/htmlext/"];
 
-            if ($isInAssets && !$isInOverwriteableSubfolders) {
-                if (!$isDeleted && !( str_starts_with($relativePath, 'assets/css/') || str_starts_with($relativePath, 'assets/js/') || str_starts_with($relativePath, 'assets/htmlext/') )) {
+            if ($isInAssets && !( str_starts_with($relativePath, 'assets/css/') || str_starts_with($relativePath, 'assets/js/') || str_starts_with($relativePath, 'assets/htmlext/') ) ) {
+                if (!$isDeleted && !file_exists($targetFile->getPathname())) {
                     $fileInfo[] = [
                         'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
                         'updatePath' => str_replace('\\', '/', $updatePath),
