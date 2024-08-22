@@ -286,13 +286,13 @@ class OGDBrowserUpdater
 
 
     private function cleanFullLogger() {
-        file_put_contents($this->fileFullLog, strval(""));
+        file_put_contents($this->fileFullLog, strval("."));
     }
 
     private function updateLogger($data, $percentage)
     {
         file_put_contents($this->fileLogger, strval($data . "|" . $percentage));
-        file_put_contents($this->fileFullLog, strval($data . "|" . $percentage) . PHP_EOL, FILE_APPEND);
+        file_put_contents($this->fileFullLog, strval($data) . PHP_EOL, FILE_APPEND);
         echo $data . PHP_EOL;
         flush();
     }
