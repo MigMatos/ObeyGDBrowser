@@ -96,6 +96,7 @@ class OGDBrowserUpdater
 
         $fileInfo = [];
         $totalFiles = 0;
+        $processedFiles = 0;
 
         foreach ($targetIterator as $targetFile) {
             $relativePath = str_replace('\\', '/', substr($targetFile->getPathname(), strlen($this->targetDir) + 1));
@@ -108,15 +109,14 @@ class OGDBrowserUpdater
 
             $isInAssets = str_starts_with($relativePath, 'assets/');
 
-            if ($isInAssets && !( str_starts_with($relativePath, 'assets/css/') || str_starts_with($relativePath, 'assets/js/') || str_starts_with($relativePath, 'assets/htmlext/') ) ) {
-                if (!$isDeleted && !file_exists($targetFile->getPathname())) {
+            if (!$isDeleted && !file_exists($targetFile->getPathname()) && $isInAssets) {
+                
                     $fileInfo[] = [
                         'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
                         'updatePath' => str_replace('\\', '/', $updatePath),
                         'deleted' => $isDeleted,
                         'isDir' => $targetFile->isDir()
                     ];
-                }
             } else {
                 $fileInfo[] = [
                     'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
@@ -125,6 +125,9 @@ class OGDBrowserUpdater
                     'isDir' => $targetFile->isDir()
                 ];
             }
+            
+            $status = $isDeleted ? 'Deleted' : 'Present';
+            $this->updateLogger($status . " in new version: " . str_replace('\\', '/', $targetFile->getPathname()) . " (" . ($targetFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage + ($processedFiles / $totalFiles * 20));
 
             $totalFiles++;
             flush();
