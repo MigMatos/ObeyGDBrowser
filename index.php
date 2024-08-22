@@ -17,12 +17,6 @@
 		include("./assets/htmlext/flayeralert.php");
 		include("./assets/htmlext/loadingalert.php");
 
-    	// echo file_get_contents("./assets/htmlext/flayeralert.php");
-		// echo file_get_contents("./assets/htmlext/loadingalert.php");
-
-		//$context = stream_context_create(array('http' => array('timeout'=>2)));
-        //echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html", false, $context);
-        //echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html", false, $context);
     ?>
 
 </head>

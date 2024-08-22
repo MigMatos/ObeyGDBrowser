@@ -94,6 +94,7 @@ s
 			</div>
 			
 			<div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width:90%;" disabled><h3 class="gdfont-Pusab">Update</h3></div>
+            <div class="gdsButton" id="buttonUpdate" onclick="openLogs()" style="width:90%;" disabled><h3 class="gdfont-Pusab">View logs</h3></div>
 		</div>
 	
 	</div>
@@ -329,9 +330,10 @@ function finishedUpdate() {
 	document.getElementById('progress-rotate').classList.remove('spin');
     document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;
     document.getElementById('last-version').textContent = "?";
+    document.getElementById('buttonUpdate').removeAttribute('disabled');
+	document.getElementById('buttonUpdate').removeAttribute('readonly');
 	CreateFLAlert("Update finished!","Yayyyy, everything has been `successful with the updates`, if you have any problems or questions you can contact us on our support server!  [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 }
-
 
 
 
