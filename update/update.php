@@ -327,7 +327,9 @@ function finishedUpdate() {
     progressInfo.style.color = '#00ff22';
 	document.getElementById('div-progress-bar').style.display = "none";
 	document.getElementById('progress-rotate').classList.remove('spin');
-	CreateFLAlert("Update finished!","`((INFO HERE))`");
+    document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;
+    document.getElementById('last-version').textContent = "?";
+	CreateFLAlert("Update finished!","Yayyyy, everything has been `successful with the updates`, if you have any problems or questions you can contact us on our support server!  [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 }
 
 
