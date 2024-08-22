@@ -56,29 +56,19 @@ class OGDBrowserUpdater
 
     public function run()
     {
-
         $this->progressPercentage = 20;
-
         $this->downloadAndExtractRepo();
-        
 
         $this->progressPercentage = 40;
-
         $json = $this->compareDirectories();
-        
 
         $this->progressPercentage = 60;
-
         $this->updateFiles($json);
-        
 
         $this->progressPercentage = 80;
-
         $this->deleteFiles($json);
-        
 
         $this->progressPercentage = 100;
-
         $this->deleteUpdateFolder();
     }
 
@@ -93,7 +83,7 @@ class OGDBrowserUpdater
             exit(401);
         }
 
-        $this->updateDir = $updateDir;
+        $this->updateDir = $this->targetDir . "/" . $updateDir;
         $this->updateLogger("Repo extracted to: " . $this->updateDir, $this->progressPercentage);
     }
 
@@ -106,7 +96,6 @@ class OGDBrowserUpdater
 
         $fileInfo = [];
         $totalFiles = 0;
-        $processedFiles = 0;
 
         foreach ($targetIterator as $targetFile) {
             $relativePath = str_replace('\\', '/', substr($targetFile->getPathname(), strlen($this->targetDir) + 1));
@@ -114,23 +103,31 @@ class OGDBrowserUpdater
                 continue;
             }
 
-            if (strpos($relativePath, $this->getRelativePath($this->updateDir)) === 0) {
-                continue;
-            }
-
             $updatePath = $this->updateDir . '/' . $relativePath;
             $isDeleted = !file_exists($updatePath);
 
-            $fileInfo[] = [
-                'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
-                'updatePath' => str_replace('\\', '/', $updatePath),
-                'deleted' => $isDeleted,
-                'isDir' => $targetFile->isDir()
-            ];
+            $isInAssets = str_starts_with($relativePath, 'assets/');
+            $isInOverwriteableSubfolders = preg_match('#^assets/(css|js|htmlext)/#', $relativePath);
 
-            $status = $isDeleted ? 'Deleted' : 'Present';
+            if ($isInAssets && !$isInOverwriteableSubfolders) {
+                if (!$isDeleted && !file_exists($targetFile->getPathname())) {
+                    $fileInfo[] = [
+                        'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
+                        'updatePath' => str_replace('\\', '/', $updatePath),
+                        'deleted' => $isDeleted,
+                        'isDir' => $targetFile->isDir()
+                    ];
+                }
+            } else {
+                $fileInfo[] = [
+                    'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
+                    'updatePath' => str_replace('\\', '/', $updatePath),
+                    'deleted' => $isDeleted,
+                    'isDir' => $targetFile->isDir()
+                ];
+            }
+
             $totalFiles++;
-            $this->updateLogger($status . " in new version: " . str_replace('\\', '/', $targetFile->getPathname()) . " (" . ($targetFile->isDir() ? 'directory' : 'file') . ")", $this->progressPercentage + ($processedFiles / $totalFiles * 20));
             flush();
         }
 
@@ -208,51 +205,6 @@ class OGDBrowserUpdater
         }
     }
 
-    private function deleteUpdateFolder()
-    {
-        $this->deleteDirectoryContents($this->updateDir);
-
-        if (rmdir($this->updateDir)) {
-            $this->updateLogger("Update directory removed: " . $this->updateDir, 100);
-        } else {
-            $this->updateLogger("Error removing update directory: " . $this->updateDir, 100);
-        }
-
-        $installerFile = $this->targetDir . "/installer.php";
-        $readmeFile = $this->targetDir . "/README.md";
-
-        if (file_exists($installerFile) && unlink($installerFile)) {
-            $this->updateLogger("Removed installer.php", 100);
-        } else {
-            $this->updateLogger("Error removing installer.php", 100);
-        }
-
-        if (file_exists($readmeFile) && unlink($readmeFile)) {
-            $this->updateLogger("Removed README.md", 100);
-        } else {
-            $this->updateLogger("Error removing README.md", 100);
-        }
-    }
-
-    private function deleteDirectoryContents($dir)
-    {
-        if (!file_exists($dir) || !is_dir($dir)) {
-            return;
-        }
-
-        $files = array_diff(scandir($dir), ['.', '..']);
-
-        foreach ($files as $file) {
-            $filePath = $dir . '/' . $file;
-            if (is_dir($filePath)) {
-                $this->deleteDirectoryContents($filePath);
-                rmdir($filePath);
-            } else {
-                unlink($filePath);
-            }
-        }
-    }
-
     private function shouldIgnore($relativePath)
     {
         if ($relativePath === 'gdps_settings.json') {
@@ -260,14 +212,6 @@ class OGDBrowserUpdater
         }
 
         if (str_starts_with($relativePath, 'customfiles/')) {
-            return true;
-        }
-
-        if (str_starts_with($relativePath, 'assets/')) {
-            $subPath = substr($relativePath, strlen('assets/'));
-            if (in_array($subPath, ['css/', 'js/', 'htmlext/']) || str_starts_with($subPath, 'css/') || str_starts_with($subPath, 'js/') || str_starts_with($subPath, 'htmlext/')) {
-                return false;
-            }
             return true;
         }
 
@@ -316,7 +260,33 @@ class OGDBrowserUpdater
             return -2;
         }
     }
+
+    private function deleteUpdateFolder()
+    {
+        $this->deleteDirectoryContents($this->updateDir);
+
+        if (rmdir($this->updateDir)) {
+            $this->updateLogger("Update directory removed: " . $this->updateDir, 100);
+        } else {
+            $this->updateLogger("Error removing update directory: " . $this->updateDir, 100);
+        }
+
+        $installerFile = $this->targetDir . "/installer.php";
+        if (file_exists($installerFile)) {
+            unlink($installerFile);
+        }
+    }
+
+    private function deleteDirectoryContents($dir)
+    {
+        $files = array_diff(scandir($dir), array('.', '..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? $this->deleteDirectoryContents("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
+    }
 }
+
 
 /* -------------- Main ----------------- */
 
@@ -353,13 +323,13 @@ if ($error_installer || !isset($_POST["lru"]) ) {
 } else if(isset($_POST['lru']) && isset($_POST['ver']) && isset($_POST['date'])) {
     
     function isOfficialGitHubLink($url) {
-        $pattern = '/^https:\/\/github\.com\/[\w-]+\/[\w-]+(\/)?$/';
+        $pattern = '/^https:\/\/([\w-]+\.)*github\.com(\/.*)?$/';
         return preg_match($pattern, $url);
     }
 
     $lru_ogdb = $_POST['lru'];
-    $date_ogdb = $_POST['ver'];
-    $version_ogdb = $_POST['date'];
+    $version_ogdb = $_POST['ver'];
+    $date_ogdb = $_POST['date'];
 
     if (!isOfficialGitHubLink($lru_ogdb)) {
         http_response_code(401);

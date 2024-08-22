@@ -204,6 +204,8 @@ async function fetchGithubVersion(owner, repo, branchType) {
 }
 
 let lru_branch = null;
+let version_branch = null;
+let date_branch = null;
 
 function fetchUpdate(branch) {
 	sessionStorage.setItem('branchSelected', branch);
@@ -218,7 +220,7 @@ function fetchUpdate(branch) {
 		.then(result => {
 			console.log(result);
 			document.getElementById('act-version').textContent = result.currentVersion ? result.currentVersion : '?';
-			if (result.data === null) {
+			if (!result.data) {
 				progressInfo.textContent = "No updates available";
 				document.getElementById('buttonUpdate').setAttribute('disabled','');
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
@@ -234,6 +236,8 @@ function fetchUpdate(branch) {
 				document.getElementById('body-github').innerHTML = "(without description)"
 			}
 			lru_branch = result.data.zipball_url;
+            version_branch = result.data.tag_name;
+            date_branch = result.data.version_date;
 			if(lru_branch) {
 				document.getElementById('buttonUpdate').removeAttribute('disabled');
 				document.getElementById('buttonUpdate').removeAttribute('readonly');
@@ -246,6 +250,7 @@ let animationFrameId;
 let queue = []; 
 
 function updateOGDWCore(){
+    progressInfo.style.color = 'white';
 	progressInfo.textContent = "Initializing updater...";
 	document.getElementById('div-progress-bar').style.display = "flex";
 	document.getElementById('progress-rotate').classList.add("spin");
@@ -259,14 +264,25 @@ function initUpdaterServer() {
 	xhr.open('POST', '../../ogbrowser_init_updater.php', true);
 	xhr.withCredentials = true;
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.onload = function() {
-		if(xhr.status === 200) {
-			console.log("finished");
-			clearInterval(checkProgressBarPoll);
-			finishedUpdate();
-		}
-	}
-	let data = `lru=${lru_branch}`;
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log("Finished successfully");
+            finishedUpdate();
+        } else if (xhr.status === 401) {
+            console.error("Error 401: Unauthorized access. | " + xhr.responseText);
+            errorUpdate(xhr.responseText);
+        } else {
+            console.error("Error " + xhr.status + ": " + xhr.statusText);
+            errorUpdate(xhr.responseText);
+        }
+    };
+
+    xhr.onerror = function() {
+        errorUpdate(xhr.responseText);
+        console.error("Request failed. Please check your network connection.");
+    };
+
+	let data = `lru=${encodeURIComponent(lru_branch)}&ver=${encodeURIComponent(version_branch)}&date=${encodeURIComponent(date_branch)}`;
 	xhr.send(data);
 	checkProgressBarPoll = setInterval(checkProgressBar, 500);
 }
@@ -296,8 +312,18 @@ function checkProgressBar() {
         });
 }
 
+function errorUpdate(data) {
+    clearInterval(checkProgressBarPoll);
+    progressInfo.textContent = data;
+    progressInfo.style.color = 'red';
+	document.getElementById('div-progress-bar').style.display = "none";
+	document.getElementById('progress-rotate').classList.remove('spin');
+}
+
 function finishedUpdate() {
+    clearInterval(checkProgressBarPoll);
 	progressInfo.textContent = "Updated!";
+    progressInfo.style.color = '#00ff22';
 	document.getElementById('div-progress-bar').style.display = "none";
 	document.getElementById('progress-rotate').classList.remove('spin');
 	CreateFLAlert("Update finished!","`((INFO HERE))`");
@@ -308,7 +334,7 @@ function finishedUpdate() {
 
 function progressBarPercentage(newPercentage) {
     newPercentage = isNaN(parsedFloat = parseFloat(newPercentage)) ? null : Math.round(parsedFloat);
-    if (isNaN(roundedInt) || newPercentage < 0 || newPercentage > 100) {
+    if (isNaN(newPercentage) || newPercentage < 0 || newPercentage > 100) {
         console.error("ProgressBarError: The percentage must be an integer between 0 and 100.");
         return;
     } else if (currentPercentage == newPercentage) return;
