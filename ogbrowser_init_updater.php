@@ -99,6 +99,7 @@ class OGDBrowserUpdater
         foreach ($targetIterator as $targetFile) {
             $relativePath = str_replace('\\', '/', substr($targetFile->getPathname(), strlen($this->targetDir) + 1));
             if ($this->shouldIgnore($relativePath)) {
+                $this->updateLogger("Ignorating file to update: " . $relativePath, $this->progressPercentage);
                 continue;
             }
 
@@ -207,7 +208,7 @@ class OGDBrowserUpdater
             return true;
         }
 
-        if (str_starts_with($relativePath, $this->getRelativePath($this->updateDir))) {
+        if (str_starts_with($relativePath, $this->updateDir)) {
             return true;
         }
 
