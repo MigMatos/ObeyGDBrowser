@@ -222,6 +222,7 @@ function fetchUpdate(branch) {
 			document.getElementById('act-version').textContent = result.currentVersion ? result.currentVersion : '?';
 			if (!result.data) {
 				progressInfo.textContent = "No updates available";
+                document.getElementById('last-version').textContent = "?";
 				document.getElementById('buttonUpdate').setAttribute('disabled','');
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
 				return;
