@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function fetchGithubVersion(owner, repo, branchType) {
-    // Función para leer la versión actual y la fecha desde el archivo version.txt
     async function getCurrentVersionAndDate() {
         try {
             const response = await fetch('./version.txt');
@@ -161,7 +160,6 @@ async function fetchGithubVersion(owner, repo, branchType) {
                 return {currentVersion: currentVersion, updated: true};
 			}
         } else if (branchType === 'latest') {
-            // Obtener la última versión estable
             const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
             const latestData = await latestResponse.json();
             const latestVersion = latestData.tag_name;
@@ -252,18 +250,13 @@ function updateOGDWCore(){
 	document.getElementById('div-progress-bar').style.display = "flex";
 	document.getElementById('progress-rotate').classList.add("spin");
 	initUpdaterServer();
-	// let xhr = new XMLHttpRequest();
-	// xhr.open('POST', '../../ogbrowser_init_updater.php', true);
-	// xhr.withCredentials = true;
-	// xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
 }
 
 checkProgressBarPoll = null;
 
 function initUpdaterServer() {
 	let xhr = new XMLHttpRequest();
-	xhr.open('POST', '../../browser_update.php', true);
+	xhr.open('POST', '../../ogbrowser_init_updater.php', true);
 	xhr.withCredentials = true;
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.onload = function() {
@@ -310,57 +303,36 @@ function finishedUpdate() {
 	CreateFLAlert("Update finished!","`((INFO HERE))`");
 }
 
-// updateOGDWCore();
-
-// function testClipPathAnimation() {
-//     let percentage = 0;
-	
-//     function incrementPercentage() {
-//         if (percentage <= 100) {
-//             progressBarPercentage(percentage);
-//             percentage++;
-//             setTimeout(incrementPercentage, 50); // Ajusta el retardo para controlar la velocidad (50ms)
-//         }
-//     }
-
-//     incrementPercentage();
-// }
-
 
 
 
 function progressBarPercentage(newPercentage) {
-    // Asegurar que solo se acepten números enteros
-    if (!Number.isInteger(newPercentage) || newPercentage < 0 || newPercentage > 100) {
+    newPercentage = isNaN(parsedFloat = parseFloat(newPercentage)) ? null : Math.round(parsedFloat);
+    if (isNaN(roundedInt) || newPercentage < 0 || newPercentage > 100) {
         console.error("ProgressBarError: The percentage must be an integer between 0 and 100.");
         return;
     } else if (currentPercentage == newPercentage) return;
-
-    // Agregar la nueva tarea a la cola
     queue.push(newPercentage);
-
-    // Si ya hay una animación en curso, salimos
     if (animationFrameId) {
         return;
     }
 
-    // Procesar la animación
+
     processQueue();
 }
 
 function processQueue() {
-    // Si no hay más tareas en la cola, salir
+
     if (queue.length === 0) {
         return;
     }
 
-    // Obtener la última tarea en la cola y limpiar la cola
     const targetPercentage = queue.pop();
     queue = [];
 
     const startPercentage = currentPercentage;
-    const duration = 1000; // 1 segundo para la animación completa
-    const stepTime = 10; // Tiempo entre pasos (en milisegundos)
+    const duration = 1000; 
+    const stepTime = 10; 
     const steps = Math.abs(targetPercentage - startPercentage) * (1000 / duration);
 
     let step = 0;
@@ -370,9 +342,6 @@ function processQueue() {
         const progress = startPercentage + (step / steps) * (targetPercentage - startPercentage);
         currentPercentage = progress;
         const clippedPercentage = 100 - currentPercentage;
-
-        // Actualizar el `clip-path` para recortar de derecha a izquierda
-		
         
         document.getElementById('progress-bar-img').style.clipPath = `inset(0 ${clippedPercentage}% 0 0)`;
 		document.getElementById('progress-bar-text').textContent = currentPercentage.toFixed(0) + "%";
@@ -380,9 +349,9 @@ function processQueue() {
         if (step < steps) {
             animationFrameId = requestAnimationFrame(animate);
         } else {
-            animationFrameId = null; // Animación completa, resetear ID
+            animationFrameId = null; 
             currentPercentage = targetPercentage;
-            processQueue(); // Procesar la siguiente tarea en la cola si existe
+            processQueue(); 
         }
     }
 
