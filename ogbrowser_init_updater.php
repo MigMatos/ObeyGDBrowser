@@ -89,21 +89,23 @@ class OGDBrowserUpdater
 
     private function compareDirectories()
     {
-        $targetIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($this->targetDir, RecursiveDirectoryIterator::SKIP_DOTS),
+        $updateIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->updateDir, RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::SELF_FIRST
         );
 
         $fileInfo = [];
 
-        foreach ($targetIterator as $targetFile) {
-            $relativePath = str_replace('\\', '/', substr($targetFile->getPathname(), strlen($this->targetDir) + 1));
+        foreach ($updateIterator as $updateFile) {
+            $relativePath = str_replace('\\', '/', substr($updateFile->getPathname(), strlen($this->updateDir) + 1));
+            $relativePath = str_replace('\\', '/', str_replace($this->updateDir, $this->targetDir, $updateFile->getPathname()) );
+
             if ($this->shouldIgnore($relativePath)) {
                 $this->updateLogger("Ignorating file to update: " . $relativePath, $this->progressPercentage);
                 continue;
             }
 
-            $updatePath = $this->updateDir . '/' . $relativePath;
+            $updatePath = str_replace($this->targetDir, $this->updateDir, $relativePath);
             $isDeleted = !file_exists($updatePath);
             $status = $isDeleted ? 'Deleted' : 'Present';
 
@@ -111,10 +113,10 @@ class OGDBrowserUpdater
 
             if (true) {
                 $fileInfo[] = [
-                    'targetPath' => str_replace('\\', '/', $targetFile->getPathname()),
+                    'targetPath' => str_replace('\\', '/', $relativePath),
                     'updatePath' => str_replace('\\', '/', $updatePath),
                     'deleted' => $isDeleted,
-                    'isDir' => $targetFile->isDir()
+                    'isDir' => $updateFile->isDir()
                 ];
             }
 
