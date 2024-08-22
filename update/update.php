@@ -2,8 +2,7 @@
 	
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
-	<!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
+    <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php
 		include("../assets/htmlext/flayeralert.php");
@@ -63,10 +62,12 @@
 </style>
 s
 
-<body class="levelBG">
-<div class="everything">
+<body class="levelBG" onbeforeunload="saveUrl()">
+<div id="everything" style>
 
-	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%">
+    
+
+	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%; overflow-y: auto; overflow-x: clip;">
 		<div style="display:flex;"><h3>Actual version: <cg id="act-version">?</cg></h3><h3 style="margin-left: 3%">Lasted version: <cg id="last-version">?</cg></h3></div>
 		<div class="center-div" style="padding: 2% 0 2% 0;">
 			<img id="progress-rotate" class="noSelect" src="../assets/settings.png" height="20%"><h3 id="progress-info"></h3>
@@ -82,26 +83,37 @@ s
 
 		<p class="font-helvetica gitbody" id="body-github" style="background-color: #00000075;width: 65%;height: 35%;margin-left: 50%;transform: translate(-50%, 0); font-size: 2.3vh; overflow: auto; padding: 0 5% 0 5%; border-radius: 3.5vh;"></p>
 
-		<div class="center-div" style="display: flex; align-items: center; width: 44%; padding: 2% 0 2% 0;">
+        <div class="center-div" style="width: 44%; padding: 2% 0 2% 0; display: flex; align-items: center;">
 
-			<h3>Branch:</h3>
-			<div onclick="CreateFLSelector('updateType','Update branch')" style="width: 100%; padding: 0% 3% 0% 3%">
-				<select class="gdsInput select" id="updateType" size="1" readonly>
-					<option value="0">Stable</option>
-					<option value="1">Pre-release</option>
-					<option value="2">Unstable</option>
-				</select>
-			</div>
-			
-			<div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width:90%;" disabled><h3 class="gdfont-Pusab">Update</h3></div>
-            <div class="gdsButton" id="buttonUpdate" onclick="openLogs()" style="width:90%;" disabled><h3 class="gdfont-Pusab">View logs</h3></div>
-		</div>
+        <div style="
+        width: 35%;
+        transform: translate(-150%, -15%);
+        ">
+            <h3>Branch:</h3>
+            <div onclick="CreateFLSelector('updateType','Update branch')" style="width: 100%; padding: 0% 3% 0% 3%">
+                <select class="gdsInput select" id="updateType" size="1" readonly="">
+                    <option value="0">Stable</option>
+                    <option value="1">Pre-release</option>
+                    <option value="2">Unstable</option>
+                </select>
+            </div>
+            <div class="gdsButton" id="buttonLog" onclick="openLogs()" style="width: 65%;transform: translate(25%, 0px);" disabled="" readonly><h3 class="gdfont-Pusab">Logs</h3></div>
+        </div>
+
+        <div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width: 40%;transform: translate(5%, -30%);" disabled="" readonly><h3 class="gdfont-Pusab">Update</h3></div>
+
+        </div>
 	
 	</div>
+
+
+    <img class="gdButton yesClick" id="backButton" src="../assets/back.png" onclick="backButton()" tabindex="1" style="position: absolute; height: 7%; margin: 0% 0% 0% 4%;">
+
 </div>
+</body>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-
+<script type="text/javascript" src="../misc/global.js"></script>
 
 <script>
 
@@ -204,14 +216,21 @@ async function fetchGithubVersion(owner, repo, branchType) {
     }
 }
 
+function openLogs() {
+    const url = './log.txt';
+    window.open(url, '_blank');
+}
+
+
 let lru_branch = null;
 let version_branch = null;
 let date_branch = null;
 
 function fetchUpdate(branch) {
 	sessionStorage.setItem('branchSelected', branch);
-
+    document.getElementById('progress-rotate').classList.add("spin");
 	progressInfo.textContent = "Fetching version..."
+    progressInfo.style.color = 'white';
 	if(branch == 0) branch = "latest"
 	else if(branch == 1) branch = "prerelease";
 	else if(branch == 2) branch = "master"
@@ -220,15 +239,17 @@ function fetchUpdate(branch) {
 	fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch)
 		.then(result => {
 			console.log(result);
+            document.getElementById('progress-rotate').classList.remove("spin");
 			document.getElementById('act-version').textContent = result.currentVersion ? result.currentVersion : '?';
 			if (!result.data) {
 				progressInfo.textContent = "No updates available";
+                document.getElementById('progress-rotate').style.filter = "grayscale(1)";
                 document.getElementById('last-version').textContent = "?";
 				document.getElementById('buttonUpdate').setAttribute('disabled','');
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
 				return;
 			} 
-			
+			document.getElementById('progress-rotate').style.filter = "";
 			progressInfo.textContent = "Loading version information..."
 			document.getElementById('last-version').textContent = result.data.tag_name;
 			progressInfo.textContent = "New update available!";
@@ -250,16 +271,18 @@ function fetchUpdate(branch) {
 let currentPercentage = 0; 
 let animationFrameId;
 let queue = []; 
+checkProgressBarPoll = null;
 
 function updateOGDWCore(){
     progressInfo.style.color = 'white';
 	progressInfo.textContent = "Initializing updater...";
+    document.getElementById('buttonLog').setAttribute('disabled','');
+	document.getElementById('buttonLog').setAttribute('readonly','');
+    document.getElementById('body-github').style.height = "30%";
 	document.getElementById('div-progress-bar').style.display = "flex";
 	document.getElementById('progress-rotate').classList.add("spin");
 	initUpdaterServer();
 }
-
-checkProgressBarPoll = null;
 
 function initUpdaterServer() {
 	let xhr = new XMLHttpRequest();
@@ -286,7 +309,7 @@ function initUpdaterServer() {
 
 	let data = `lru=${encodeURIComponent(lru_branch)}&ver=${encodeURIComponent(version_branch)}&date=${encodeURIComponent(date_branch)}`;
 	xhr.send(data);
-	checkProgressBarPoll = setInterval(checkProgressBar, 500);
+	checkProgressBarPoll = setInterval(checkProgressBar, 150);
 }
 
 function checkProgressBar() {
@@ -299,18 +322,20 @@ function checkProgressBar() {
             return response.text(); 
         })
         .then(text => {
-			let [info, percentage] = text.split('|');
-			percentage = percentage ? percentage.replace('%', '') : '0%';
-			info = info ? info.trim() : '';
-			
+            const lastLine = text.trim().split('\n').pop(); 
+            
+            let [info, percentage] = lastLine.split('|');
+            percentage = percentage ? percentage.replace('%', '') : '0%';
+            info = info ? info.trim() : '';
+
             const percentageValue = parseFloat(percentage.trim());
             if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
-                progressBarPercentage(percentageValue); 
+                progressBarPercentage(percentageValue);
             }
             progressInfo.textContent = info;
         })
         .catch(error => {
-            console.error('Error al leer el archivo:', error);
+            console.error('Error reading file:', error);
         });
 }
 
@@ -318,7 +343,10 @@ function errorUpdate(data) {
     clearInterval(checkProgressBarPoll);
     progressInfo.textContent = data;
     progressInfo.style.color = 'red';
+    document.getElementById('buttonLog').removeAttribute('disabled');
+	document.getElementById('buttonLog').removeAttribute('readonly');
 	document.getElementById('div-progress-bar').style.display = "none";
+    document.getElementById('body-github').style.height = "35%";
 	document.getElementById('progress-rotate').classList.remove('spin');
 }
 
@@ -326,6 +354,9 @@ function finishedUpdate() {
     clearInterval(checkProgressBarPoll);
 	progressInfo.textContent = "Updated!";
     progressInfo.style.color = '#00ff22';
+    document.getElementById('buttonLog').removeAttribute('disabled');
+	document.getElementById('buttonLog').removeAttribute('readonly');
+    document.getElementById('body-github').style.height = "35%";
 	document.getElementById('div-progress-bar').style.display = "none";
 	document.getElementById('progress-rotate').classList.remove('spin');
     document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;
@@ -392,5 +423,3 @@ function processQueue() {
 
 
 </script>
-
-</body>

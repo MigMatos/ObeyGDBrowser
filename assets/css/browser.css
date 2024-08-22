@@ -711,7 +711,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     position: absolute;
     display: flex;
     text-align: center;
-    width: 100%;
     margin-left: -60.5vh;
     top: 2.8%;
     left: 50%;

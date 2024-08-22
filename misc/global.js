@@ -1,10 +1,49 @@
 $('body').append(`
+	<style>
+		@keyframes rotateWithArrows {
+		0% {
+			transform: rotate(0deg);
+		}
+		50% {
+			filter: drop-shadow(1.5vh -1.5vh 0.7vh black);
+			transform: rotate(90deg);
+		}
+
+		80% {
+			transform: rotate(90deg);
+		}
+
+		100% {
+			transform: rotate(90deg);
+		}
+		}
+
+		.rotateDemo {
+			display: inline-block;
+			animation: rotateWithArrows 3s ease-in-out infinite;
+			transform-origin: center center;
+		}
+	</style>
 	<div data-nosnippet id="tooSmall" class="brownbox center supercenter" style="display: none; width: 80%">
-	<h1>Yikes!</h1>
-	<p>Your <cg>screen</cg> isn't <ca>wide</ca> enough to <cy>display</cy> this <cg>page</cg>.<br>
-	Please <cy>rotate</cy> your <cg>device</cg> <ca>horizontally</ca> or <cy>resize</cy> your <cg>window</cg> to be <ca>longer</ca>.
-	</p>
-	<p style="font-size: 1.8vh">Did I color too many words? I think I colored too many words.</p>
+	<h1 style="font-size: 4vh">Small screen!</h1>
+	
+	<div style="height: 50vh;" id="rotateDemoDevice">
+    <svg version="1.1" height="100%" width="75%" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" style="z-index: 1;">
+        <style type="text/css">
+            .st0{fill:white;}
+        </style>
+        <g>
+            <path class="st0" d="M360.189,0H151.812C118.96,0,92.328,26.631,92.328,59.484v357.344c0,52.566,42.607,95.172,95.172,95.172H324.5
+                c52.566,0,95.172-42.607,95.172-95.172V59.484C419.672,26.631,393.042,0,360.189,0z M256,481.229
+                c-8.115,0-14.688-6.574-14.688-14.688s6.574-14.689,14.688-14.689c8.115,0,14.688,6.574,14.688,14.689S264.115,481.229,256,481.229
+                z M218.23,22.384h75.532c4.255,0,7.697,3.452,7.697,7.697c0,4.246-3.442,7.697-7.697,7.697H218.23c-4.254,0-7.697-3.45-7.697-7.697
+                C210.533,25.836,213.976,22.384,218.23,22.384z M125.902,416.828V71.344h260.197v345.483c0,3.844-0.401,7.59-1.074,11.238h-258.05
+                C126.304,424.418,125.902,420.672,125.902,416.828z"></path>
+        </g>
+    </svg>
+	</div>
+
+	<p style="font-size: 2.2vh">Are you on desktop? Just increase the window size (or rotate the screen yee!).</p>
 	</div>
 `)
 
@@ -13,11 +52,13 @@ $(window).resize(function () {
 	if (window.innerHeight > window.innerWidth - 75) { 
 		$('#everything').hide(); 
 		$('#tooSmall').show();
+		$('#rotateDemoDevice').addClass('rotateDemo');
 	}
 
 	else { 
 		$('#everything').show(); 
-		$('#tooSmall').hide() 
+		$('#tooSmall').hide()
+		$('#rotateDemoDevice').removeClass('rotateDemo');
 	}
 });
 

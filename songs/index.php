@@ -4,7 +4,7 @@
 	<title id="tabTitle">Song Search</title>
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=3" type="text/css" rel="stylesheet">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
+    
 	<link rel="icon" href="../assets/song/disc.png">
 	<meta id="meta-title" property="og:title" content="Song Search">
 	<meta id="meta-desc" property="og:description" content="Find songs to use in your levels!">

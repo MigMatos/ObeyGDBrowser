@@ -4,7 +4,7 @@
 	<title>Level Search</title>
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135255146-3"></script><script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-135255146-3');</script>
+    
 	<link rel="icon" href="../assets/coin.png">
 	<meta id="meta-title" property="og:title" content="Level Search">
 	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">

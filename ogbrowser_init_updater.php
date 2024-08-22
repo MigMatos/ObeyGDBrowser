@@ -286,28 +286,34 @@ class OGDBrowserUpdater
 
 
     private function cleanFullLogger() {
-        file_put_contents($this->fileFullLog, strval("."));
+        file_put_contents($this->fileLogger, strval(""));
     }
 
     private function updateLogger($data, $percentage)
     {
-        file_put_contents($this->fileLogger, strval($data . "|" . $percentage));
-        file_put_contents($this->fileFullLog, strval($data) . PHP_EOL, FILE_APPEND);
+        file_put_contents($this->fileLogger, strval($data . "|" . $percentage) . PHP_EOL, FILE_APPEND);
+        // file_put_contents($this->fileFullLog, strval($data . "|" . $percentage) . PHP_EOL, FILE_APPEND);
+        // file_put_contents($this->fileFullLog, strval($data) . PHP_EOL, FILE_APPEND);
         echo $data . PHP_EOL;
         flush();
     }
 
     private function downloadAndExtractRepoFromZip($targetDir, $repoUrl)
-    {
+    {   
+        $this->updateLogger("Downloading update in ZIP format", 1);
         $zipFile = 'ogdbrowser_sourcecode.zip';
         file_put_contents($zipFile, fopen($repoUrl, 'r'));
+        $this->updateLogger("Finishing download...", 5);
         if (file_exists($zipFile)) {
             $zip = new ZipArchive;
             if ($zip->open($zipFile) === TRUE) {
+                $this->updateLogger("Opening ZIP file update", 6);
                 $zip->extractTo($targetDir);
+                $this->updateLogger("Extracting ZIP file update", 10);
                 $firstDir = $zip->getNameIndex(0);
                 $zip->close();
                 unlink($zipFile);
+                $this->updateLogger("Removing ZIP file update", 15);
                 return $firstDir;
             } else {
                 return -1;
