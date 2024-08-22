@@ -93,7 +93,7 @@ s
 				</select>
 			</div>
 			
-			<div class="gdsButton" id="buttonUpdate" onclick="playSong(this.getAttribute('src'))" style="width:90%;" disabled><h3 class="gdfont-Pusab">Update</h3></div>
+			<div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width:90%;" disabled><h3 class="gdfont-Pusab">Update</h3></div>
 		</div>
 	
 	</div>
@@ -144,10 +144,10 @@ async function fetchGithubVersion(owner, repo, branchType) {
         } 
 
         if (branchType === 'master') {
-            const masterResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/master`);
+            const masterResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/main`);
             const masterData = await masterResponse.json();
-            masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-master"; 
-            masterData.zipball_url = `https://github.com/${owner}/${repo}/archive/refs/heads/master.zip`;
+            masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-main"; 
+            masterData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/main`
 			masterData.body = null;
 			const latestDate = new Date(masterData.commit.commit.committer.date)
 			if (isNewerThan(latestDate, currentDate)){
@@ -158,15 +158,15 @@ async function fetchGithubVersion(owner, repo, branchType) {
 					data: masterData
 				};
 			} else {
-				console.log(`La versión ${branchType} está actualizada.`);
-                return null;
+                return {currentVersion: currentVersion, updated: true};
 			}
         } else if (branchType === 'latest') {
             // Obtener la última versión estable
             const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
             const latestData = await latestResponse.json();
-            const latestVersion = latestData.tag_name; 
+            const latestVersion = latestData.tag_name;
             const latestDate = new Date(latestData.created_at);
+            latestData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${latestVersion}`;
 
             if (latestVersion !== currentVersion || isNewerThan(latestDate, currentDate)) {
                 return {
@@ -175,8 +175,7 @@ async function fetchGithubVersion(owner, repo, branchType) {
                     data: latestData
                 };
             } else {
-                console.log(`La versión ${branchType} está actualizada.`);
-                return null;
+                return {currentVersion: currentVersion, updated: true};
             }
         } else if (branchType === 'prerelease') {
             const releaseResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases`);
@@ -190,19 +189,19 @@ async function fetchGithubVersion(owner, repo, branchType) {
             if (prerelease) {
                 const prereleaseVersion = prerelease.tag_name;
                 const prereleaseDate = new Date(prerelease.created_at);
-
+                prerelease.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${prereleaseVersion}`;
                 return {
                     type: 'prerelease',
 					currentVersion: currentVersion,
                     data: prerelease
                 };
             } else {
-                console.log(`No hay prerelease más reciente que la versión actual.`);
-                return null;
+                return {currentVersion: currentVersion, updated: true};
             }
         }
     } catch (error) {
         console.error("Error fetching version from GitHub:", error);
+        return {currentVersion: 0};
     }
 }
 
@@ -226,7 +225,7 @@ function fetchUpdate(branch) {
 				document.getElementById('buttonUpdate').setAttribute('disabled','');
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
 				return;
-			}
+			} 
 			
 			progressInfo.textContent = "Loading version information..."
 			document.getElementById('last-version').textContent = result.data.tag_name;
@@ -252,7 +251,7 @@ function updateOGDWCore(){
 	progressInfo.textContent = "Initializing updater...";
 	document.getElementById('div-progress-bar').style.display = "flex";
 	document.getElementById('progress-rotate').classList.add("spin");
-	pollingInterval = setInterval(pollServer, 500);
+	initUpdaterServer();
 	// let xhr = new XMLHttpRequest();
 	// xhr.open('POST', '../../ogbrowser_init_updater.php', true);
 	// xhr.withCredentials = true;
@@ -260,29 +259,55 @@ function updateOGDWCore(){
 
 }
 
-function pollingServer() {
-    fetch('../../ogbrowser_init_updater.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `lru=${lru_branch}`,
-        credentials: 'include'
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log('Respuesta del servidor:', text);
-        document.getElementById('resultado').textContent += text + '\n';
+checkProgressBarPoll = null;
 
-        // Verificar si el procesamiento está completo
-        if (text.includes('FINISHIED...')) {
-            clearInterval(pollingInterval); // Detener el polling
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        clearInterval(pollingInterval); // Detener el polling en caso de error
-    });
+function initUpdaterServer() {
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', '../../browser_update.php', true);
+	xhr.withCredentials = true;
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onload = function() {
+		if(xhr.status === 200) {
+			console.log("finished");
+			clearInterval(checkProgressBarPoll);
+			finishedUpdate();
+		}
+	}
+	let data = `lru=${lru_branch}`;
+	xhr.send(data);
+	checkProgressBarPoll = setInterval(checkProgressBar, 500);
+}
+
+function checkProgressBar() {
+	console.log("checking progress bar");
+	fetch('./log.txt') 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); 
+        })
+        .then(text => {
+			let [info, percentage] = text.split('|');
+			percentage = percentage ? percentage.replace('%', '') : '0%';
+			info = info ? info.trim() : '';
+			
+            const percentageValue = parseFloat(percentage.trim());
+            if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
+                progressBarPercentage(percentageValue); 
+            }
+            progressInfo.textContent = info;
+        })
+        .catch(error => {
+            console.error('Error al leer el archivo:', error);
+        });
+}
+
+function finishedUpdate() {
+	progressInfo.textContent = "Updated!";
+	document.getElementById('div-progress-bar').style.display = "none";
+	document.getElementById('progress-rotate').classList.remove('spin');
+	CreateFLAlert("Update finished!","`((INFO HERE))`");
 }
 
 // updateOGDWCore();

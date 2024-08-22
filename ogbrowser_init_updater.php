@@ -1,5 +1,8 @@
 <?php
-
+header('Content-Type: text/plain');
+header('Cache-Control: no-cache');
+header('Connection: keep-alive');
+header('Content-Encoding: none');
 $error_installer = false;
 
 if (file_exists("./browser/_init_.php")) {
@@ -22,11 +25,12 @@ if (file_exists("./browser/_init_.php")) {
 
 
 if ($isAdmin != "1" || $logged != true) {
-    header("Location: ../browser/");
+    http_response_code(401);
+    echo "Unauthorized access. You need to log in to access this page.";
     exit();
-} else {
-    // echo "Please wait...";
 }
+
+set_time_limit(0); // Sin límite de tiempo
 
 /*
 
@@ -120,23 +124,51 @@ function moveFilesToCurrentDirectory($currentDir,$sourceDir) {
 
 /* 
 
+Variables
+
+*/
+
+
+$owner = 'MigMatos';
+$repo = 'ObeyGDBrowser';
+$folder_browser = "browser/";
+$version_file_path = "./" . $folder_browser . 'update/version.txt';
+$file_logger = "./" . $folder_browser . "update/log.txt";
+$current_version = trim(file_get_contents($version_file_path));
+$latestTagVersion = "0";
+
+
+function updateLogger($data,$porcentage) {
+    global $file_logger;
+    file_put_contents($file_logger,strval($data."|".$porcentage));
+}
+
+function finishUpdate() {
+    global $version_file_path;
+    
+}
+
+/* 
+
 Updater code
  
 */
 
-$owner = 'MigMatos';
-$repo = 'ObeyGDBrowser';
 
-$folder_browser = "browser/";
-$version_file_path = "./" . $folder_browser . 'update/version.txt';
-$current_version = trim(file_get_contents($version_file_path));
-$latestTagVersion = "0";
+
+
 
 if ($error_installer || !isset($_POST["lru"]) ) {
     $latestTagVersion = getLatestReleaseUrl($owner, $repo);
     $latestReleaseUrl = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/" . $latestTagVersion; /* Download from Github */
 } else {
-
+    
+    for($i = 1; $i <= 100; $i++){
+        updateLogger("TEST", $i);
+        sleep(1);
+    }
+    exit();
+    
 }
 
 if ($current_version == $latestTagVersion) {
