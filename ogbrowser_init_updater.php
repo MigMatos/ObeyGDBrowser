@@ -106,7 +106,7 @@ class OGDBrowserUpdater
             $isDeleted = !file_exists($updatePath);
             $status = $isDeleted ? 'Deleted' : 'Present';
 
-            // $isInAssets = str_starts_with($relativePath, 'assets/');
+            $isInAssets = str_starts_with($relativePath, 'assets/');
 
             if (true) {
                 $fileInfo[] = [
