@@ -86,7 +86,7 @@ if ($isAdmin != "1" || $logged != true) {
 }
 
 </style>
-s
+
 
 <body class="levelBG" onbeforeunload="saveUrl()">
 <div id="everything" style>
