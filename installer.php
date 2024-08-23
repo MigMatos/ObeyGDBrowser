@@ -32,10 +32,6 @@
     <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED)</label>
     <?php
 	
-	// require "./incl/lib/connection.php";
-	// require "./incl/lib/generatePass.php";
-
-
     $path_conn = "./incl/lib/";
 
     $connection_path = $path_conn."connection.php";
