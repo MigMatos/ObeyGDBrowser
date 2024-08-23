@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             let version = parseInt(id.match(/\d+/)[0]);
 
-            if (gdpsVersion > version) {
+            if (version > parseInt(gdpsVersion)) {
                 element.style.display = 'none';
             }
         }

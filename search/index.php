@@ -25,31 +25,35 @@
 <div id="everything">
 
 	<div id="filters" class="popup">
-		<div id="filterStuff" class="brownBox bounce center supercenter" style="width: 101vh; height: 50%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
+		<div id="filterStuff" class="brownBox bounce center supercenter" style="width: 125vh; height: 70%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
 			<img class="gdButton" src="../assets/close.png" width="9%" style="position: absolute; top: -8.5%; left: -5.5vh" onclick="$('#filters').hide()">
 			<h1 style="margin-bottom: 4%">Advanced Options</h1><br>
+			<div><h1><input type="checkbox" id="box-original" url="&original=1"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
+			<div id="gdItem20" style="margin-bottom: 2%"><h1><input type="checkbox" id="box-coins" url="&coins=1"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
+			<div id="gdItem18"><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
+			<div id="gdItem19" style="margin-bottom: 2%"><h1><input type="checkbox" id="box-song" url=""><label for="box-song" class="gdcheckbox gdButton"></label>Song</h1></div>
+
+			<div style="margin-bottom: 2%"><h1><input type="checkbox" id="box-nostar" url="&noStar=1"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
 			<div><h1><input type="checkbox" id="box-featured" url="&featured=1"><label for="box-featured" class="gdcheckbox gdButton"></label>Featured</h1></div>
-			
 			<div id="gdItem21"><h1><input type="checkbox" id="box-epic" url="&epic=1"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
 			<div id="gdItem22"><h1><input type="checkbox" id="box-epic-2" url="&epic=2"><label for="box-epic-2" class="gdcheckbox gdButton"></label>Legendary</h1></div>
 			<div id="gdItem22"><h1><input type="checkbox" id="box-epic-3" url="&epic=3"><label for="box-epic-3" class="gdcheckbox gdButton"></label>Mythic</h1></div>
-			<div style="margin-bottom: 6%"><h1><input type="checkbox" id="box-nostar" url="&noStar=1"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
-			<div><h1><input type="checkbox" id="box-original" url="&original=1"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
-			<div id="gdItem18"><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
-			<div id="gdItem20" style="margin-bottom: 5%"><h1><input type="checkbox" id="box-coins" url="&coins=1"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
-			<!-- <h1 class="smallerer lessSpaced">Song</h1>
-			<img id="normalSong" class="gdButton inline gray" style="margin-right: 0.5%" src="../assets/song-normal.png" height="8%">
-			<img id="customSong" class="gdButton inline" style="margin-left: 0.5%" src="../assets/song-custom.png" height="8%">
-			<br>
-			<input id="songID" type="number" placeholder="Custom Song ID" style="height: 15%; width: 70%; text-align: center; margin-top: 2%">
-			<div id="songSelect" style="width: 100%; display: none; margin-top: 3%; text-align: center">
-				<img style="width: 4%" id="songDown" class="gdButton inline valign songChange" jump="-1" src="../assets/whitearrow-left.png">
-				<h1 class="inline valign smallerer center" id="songName" style="min-width: 60%"></h1>
-				<img style="width: 4%" id="songUp" class="gdButton inline valign songChange" jump="1" id="nextSong" src="../assets/whitearrow-right.png">
-			</div> -->
+			<br><br><br><br>
+			<div id="songOption" style="text-align: center; display: none;">
+				<h1 class="smallerer lessSpaced">Song</h1>
+				<img id="normalSong" class="gdButton inline gray" style="margin-right: 0.5%" src="../assets/song-normal.png" height="8%">
+				<img id="customSong" class="gdButton inline" style="margin-left: 0.5%" src="../assets/song-custom.png" height="8%">
+				<br>
+				<input id="songID" type="number" placeholder="Custom Song ID" style="height: 10%; width: 55%; text-align: center; margin-top: 2%">
+				<div id="songSelect" style="width: 100%; display: none; margin-top: 3%; text-align: center">
+					<img style="width: 4%" id="songDown" class="gdButton inline valign songChange" jump="-1" src="../assets/whitearrow-left.png">
+					<h1 class="inline valign smallerer center" id="songName" style="min-width: 60%"></h1>
+					<img style="width: 4%" id="songUp" class="gdButton inline valign songChange" jump="1" id="nextSong" src="../assets/whitearrow-right.png">
+				</div>
+			</div>
 		</div>
 	</div>
-	<!--
+	
 	
 	<div id="customlist" class="popup">
 		<div class="brownBox bounce center supercenter" style="width: 100vh; height: 56%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
@@ -70,7 +74,7 @@
 			<a id="listLink"><img src="../assets/btn-submit.png" type="submit" height=12.5%; class="disabled gdButton" style="margin-left: 1%" id="createList"></a>
 
 		</div>
-	</div> -->
+	</div>
 
 	<div style="position:absolute; bottom: 0%; left: 0%; width: 100%">
 		<img class="cornerPiece" src="../assets/corner.png" width=7%;>
@@ -82,16 +86,16 @@
 
 	<div id="gdItem0-21" class="transparentBox center" style="width: 115vh; height: 9%; margin: 1.5% auto 1% auto; padding-bottom: 0.2%">
 		<div>
-		<input type="text" id="levelName" placeholder="Enter a level, user, or ID" maxlength=20>
-		<img search="0" src="../assets/search.png" id="searchBtn" width="20%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
+		<input type="text" id="levelName1" placeholder="Enter a level, user, or ID" maxlength=20>
+		<img search="" src="../assets/search.png" id="searchBtn" width="20%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
 		<img src="../assets/search-user.png" width="9.6%" class="valign gdButton userSearch" style="margin-left: 1%; margin-bottom: 2.2%">
 		</div>
 	</div>
 
 	<div id="gdItem22" class="transparentBox center" style="width: 115vh; height: 9%; margin: 1.5% auto 1% auto; padding-bottom: 0.2%">
 		<div>
-		<input type="text" id="levelName" placeholder="Enter a level, user, or ID" maxlength=20>
-		<img search="0" src="../assets/search-1.png" id="searchBtn" width="8.6%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
+		<input type="text" id="levelName2" placeholder="Enter a level, user, or ID" maxlength=20>
+		<img search="" src="../assets/search-1.png" id="searchBtn" width="8.6%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
 		<img src="../assets/search-user.png" width="9.6%" class="valign gdButton userSearch" style="margin-left: 1%; margin-bottom: 2.2%">
 		<img src="../assets/remove.png" id="deleteFilBtn" width="8.6%" class="valign gdButton removeFilter" style="margin-left: 1%; margin-bottom: 2.2%">
 		</div>
@@ -146,7 +150,7 @@
 	</div>
 
 	<div class="transparentBox center" style="width: 135vh; height: 6%; margin: 0.5% auto 1% auto; padding-top: 1%; padding-bottom: 0.5%;">
-		<!-- <div class="lengthDiv" style="pointer-events: none" len=0><h1 class="gdButton smaller" style="pointer-events: none"><img src="../assets/time.png" height="90%" style="pointer-events: none"></h1></div> -->
+		<div class="lengthDiv selectedFilter" style="pointer-events: none"><h1 class="gdButton smaller" style="pointer-events: none"><img src="../assets/time.png" height="90%" style="pointer-events: none"></h1></div>
 		<div class="lengthDiv" len=0><h1 class="gdButton smaller">Tiny</h1></div>
 		<div class="lengthDiv" len=1><h1 class="gdButton smaller">Short</h1></div>
 		<div class="lengthDiv" len=2><h1 class="gdButton smaller">Medium</h1></div>
@@ -184,32 +188,59 @@ let serverType = "<?php print_r($serverType); ?>"
 let gdpsVersion = "<?php print_r($gdpsVersion); ?>"
 var maxGDPSVersion = 23;
 
-
 function undupe(array) {
   if (!Array.isArray(array)) return array
   else return array.filter((x, y) => array.indexOf(x) == y)
 }
 
+$('#box-song').click(function() { 
+	if(document.getElementById('box-song').checked) document.getElementById('songOption').style.display = "inline";
+	else {
+		document.getElementById('songOption').style.display = "none";
+		$('#songID').val("");
+		customSong = false;
+		savedFilters.song = 0;
+		delete savedFilters.defaultSong;
+	}
+})
+
+function songOptionView() {
+	checkedSong = JSON.parse(localStorage.filters);
+	if(checkedSong.checked.includes("song")) document.getElementById('songOption').style.display = "inline";
+	else {
+		document.getElementById('songOption').style.display = "none";
+		$('#songID').val("");
+		customSong = false;
+		savedFilters.song = 0;
+		delete savedFilters.defaultSong;
+	}
+}
+
+$('#deleteFilBtn').click(function() {
+	document.getElementById('levelName1').value = '';
+    document.getElementById('levelName2').value = '';
+})
+
 $('.userSearch').click(function() {
 
-	var query = "";
+	let query = "";
 
 	if (serverType != "legacy") {
-		query = "../../profile/" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") 
+		query = "../../profile/" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()).replace(/%2F/gi, "") || "") 
 	} else {
-		query = "../../profile/?u=" + (encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "") || "") }
+		query = "../../profile/?u=" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()).replace(/%2F/gi, "") || "") }
 	// let query = encodeURIComponent($('#levelName').val()).replace(/%2F/gi, "")
 	if (query) window.location.href = "./u/" + query
 })
 
 $('.levelSearch').click(function() {
 
-	var url = "";
+	let url = "";
 
 	if (serverType != "legacy") {
-		url = "../search/" + (encodeURIComponent($('#levelName').val()) || "0") + "?filter=" + $(this).attr('search')
+		url = "../search/" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()) || "0") + "?filter=" + $(this).attr('search')
 	} else {
-		url = "../search/search.html?s=" + (encodeURIComponent($('#levelName').val()) || "0") + "&filter=" + $(this).attr('search')
+		url = "../search/search.html?s=" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()) || "0") + "&filter=" + $(this).attr('search')
 	}
 
 	if ($(this).attr('search') == "featured") return window.location.href = url
@@ -310,7 +341,7 @@ $('.lengthDiv').click(function() {
 })
 
 $(document).keydown(function(k) {
-	let searchFocus = $(':focus-visible').length == 1 && $(':focus-visible').first().attr('id') == "levelName"
+	let searchFocus = $(':focus-visible').length == 1 && $(':focus-visible').first().attr('id') == "levelName1" || $(':focus-visible').first().attr('id') == "levelName2"
 	if ((!$(':focus-visible').length || searchFocus) && k.which == 13) { // enter
 		if (!$('#customlist').is(':hidden')) k.preventDefault();
 		else if ($('#filters').is(':hidden')) $('#searchBtn').trigger('click')
@@ -387,7 +418,8 @@ function clearFilters() {
 	$('.selectedFilter').removeClass('selectedFilter')
 	$('input[url]').prop('checked', false)
 	$('#songID').val("")
-	$('#levelName').val("")
+	$('#levelName1').val("")
+	$('#levelName2').val("")
 	$('#customSong').click()
 	hideDemonDiffs()
 	officialSong = 1
@@ -432,7 +464,7 @@ if (savedFilters.defaultSong) {
 else if (+savedFilters.song && +savedFilters.song > 0) $('#songID').val(savedFilters.song)
 
 checkExtraFilters()
-
+songOptionView()
 // Fetch(`../api/music`).then(music => {
 
 // 	$('#songName').html("1: " + music[1][0])

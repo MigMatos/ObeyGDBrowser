@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(0);
+// error_reporting(0);
 
 include("../_init_.php");
 
@@ -12,7 +12,18 @@ function searchLevels($params, $db, $gdps_settings) {
     $paramsSql = [];
     $downloadLevelData = false;
 
-    if (isset($params['levelName']) && $params['levelName'] === "*") {
+    if (isset($params['levelName']) && isset($params['list'])) {
+        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        if (preg_match('/^\d+(,\d+)+$/', $params['levelName'])) {
+            $levelNames = explode(',', $params['levelName']);
+            $allValid = !array_filter($levelNames, function($value) { return !ctype_digit($value); });
+            if ($allValid) {
+                $paramsSql[] = "levelID IN ( ". rtrim(str_repeat('? , ', count($levelNames)), ', ' ) ." )";
+                $bindings = array_merge($levelNames, $bindings);
+            } 
+        }
+    }
+    elseif (isset($params['levelName']) && $params['levelName'] === "*") {
         $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
 
     } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
