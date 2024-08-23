@@ -45,7 +45,7 @@ class OGDBrowserUpdater
     private $targetDir;
     private $repoUrl;
     private $fileLogger;
-    private $fileFullLog;
+
     private $progressPercentage = 0;
 
     public function __construct($targetDir, $repoUrl)
@@ -53,7 +53,7 @@ class OGDBrowserUpdater
         $this->targetDir = rtrim($targetDir, '/');
         $this->repoUrl = $repoUrl;
         $this->fileLogger = $this->targetDir . "/update/log.txt";
-        $this->fileFullLog = $this->targetDir . "/update/lastupdatelog.txt";
+        
     }
 
     public function run()
@@ -292,8 +292,6 @@ class OGDBrowserUpdater
     private function updateLogger($data, $percentage)
     {
         file_put_contents($this->fileLogger, strval($data . "|" . $percentage) . PHP_EOL, FILE_APPEND);
-        // file_put_contents($this->fileFullLog, strval($data . "|" . $percentage) . PHP_EOL, FILE_APPEND);
-        // file_put_contents($this->fileFullLog, strval($data) . PHP_EOL, FILE_APPEND);
         echo $data . PHP_EOL;
         flush();
     }
