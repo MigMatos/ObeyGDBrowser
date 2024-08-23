@@ -64,8 +64,8 @@
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;">
-			<p style="text-align: center;" id="updateText">Click here to check updates!</p>
-			<img class="gdButtonBrowser" src="assets/plus.png" width="40%" onclick="updateCoreWebButton()"></a>
+			<p style="text-align: center;" id="updateText">OGDW Updater</p>
+			<img class="gdButtonBrowser" id="updateButtonImg" src="assets/replay.png" width="40%" onclick="updateCoreWebButton()"></a>
 		</div>; 
 
 		<div style="position:absolute; bottom: 27%; right: 1%; text-align: right; width: 15%; display: flex;
@@ -155,7 +155,7 @@
 <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="./misc/global.js"></script>
-
+<script type="text/javascript" src="./misc/updater.js"></script>
 
 
 <script>
@@ -170,13 +170,8 @@ var isAdmin = false;
 } ?>
 
 
-const lastExecutionTime = localStorage.getItem('lastTimeUpdateExe');
-const currentTime = new Date().getTime();
-const tenMinutesInMillis = 10 * 60 * 1000; // 10 minutos en milisegundos
 
-if (!lastExecutionTime || (currentTime - lastExecutionTime > tenMinutesInMillis)) {
-    // Si no hay registro de la última ejecución o han pasado más de 10 minutos
-    if (isAdmin) {
+if (isAdmin) {
         setTimeout(function () {
             const event = new Event('initLoadingAlert');
             document.dispatchEvent(event);
@@ -184,18 +179,6 @@ if (!lastExecutionTime || (currentTime - lastExecutionTime > tenMinutesInMillis)
             checkCoreBrowser();
 			localStorage.setItem('lastTimeUpdateExe', currentTime);
         }, 700);
-        
-    }
-} else {
-	const GDVersionNow = localStorage.getItem('GDVersion_now');
-	const GDVersionLastCache = localStorage.getItem('GDVersion_getcache');
-
-	if (GDVersionNow !== null && GDVersionLastCache !== null && GDVersionNow != GDVersionLastCache) {
-		let element = document.getElementById("updateText");
-		if (element != null) {element.innerHTML = "<cg><b>NEW UPDATE AVAILABLE!</b></cg>";}
-	}
-
-    console.log(currentTime - lastExecutionTime);
 }
 
 function darknessPage(){
@@ -331,7 +314,7 @@ function searchRedirect(url,type) {
 		$("#loading-main").show();
 		const event = new Event('initLoadingAlert');
 		document.dispatchEvent(event);
-		changeLoadingAlert("Checking and updating...");
+		changeLoadingAlert("Opening updater...");
 		window.location.href = "./update";
 	}
 
@@ -345,73 +328,33 @@ function searchRedirect(url,type) {
 
 	
 
-	function checkCoreBrowser(Display) {
-
-		if (Display == null) {Display = false}; 
-
-
-		fetch(`https://api.github.com/repos/migmatos/ObeyGDBrowser/releases/latest`)
-		.then(response => response.json())
-		.then(data => {
-
-			if (data.tag_name) {
-				fetch('update/version.txt')
-				.then(response => {
-					const event = new Event('finishLoadingAlert');
-					document.dispatchEvent(event);
-					if (!response.ok) {
-						return null;
-					}
-					return response.text();
-				})
-				.then(text => {
-					if (text != data.tag_name) {
-						let element = document.getElementById("updateText");
-						if (element != null) {
-							element.innerHTML = "<cg><b>NEW UPDATE AVAILABLE!</b></cg>";
-						}
-					}
-					localStorage.setItem('GDVersion_now', text);
-					localStorage.setItem('GDVersion_getcache', data.tag_name);
-				})
-				.catch(error => {
-					console.error('Hubo un problema con la solicitud fetch:', error);
-				});
-
+	function checkCoreBrowser() {
+		const branch = sessionStorage.getItem('branchSelected') || 0;
+		if(branch == 0) branch = "latest"
+		else if(branch == 1) branch = "prerelease";
+		else if(branch == 2) branch = "master"
+		else branch = "latest"
+		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, 'update/version.txt')
+		.then(result => {
+			if (result.data.tag_name) {
+				const event = new Event('finishLoadingAlert');
+				document.dispatchEvent(event);
+				let element = document.getElementById("updateText");
+				let imgElement = document.getElementById("updateButtonImg");
+				if (result.currentVersion != result.data.tag_name) {
+					imgElement.style.filter = "hue-rotate(320deg)";
+					imgElement.style.mixBlendMode = "unset";
+					imgElement.classList.add("spin");
+					element.innerHTML = "<cg><b>NEW UPDATE AVAILABLE!</b></cg>";
+				} else {
+					imgElement.style.filter = "unset";
+					imgElement.style.mixBlendMode = "";
+					imgElement.classList.remove("spin");
+					element.innerHTML = "OGDBW Updater";
+				}
 			}
+		});
 
-			if (data.body) {
-				$releaseNotesDescription = "# `g0 **" + data.name + "** ` \n\n" + data.body;
-				
-				if (Display) CreateFLAlert("Updated to last version!",$releaseNotesDescription)
-			} else {
-				console.log('Error: No release notes found.');
-				if (Display) CreateFLAlert("Updated!","ObeyGDBrowser has been updated to last version!");
-			}
-		})
-		.catch(error => {
-			console.log("Error: Failed fetching release notes from github, debug: ", error);
-			if (Display) CreateFLAlert("Updated!","ObeyGDBrowser has been updated to last version!");
-		}
-		);
-
-	}
-
-	let alertValue = (new URLSearchParams(window.location.search)).get("alert");
-	if (alertValue == "installed"){
-		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
-		window.history.pushState(null, null, newURLpush);
-		checkCoreBrowser(true);
-	}
-	else if (alertValue == "lasted"){
-		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
-		window.history.pushState(null, null, newURLpush);
-		CreateFLAlert("Without updates!","No updates available\n\n **Join our support server:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
-	}
-	else if (alertValue == "failedinstall"){
-		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
-		window.history.pushState(null, null, newURLpush);
-		CreateFLAlert("Failed Installing!","Report in the Discord Support Server or Github!\n\n **Join our support server:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 	}
 
 	function showCredits() {

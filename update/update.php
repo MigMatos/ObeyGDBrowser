@@ -114,7 +114,7 @@ s
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
-
+<script type="text/javascript" src="../misc/updater.js"></script>
 <script>
 
 const progressInfo = document.getElementById('progress-info');
@@ -129,92 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		fetchUpdate(selectedValue);
 	});
 });
-
-async function fetchGithubVersion(owner, repo, branchType) {
-    async function getCurrentVersionAndDate() {
-        try {
-            const response = await fetch('./version.txt');
-            const text = await response.text();
-            const [version, date] = text.trim().split('|').map(part => part.trim());
-            return { version: version.trim(), date: date ? new Date(date.trim()) : new Date(0) };
-        } catch (error) {
-            console.error("Error reading version.txt:", error);
-            return { version: null, date: new Date(0) };
-        }
-    }
-
-    const isNewerThan = (date1, date2) => date1 > date2;
-
-    try {
-        const { version: currentVersion, date: currentDate } = await getCurrentVersionAndDate();
-
-		console.log(currentDate);
-		
-        if (currentVersion === null || currentDate === null) {
-            console.error("No se pudo obtener la versión actual o la fecha.");
-            return {currentVersion: 0};
-        } 
-
-        if (branchType === 'master') {
-            const masterResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/main`);
-            const masterData = await masterResponse.json();
-            masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-main"; 
-            masterData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/main`
-			masterData.body = null;
-			const latestDate = new Date(masterData.commit.commit.committer.date)
-			if (isNewerThan(latestDate, currentDate)){
-				masterData.version_date = latestDate.toISOString();
-				return {
-					type: 'master',
-					currentVersion: currentVersion,
-					data: masterData
-				};
-			} else {
-                return {currentVersion: currentVersion, updated: true};
-			}
-        } else if (branchType === 'latest') {
-            const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
-            const latestData = await latestResponse.json();
-            const latestVersion = latestData.tag_name;
-            const latestDate = new Date(latestData.created_at);
-            latestData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${latestVersion}`;
-
-            if (latestVersion !== currentVersion || isNewerThan(latestDate, currentDate)) {
-                return {
-                    type: 'latest',
-					currentVersion: currentVersion,
-                    data: latestData
-                };
-            } else {
-                return {currentVersion: currentVersion, updated: true};
-            }
-        } else if (branchType === 'prerelease') {
-            const releaseResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases`);
-            const releases = await releaseResponse.json();
-            const prerelease = releases.find(release => 
-                release.prerelease && 
-                (release.tag_name.replace(/^v/, '') !== currentVersion || 
-                isNewerThan(new Date(release.created_at), currentDate))
-            );
-
-            if (prerelease) {
-                const prereleaseVersion = prerelease.tag_name;
-                const prereleaseDate = new Date(prerelease.created_at);
-                prerelease.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${prereleaseVersion}`;
-                return {
-                    type: 'prerelease',
-					currentVersion: currentVersion,
-                    data: prerelease
-                };
-            } else {
-                return {currentVersion: currentVersion, updated: true};
-            }
-        }
-    } catch (error) {
-        console.error("Error fetching version from GitHub:", error);
-        return {currentVersion: 0};
-    }
-}
 
 function openLogs() {
     const url = './log.txt';
@@ -236,7 +150,7 @@ function fetchUpdate(branch) {
 	else if(branch == 2) branch = "master"
 	else branch = "latest"
 
-	fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch)
+	fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, './version.txt')
 		.then(result => {
 			console.log(result);
             document.getElementById('progress-rotate').classList.remove("spin");
