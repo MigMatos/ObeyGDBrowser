@@ -108,11 +108,11 @@ s
 
 		<p class="font-helvetica gitbody" id="body-github" style="background-color: #00000075;width: 65%;height: 32.5%;margin-left: 50%;transform: translate(-50%, 0); font-size: 2.3vh; overflow: auto; padding: 0 5% 0 5%; border-radius: 3.5vh;"></p>
 
-        <div class="center-div" style="width: 44%; padding: 2% 0 2% 0; display: flex; align-items: center;">
+        <div class="center-div" style="width: 44%; display: flex; align-items: center;">
 
         <div style="
         width: 35%;
-        transform: translate(-150%, -15%);
+        transform: translate(-155%, -13%);
         ">
             <h3>Branch:</h3>
             <div onclick="CreateFLSelector('updateType','Update branch')" style="width: 100%; padding: 0% 3% 0% 3%">
@@ -125,7 +125,7 @@ s
             <div class="gdsButton" id="buttonLog" onclick="openLogs()" style="width: 65%;transform: translate(25%, 0px);" disabled="" readonly><h3 class="gdfont-Pusab">Logs</h3></div>
         </div>
 
-        <div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width: 40%;transform: translate(5%, -30%);" disabled="" readonly><h3 class="gdfont-Pusab">Update</h3></div>
+        <div class="gdsButton" id="buttonUpdate" onclick="updateOGDWCore()" style="width: 40%;transform: translate(5%, -28%);" disabled="" readonly><h3 class="gdfont-Pusab">Update</h3></div>
 
         </div>
 	
