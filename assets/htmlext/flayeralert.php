@@ -5,7 +5,7 @@
 
 
 <link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/utils.css">
-<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/flayers.css?v=6">
+<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/flayers.css?v=7">
   <div class="over-flalert" id="gd-fancy-box">
     
     <div class="gdalert fancy-box">
@@ -30,6 +30,6 @@
   </div>
 <script src="<?php echo $baseURL ?>assets/js/utils.js?v=2"></script>
 <script src="<?php echo $baseURL ?>assets/js/securityParser.js?v=7"></script>
-<script src="<?php echo $baseURL ?>assets/js/flayers.js?v=8"></script>
+<script src="<?php echo $baseURL ?>assets/js/flayers.js?v=9"></script>
 
 
