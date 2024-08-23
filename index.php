@@ -177,7 +177,6 @@ if (isAdmin) {
             document.dispatchEvent(event);
             changeLoadingAlert(`Checking updates...`);
             checkCoreBrowser();
-			localStorage.setItem('lastTimeUpdateExe', currentTime);
         }, 700);
 }
 
@@ -334,9 +333,9 @@ function searchRedirect(url,type) {
 		else if(branch == 1) branch = "prerelease";
 		else if(branch == 2) branch = "master"
 		else branch = "latest"
-		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, 'update/version.txt')
+		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, './update/version.txt')
 		.then(result => {
-			if (result.data.tag_name) {
+			if (result.data) {
 				const event = new Event('finishLoadingAlert');
 				document.dispatchEvent(event);
 				let element = document.getElementById("updateText");
