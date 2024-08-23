@@ -24,7 +24,8 @@ if ($isAdmin != "1" || $logged != true) {
 
 
 <head>
-	
+    <title>OGDW Updater</title>
+    <link rel="icon" href="../assets/settings.png" type="image/png">
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
     <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
