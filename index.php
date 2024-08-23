@@ -335,9 +335,9 @@ function searchRedirect(url,type) {
 		else branch = "latest"
 		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, './update/version.txt')
 		.then(result => {
+			const event = new Event('finishLoadingAlert');
+			document.dispatchEvent(event);
 			if (result.data) {
-				const event = new Event('finishLoadingAlert');
-				document.dispatchEvent(event);
 				let element = document.getElementById("updateText");
 				let imgElement = document.getElementById("updateButtonImg");
 				if (result.currentVersion != result.data.tag_name) {
