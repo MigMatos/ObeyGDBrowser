@@ -106,7 +106,7 @@ s
 			
 		</div>
 
-		<p class="font-helvetica gitbody" id="body-github" style="background-color: #00000075;width: 65%;height: 35%;margin-left: 50%;transform: translate(-50%, 0); font-size: 2.3vh; overflow: auto; padding: 0 5% 0 5%; border-radius: 3.5vh;"></p>
+		<p class="font-helvetica gitbody" id="body-github" style="background-color: #00000075;width: 65%;height: 32.5%;margin-left: 50%;transform: translate(-50%, 0); font-size: 2.3vh; overflow: auto; padding: 0 5% 0 5%; border-radius: 3.5vh;"></p>
 
         <div class="center-div" style="width: 44%; padding: 2% 0 2% 0; display: flex; align-items: center;">
 
@@ -285,7 +285,7 @@ function errorUpdate(data) {
     document.getElementById('buttonLog').removeAttribute('disabled');
 	document.getElementById('buttonLog').removeAttribute('readonly');
 	document.getElementById('div-progress-bar').style.display = "none";
-    document.getElementById('body-github').style.height = "35%";
+    document.getElementById('body-github').style.height = "32.5%";
 	document.getElementById('progress-rotate').classList.remove('spin');
 }
 
@@ -295,7 +295,7 @@ function finishedUpdate() {
     progressInfo.style.color = '#00ff22';
     document.getElementById('buttonLog').removeAttribute('disabled');
 	document.getElementById('buttonLog').removeAttribute('readonly');
-    document.getElementById('body-github').style.height = "35%";
+    document.getElementById('body-github').style.height = "32.5%";
 	document.getElementById('div-progress-bar').style.display = "none";
 	document.getElementById('progress-rotate').classList.remove('spin');
     document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;

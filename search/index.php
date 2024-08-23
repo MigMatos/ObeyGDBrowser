@@ -12,6 +12,14 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<style>
+.gdButton[disabled]{
+	filter:grayscale(1);
+	pointer-events: none;
+}
+
+</style>
+
 <body class="levelBG" onbeforeunload="saveFilters(); saveUrl()">
 
 <div id="everything">
@@ -21,19 +29,14 @@
 			<img class="gdButton" src="../assets/close.png" width="9%" style="position: absolute; top: -8.5%; left: -5.5vh" onclick="$('#filters').hide()">
 			<h1 style="margin-bottom: 4%">Advanced Options</h1><br>
 			<div><h1><input type="checkbox" id="box-featured" url="&featured=1"><label for="box-featured" class="gdcheckbox gdButton"></label>Featured</h1></div>
-			<?php
-            if ($gdpsVersion > 20) { ?>
-			<div><h1><input type="checkbox" id="box-epic" url="&epic=1"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
-			<?php } ?>
-			<?php
-            if ($gdpsVersion > 21) { ?>
-			<div><h1><input type="checkbox" id="box-epic-2" url="&epic=2"><label for="box-epic-2" class="gdcheckbox gdButton"></label>Legendary</h1></div>
-			<div><h1><input type="checkbox" id="box-epic-3" url="&epic=3"><label for="box-epic-3" class="gdcheckbox gdButton"></label>Mythic</h1></div>
-			<?php } ?>
+			
+			<div id="gdItem21"><h1><input type="checkbox" id="box-epic" url="&epic=1"><label for="box-epic" class="gdcheckbox gdButton"></label>Epic</h1></div>
+			<div id="gdItem22"><h1><input type="checkbox" id="box-epic-2" url="&epic=2"><label for="box-epic-2" class="gdcheckbox gdButton"></label>Legendary</h1></div>
+			<div id="gdItem22"><h1><input type="checkbox" id="box-epic-3" url="&epic=3"><label for="box-epic-3" class="gdcheckbox gdButton"></label>Mythic</h1></div>
 			<div style="margin-bottom: 6%"><h1><input type="checkbox" id="box-nostar" url="&noStar=1"><label for="box-nostar" class="gdcheckbox gdButton"></label>No Star</h1></div>
 			<div><h1><input type="checkbox" id="box-original" url="&original=1"><label for="box-original" class="gdcheckbox gdButton"></label>Original</h1></div>
-			<div><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
-			<div style="margin-bottom: 5%"><h1><input type="checkbox" id="box-coins" url="&coins=1"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
+			<div id="gdItem18"><h1><input type="checkbox" id="box-2player" url="&twoPlayer=1"><label for="box-2player" class="gdcheckbox gdButton"></label>2-Player</h1></div>
+			<div id="gdItem20" style="margin-bottom: 5%"><h1><input type="checkbox" id="box-coins" url="&coins=1"><label for="box-coins" class="gdcheckbox gdButton"></label>Coins</h1></div>
 			<!-- <h1 class="smallerer lessSpaced">Song</h1>
 			<img id="normalSong" class="gdButton inline gray" style="margin-right: 0.5%" src="../assets/song-normal.png" height="8%">
 			<img id="customSong" class="gdButton inline" style="margin-left: 0.5%" src="../assets/song-custom.png" height="8%">
@@ -45,8 +48,9 @@
 				<img style="width: 4%" id="songUp" class="gdButton inline valign songChange" jump="1" id="nextSong" src="../assets/whitearrow-right.png">
 			</div> -->
 		</div>
-	</div> <!--
-
+	</div>
+	<!--
+	
 	<div id="customlist" class="popup">
 		<div class="brownBox bounce center supercenter" style="width: 100vh; height: 56%; padding-top: 0.3%; padding-bottom: 3.5%; padding-left: 1%">
 			<img class="gdButton" src="../assets/close.png" width="9%" style="position: absolute; top: -8.5%; left: -5.5vh" onclick="$('#customlist').hide()">
@@ -76,11 +80,20 @@
 		<img class="cornerPiece" src="../assets/corner.png" width=7%; style="transform: scaleX(-1);  pointer-events: none">
 	</div>
 
-	<div class="transparentBox center" style="width: 115vh; height: 9%; margin: 1.5% auto 1% auto; padding-bottom: 0.2%">
+	<div id="gdItem0-21" class="transparentBox center" style="width: 115vh; height: 9%; margin: 1.5% auto 1% auto; padding-bottom: 0.2%">
 		<div>
 		<input type="text" id="levelName" placeholder="Enter a level, user, or ID" maxlength=20>
 		<img search="0" src="../assets/search.png" id="searchBtn" width="20%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
-		<img id="userSearch" src="../assets/search-user.png" width="9.6%" class="valign gdButton" style="margin-left: 1%; margin-bottom: 2.2%">
+		<img src="../assets/search-user.png" width="9.6%" class="valign gdButton userSearch" style="margin-left: 1%; margin-bottom: 2.2%">
+		</div>
+	</div>
+
+	<div id="gdItem22" class="transparentBox center" style="width: 115vh; height: 9%; margin: 1.5% auto 1% auto; padding-bottom: 0.2%">
+		<div>
+		<input type="text" id="levelName" placeholder="Enter a level, user, or ID" maxlength=20>
+		<img search="0" src="../assets/search-1.png" id="searchBtn" width="8.6%" class="valign gdButton levelSearch" style="margin-left: 1%; margin-bottom: 2.2%">
+		<img src="../assets/search-user.png" width="9.6%" class="valign gdButton userSearch" style="margin-left: 1%; margin-bottom: 2.2%">
+		<img src="../assets/remove.png" id="deleteFilBtn" width="8.6%" class="valign gdButton removeFilter" style="margin-left: 1%; margin-bottom: 2.2%">
 		</div>
 	</div>
 
@@ -98,8 +111,8 @@
 		<img src="../assets/btn-magic.png" height="27%" class="valign gdButton spaced levelSearch" search="magic">
 		<br>
 		<img src="../assets/btn-awarded.png" height="27%" class="valign gdButton levelSearch" search="awarded">
-		<!-- <img src="../assets/btn-featured.png" height="27%" class="valign gdButton levelSearch" search="featured" style="margin: 0% 2%"> -->
-		<!-- <img src="../assets/btn-followed.png" height="27%" id="followedSearch" class="valign gdButton levelSearch" search="followed"> -->
+		<img disabled src="../assets/btn-friends.png" height="27%" class="valign gdButton levelSearch" search="friends" style="margin: 0% 2%">
+		<img disabled src="../assets/btn-followed.png" height="27%" id="followedSearch" class="valign gdButton levelSearch" search="followed">
 	</div>
 
 	<div class="center">
@@ -116,8 +129,8 @@
 
 		<div class="diffDiv gdButton" id="demonBtn" diff=-2><img src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="mini">Demon</h3></div>
 
-		<!-- <div class="diffDiv gdButton" style="filter: brightness(100%)" id="demonBtn" diff=-2><img class="darkDiff" src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="darkDiff mini">Demon</h3> -->
-		<!-- <img src="../assets/exclamation.png" style="position: absolute; width: 19%; left: 86%; bottom: 68%"></div> -->
+		<!-- <div class="diffDiv gdButton" style="filter: brightness(100%)" id="demonBtn" diff=-2><img class="darkDiff" src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="darkDiff mini">Demon</h3>
+		<img src="../assets/exclamation.png" style="position: absolute; width: 19%; left: 86%; bottom: 68%"></div> -->
 
 		<div class="diffDiv gdButton" diff=-3><img src="../assets/difficulties/auto.png"><h3 class="mini">Auto</h3></div>
 	</div>
@@ -139,9 +152,8 @@
 		<div class="lengthDiv" len=2><h1 class="gdButton smaller">Medium</h1></div>
 		<div class="lengthDiv" len=3><h1 class="gdButton smaller">Long</h1></div>
 		<div class="lengthDiv" len=4><h1 class="gdButton smaller">XL</h1></div>
-	<?php 
-		if($gdpsVersion > 21) { ?> <div class="lengthDiv" len=5><h1 class="gdButton smaller">Platform</h1></div> <?php }
-	?>
+		<div class="lengthDiv" len=5 id="gd22"><h1 class="gdButton smaller">Plat.</h1></div>
+
 		<div class="lengthDiv" id="starCheck"><img src="../assets/star.png" class="gdButton" height="90%"></div>
 	</div>
 
@@ -160,6 +172,7 @@
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
+
 <script>
 
 let filters = []
@@ -168,13 +181,16 @@ let demonMode = false
 let customSong = true
 let officialSong = 1
 let serverType = "<?php print_r($serverType); ?>"
+let gdpsVersion = "<?php print_r($gdpsVersion); ?>"
+var maxGDPSVersion = 23;
+
 
 function undupe(array) {
   if (!Array.isArray(array)) return array
   else return array.filter((x, y) => array.indexOf(x) == y)
 }
 
-$('#userSearch').click(function() {
+$('.userSearch').click(function() {
 
 	var query = "";
 
@@ -282,7 +298,7 @@ $('.diffDiv').click(function() {
 	savedFilters.diff = getDiffFilters()
 	savedFilters.demonDiff = demonMode
 
-	if ($(this).attr('diff') == -2 && <?php echo $gdpsVersion ?> > 20 ) showDemonDiffs()
+	if ($(this).attr('diff') == -2 && gdpsVersion > 20 ) showDemonDiffs()
 
 })
 
@@ -388,12 +404,17 @@ function checkExtraFilters() {
 let savedFilters = JSON.parse(localStorage.filters || "{}")
 $('input[url]').prop('checked', false)
 
-if (!savedFilters.diff) savedFilters.diff = []
-<?php if ($gdpsVersion > 20) { ?> 
-else if (savedFilters.demonDiff) { showDemonDiffs(); $(`.demonDiff[diff=${savedFilters.diff}]`).trigger('click') }
-else if (savedFilters.diff[0] == -2) { $('.diffDiv[diff=-2]').first().addClass('selectedFilter'); showDemonDiffs() } 
-<?php } ?>
-else (savedFilters.diff.forEach(x => $(`.diffDiv:not(.demonDiff)[diff=${x}]`).addClass('selectedFilter')))
+
+if (gdpsVersion > 20) {
+	if (!savedFilters.diff) savedFilters.diff = []
+	else if (savedFilters.demonDiff) { showDemonDiffs(); $(`.demonDiff[diff=${savedFilters.diff}]`).trigger('click') }
+	else if (savedFilters.diff[0] == -2) { $('.diffDiv[diff=-2]').first().addClass('selectedFilter'); showDemonDiffs() } 
+	else (savedFilters.diff.forEach(x => $(`.diffDiv:not(.demonDiff)[diff=${x}]`).addClass('selectedFilter')))
+} else {
+	if (!savedFilters.diff) savedFilters.diff = []
+	else (savedFilters.diff.forEach(x => $(`.diffDiv:not(.demonDiff)[diff=${x}]`).addClass('selectedFilter')))
+}
+
 
 if (!savedFilters.len) savedFilters.len = []
 else (savedFilters.len.forEach(x => $(`.lengthDiv[len=${x}]`).addClass('selectedFilter')))
@@ -447,3 +468,4 @@ checkExtraFilters()
 // })
 
 </script>
+<script type="text/javascript" src="../misc/versionadapter.js"></script>
