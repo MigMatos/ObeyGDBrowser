@@ -96,12 +96,12 @@
 					<tr class="menuButtonList">
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
 						
-						<?php if ($gdpsVersion > 20) { ?>
-						<td><a tabindex="1" onclick="levelRedirect('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
-						<td style="display: block" id="menu_weekly"><a tabindex="1" onclick="levelRedirect('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
-						<?php } ?>
 						
-						<td><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs"></a></td>
+						<td id="gdItem21"><a tabindex="1" onclick="levelRedirect('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
+						<td id="gdItem21"><a tabindex="1" onclick="levelRedirect('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
+						
+						
+						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs"></a></td>
 
 						<!-- <td><a tabindex="1" href="./gauntlets"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td> -->
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
@@ -113,10 +113,10 @@
 						
 						
 						<!-- <img src="./assets/exclamation.png" style="position: absolute; height: 18%; left: 3.5%; bottom: 23%; pointer-events: none; z-index: 50;"> -->
-						<?php if ($gdpsVersion > 20) { ?>
-						<td><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
-						<?php } ?>
-						<!-- <td><a tabindex="1" href="./mappacks"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td> -->
+						
+						<td id="gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
+						
+						<td id="gdItem16"><a tabindex="1" href="./mappacks"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
 					</tr>
 			</table>
@@ -160,8 +160,9 @@
 
 <script>
 
-var legacyServer = true;
-var isAdmin = false;
+let gdpsVersion = <?php echo $gdpsVersion; ?>;
+let legacyServer = true;
+let isAdmin = false;
 
 <?php if ($logged && $isAdmin) {
 
@@ -391,3 +392,4 @@ if (noDaily || noWeekly) {
 
 
 </script>
+<script type="text/javascript" src="./misc/versionadapter.js"></script>

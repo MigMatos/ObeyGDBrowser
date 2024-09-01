@@ -8,7 +8,7 @@ $includeFile = "../../".$includeFolder."generatePass.php";
 if (file_exists($includeFile)) {
     require $includeFile;
 } else {
-    echo "Error, missing key: Lib Folder";
+    echo "Error, missing File: generatePass.php";
     exit();
 }
 

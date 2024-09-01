@@ -53,6 +53,13 @@ class BrowserUtils {
         return $timeElapsed;
     }
 
+    public static function rgbToHex($rgb) {
+        $components = array_map('intval', explode(',', $rgb));
+        return (count($components) === 3 && min($components) >= 0 && max($components) <= 255) 
+            ? sprintf("#%02X%02X%02X", $components[0], $components[1], $components[2]) 
+            : '#FFFFFF';
+    }
+
 }
 
 
