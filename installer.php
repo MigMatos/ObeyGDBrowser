@@ -7,10 +7,6 @@
 	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/dashboard.css" />
-	<?php 
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html");
-    ?>
 </head>
 <style>
     .songscontent {
@@ -27,9 +23,52 @@
 </style>
 <body>
 
+<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/utils.css">
+<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/flayers.css?v=8">
+  <div class="over-flalert" id="gd-fancy-box">
+    
+    <div class="gdalert fancy-box">
+      <div class="flayercontent">
+        <p class="font-gold-pusab" id="fllayertitle-fancy">TEST ALERT</p>
+        <p class="font-helvetica" id="fllayerdesc-fancy">TEST ALERT 123</p>
+        <div class="flayeroptions-fancy" id="options-fl-layer-fancy"></div>
+        <button class="gdbtn-close fancy-0" id="gdclose-fancy-btn"></button>
+      </div>
+    </div>
+  </div>
+  <div class="over-flalert" id="gd-brown-box">
+    <div class="gdalert brown-box">
+      <div class="flayercontent">
+        <p class="font-gold-pusab" id="fllayertitle-brown">TEST ALERT</p>
+        <p class="font-helvetica" id="fllayerdesc-brown">TEST ALERT 123</p>
+        <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" class="fllayeriframe-brown-rotating-img" id="fllayeriframe-brown-rotating-img">
+        <iframe class="iframe-brown" id="fllayeriframe-brown" src="" frameborder="0"></iframe>
+        <button class="gdbtn-close brown-0" id="gdclose-brown-btn"></button>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.obeygdbot.xyz/js/utils.js?v=4"></script>
+<script src="https://cdn.obeygdbot.xyz/js/securityParser.js?v=8"></script>
+<script src="https://cdn.obeygdbot.xyz/js/flayers.js?v=10"></script>
+
+<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/loadingalert.css?v=6">
+<div class="loading-main" id="loading-main">
+    <div class="rotating-loadermain-image">
+      <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" id="rotating-img">
+    </div>
+</div>
+<div class="loading-alert-buttom-display" id="loading-alert-buttom-display">
+  <div class="rotating-loadermain-image">
+    <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" id="rotating-img">
+    <p class="gdfont-Pusab small" id="loading-alert-buttom-display-text">Loading...</p>
+  </div>
+</div>
+<script src="https://cdn.obeygdbot.xyz/js/loadingalert.js?v=4"></script>
+
+
 <div class="dashboard-container gdbox-brown songs">
     <h1 class="gdfont-Pusab normal">ObeyGDBrowser Installer</h1>
-    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED)</label>
+    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED) <span style="color:red;">(Unstable version)</span></label>
     <?php
 	
     $path_conn = "./incl/lib/";
@@ -150,7 +189,7 @@
 
 
 
-                    $latesttag = getLatestReleaseUrl($owner, $repo);
+                    $latesttag = "MASTER";
                     
                     
                     mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
@@ -161,7 +200,7 @@
                         echo "<script>";
                         echo 'changeLoadingAlert("Installing...");';
                         echo "</script>";
-                        $dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latesttag";
+                        $dir = "https://github.com/MigMatos/ObeyGDBrowser/archive/refs/heads/main.zip";
                         $dir = downloadAndExtractRepo($dir);
 
                         moveFilesToCurrentDirectory("./" . $dir);
