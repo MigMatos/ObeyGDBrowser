@@ -8,9 +8,38 @@ $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
-    $results = getMapPacks($params, $db, $gdps_settings);
-    echo $results;
-} 
+    echo getMapPacks($params, $db, $gdps_settings);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
+    $action = $_POST['act'] ?? null;
+    if ($isAdmin != "1" || $logged != true) {
+        echo json_encode(array("error" => "You do not have permission to access this API."));
+        exit(401);
+    }
+    if (!$action) {
+        echo json_encode(array("error" => "Please provide an action parameter in the POST request."));
+        exit;
+    }
+
+    switch ($action) {
+        case 'delete':
+            echo deleteMapPack($id, $db);
+            break;
+
+        case 'edit':
+            echo editMapPack($_POST, $db);
+            break;
+
+        case 'create':
+            echo createMapPack($_POST, $db);
+            break;
+
+        default:
+            echo json_encode(array("error" => "Invalid action specified."));
+            break;
+    }
+} else {
+    echo json_encode(array("error" => "Invalid request method or script filename mismatch."));
+}
 
 // PARAMS
 // page = page
@@ -93,6 +122,98 @@ function getMapPacks($params, $db, $gdps_settings) {
     }, $results);
 
     return json_encode($json_data);
+}
+
+function deleteMapPack($id, $db) {
+    $id = intval($id ?? 0);
+    if ($id <= 0) {
+        return json_encode(array("error" => "Invalid ID."));
+    }
+
+    $sql = "DELETE FROM mappacks WHERE ID = ?";
+    $bindings = [$id];
+
+    $stmt = $db->prepare($sql);
+
+    foreach ($bindings as $key => $value) {
+        $stmt->bindValue($key + 1, $value, PDO::PARAM_INT);
+    }
+
+    if ($stmt->execute()) {
+        return json_encode(array("success" => "true", "ID" => $id));
+    } else {
+        return json_encode(array("success" => "false"));
+    }
+}
+
+
+function editMapPack($params, $db) {
+    $id = intval($params['id'] ?? 0);
+    // print_r($params);
+    if ($id <= 0) {
+        return json_encode(array("error" => "Invalid ID."));
+    }
+
+    $name = strval($params['name'] ?? '');
+    $levels = strval($params['levels'] ?? '');
+
+    if (empty($name) || empty($levels)) {
+        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+    }
+
+    $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
+    $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
+    $stars = intval($params['stars'] ?? 0);
+    $coins = intval($params['coins'] ?? 0);
+    $difficulty = intval($params['difficulty'] ?? 0);
+
+    $sql = "UPDATE mappacks SET colors2 = ?, rgbcolors = ?, name = ?, levels = ?, stars = ?, coins = ?, difficulty = ? WHERE ID = ?";
+    $bindings = [$colors2, $rgbcolors, $name, $levels, $stars, $coins, $difficulty, $id];
+
+    $stmt = $db->prepare($sql);
+
+    foreach ($bindings as $key => $value) {
+        $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+    }
+
+    if ($stmt->execute()) {
+        return json_encode(array("success" => "true", "ID" => $id));
+    } else {
+        return json_encode(array("success" => "false"));
+    }
+}
+
+
+function createMapPack($params, $db) {
+    $name = strval($params['name'] ?? '');
+    $levels = strval($params['levels'] ?? '');
+
+    if (empty($name) || empty($levels)) {
+        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+    }
+
+    $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
+    $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
+    $stars = intval($params['stars'] ?? 0);
+    $coins = intval($params['coins'] ?? 0);
+    $difficulty = intval($params['difficulty'] ?? 0);
+
+    $sql = "INSERT INTO mappacks (colors2, rgbcolors, name, levels, stars, coins, difficulty) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $bindings = [$colors2, $rgbcolors, $name, $levels, $stars, $coins, $difficulty];
+
+    $stmt = $db->prepare($sql);
+
+    foreach ($bindings as $key => $value) {
+        $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+    }
+
+    if ($stmt->execute()) {
+        $id = $db->lastInsertId();
+        return json_encode(array("success" => "true", "ID" => $id));
+    } else {
+        return json_encode(array("success" => "false"));
+    }
 }
 
 

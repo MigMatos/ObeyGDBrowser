@@ -61,4 +61,11 @@
     }
     
     
+
+    // Permissions
+    $userPermissions = [];
+    if($isAdmin == "1" || $isAdmin == 1) $userPermissions[] = "admin";
+
+    $userPermissionsJSON = json_encode($userPermissions);
+
 ?>

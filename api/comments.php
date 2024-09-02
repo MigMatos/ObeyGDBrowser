@@ -111,5 +111,4 @@ function commentsGD($params, $db, $gdps_settings) {
 
 }
 
-
 ?>

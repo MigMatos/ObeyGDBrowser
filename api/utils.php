@@ -60,6 +60,32 @@ class BrowserUtils {
             : '#FFFFFF';
     }
 
+    public static function hexToRgb($hex) {
+        $hex = ltrim($hex, '#');
+        if (strlen($hex) == 6) {
+            list($r, $g, $b) = sscanf($hex, "%02x%02x%02x");
+        } elseif (strlen($hex) == 3) {
+            list($r, $g, $b) = sscanf(str_repeat($hex, 2), "%02x%02x%02x");
+        } else {
+            return '255,255,255';
+        }
+        return "$r,$g,$b";
+    }
+
+    public static function validateRgb($rgb) {
+        if (preg_match('/^\d{1,3},\d{1,3},\d{1,3}$/', $rgb)) {
+            $parts = explode(',', $rgb);
+            foreach ($parts as $part) {
+                if ($part < 0 || $part > 255) {
+                    return "255,255,255";
+                }
+            }
+            return $rgb;
+        } else {
+            return "255,255,255";
+        }
+    }
+
 }
 
 

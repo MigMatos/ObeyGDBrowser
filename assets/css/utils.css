@@ -249,4 +249,44 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     height: 150px; /* Asegúrate de que el ancho y el alto sean iguales para mantener la forma circular */
     border-radius: 50%;
     object-fit: cover; /* Ajusta la imagen dentro del contenedor sin distorsionarla */
-  }
+}
+
+/* COLOR PICKER */
+
+.gdColorPicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0; 
+}
+
+.gdColorPicker input[type="color"] {
+    -webkit-appearance: none;
+    border: 0.2vh solid black;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 8px;
+    cursor: pointer;
+    outline:0 none;
+    background-color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 0; 
+}
+
+.gdColorPicker input[type="color"]::-webkit-color-swatch {
+    border-radius: 8px; 
+    outline:0 none;
+    padding: 0; 
+}
+
+.gdColorPicker input[type="color"]::-webkit-color-swatch-wrapper {
+    border-radius: 8px;
+    outline:0 none;
+    border: none;
+    padding: 0; 
+}
+
+.gdColorLabel {
+    font-size: 16px;
+    color: #333;
+}

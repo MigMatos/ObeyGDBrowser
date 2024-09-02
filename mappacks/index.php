@@ -12,6 +12,29 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<?php include("../assets/htmlext/loadingalert.php"); ?>
+<?php include("../assets/htmlext/flayeralert.php"); ?>
+
+<style>
+	input.inputmaps {
+		margin-left: 3vh;
+		height: 8.5%;
+		font-size: 3vh;
+	}
+
+	select.gdsInput{
+
+		font-family: 'Pusab', Arial;
+		border: 0 solid transparent;
+		border-radius: 2vh;
+		background-color: rgba(0, 0, 0, 0.3);
+		white-space: nowrap;
+		width: 100%;
+    	font-size: 3vh;
+	}
+
+</style>
+
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything" style="overflow: auto;">
@@ -41,6 +64,43 @@
 			</p>
 			<img src="../assets/btn-cancel-green.png" height=25%; class="gdButton center closeWindow">
 			<img src="../assets/btn-delete.png" height=25%; id="purgeSaved" class="gdButton center sideSpaceB">
+		</div>
+	</div>
+
+	<div class="popup" id="editmapPopup">
+		<div class="brownbox bounce center supercenter" style="width: 85vh; height: 70%;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Edit MapPack #<span id="editmapID"></span></h2>
+			<form id="formEditMap">
+			<div class="transparentbox" style="display: contents;">
+				
+				<input type="text" name="act" value="edit" hidden><input type="number" id="editmapID2" name="id" value="0" hidden>
+
+				<h3>Name:<input class="inputmaps" type="text" id="editmapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
+				<h3>ID Levels:<input class="inputmaps" pattern="^\d+,\d+(,\d+)*$" placeholder="1,2..." type="text" id="editmapLevels" name="levels" maxlength="25" required></h3>
+				<h3>Stars:<input class="inputmaps" type="number" id="editmapStars" name="stars" max="999" required></h3>
+				<h3>Coins:<input class="inputmaps" type="number" id="editmapCoins" name="coins" max="999" required></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;">Difficulty:<div onclick="CreateFLSelector('editmapDiff','Select Difficulty')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapDiff" name="difficulty" readonly>
+					<option value="0" selected>auto</option>
+					<option value="1">easy</option>
+					<option value="2">normal</option>
+					<option value="3">hard</option>
+					<option value="4">harder</option>
+					<option value="5">insane</option>
+					<option value="6">hard demon</option>
+					<option value="7">easy demon</option>
+					<option value="8">medium demon</option>
+					<option value="9">insane demon</option>
+					<option value="10">extreme demon</option>
+				</select></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;">Text Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmaptextcolor" name="rgbcolors"></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;">Bar Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmapbarcolor" name="colors2"></div></h3>
+				
+
+			
+			</div>
+			<img onclick="submitEditMap()" src="../assets/ok.png" style="margin-top: 3vh;" height=10%; id="pageJump">
+			<img class="gdButton center closeWindow" src="../assets/close.png" height="15%" style="position: absolute; top: -7.5%; left: -7vh">
+			</form>
 		</div>
 	</div>
 
@@ -97,6 +157,11 @@
 		<img class="gdButton" src="../assets/delete.png" width="60%" onclick="$('#purgeDiv').show()">
 	</div>
 
+	<div title="Create new mappack" class="checkperm-mappacks" style="position:absolute; bottom: 15.5%; right: 1%; width: 15%; text-align: right;">
+		<h3 style="transform: translate(-9%, -5%);">Mod</h3>
+		<img class="gdButton" src="../assets/newBtn.png" width="40%" id="createMapPack"></a>
+	</div>
+
 	<div style="position:absolute; bottom: 2%; right: 1%; text-align: right; width: 15%;">
 		<img class="gdButton" src="../assets/refresh.png" width="40%" id="refreshPage"></a>
 	</div>
@@ -117,6 +182,7 @@
 		<img class="gdButton" id="pageUp" style="display: none"; src="../assets/arrow-right.png" height="90%">
 	</div>
 
+	
 	<div class="supercenter" id="loading" style="height: 10%; top: 47%; display: none;">
 		<img class="spin noSelect" src="../assets/loading.png" height="105%">
 	</div>
@@ -127,13 +193,63 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
+
 <script>
+$("#loading-main").hide();
+
+function editMap(page,idarray){
+	dataMap = pageCache[page][idarray];	
+	$('#editmapID').text(dataMap.packID);
+	$('#editmapID2').val(dataMap.packID);
+	$('#editmapName').val(dataMap.packName);
+	$('#editmapLevels').val(dataMap.levels);
+	$('#editmapStars').val(dataMap.stars);
+	$('#editmapCoins').val(dataMap.coins);
+	$('#editmapDiff').val(dataMap.difficulty);
+	$('#editmaptextcolor').val(dataMap.textColor);
+	$('#editmapbarcolor').val(dataMap.barColor);
+	
+	$('#editmapPopup').show();
+}
+
+function submitEditMap() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+    let form = document.getElementById('formEditMap');
+    if (form.checkValidity()) {
+        var formData = new FormData(form);
+		
+        fetch('../api/mappacks.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+			if(data.success == "true") changeLoadingAlert("Map Pack edited!","done");
+			else changeLoadingAlert("Error editing Map Pack!","error");
+			console.log(data);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+        })
+        .catch(error => {
+			changeLoadingAlert("An error occurred while editing the Map Pack...","error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+        });
+		$('#editmapPopup').hide();
+		Append(true, true);
+    } else {
+        form.reportValidity();
+    }
+}
+
+</script>
+
+<script>
+
+
 
 $('#pageDown').hide()
 $('#pageUp').hide()
-
-
-
 
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
@@ -213,7 +329,6 @@ function Append(firstLoad, noCache) {
 	else $('#pageUp').show()
 
 	res.forEach((x, y) => {
-
 		$('#searchBox').append(`<div class="searchresult" title="${clean(x.packName)}">
 
 			<div style="position: relative; height: 100%; align-content: center;">
@@ -237,8 +352,13 @@ function Append(firstLoad, noCache) {
 
 			</div>
 
-			<div class="center" style="position:absolute; right: 7%; transform:translateY(-16.25vh); height: 10%">
-				<a title="View levels" onclick=searchRedirect('${encodeURIComponent(x.levels)}','${encodeURIComponent(clean(x.packName || " "))}') "><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
+			<div class="center" style="position:absolute; right: 7%; transform: translate(0.5vh, -16.25vh); height: 10%">
+				<div class="checkperm-mappacks" style="background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: -100%; position: relative; margin-bottom: -27%;">
+				<h3 class="lessSpaced">Mod actions</h3>
+					<img onclick="editMap(${page},${y})" title="Edit Map Pack" class="valign gdButton editMap" src="../assets/editBtn.png" height="105%">
+					<img onclick="deleteMap(${page},${y})" title="Delete Map Pack" class="valign gdButton delMap" src="../assets/trash.png" height="105%">
+				</div>
+				<a title="View levels" onclick=searchRedirect('${encodeURIComponent(x.levels)}','${encodeURIComponent(clean(x.packName || " "))}') "><img class="valign gdButton" src="../assets/view.png" height="105%"></a>
 			</div>
 
 
@@ -329,3 +449,6 @@ $(document).keydown(function(k) {
 });
 
 </script>
+
+<script>let userPermissions = <?php echo $userPermissionsJSON; ?>;</script>
+<script type="text/javascript" src="../misc/checkperms.js"></script>
