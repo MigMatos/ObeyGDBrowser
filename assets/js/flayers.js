@@ -1,13 +1,21 @@
 
 // Función para cambiar el texto de los elementos con parámetros
 let FLIDSelect = null;
+let EventListenerInput = null;
+let functionEventListener = null;
 
 function CreateFLSelector(selectId, title = "", maxOptions = 2, desc = "") {
     CreateFLAlert(title, desc, selectId, maxOptions); // Llama a CreateFLAlert con el ID del select como parámetro
 }
 
+function CreateFLSelectorSearch(selectId, title="", maxOptions= 2, desc = "") {
+    const elementSelected = document.getElementById(selectId);
+    const searchType = elementSelected.getAttribute("api-type");
+    CreateFLAlert(title, desc, selectId, maxOptions, searchType);
+}
 
-function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
+
+function CreateFLAlert(title, desc, idObject, maxOptions = 2, searchType="") {
     const titleElement = document.getElementById('fllayertitle-fancy');
     const descElement = document.getElementById('fllayerdesc-fancy');
     if (titleElement && descElement) {
@@ -17,48 +25,95 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
         setTimeout(function() {
             document.querySelector(".fancy-box").style.transform = "scale(1)";
         }, 10);
-    }
+    }  
+
+
 
     if (idObject) {
+        
+
         FLIDSelect = idObject;
         const selectElement = document.getElementById(idObject);
         const optionsContainer = document.getElementById('options-fl-layer-fancy');
+        
+        if(searchType == "levels") {
+            let apiURL = selectElement.getAttribute("api-url") || "../api/search.php";
+            
+            EventListenerInput = document.getElementById("flayersearch-layer-fancy");
+
+            EventListenerInput.style.display = "flex";
+
+            functionEventListener = eventListenerSearchType(apiURL,selectElement,optionsContainer,maxOptions)
+
+            EventListenerInput.addEventListener("input", functionEventListener);
+        }
+        
+        
         if (selectElement && optionsContainer) {
-            const options = Array.from(selectElement.querySelectorAll('option'));
+            genMoreFLElements(selectElement,optionsContainer,maxOptions)
+        }
+    }
+}
+
+function eventListenerSearchType (apiURL,selectElement,optionsContainer,maxOptions) {
+
+    return function(event) {
+
+        let fetchURLAPI = `${apiURL}?levelName=${event.target.value}&page=0`
+
+        selectElement.innerHTML = "";
+        Fetch(fetchURLAPI).then(data => {
+
+            console.log(data);
+            data.forEach(item => {
+                if (item) { 
+                    const option = document.createElement("option");
+                    option.value = item.id; 
+                    option.textContent = `${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`;
+                    selectElement.appendChild(option);
+                }
+            });
+            genMoreFLElements(selectElement,optionsContainer,maxOptions)
+        });
+    }
+}
+
+function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
+    const options = Array.from(selectElement.querySelectorAll('option'));
             const isMultiple = selectElement.hasAttribute('multiple');
             const selectedOptions = options.filter(option => option.selected);
 
-            optionsContainer.innerHTML = ''; // Limpiar el contenido del contenedor antes de agregar nuevas opciones
+            optionsContainer.innerHTML = ''; 
 
             options.map(option => {
-                const div = document.createElement('div'); // Crear un div contenedor
-                div.classList.add('gdsCheckboxItems'); // Agregar la clase gdCheckboxItems
+                const div = document.createElement('div');
+                div.classList.add('gdsCheckboxItems'); 
 
                 const checkbox = document.createElement('input');
-                checkbox.classList.add('gdsCheckbox'); // Agregar la clase gdCheckbox
+                checkbox.classList.add('gdsCheckbox');
                 checkbox.type = 'checkbox';
-                checkbox.id = `customsong${option.value}`; // Establecer el ID del checkbox
-                checkbox.value = option.value; // Establecer el valor del checkbox igual al valor del option
-                checkbox.checked = selectedOptions.some(selectedOption => selectedOption.value === option.value); // Marcar el checkbox si la opción está seleccionada
+                checkbox.id = `customsong${option.value}`; 
+                checkbox.value = option.value; 
+                checkbox.checked = selectedOptions.some(selectedOption => selectedOption.value === option.value); 
                 
-                //checkbox.disabled = isMultiple && selectedOptions.length >= maxOptions && !selectedOptions.some(selectedOption => selectedOption.value === option.value); // Deshabilitar el checkbox si se supera el límite de selección
+                //checkbox.disabled = isMultiple && selectedOptions.length >= maxOptions && !selectedOptions.some(selectedOption => selectedOption.value === option.value); 
                 
                 div.appendChild(checkbox);
 
                 const labelForCheckbox = document.createElement('label');
-                labelForCheckbox.classList.add('checkbutton-container'); // Agregar la clase checkbutton-container
-                labelForCheckbox.htmlFor = `customsong${option.value}`; // Establecer el atributo htmlFor del label
+                labelForCheckbox.classList.add('checkbutton-container'); 
+                labelForCheckbox.htmlFor = `customsong${option.value}`;
                 div.appendChild(labelForCheckbox);
 
                 const labelText = document.createElement('label');
-                labelText.classList.add('gdfont-Pusab', 'small'); // Agregar las clases gdfont-Pusab y small
-                labelText.htmlFor = `customsong${option.value}`; // Establecer el atributo htmlFor del label
-                labelText.textContent = option.textContent; // Establecer el texto del label
+                labelText.classList.add('gdfont-Pusab', 'small'); 
+                labelText.htmlFor = `customsong${option.value}`; 
+                labelText.textContent = option.textContent; 
                 div.appendChild(labelText);
 
                 div.appendChild(document.createElement('br'));
 
-                // Agregar evento change a cada checkbox
+
                 var optionsChecked = 0;
                 checkbox.addEventListener('change', function() {
                     
@@ -77,7 +132,7 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
                             option.selected = true;
                         }
                     } else {
-                        option.selected = false; // Deseleccionar el option si el checkbox está desmarcado
+                        option.selected = false; 
                     }
 
                     optionsChecked = 0;
@@ -85,9 +140,8 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2) {
 
                 optionsContainer.appendChild(div);
             });
-        }
-    }
 }
+
 
 function CreateFLBrownAlert(title, desc, frameurl) {
     const titleElement = document.getElementById('fllayertitle-brown');
@@ -114,6 +168,14 @@ function CreateFLBrownAlert(title, desc, frameurl) {
 
   
 document.getElementById("gdclose-fancy-btn").addEventListener("click", function() {
+    if(functionEventListener && EventListenerInput) {
+        EventListenerInput.removeEventListener('input', functionEventListener);
+        functionEventListener = null;
+        EventListenerInput.style.display = "none";
+        EventListenerInput.value = "";
+        EventListenerInput = null;
+    }
+    
     document.getElementById("gd-fancy-box").style.display = "none";
     document.querySelector(".fancy-box").style.transform = "scale(0)";
     document.getElementById('options-fl-layer-fancy').innerHTML = "";

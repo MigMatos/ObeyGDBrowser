@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    runCheckPerms();
+});
 
+
+function runCheckPerms() {
     if (typeof userPermissions === 'undefined') {
         console.log("Warning: userPermissions not defined");
         let userPermissions = [];
@@ -26,4 +30,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (hideElement) { element.style.display = 'none'; }
     });
-});
+}

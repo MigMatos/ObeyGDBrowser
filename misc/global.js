@@ -87,6 +87,19 @@ function Fetch(link) {
 	})
 }
 
+function FetchAdmin(link,method="GET") {
+    console.log(link);
+    return new Promise(function (res, rej) {
+        fetch(link, {
+            method: method,
+            credentials: 'include' 
+        }).then(resp => {
+            if (!resp.ok) return rej(resp);
+            resp.json().then(res).catch(rej);
+        }).catch(rej);
+    });
+}
+
 let allowEsc = true;
 let popupEsc = true;
 

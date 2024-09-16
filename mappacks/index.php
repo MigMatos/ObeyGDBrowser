@@ -10,6 +10,11 @@
 	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">
 	<meta id="meta-image" name="og:image" itemprop="image" content="../coin.png">
 	<meta name="twitter:card" content="summary">
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 
 <?php include("../assets/htmlext/loadingalert.php"); ?>
@@ -76,7 +81,13 @@
 				<input type="text" name="act" value="edit" hidden><input type="number" id="editmapID2" name="id" value="0" hidden>
 
 				<h3>Name:<input class="inputmaps" type="text" id="editmapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
-				<h3>ID Levels:<input class="inputmaps" pattern="^\d+,\d+(,\d+)*$" placeholder="1,2..." type="text" id="editmapLevels" name="levels" maxlength="25" required></h3>
+				
+				<!-- <select api-search-id="2" data-url="../api/search.php" multiple="multiple" required data-min="2" data-max="10"></select> -->
+
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;">Levels:<div onclick="CreateFLSelectorSearch('editlevels','Select levels','10')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editlevels" name="levels[]" api-type="levels" api-url="../api/search.php" multiple readonly>
+				</select></div></h3>
+
+				<!-- <h3>ID Levels:<input class="inputmaps" pattern="^\d+,\d+(,\d+)*$" placeholder="1,2..." type="text" id="editmapLevels" name="levels" maxlength="25" required></h3> -->
 				<h3>Stars:<input class="inputmaps" type="number" id="editmapStars" name="stars" max="999" required></h3>
 				<h3>Coins:<input class="inputmaps" type="number" id="editmapCoins" name="coins" max="999" required></h3>
 				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;">Difficulty:<div onclick="CreateFLSelector('editmapDiff','Select Difficulty')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapDiff" name="difficulty" readonly>
@@ -190,7 +201,8 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../misc/selectapis.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 
@@ -368,6 +380,7 @@ function Append(firstLoad, noCache) {
 	$('#searchBox').append('<div style="height: 4.5%"></div>').scrollTop(0)
 	$('#loading').hide()
 	loading = false;
+	runCheckPerms();
 	}
 }
 

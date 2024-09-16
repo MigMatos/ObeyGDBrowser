@@ -11,6 +11,7 @@
     <div class="gdalert fancy-box">
       <div class="flayercontent">
         <p class="font-gold-pusab" id="fllayertitle-fancy">TEST ALERT</p>
+        <input type="text" class="flayersearch-fancy" id="flayersearch-layer-fancy" placeholder="Search here!">
         <p class="font-helvetica" id="fllayerdesc-fancy">TEST ALERT 123</p>
         <div class="flayeroptions-fancy" id="options-fl-layer-fancy"></div>
         <button class="gdbtn-close fancy-0" id="gdclose-fancy-btn"></button>
