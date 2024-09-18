@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GDPS Configuration</title>
     <link href="../assets/css/gdpssettings.css" type="text/css" rel="stylesheet">
 </head>
@@ -29,6 +31,9 @@
 
    
     ?>
+    
+    <h4 style="margin: 0;display: flex;flex-wrap: nowrap;justify-content: center;align-items: center;">Theme: <button id="theme-toggle"><span id="theme-emoji">☀</span><span style="margin-left:1vh;" id="theme-text">Light</span></button></h3>
+
     <br>
 
     <fieldset><legend><h2>GDPS Configuration</h2></legend>
@@ -36,11 +41,7 @@
     <form id="levelForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
 
-    <fieldset><legend><h5>Lengths (String)</h5></legend>
-        <button type="button" class="toggle-btn">
-            <strong>View/Hide</strong>
-            <span>▼</span>
-        </button>    
+    <fieldset><legend><h5>Lengths (String)</h5></legend> <button type="button" class="toggle-btn"><strong>View/Hide</strong><span>▼</span></button>
         <div class="content hidden">
         <label for="length-0">Length 0:</label>
         <input type="text" id="length-0" name="length-0"><br>
@@ -405,6 +406,40 @@ document.querySelectorAll('.toggle-btn').forEach(button => {
 });
 
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById('theme-toggle');
+    
+    function applyTheme(theme) {
+        document.body.classList.toggle('dark', theme === 'dark');
+        document.body.classList.toggle('light', theme === 'light');
+        if(theme == 'dark') {
+            document.getElementById('theme-emoji').textContent = "🌙";
+            document.getElementById('theme-text').textContent = "Dark";
+        } else {
+            document.getElementById('theme-emoji').textContent = "☀";
+            document.getElementById('theme-text').textContent = "Light";
+        }
+        const elements = document.querySelectorAll('fieldset, legend, input[type="text"], input[type="number"], input[type="submit"], button, .error-message, .info');
+        elements.forEach(el => {
+            el.classList.toggle('dark', theme === 'dark');
+            el.classList.toggle('light', theme === 'light');
+        });
+    }
+
+    const savedTheme = sessionStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    toggleButton.addEventListener('click', () => {
+        const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        applyTheme(newTheme);
+        sessionStorage.setItem('theme', newTheme);
+    });
+});
+</script>
+
 
 <!-- 
 
