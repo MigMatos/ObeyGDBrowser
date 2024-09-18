@@ -54,6 +54,7 @@
     "browser_path": "browser/",
     "gdps_version": 22,
     "gauntlets": {
+        "-1": "",
         "0": "Unknown",
         "1": "Fire",
         "2": "Ice",

@@ -87,7 +87,7 @@ function getMapPacks($params, $db, $gdps_settings) {
     
     function getGauntletName($id) {
         global $gdps_settings;
-        return $gdps_settings["gauntlets"]["$id"] ?? $gdps_settings["gauntlets"]["0"];
+        return $gdps_settings["gauntlets"]["$id"] ?? "Unknown";
     }
 
     function returnStringLevels($level1,$level2,$level3,$level4,$level5) {

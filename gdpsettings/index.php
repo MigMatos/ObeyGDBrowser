@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>GDPS Configuration</title>
+    <link href="../assets/css/gdpssettings.css" type="text/css" rel="stylesheet">
 </head>
 <body bgcolor="#999999">
     
@@ -36,7 +37,11 @@
 
 
     <fieldset><legend><h5>Lengths (String)</h5></legend>
-
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
         <label for="length-0">Length 0:</label>
         <input type="text" id="length-0" name="length-0"><br>
         <label for="length-1">Length 1:</label>
@@ -49,21 +54,29 @@
         <input type="text" id="length-4" name="length-4"><br>
         <label for="length-5">Length 5:</label>
         <input type="text" id="length-5" name="length-5"><br>
-
+        </div>
     </fieldset>
 
 
     <fieldset><legend><h5>Featured rates</h5></legend> 
-
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
         <label for="featured-0">Featured 0:</label>
         <input type="text" id="featured-0" name="featured-0"><br>
         <label for="featured-1">Featured 1:</label>
         <input type="text" id="featured-1" name="featured-1"><br>
-
+        </div>
     </fieldset>
 
     <fieldset><legend><h5>Epic rates</h5></legend>
-
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
         <label for="epic-0">Epic 0:</label>
         <input type="text" id="epic-0" name="epic-0"><br>
         <label for="epic-1">Epic 1:</label>
@@ -72,11 +85,15 @@
         <input type="text" id="epic-2" name="epic-2"><br>
         <label for="epic-3">Epic 3:</label>
         <input type="text" id="epic-3" name="epic-3"><br>
-
+        </div>
     </fieldset>
 
     <fieldset><legend><h5>Demon difficulties</h5></legend>
-
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
         <label for="states_demon-0">Demon Type 0:</label>
         <input type="text" id="states_demon-0" name="states_demon-0"><br>
         <label for="states_demon-3">Demon Type 3:</label>
@@ -87,11 +104,15 @@
         <input type="text" id="states_demon-5" name="states_demon-5"><br>
         <label for="states_demon-6">Demon Type 6:</label>
         <input type="text" id="states_demon-6" name="states_demon-6"><br>
-
+        </div>
     </fieldset>
 
     <fieldset><legend><h5>Difficulties</h5></legend>
-
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
         <label for="states_diff_num-0">Difficulty Type 0:</label>
         <input type="text" id="states_diff_num-0" name="states_diff_num-0"><br>
         <label for="states_diff_num-10">Difficulty Type 10:</label>
@@ -104,8 +125,154 @@
         <input type="text" id="states_diff_num-40" name="states_diff_num-40"><br>
         <label for="states_diff_num-50">Difficulty Type 50:</label>
         <input type="text" id="states_diff_num-50" name="states_diff_num-50"><br>
-
+        </div>
     </fieldset>
+
+    <fieldset><legend><h5>Gauntlets</h5></legend>
+        <button type="button" class="toggle-btn">
+            <strong>View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden">
+        <label for="gauntlets-1">Gauntlet 1:</label>
+        <input type="text" id="gauntlets-1" name="gauntlets-1" value="Fire"><br>
+
+        <label for="gauntlets-2">Gauntlet 2:</label>
+        <input type="text" id="gauntlets-2" name="gauntlets-2" value="Ice"><br>
+
+        <label for="gauntlets-3">Gauntlet 3:</label>
+        <input type="text" id="gauntlets-3" name="gauntlets-3" value="Poison"><br>
+
+        <label for="gauntlets-4">Gauntlet 4:</label>
+        <input type="text" id="gauntlets-4" name="gauntlets-4" value="Shadow"><br>
+
+        <label for="gauntlets-5">Gauntlet 5:</label>
+        <input type="text" id="gauntlets-5" name="gauntlets-5" value="Lava"><br>
+
+        <label for="gauntlets-6">Gauntlet 6:</label>
+        <input type="text" id="gauntlets-6" name="gauntlets-6" value="Bonus"><br>
+
+        <label for="gauntlets-7">Gauntlet 7:</label>
+        <input type="text" id="gauntlets-7" name="gauntlets-7" value="Chaos"><br>
+
+        <label for="gauntlets-8">Gauntlet 8:</label>
+        <input type="text" id="gauntlets-8" name="gauntlets-8" value="Demon"><br>
+
+        <label for="gauntlets-9">Gauntlet 9:</label>
+        <input type="text" id="gauntlets-9" name="gauntlets-9" value="Time"><br>
+
+        <label for="gauntlets-10">Gauntlet 10:</label>
+        <input type="text" id="gauntlets-10" name="gauntlets-10" value="Crystal"><br>
+
+        <label for="gauntlets-11">Gauntlet 11:</label>
+        <input type="text" id="gauntlets-11" name="gauntlets-11" value="Magic"><br>
+
+        <label for="gauntlets-12">Gauntlet 12:</label>
+        <input type="text" id="gauntlets-12" name="gauntlets-12" value="Spike"><br>
+
+        <label for="gauntlets-13">Gauntlet 13:</label>
+        <input type="text" id="gauntlets-13" name="gauntlets-13" value="Monster"><br>
+
+        <label for="gauntlets-14">Gauntlet 14:</label>
+        <input type="text" id="gauntlets-14" name="gauntlets-14" value="Doom"><br>
+
+        <label for="gauntlets-15">Gauntlet 15:</label>
+        <input type="text" id="gauntlets-15" name="gauntlets-15" value="Death"><br>
+
+        <label for="gauntlets-16">Gauntlet 16:</label>
+        <input type="text" id="gauntlets-16" name="gauntlets-16" value="Forest"><br>
+
+        <label for="gauntlets-17">Gauntlet 17:</label>
+        <input type="text" id="gauntlets-17" name="gauntlets-17" value="Rune"><br>
+
+        <label for="gauntlets-18">Gauntlet 18:</label>
+        <input type="text" id="gauntlets-18" name="gauntlets-18" value="Force"><br>
+
+        <label for="gauntlets-19">Gauntlet 19:</label>
+        <input type="text" id="gauntlets-19" name="gauntlets-19" value="Spooky"><br>
+
+        <label for="gauntlets-20">Gauntlet 20:</label>
+        <input type="text" id="gauntlets-20" name="gauntlets-20" value="Dragon"><br>
+
+        <label for="gauntlets-21">Gauntlet 21:</label>
+        <input type="text" id="gauntlets-21" name="gauntlets-21" value="Water"><br>
+
+        <label for="gauntlets-22">Gauntlet 22:</label>
+        <input type="text" id="gauntlets-22" name="gauntlets-22" value="Haunted"><br>
+
+        <label for="gauntlets-23">Gauntlet 23:</label>
+        <input type="text" id="gauntlets-23" name="gauntlets-23" value="Acid"><br>
+
+        <label for="gauntlets-24">Gauntlet 24:</label>
+        <input type="text" id="gauntlets-24" name="gauntlets-24" value="Witch"><br>
+
+        <label for="gauntlets-25">Gauntlet 25:</label>
+        <input type="text" id="gauntlets-25" name="gauntlets-25" value="Power"><br>
+
+        <label for="gauntlets-26">Gauntlet 26:</label>
+        <input type="text" id="gauntlets-26" name="gauntlets-26" value="Potion"><br>
+
+        <label for="gauntlets-27">Gauntlet 27:</label>
+        <input type="text" id="gauntlets-27" name="gauntlets-27" value="Snake"><br>
+
+        <label for="gauntlets-28">Gauntlet 28:</label>
+        <input type="text" id="gauntlets-28" name="gauntlets-28" value="Toxic"><br>
+
+        <label for="gauntlets-29">Gauntlet 29:</label>
+        <input type="text" id="gauntlets-29" name="gauntlets-29" value="Halloween"><br>
+
+        <label for="gauntlets-30">Gauntlet 30:</label>
+        <input type="text" id="gauntlets-30" name="gauntlets-30" value="Treasure"><br>
+
+        <label for="gauntlets-31">Gauntlet 31:</label>
+        <input type="text" id="gauntlets-31" name="gauntlets-31" value="Ghost"><br>
+
+        <label for="gauntlets-32">Gauntlet 32:</label>
+        <input type="text" id="gauntlets-32" name="gauntlets-32" value="Spider"><br>
+
+        <label for="gauntlets-33">Gauntlet 33:</label>
+        <input type="text" id="gauntlets-33" name="gauntlets-33" value="Gem"><br>
+
+        <label for="gauntlets-34">Gauntlet 34:</label>
+        <input type="text" id="gauntlets-34" name="gauntlets-34" value="Inferno"><br>
+
+        <label for="gauntlets-35">Gauntlet 35:</label>
+        <input type="text" id="gauntlets-35" name="gauntlets-35" value="Portal"><br>
+
+        <label for="gauntlets-36">Gauntlet 36:</label>
+        <input type="text" id="gauntlets-36" name="gauntlets-36" value="Strange"><br>
+
+        <label for="gauntlets-37">Gauntlet 37:</label>
+        <input type="text" id="gauntlets-37" name="gauntlets-37" value="Fantasy"><br>
+
+        <label for="gauntlets-38">Gauntlet 38:</label>
+        <input type="text" id="gauntlets-38" name="gauntlets-38" value="Christmas"><br>
+
+        <label for="gauntlets-39">Gauntlet 39:</label>
+        <input type="text" id="gauntlets-39" name="gauntlets-39" value="Surprise"><br>
+
+        <label for="gauntlets-40">Gauntlet 40:</label>
+        <input type="text" id="gauntlets-40" name="gauntlets-40" value="Mystery"><br>
+
+        <label for="gauntlets-41">Gauntlet 41:</label>
+        <input type="text" id="gauntlets-41" name="gauntlets-41" value="Cursed"><br>
+
+        <label for="gauntlets-42">Gauntlet 42:</label>
+        <input type="text" id="gauntlets-42" name="gauntlets-42" value="Cyborg"><br>
+
+        <label for="gauntlets-43">Gauntlet 43:</label>
+        <input type="text" id="gauntlets-43" name="gauntlets-43" value="Castle"><br>
+
+        <label for="gauntlets-44">Gauntlet 44:</label>
+        <input type="text" id="gauntlets-44" name="gauntlets-44" value="Grave"><br>
+
+        <label for="gauntlets-45">Gauntlet 45:</label>
+        <input type="text" id="gauntlets-45" name="gauntlets-45" value="Temple"><br>
+        </div>
+    </fieldset>
+
+
+
 
     <fieldset><legend><h5>GDBrowser Settings</h5></legend>
 
@@ -183,6 +350,8 @@
 function loadValues() {
     for (const key in jsonData) {
         let keyData = jsonData[key];
+
+        console.log(keyData);
         
         if (keyData.constructor === ({}).constructor) {
             for (const subKey in keyData) {
@@ -222,6 +391,20 @@ function loadValues() {
 loadValues();
 
     </script>
+
+<script>
+
+document.querySelectorAll('.toggle-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            if (content && content.classList.contains('content')) {
+                content.classList.toggle('hidden');
+            }
+            this.classList.toggle('collapsed');
+        });
+});
+
+</script>
 
 <!-- 
 
@@ -287,6 +470,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "30" => get_post_value("states_diff_num-30"),
             "40" => get_post_value("states_diff_num-40"),
             "50" => get_post_value("states_diff_num-50")
+        ),
+        "gauntlets" => array(
+            "-1" => "",
+            "0" => get_post_value("gauntlets-0"),
+            "1" => get_post_value("gauntlets-1"),
+            "2" => get_post_value("gauntlets-2"),
+            "3" => get_post_value("gauntlets-3"),
+            "4" => get_post_value("gauntlets-4"),
+            "5" => get_post_value("gauntlets-5"),
+            "6" => get_post_value("gauntlets-6"),
+            "7" => get_post_value("gauntlets-7"),
+            "8" => get_post_value("gauntlets-8"),
+            "9" => get_post_value("gauntlets-9"),
+            "10" => get_post_value("gauntlets-10"),
+            "11" => get_post_value("gauntlets-11"),
+            "12" => get_post_value("gauntlets-12"),
+            "13" => get_post_value("gauntlets-13"),
+            "14" => get_post_value("gauntlets-14"),
+            "15" => get_post_value("gauntlets-15"),
+            "16" => get_post_value("gauntlets-16"),
+            "17" => get_post_value("gauntlets-17"),
+            "18" => get_post_value("gauntlets-18"),
+            "19" => get_post_value("gauntlets-19"),
+            "20" => get_post_value("gauntlets-20"),
+            "21" => get_post_value("gauntlets-21"),
+            "22" => get_post_value("gauntlets-22"),
+            "23" => get_post_value("gauntlets-23"),
+            "24" => get_post_value("gauntlets-24"),
+            "25" => get_post_value("gauntlets-25"),
+            "26" => get_post_value("gauntlets-26"),
+            "27" => get_post_value("gauntlets-27"),
+            "28" => get_post_value("gauntlets-28"),
+            "29" => get_post_value("gauntlets-29"),
+            "30" => get_post_value("gauntlets-30"),
+            "31" => get_post_value("gauntlets-31"),
+            "32" => get_post_value("gauntlets-32"),
+            "33" => get_post_value("gauntlets-33"),
+            "34" => get_post_value("gauntlets-34"),
+            "35" => get_post_value("gauntlets-35"),
+            "36" => get_post_value("gauntlets-36"),
+            "37" => get_post_value("gauntlets-37"),
+            "38" => get_post_value("gauntlets-38"),
+            "39" => get_post_value("gauntlets-39"),
+            "40" => get_post_value("gauntlets-40"),
+            "41" => get_post_value("gauntlets-41"),
+            "42" => get_post_value("gauntlets-42"),
+            "43" => get_post_value("gauntlets-43"),
+            "44" => get_post_value("gauntlets-44"),
+            "45" => get_post_value("gauntlets-45")
         ),
         "server_software" => get_post_value("server_software"),
         "gdbrowser_title" => get_post_value("gdbrowser_title"),
