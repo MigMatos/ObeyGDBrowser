@@ -1,104 +1,361 @@
-{
-    "length": {
-        "-1": "",
-        "0": "Tiny",
-        "1": "Short",
-        "2": "Medium",
-        "3": "Long",
-        "4": "XL",
-        "5": "Platform"
-    },
-    "featured": {
-        "-1": "",
-        "0": "",
-        "1": "featured"
-    },
-    "epic": {
-        "-1": "",
-        "0": "",
-        "1": "epic",
-        "2": "legendary",
-        "3": "mythic"
-    },
-    "states_demon": {
-        "-1": "",
-        "0": "hard",
-        "3": "easy",
-        "4": "medium",
-        "5": "insane",
-        "6": "extreme"
-    },
-    "states_diff_num": {
-        "-1": "",
-        "0": "unrated",
-        "10": "easy",
-        "20": "normal",
-        "30": "hard",
-        "40": "harder",
-        "50": "insane"
-    },
-    "gdbrowser_title": "Geometry Dash Browser!",
-    "gdbrowser_name": "DefaultGDPS",
-    "gdbrowser_icon": "assets/coin.png",
-    "gdbrowser_icon_embed": "https://gdbrowser.com/assets/coin.png",
-    "gdbrowser_desc": "Browse all of Geometry Dash's online features, right from this handy little website! Levels, profiles, leaderboards, comments, and more!",
-    "gdbrowser_assets_full_url": "https://gdbrowser.com/assets/",
-    "show_level_passwords": 1,
-    "server_software": "automatic",
-    "gdps_logo_url": "assets/gdlogo.png",
-    "gdps_level_browser_logo_url": "assets/browser.png",
-    "disable_colored_texture_level_browser": 1,
-    "path_connection": "../incl/lib/connection.php",
-    "path_folder_levels": "../../data/levels/",
-    "path_lib_folder": "../incl/lib/",
-    "browser_path": "browser/",
-    "gdps_version": 22,
-    "gauntlets": {
-        "0": "Unknown",
-        "1": "Fire",
-        "2": "Ice",
-        "3": "Poison",
-        "4": "Shadow",
-        "5": "Lava",
-        "6": "Bonus",
-        "7": "Chaos",
-        "8": "Demon",
-        "9": "Time",
-        "10": "Crystal",
-        "11": "Magic",
-        "12": "Spike",
-        "13": "Monster",
-        "14": "Doom",
-        "15": "Death",
-        "16": "Forest",
-        "17": "Rune",
-        "18": "Force",
-        "19": "Spooky",
-        "20": "Dragon",
-        "21": "Water",
-        "22": "Haunted",
-        "23": "Acid",
-        "24": "Witch",
-        "25": "Power",
-        "26": "Potion",
-        "27": "Snake",
-        "28": "Toxic",
-        "29": "Halloween",
-        "30": "Treasure",
-        "31": "Ghost",
-        "32": "Spider",
-        "33": "Gem",
-        "34": "Inferno",
-        "35": "Portal",
-        "36": "Strange",
-        "37": "Fantasy",
-        "38": "Christmas",
-        "39": "Surprise",
-        "40": "Mystery",
-        "41": "Cursed",
-        "42": "Cyborg",
-        "43": "Castle",
-        "44": "Grave",
-        "45": "Temple"
-      }
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GDPS Configuration</title>
+    <style>
+        body {
+            background-color: #999999;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        fieldset {
+            border: 2px solid #444;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        legend {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        h2, h5 {
+            margin: 0;
+            padding: 0;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"], button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #6c757d;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            opacity: 0.9;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: #af0000;
+        }
+
+        .info {
+            color: #007bff;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <?php
+
+    include("../_init_.php");
+    if ($failed_conn) {
+        echo "<p class='error-message'>Connection failed.</p>";
+    } else if($logged && $isAdmin) { 
+        // Allowed to view the configuration form
+    } else {
+        header("Location: ../");
+    }
+
+    function get_gameversion($data) {
+        $data = intval($data);
+        
+        if ($data <= 0) {
+            return 1.0;
+        } elseif ($data <= 7) {
+            return "1." . ($data - 1);
+        } elseif ($data == 10) {
+            return 1.7;
+        } else {
+            return $data / 10;
+        }
+    }
+    ?>
+
+    <div class="form-container">
+        <fieldset>
+            <legend><h2>GDPS Configuration</h2></legend>
+            <form id="levelForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+                <!-- Lengths Section -->
+                <fieldset>
+                    <legend><h5>Lengths (String)</h5></legend>
+                    <?php for ($i = 0; $i <= 5; $i++): ?>
+                        <label for="length-<?php echo $i; ?>">Length <?php echo $i; ?>:</label>
+                        <input type="text" id="length-<?php echo $i; ?>" name="length-<?php echo $i; ?>"><br>
+                    <?php endfor; ?>
+                </fieldset>
+
+                <!-- Featured Rates Section -->
+                <fieldset>
+                    <legend><h5>Featured rates</h5></legend>
+                    <?php for ($i = 0; $i <= 1; $i++): ?>
+                        <label for="featured-<?php echo $i; ?>">Featured <?php echo $i; ?>:</label>
+                        <input type="text" id="featured-<?php echo $i; ?>" name="featured-<?php echo $i; ?>"><br>
+                    <?php endfor; ?>
+                </fieldset>
+
+                <!-- Epic Rates Section -->
+                <fieldset>
+                    <legend><h5>Epic rates</h5></legend>
+                    <?php for ($i = 0; $i <= 3; $i++): ?>
+                        <label for="epic-<?php echo $i; ?>">Epic <?php echo $i; ?>:</label>
+                        <input type="text" id="epic-<?php echo $i; ?>" name="epic-<?php echo $i; ?>"><br>
+                    <?php endfor; ?>
+                </fieldset>
+
+                <!-- Demon Difficulties Section -->
+                <fieldset>
+                    <legend><h5>Demon difficulties</h5></legend>
+                    <?php for ($i = 0; $i <= 6; $i++): ?>
+                        <label for="states_demon-<?php echo $i; ?>">Demon Type <?php echo $i; ?>:</label>
+                        <input type="text" id="states_demon-<?php echo $i; ?>" name="states_demon-<?php echo $i; ?>"><br>
+                    <?php endfor; ?>
+                </fieldset>
+
+                <!-- Difficulties Section -->
+                <fieldset>
+                    <legend><h5>Difficulties</h5></legend>
+                    <?php for ($i = 0; $i <= 50; $i += 10): ?>
+                        <label for="states_diff_num-<?php echo $i; ?>">Difficulty Type <?php echo $i; ?>:</label>
+                        <input type="text" id="states_diff_num-<?php echo $i; ?>" name="states_diff_num-<?php echo $i; ?>"><br>
+                    <?php endfor; ?>
+                </fieldset>
+
+                <!-- GDBrowser Settings Section -->
+                <fieldset>
+                    <legend><h5>GDBrowser Settings</h5></legend>
+                    <label for="gdbrowser_title">GDPS Title:</label>
+                    <input type="text" id="gdbrowser_title" name="gdbrowser_title"><br>
+                    <label for="gdbrowser_name">GDPS Name:</label>
+                    <input type="text" id="gdbrowser_name" name="gdbrowser_name"><br>
+                    <label for="gdbrowser_icon">GDPS Icon:</label>
+                    <input type="text" id="gdbrowser_icon" name="gdbrowser_icon"><br>
+                    <label for="gdbrowser_icon_embed">GDPS Icon URL (for embeds) <span class="info">[ONLY .JPG, JPEG AND .PNG]</span>: </label>
+                    <input type="text" id="gdbrowser_icon_embed" name="gdbrowser_icon_embed"><br>
+                    <label for="gdbrowser_desc">GDPS Description:</label>
+                    <input type="text" size="100" id="gdbrowser_desc" name="gdbrowser_desc"><br>
+                    <label for="gdbrowser_assets_full_url">GDPS Assets Folder URL (for embeds):</label>
+                    <input type="text" size="50" id="gdbrowser_assets_full_url" name="gdbrowser_assets_full_url"><br>
+
+                    <!-- More Settings -->
+                    <label for="show_level_passwords">Show Level Passwords:</label>
+                    <input type="number" id="show_level_passwords" min="0" max="1" name="show_level_passwords"><br>
+                    <label for="gdps_logo_url">GDPS Logo URL:</label>
+                    <input type="text" id="gdps_logo_url" name="gdps_logo_url"><br>
+                    <label for="gdps_level_browser_logo_url">GDPS Level Browser Logo URL:</label>
+                    <input type="text" id="gdps_level_browser_logo_url" name="gdps_level_browser_logo_url"><br>
+
+                    <!-- Server Software Selection -->
+                    <label>Server Software:</label><br>
+                    <label for="server_software-automatic">
+                        <input type="radio" id="server_software-automatic" name="server_software" value="automatic">
+                        Automatic
+                    </label><br>
+                    <label for="server_software-apache">
+                        <input type="radio" id="server_software-apache" name="server_software" value="apache">
+                        Apache
+                    </label><br>
+                    <label for="server_software-nginx">
+                        <input type="radio" id="server_software-nginx" name="server_software" value="nginx">
+                        Nginx <span class="info">(Needs install nginx.conf)</span>
+                    </label><br>
+                    <label for="server_software-legacy">
+                        <input type="radio" id="server_software-legacy" name="server_software" value="legacy">
+                        Legacy (Compatible with most host servers)
+                    </label><br>
+
+                    <!-- Additional Settings -->
+                    <label for="disable_colored_texture_level_browser">Disable Colored Texture Level Browser:</label>
+                    <input type="number" id="disable_colored_texture_level_browser" min="0" max="1" name="disable_colored_texture_level_browser"><br>
+                    <label for="path_connection">Path Connection <span class="info">(Deprecated, please configure "Lib Folder"!)</span>:</label>
+                    <input type="text" id="path_connection" name="path_connection"><br>
+                    <label for="gdps_version">GDPS Version:</label>
+                    <input type="number" id="gdps_version" required name="gdps_version"><br>
+                    <label for="path_lib_folder" placeholder="../incl/lib/">Lib Folder:</label>
+                    <input type="text" id="path_lib_folder" required name="path_lib_folder"><br>
+                    <label for="path_folder_levels">Levels Path Folder (Important for the level analyzer!):</label>
+                    <input type="text" id="path_folder_levels" placeholder="../../data/levels/" name="path_folder_levels"><br>
+                </fieldset>
+
+                <input type="submit" value="Save">
+                <button type="button" onclick="window.location.href = '../';">Back</button>
+            </form>
+        </fieldset>
+    </div>
+
+    <script>
+        const jsonData = <?php echo json_encode($gdps_settings); ?>;
+
+        function loadValues() {
+            for (const key in jsonData) {
+                let keyData = jsonData[key];
+                
+                if (keyData.constructor === ({}).constructor) {
+                    for (const subKey in keyData) {
+                        let subkeyData = keyData[subKey];
+                        
+                        try {
+                            let element = document.getElementById(`${key}-${subKey}`);
+                            element.value = subkeyData;
+                            
+                        } catch (e) {
+                            console.log("ID Element not found: ", key, "-", subKey);
+                        }
+                    }
+                } else {
+
+                    try {
+                        
+                        let element = document.getElementById(`${key}`);
+                        element.value = keyData;
+
+                    } catch (e) {
+                        try {
+                        let element = document.getElementById(`${key}-${keyData}`);
+                        if (element.value === keyData){
+                            element.checked = true;
+                                    
+                        } 
+                    } catch (e) {
+                        console.log("ID Element not found: ", key);
+                    }
+                    console.log("ID Element not found: ", key);
+                    }
+                }
+            }
+        }
+
+        loadValues();
+    </script>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($failed_conn) {
+            echo "<p class='error-message'>Connection failed.</p>";
+        } else if($logged && $isAdmin) {
+            // Save configuration logic
+        } else {
+            echo "<p class='error-message'>No permissions</p>";
+        }
+
+        function get_post_value($key) {
+            return isset($_POST[$key]) ? $_POST[$key] : "";
+        }
+
+        $gdps_settings = array(
+            "length" => array(
+                "-1" => "",
+                "0" => get_post_value("length-0"),
+                "1" => get_post_value("length-1"),
+                "2" => get_post_value("length-2"),
+                "3" => get_post_value("length-3"),
+                "4" => get_post_value("length-4"),
+                "5" => get_post_value("length-5")
+            ),
+            "featured" => array(
+                "-1" => "",
+                "0" => get_post_value("featured-0"),
+                "1" => get_post_value("featured-1")
+            ),
+            "epic" => array(
+                "-1" => "",
+                "0" => get_post_value("epic-0"),
+                "1" => get_post_value("epic-1"),
+                "2" => get_post_value("epic-2"),
+                "3" => get_post_value("epic-3")
+            ),
+            "states_demon" => array(
+                "-1" => "",
+                "0" => get_post_value("states_demon-0"),
+                "3" => get_post_value("states_demon-3"),
+                "4" => get_post_value("states_demon-4"),
+                "5" => get_post_value("states_demon-5"),
+                "6" => get_post_value("states_demon-6")
+            ),
+            "states_diff_num" => array(
+                "-1" => "",
+                "0" => get_post_value("states_diff_num-0"),
+                "10" => get_post_value("states_diff_num-10"),
+                "20" => get_post_value("states_diff_num-20"),
+                "30" => get_post_value("states_diff_num-30"),
+                "40" => get_post_value("states_diff_num-40"),
+                "50" => get_post_value("states_diff_num-50")
+            ),
+            "server_software" => get_post_value("server_software"),
+            "gdbrowser_title" => get_post_value("gdbrowser_title"),
+            "gdbrowser_name" => get_post_value("gdbrowser_name"),
+            "gdbrowser_icon" => get_post_value("gdbrowser_icon"),
+            "gdbrowser_icon_embed" => get_post_value("gdbrowser_icon_embed"),
+            "gdbrowser_desc" => get_post_value("gdbrowser_desc"),
+            "gdbrowser_assets_full_url" => get_post_value("gdbrowser_assets_full_url"),
+            "show_level_passwords" => get_post_value("show_level_passwords"),
+            "gdps_logo_url" => get_post_value("gdps_logo_url"),
+            "gdps_level_browser_logo_url" => get_post_value("gdps_level_browser_logo_url"),
+            "disable_colored_texture_level_browser" => get_post_value("disable_colored_texture_level_browser"),
+            "path_connection" => get_post_value("path_connection"),
+            "gdps_version" => get_post_value("gdps_version"),
+            "path_lib_folder" => get_post_value("path_lib_folder"),
+            "path_folder_levels" => get_post_value("path_folder_levels")
+        );
+
+        $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
+        file_put_contents("../gdps_settings.json", $json_data);
+
+        ?>
+        <script>
+            alert("Configurations saved!");
+        </script>
+        <?php
+
+    } else {
+        if($logged && $isAdmin) {} else {
+        ?>
+        <script>
+            alert("Error saving!");
+        </script>
+        <?php
+        } 
+    }
+    ?>
+</body>
+</html>
