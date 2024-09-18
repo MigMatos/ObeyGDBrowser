@@ -50,9 +50,6 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 
 
 let serverType = "<?php print_r($serverType); ?>";
-//if (!path || path.trim() === '') window.location.href = './search.php';
-if (path == "0") path = "*"
-
 
 function redirectGauntlet(url, header) {
 	var queryLvl = "";
