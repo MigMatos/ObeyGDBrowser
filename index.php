@@ -106,7 +106,7 @@
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
 						<?php if($logged && $isAdmin) { ?> 
 
-						<td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs" style="filter: hue-rotate(230deg);"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-daily" src="assets/category-moderator.png" title="Moderators"></a></td>
 						
 						<?php } ?>
 					</tr>
