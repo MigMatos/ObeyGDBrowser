@@ -58,8 +58,7 @@
 		<a href="./account/login" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
 	</div>
 
-	<?php if($logged && $isAdmin) {
-		?> 
+	<?php if($logged && $isAdmin) { ?> 
 		<div style="position:absolute; bottom: 2%; right: 1%; text-align: right; width: 15%; display: flex;
 		justify-content: center;
 		flex-direction: column;
@@ -105,7 +104,11 @@
 
 						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
-					
+						<?php if($logged && $isAdmin) { ?> 
+
+						<td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs" style="filter: hue-rotate(230deg);"></a></td>
+						
+						<?php } ?>
 					</tr>
 					<tr class="menuButtonList">
 
