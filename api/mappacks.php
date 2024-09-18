@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
 
     switch ($action) {
         case 'delete':
-            echo deleteMapPack($id, $db);
+            echo deleteMapPack($_POST, $db);
             break;
 
         case 'edit':
@@ -124,8 +124,8 @@ function getMapPacks($params, $db, $gdps_settings) {
     return json_encode($json_data);
 }
 
-function deleteMapPack($id, $db) {
-    $id = intval($id ?? 0);
+function deleteMapPack($params, $db) {
+    $id = intval($params['id'] ?? 0);
     if ($id <= 0) {
         return json_encode(array("error" => "Invalid ID."));
     }
@@ -155,12 +155,13 @@ function editMapPack($params, $db) {
     }
 
     $name = strval($params['name'] ?? '');
-    $levels = strval($params['levels'] ?? '');
+    $levels = $params['levels'];
 
     if (empty($name) || empty($levels)) {
-        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+        return json_encode(array("error" => "'name' and 'levels' fields are required."));
     }
 
+    $levels = implode(',', $levels);
     $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
     $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
     $stars = intval($params['stars'] ?? 0);
@@ -186,20 +187,20 @@ function editMapPack($params, $db) {
 
 function createMapPack($params, $db) {
     $name = strval($params['name'] ?? '');
-    $levels = strval($params['levels'] ?? '');
+    $levels = $params['levels'];
 
     if (empty($name) || empty($levels)) {
-        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+        return json_encode(array("error" => "'name' and 'levels' fields are required."));
     }
 
+    $levels = implode(',', $levels);
     $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
     $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
     $stars = intval($params['stars'] ?? 0);
     $coins = intval($params['coins'] ?? 0);
     $difficulty = intval($params['difficulty'] ?? 0);
 
-    $sql = "INSERT INTO mappacks (colors2, rgbcolors, name, levels, stars, coins, difficulty) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO mappacks (colors2, rgbcolors, name, levels, stars, coins, difficulty) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $bindings = [$colors2, $rgbcolors, $name, $levels, $stars, $coins, $difficulty];
 
     $stmt = $db->prepare($sql);

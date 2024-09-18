@@ -61,18 +61,31 @@ function eventListenerSearchType (apiURL,selectElement,optionsContainer,maxOptio
 
         let fetchURLAPI = `${apiURL}?levelName=${event.target.value}&page=0`
 
-        selectElement.innerHTML = "";
+        for (let i = selectElement.options.length - 1; i >= 0; i--) {
+            let option = selectElement.options[i];
+            
+
+            if (!option.selected) {
+                selectElement.remove(i);
+            }
+
+        }
+        
+
         Fetch(fetchURLAPI).then(data => {
 
-            console.log(data);
+
             data.forEach(item => {
                 if (item) { 
                     const option = document.createElement("option");
-                    option.value = item.id; 
-                    option.textContent = `${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`;
+                    option.value = item.id;
+                    option.id = `genoption${item.id}`;
+                    option.setAttribute('title',`${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
+                    option.textContent = `${item.id}`;
                     selectElement.appendChild(option);
                 }
             });
+            
             genMoreFLElements(selectElement,optionsContainer,maxOptions)
         });
     }
@@ -85,14 +98,17 @@ function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
 
             optionsContainer.innerHTML = ''; 
 
-            options.map(option => {
+
+            options.filter(option => !option.hasAttribute('hidden')).map(option => {
+
                 const div = document.createElement('div');
                 div.classList.add('gdsCheckboxItems'); 
+                div.id = `flDiv${option.value}`
 
                 const checkbox = document.createElement('input');
                 checkbox.classList.add('gdsCheckbox');
                 checkbox.type = 'checkbox';
-                checkbox.id = `customsong${option.value}`; 
+                checkbox.id = `fl${option.value}`; 
                 checkbox.value = option.value; 
                 checkbox.checked = selectedOptions.some(selectedOption => selectedOption.value === option.value); 
                 
@@ -102,13 +118,13 @@ function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
 
                 const labelForCheckbox = document.createElement('label');
                 labelForCheckbox.classList.add('checkbutton-container'); 
-                labelForCheckbox.htmlFor = `customsong${option.value}`;
+                labelForCheckbox.htmlFor = `fl${option.value}`;
                 div.appendChild(labelForCheckbox);
 
                 const labelText = document.createElement('label');
                 labelText.classList.add('gdfont-Pusab', 'small'); 
-                labelText.htmlFor = `customsong${option.value}`; 
-                labelText.textContent = option.textContent; 
+                labelText.htmlFor = `fl${option.value}`; 
+                labelText.textContent = option.getAttribute('title') || option.textContent; 
                 div.appendChild(labelText);
 
                 div.appendChild(document.createElement('br'));

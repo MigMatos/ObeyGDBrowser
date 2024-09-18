@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	
 
 </head>
 
@@ -36,6 +37,11 @@
 		white-space: nowrap;
 		width: 100%;
     	font-size: 3vh;
+	}
+
+	.smallMapDivIcon {
+		width: 3vh;
+		margin-right: 1vh;
 	}
 
 </style>
@@ -72,6 +78,21 @@
 		</div>
 	</div>
 
+	<div class="popup" id="deletemapPopup">
+		<div class="brownbox bounce center supercenter" style="width: 75vh; height: 30%;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Delete MapPack #<span id="delmapID"></span></h2>
+			<form id="formDelMap">
+				<input type="text" name="act" value="delete" hidden>
+				<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
+					Are you sure to delete this map pack?<br><cr>This action cannot be reversed.</cr>
+				</p>
+				<input type="number" id="delmapID2" name="id" value="0" hidden>
+				<img class="gdButton center closeWindow" src="../assets/btn-no.png" height=25%;>
+				<img onclick="submitDelMap()" src="../assets/btn-yes.png"  height=25%; >
+			</form>
+		</div>
+	</div>
+
 	<div class="popup" id="editmapPopup">
 		<div class="brownbox bounce center supercenter" style="width: 85vh; height: 70%;">
 			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Edit MapPack #<span id="editmapID"></span></h2>
@@ -80,17 +101,18 @@
 				
 				<input type="text" name="act" value="edit" hidden><input type="number" id="editmapID2" name="id" value="0" hidden>
 
-				<h3>Name:<input class="inputmaps" type="text" id="editmapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
+				<h3><img src="../assets/info.png" class="smallMapDivIcon">Name:<input class="inputmaps" type="text" id="editmapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
 				
 				<!-- <select api-search-id="2" data-url="../api/search.php" multiple="multiple" required data-min="2" data-max="10"></select> -->
 
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;">Levels:<div onclick="CreateFLSelectorSearch('editlevels','Select levels','10')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editlevels" name="levels[]" api-type="levels" api-url="../api/search.php" multiple readonly>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLSelectorSearch('editmapLevels','Select levels','10')" style="width: 71%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapLevels" name="levels[]" min-options="2" max-options="10" api-type="levels" api-url="../api/search.php" required multiple>
+					
 				</select></div></h3>
 
 				<!-- <h3>ID Levels:<input class="inputmaps" pattern="^\d+,\d+(,\d+)*$" placeholder="1,2..." type="text" id="editmapLevels" name="levels" maxlength="25" required></h3> -->
-				<h3>Stars:<input class="inputmaps" type="number" id="editmapStars" name="stars" max="999" required></h3>
-				<h3>Coins:<input class="inputmaps" type="number" id="editmapCoins" name="coins" max="999" required></h3>
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;">Difficulty:<div onclick="CreateFLSelector('editmapDiff','Select Difficulty')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapDiff" name="difficulty" readonly>
+				<h3><img src="../assets/star.png" class="smallMapDivIcon">Stars:<input class="inputmaps" type="number" id="editmapStars" name="stars" max="999" required></h3>
+				<h3><img src="../assets/coin.png" class="smallMapDivIcon">Coins:<input class="inputmaps" type="number" id="editmapCoins" name="coins" max="999" required></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/difficulties/unrated.png" class="smallMapDivIcon">Difficulty:<div onclick="CreateFLSelector('editmapDiff','Select Difficulty')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapDiff" name="difficulty" required>
 					<option value="0" selected>auto</option>
 					<option value="1">easy</option>
 					<option value="2">normal</option>
@@ -103,13 +125,52 @@
 					<option value="9">insane demon</option>
 					<option value="10">extreme demon</option>
 				</select></div></h3>
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;">Text Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmaptextcolor" name="rgbcolors"></div></h3>
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;">Bar Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmapbarcolor" name="colors2"></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;"><img src="../assets/objects/triggers/Color.png" class="smallMapDivIcon">Text Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmaptextcolor" name="rgbcolors"></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;"><img src="../assets/objects/triggers/Color.png" class="smallMapDivIcon">Bar Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="editmapbarcolor" name="colors2"></div></h3>
 				
 
 			
 			</div>
-			<img onclick="submitEditMap()" src="../assets/ok.png" style="margin-top: 3vh;" height=10%; id="pageJump">
+			<img onclick="submitEditMap()" src="../assets/ok.png" style="margin-top: 3vh;" height=10%;>
+			<img class="gdButton center closeWindow" src="../assets/close.png" height="15%" style="position: absolute; top: -7.5%; left: -7vh">
+			</form>
+		</div>
+	</div>
+
+
+	<div class="popup" id="createmapPopup">
+		<div class="brownbox bounce center supercenter" style="width: 85vh; height: 70%;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Create MapPack</h2>
+			<form id="formNewMap">
+			<div class="transparentbox" style="display: contents;">
+				
+				<input type="text" name="act" value="create" hidden>
+				<h3><img src="../assets/info.png" class="smallMapDivIcon">Name:<input class="inputmaps" type="text" id="mapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLSelectorSearch('mapLevels','Select levels','10')" style="width: 73%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="mapLevels" name="levels[]" min-options="2" max-options="10" api-type="levels" api-url="../api/search.php" required multiple>
+					
+				</select></div></h3>
+				<h3><img src="../assets/star.png" class="smallMapDivIcon">Stars:<input class="inputmaps" type="number" id="mapStars" name="stars" max="999" required></h3>
+				<h3><img src="../assets/coin.png" class="smallMapDivIcon">Coins:<input class="inputmaps" type="number" id="mapCoins" name="coins" max="999" required></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/difficulties/unrated.png" class="smallMapDivIcon">Difficulty:<div onclick="CreateFLSelector('mapDiff','Select Difficulty')"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="mapDiff" name="difficulty" required>
+					<option value="0" selected>auto</option>
+					<option value="1">easy</option>
+					<option value="2">normal</option>
+					<option value="3">hard</option>
+					<option value="4">harder</option>
+					<option value="5">insane</option>
+					<option value="6">hard demon</option>
+					<option value="7">easy demon</option>
+					<option value="8">medium demon</option>
+					<option value="9">insane demon</option>
+					<option value="10">extreme demon</option>
+				</select></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;"><img src="../assets/objects/triggers/Color.png" class="smallMapDivIcon">Text Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="mapTextcolor" name="rgbcolors"></div></h3>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 10%;"><img src="../assets/objects/triggers/Color.png" class="smallMapDivIcon">Bar Color:<div class="gdColorPicker"><input class="inputmaps" type="color" id="mapBarcolor" name="colors2"></div></h3>
+				
+
+			
+			</div>
+			<img onclick="submitNewMap()" src="../assets/ok.png" style="margin-top: 3vh;" height=10%;>
 			<img class="gdButton center closeWindow" src="../assets/close.png" height="15%" style="position: absolute; top: -7.5%; left: -7vh">
 			</form>
 		</div>
@@ -168,7 +229,7 @@
 		<img class="gdButton" src="../assets/delete.png" width="60%" onclick="$('#purgeDiv').show()">
 	</div>
 
-	<div title="Create new mappack" class="checkperm-mappacks" style="position:absolute; bottom: 15.5%; right: 1%; width: 15%; text-align: right;">
+	<div onclick="createMap()" title="Create new mappack" class="checkperm-mappacks" style="position:absolute; bottom: 15.5%; right: 1%; width: 15%; text-align: right;">
 		<h3 style="transform: translate(-9%, -5%);">Mod</h3>
 		<img class="gdButton" src="../assets/newBtn.png" width="40%" id="createMapPack"></a>
 	</div>
@@ -202,6 +263,7 @@
 
 </body>
 
+<script type="text/javascript" src="../misc/customselects.js"></script>
 <script type="text/javascript" src="../misc/selectapis.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
@@ -211,10 +273,18 @@ $("#loading-main").hide();
 
 function editMap(page,idarray){
 	dataMap = pageCache[page][idarray];	
+
 	$('#editmapID').text(dataMap.packID);
 	$('#editmapID2').val(dataMap.packID);
 	$('#editmapName').val(dataMap.packName);
-	$('#editmapLevels').val(dataMap.levels);
+	// idk if that works XDXD
+	let editmapLevels = $('#editmapLevels').empty();
+	
+	dataMap.levels.split(',').forEach(level => {
+		// I may add in the future that the API returns the names, for now I will add "?"
+		editmapLevels.append(`<option title="(?) ID: ${level}" value="${level}" selected>${level}</option>`); 
+	});
+
 	$('#editmapStars').val(dataMap.stars);
 	$('#editmapCoins').val(dataMap.coins);
 	$('#editmapDiff').val(dataMap.difficulty);
@@ -224,9 +294,93 @@ function editMap(page,idarray){
 	$('#editmapPopup').show();
 }
 
+function createMap() {
+	$('#createmapPopup').show();
+}
+
+function deleteMap(page,idarray) {
+	dataMap = pageCache[page][idarray];	
+	$('#deletemapPopup').show();
+	$('#delmapID').text(dataMap.packID);
+	$('#delmapID2').val(dataMap.packID);
+}
+
+function submitNewMap() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+    let form = document.getElementById('formNewMap');
+	form.dispatchEvent(new Event('submit'));
+    if (form.checkValidity()) {
+        var formData = new FormData(form);
+		
+        fetch('../api/mappacks.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+
+
+			if(data.success == "true") changeLoadingAlert("Map Pack created!","done");
+			else changeLoadingAlert("Error creating Map Pack!","error");
+			console.log(data);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+			Append(true, true);
+        })
+        .catch(error => {
+			changeLoadingAlert("An error occurred while creating Map Pack...","error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+        });
+		$('#createmapPopup').hide();
+		
+    } else {
+		changeLoadingAlert("Data not completed!","error");
+        form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+    }
+}
+
+function submitDelMap() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+    let form = document.getElementById('formDelMap');
+	form.dispatchEvent(new Event('submit'));
+	
+    if (form.checkValidity()) {
+        var formData = new FormData(form);
+		
+        fetch('../api/mappacks.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+			if(data.success == "true") changeLoadingAlert("Map Pack deleted!","done");
+			else changeLoadingAlert("Error deleting Map Pack!","error");
+			console.log(data);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+			Append(true, true);
+        })
+        .catch(error => {
+			changeLoadingAlert("An error occurred while deleting Map Pack...","error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+        });
+		$('#deletemapPopup').hide();
+		
+    } else {
+		changeLoadingAlert("Data not completed!","error");
+        form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+    }
+}
+
 function submitEditMap() {
 	document.dispatchEvent(new Event('initLoadingAlert'));
     let form = document.getElementById('formEditMap');
+	form.dispatchEvent(new Event('submit'));
+	form = document.getElementById('formEditMap');
     if (form.checkValidity()) {
         var formData = new FormData(form);
 		
@@ -241,16 +395,19 @@ function submitEditMap() {
 			else changeLoadingAlert("Error editing Map Pack!","error");
 			console.log(data);
 			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+			Append(true, true);
         })
         .catch(error => {
-			changeLoadingAlert("An error occurred while editing the Map Pack...","error");
+			changeLoadingAlert("An error occurred while editing Map Pack...","error");
             console.error('Error:', error);
 			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
         });
 		$('#editmapPopup').hide();
-		Append(true, true);
+		
     } else {
+		changeLoadingAlert("Data not completed!","error");
         form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
     }
 }
 
