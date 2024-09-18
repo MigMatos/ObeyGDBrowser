@@ -108,7 +108,7 @@
 					
 					</tr>
 					<tr class="menuButtonList">
-
+					<td><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/mods.png" title="Add mod"></a></td>
 						<td style="display: block" id="menu_featured"><a tabindex="1" onclick="searchRedirect('0','featured')"><img class="menubutton menu-featured" src="assets/category-featured.png" title="Featured"></a></td>
 						
 						
@@ -117,12 +117,14 @@
 						<td id="gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
 						
 						<td id="gdItem16"><a tabindex="1" href="./mappacks"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
+						
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
 					</tr>
 			</table>
 
 
-			<p style="color: #ffffff1f; font-size: 2.5vh;">Development in alpha, this may contain unwanted bugs.</p>
+			<p style="color: #ffffff1f; font-size: 2.5vh;">Development in beta, this may contain unwanted bugs.</p>
 	</div>
 
 	<!-- <div style="position:absolute; bottom: 17%; right: 7%; width: 9%; text-align: right; pointer-events: none">
@@ -358,7 +360,7 @@ function searchRedirect(url,type) {
 	}
 
 	function showCredits() {
-		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **RobTop:** Developer for Geometry Dash!\n- **OsitaLolita:** Ideas and feedback! <3 \n\n# `g0 ** Dev Helpers **` \n- **gdNoxi**: _Gauntlets API_. \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD\n- uproxide\n- M366\n- YeahhColix \n- Janix"
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **RobTop:** Developer for Geometry Dash! \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD\n- uproxide\n- M366\n- YeahhColix \n- Janix"
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 
