@@ -1,3 +1,5 @@
+<?php include("../_init_.php"); ?>
+
 <head>
 	<title>Gauntlets</title>
 	<meta charset="utf-8">
@@ -35,15 +37,34 @@
 <script type="text/javascript" src="../misc/global.js"></script>
 <script>
 
-fetch('../api/gauntlets').then(res => res.json()).then(gauntlets => {
+fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	$('#loading').hide()
 	gauntlets.forEach((x, y) => {
 		$('#gauntletList').append(`
 			<div class="gauntlet">
-			<a href="../search/*?gauntlet=${x.id}">
+			<a onclick="redirectGauntlet('${x.levels}','${x.name}')">
 			<img src="../assets/gauntlets/${x.name.toLowerCase()}.png" height="300%"><br>
 			<h3 class="gauntletText"">${x.name}<br>Gauntlet</h3></div></a>`)
 		})
 });
+
+
+let serverType = "<?php print_r($serverType); ?>";
+//if (!path || path.trim() === '') window.location.href = './search.php';
+if (path == "0") path = "*"
+
+
+function redirectGauntlet(url, header) {
+	var queryLvl = "";
+    if (serverType == "legacy") {
+		queryLvl = "/search/search.html?s=" + (url || "0") + "&list"
+	} else {
+		queryLvl = "/search/" + (url || "0") + "?list"
+	}
+    if (queryLvl) window.location.href = ".." + queryLvl + "&header=" + header + "%20Gauntlet levels";
+}
+
+
+
 
 </script>
