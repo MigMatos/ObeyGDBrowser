@@ -43,11 +43,11 @@ function commentsGD($params, $db, $gdps_settings) {
 
         $bindings[] = intval($params['levelID']);
        
-    } else if (!isset($params['userID'])) {
+    } else if (!isset($params['userID']) && isset($params['type'])) {
         return json_encode(array("error" => "The 'userID' parameter is required in the GET request."));
     } else {
         $typeval = strval($params['type']);
-        return json_encode(array("error" => "The '$typeval' parameter is not valid in the GET request."));
+        return json_encode(array("error" => "The '$typeval' type parameter is not valid in the GET request."));
     }
 
     if (isset($params['mode']) && $params['mode'] == "top") {

@@ -122,7 +122,7 @@
 			</table>
 
 
-			<p style="color: #ffffff1f; font-size: 2.5vh;">Development in beta, this may contain unwanted bugs.</p>
+			<p style="color: #ffffff1f; font-size: 2.5vh;">Development in alpha, this may contain unwanted bugs.</p>
 	</div>
 
 	<!-- <div style="position:absolute; bottom: 17%; right: 7%; width: 9%; text-align: right; pointer-events: none">

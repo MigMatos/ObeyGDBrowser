@@ -1,9 +1,9 @@
 <head>
 	<title>Comments</title>
 	<meta charset="utf-8">
-	<link href="../../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
     
-	<link rel="icon" href="../../assets/like.png">
+	<link rel="icon" href="../assets/like.png">
 	<meta id="meta-title" property="og:title" content="Level Comments">
     <meta id="meta-desc" property="og:description" content="View the comments of a Geometry Dash level!">
 	<meta id="meta-image" name="og:image" itemprop="image" content="https://gdbrowser.com/assets/like.png">
@@ -15,29 +15,21 @@
 <div id="everything">
 
 	<div class="popup" id="postComment">
-		<div class="brownbox bounce center supercenter" style="height: 80%; width: 110vh">
+		<div class="brownbox bounce center supercenter" style="height: 35%;width: 110vh;transform: translate(-50%, -110%);">
 			<p style="position:absolute; right: 1vh; margin-top: 0; text-align: left" id="charcount">150</p>
 			<h1 class="smaller center" style="font-size: 5.5vh">Add Comment</h1>
-			<textarea placeholder="Insert comment" id="content" maxlength="150" style="margin: 2% 0%"></textarea><br>
-			<form action="nothing lol">
-				<h3 class="center">GD Username</h3>
-				<input type="text" name="gdbrowser" id="username" maxlength="50" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%">
-				<h3 class="center" style="margin-top: 2%">GD Password</h3>
-				<input type="password" id="password" maxlength="50" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%">
-			</form>
-			<div style="min-height: 16%; max-height: 16%">
-				<p id="message" style="padding: 0% 10%; margin-top: 1.5%"></p>
-			</div>
-			<img src="../../assets/btn-cancel.png" height=10%; class="postButton gdButton center" style="margin-right: 1%" onclick="$('#postComment').hide(); $('textarea').val('')">
-			<img src="../../assets/btn-submit.png" type="submit" height=10%; class="postButton gdButton center" style="margin-left: 1%" id="submitComment">
+			<textarea placeholder="Insert comment" id="content" maxlength="150" style="margin: 1.5% 0%"></textarea><br>
+
+			<img src="../assets/btn-cancel.png" height=20%; class="postButton gdButton center" style="margin-right: 1%" onclick="$('#postComment').hide(); $('textarea').val('')">
+			<img src="../assets/btn-submit.png" type="submit" height=20%; class="postButton gdButton center" style="margin-left: 1%" id="submitComment">
 		</div>
 	</div>
 
 	<div class="popup" id="likeComment">
 		<div class="brownbox bounce center supercenter" style="height: 75%; width: 100vh">
 			<h1 class="smaller center" style="font-size: 5.5vh">Vote</h1>
-			<img src="../../assets/smashLike.png" id="likebtn" class="inline gdButton likeButton"><!--
-		 --><img src="../../assets/smashDislike.png" id="dislikebtn" class="inline gdButton likeButton youAreNotTheOne">
+			<img src="../assets/smashLike.png" id="likebtn" class="inline gdButton likeButton"><!--
+		 --><img src="../assets/smashDislike.png" id="dislikebtn" class="inline gdButton likeButton youAreNotTheOne">
 			<form action="nothing lol">
 				<h3 class="center">GD Username</h3>
 				<input type="text" name="gdbrowser" id="like-username" maxlength="50" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%">
@@ -47,17 +39,17 @@
 			<div style="min-height: 18%; max-height: 18%">
 				<p id="likeMessage" style="padding: 0% 10%; margin-top: 2.5%"></p>
 			</div>
-			<img src="../../assets/btn-cancel.png" height=10%; class="postButton gdButton center" style="margin-right: 1%" onclick="$('#likeComment').hide(); $('#likebtn').trigger('click');">
-			<img src="../../assets/btn-submit.png" type="submit" height=10%; class="postButton gdButton center" style="margin-left: 1%" id="submitVote">
+			<img src="../assets/btn-cancel.png" height=10%; class="postButton gdButton center" style="margin-right: 1%" onclick="$('#likeComment').hide(); $('#likebtn').trigger('click');">
+			<img src="../assets/btn-submit.png" type="submit" height=10%; class="postButton gdButton center" style="margin-left: 1%" id="submitVote">
 		</div>
 	</div>
 	
 	<div style="position:absolute; bottom: 0%; left: 0%; width: 100%">
-		<img class="cornerPiece" src="../../assets/corner.png" width=7%;>
+		<img class="cornerPiece" src="../assets/corner.png" width=7%;>
 	</div>
 
 	<div style="position:absolute; bottom: 0%; right: 0%; width: 100%; text-align: right;">
-		<img class="cornerPiece" src="../../assets/corner.png" width=7%; style="transform: scaleX(-1)">
+		<img class="cornerPiece" src="../assets/corner.png" width=7%; style="transform: scaleX(-1)">
 	</div>
 
 	<div style="text-align: right; position:absolute; top: 1%; right: 1.25%">
@@ -69,39 +61,39 @@
 		<div class="lightBox center dragscroll" id="commentBox" style="margin: 4.5% auto; width: 115vh; height: 86%; background-color: #934E27"></div>
 
 		<div class="supercenter" style="left: 97%; top: 15.5%; height: 8.5%">
-			<img class="gdButton" id="lastPage" src="../../assets/double-arrow.png" height="90%">
+			<img class="gdButton" id="lastPage" src="../assets/double-arrow.png" height="90%">
 		</div>
 
 		<div class="supercenter" id="firstPage" style="left: 97%; top: 27.5%; height: 8.5%; display: none;">
-			<img class="gdButton refreshBtn" src="../../assets/double-arrow.png" style="transform: scaleX(-1);" height="90%">
+			<img class="gdButton refreshBtn" src="../assets/double-arrow.png" style="transform: scaleX(-1);" height="90%">
 		</div>
 
 		<div class="supercenter" id="refreshButton" style="left: 97%; top: 27.5%; height: 10%">
-			<img class="gdButton refreshBtn" src="../../assets/refresh.png" height="90%">
+			<img class="gdButton refreshBtn" src="../assets/refresh.png" height="90%">
 		</div>
 
 		<div class="supercenter" style="left: 3%; top: 15%; height: 10%">
-			<img class="gdButton" id="topSort" src="../../assets/sort-likes.png" height="90%">
+			<img class="gdButton" id="topSort" src="../assets/sort-likes.png" height="90%">
 		</div>
 
 		<div class="supercenter" style="left: 3%; top: 25.5%; height: 10%">
-			<img class="gdButton" id="timeSort"  src="../../assets/sort-time.png" height="90%">
+			<img class="gdButton" id="timeSort"  src="../assets/sort-time.png" height="90%">
 		</div>
 	
 		<div class="supercenter" style="left: 3%; top: 36%; height: 10%">
-			<img class="gdButton" id="compactMode" src="../../assets/compact-off.png" height="90%">
+			<img class="gdButton" id="compactMode" src="../assets/compact-off.png" height="90%">
 		</div>
 
 		<div class="supercenter" style="left: 3%; top: 63%; height: 11%">
-			<img class="gdButton" id="autoMode" src="../../assets/playbutton.png" height="90%">
+			<img class="gdButton" id="autoMode" src="../assets/playbutton.png" height="90%">
 		</div>
 
 		<div class="supercenter" id="pageDown" style="left: 3%; top: 50%; height: 10%; display: none;">
-			<img class="gdButton" src="../../assets/arrow-left.png" height="95%">
+			<img class="gdButton" src="../assets/arrow-left.png" height="95%">
 		</div>
 	
 		<div class="supercenter" id="pageUp" style="left: 97%; top: 50%; height: 10%;">
-			<img class="gdButton" src="../../assets/arrow-right.png" height="95%">
+			<img class="gdButton" src="../assets/arrow-right.png" height="95%">
 		</div>
 
 		<div class="supercenter" style="top: 4.8%; height: 10%; width: 100%;">
@@ -114,15 +106,17 @@
 			<h2 class="smallGold inline" id="levelVersion"></h2>
 			<a id="levelLink"><h2 class="smallGold inline gdButton" id="levelID" style="margin-left: 6vh"></h2></a>
 		</div>
+
 		
-		<div id="leaveComment" style="display: none; position:absolute;bottom: 0%;right: 0%;width: 14%;text-align: right;transform: translate(30%, 40%);">
-			<img class="gdButton" src="../../assets/comment.png" width="60%" onclick="$('#content').trigger('input'); $('#postComment').show();">
+		
+		<div id="leaveComment" style="position:absolute; bottom: 0%;right: 0%;width: 14%;text-align: right;transform: translate(30%, 40%);">
+			<img class="gdButton" src="../assets/comment.png" width="60%" onclick="$('#content').trigger('input'); $('#postComment').show();">
 		</div>
 
 	</div>
 
 	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
-		<img class="gdButton yesClick" id="backButton" src="../../assets/back.png" height="30%" onclick="backButton()">
+		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
 	</div>
 
 </div>
@@ -130,8 +124,8 @@
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.2/browser/pixi.js"></script>
-<script type="text/javascript" src="../../misc/global.js?v=1"></script>
-<script type="text/javascript" src="../../misc/dragscroll.js"></script>
+<script type="text/javascript" src="../misc/global.js?v=1"></script>
+<script type="text/javascript" src="../misc/dragscroll.js"></script>
 
 <script>
 
@@ -156,15 +150,15 @@ function levelRedirect(url) {
 	} else {
 		queryLvl = "/level/" + (encodeURIComponent(url) || "0")
 	}
-    if (queryLvl) window.location.href = "../..	" + queryLvl
+    if (queryLvl) window.location.href = "../" + queryLvl
 }
 
 function profileRedirect(url) {
 	var queryProfile = "";
     if (legacyServer == true) {
-		queryProfile = "../../../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+		queryProfile = "../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
 	} else {
-		queryProfile = "../../../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+		queryProfile = "../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
 	}
     if (queryProfile) window.location.href = "./u/" + queryProfile
 }
@@ -179,17 +173,17 @@ let auto = false
 let interval = null
 let commentCache = {}
 
-let target = `../../api/search.php?levelName=${lvlID}`
+let target = `../api/search.php?levelName=${lvlID}&page=0`
 if (lvlID > 999999999 || lvlID < -999999999) window.location.href = window.location.href.replace("comments", "search")
 if (!Number.isInteger(+lvlID)) {history = true; target = `../api/profile/${lvlID}`}
 else lvlID = Math.round(+lvlID)
 
-if (mode == "top") { mode = "top"; $('#topSort').attr('src', "../../assets/sort-likes-on.png") }
-else $('#timeSort').attr('src', "../../assets/sort-time-on.png")
+if (mode == "top") { mode = "top"; $('#topSort').attr('src', "../assets/sort-likes-on.png") }
+else $('#timeSort').attr('src', "../assets/sort-time-on.png")
 
 function clean(text) {return text.replace(/&/g, "&#38;").replace(/</g, "&#60;").replace(/>/g, "&#62;").replace(/=/g, "&#61;").replace(/"/g, "&#34;").replace(/'/g, "&#39;")}
 
-$('#compactMode').attr('src', `../../assets/compact-${compact ? "on" : "off"}.png`)
+$('#compactMode').attr('src', `../assets/compact-${compact ? "on" : "off"}.png`)
 
 fetch(target)
   .then(response => response.json())
@@ -201,8 +195,8 @@ function buildComments(lvl) {
 	console.log(lvl);
 
 	if (true) {
-		$('#leaveComment').hide()
-		$('#postComment').remove()
+		// $('#leaveComment').show()
+		// $('#postComment').remove()
 	}
 
 	if (history) {
@@ -213,7 +207,9 @@ function buildComments(lvl) {
 		if (!lvl.username) return window.location.href = window.location.href.replace("comments", "search")
 
 		$('#levelName').text(lvl.username + "'s comments")
+
 		$('#leaveComment').hide()
+		
 		document.title = lvl.username + "'s comments"
 
 		$('#meta-title').attr('content', lvl.username + "'s comment history")
@@ -228,7 +224,9 @@ function buildComments(lvl) {
 		}
 		else $('#authorLink').attr('onclick', `profileRedirect('${lvl.accountID}')`)
 		$('#levelName').text(lvl.name || ("Nonexistent level " + lvlID))
+		
 		if (!lvl.name) $('#leaveComment').hide()
+		
 		$('#levelAuthor').text("By " + (lvl.author || "-"))
 		$('#levelID').text("ID: " + lvlID)
 		if (lvl.accountID && lvl.author != "-") 
@@ -248,7 +246,7 @@ function appendComments(auto, noCache) {
 if (loadingComments) return;
 else loadingComments = true;
 
-if (!auto) $('#commentBox').html(`<div class="supercenter" id="loading" style="height: 12%;"><img class="spin noSelect" src="../../assets/loading.png" height="105%"></div>`)
+if (!auto) $('#commentBox').html(`<div class="supercenter" id="loading" style="height: 12%;"><img class="spin noSelect" src="../assets/loading.png" height="105%"></div>`)
 
 if (page == 0) {
 	$('#pageDown').hide()
@@ -263,8 +261,11 @@ else {
 	}
 }
 
+console.log(lvl);
+
 if (!noCache && commentCache[page]) addComments(commentCache[page])
-fetch(`../../api/comments.php?levelID=${lvl.playerID}&page=${page}${history ? "&type=history" : "&type=level"}&mode=${mode}`).then((res) => {
+console.log(`../api/comments.php?levelID=${lvlID}&page=${page}${history ? "&type=history" : "&type=level"}&mode=${mode}`);
+fetch(`../api/comments.php?levelID=${lvlID}&page=${page}${history ? "&type=history" : "&type=level"}&mode=${mode}`).then((res) => {
 	if (res.status === 204) return [];
 	return res.json();
 }).then(addComments)
@@ -287,7 +288,7 @@ function addComments(res) {
 
 		$(`#date-${x.ID}`).html(x.date)
 		$(`#likes-${x.ID}`).html(x.likes)
-		$(`#thumb-${x.ID}`).attr('style', x.likes < 0 ? `transform: translateY(${compact ? '15' : '25'}%); margin-right: 0.4%` : '').attr('src', `../../assets/${x.likes < 0 ? "dis" : ""}like.png`)
+		$(`#thumb-${x.ID}`).attr('style', x.likes < 0 ? `transform: translateY(${compact ? '15' : '25'}%); margin-right: 0.4%` : '').attr('src', `../assets/${x.likes < 0 ? "dis" : ""}like.png`)
 		if ($(`.comment[commentID=${x.ID}]`).length) return // auto mode, ignore duplicates
 
 		let bgCol = index % 2 ? "evenComment" : "oddComment"
@@ -313,7 +314,7 @@ function addComments(res) {
 						<gdicon class="commentIcon inline" cacheID=${x.playerID} iconID=${x.icon.icon} iconForm="${x.icon.form}" col1="${x.icon.col1}" col2="${x.icon.col2}" glow="${x.icon.glow}" imgstyle="height: 25%"></gdicon>
 						<a onclick="profileRedirect('${x.accountID == "0" ? `${x.playerID}','playerID'` : `${x.accountID}'`})">
 						<h2 class="inline gdButton ${x.accountID == "0" ? "green unregistered" : ""}">${userName}</h2></a>
-						${modNumber > 0 ? `<img class="inline" src="../../assets/mod${modNumber > 2 ? "-extra" : modNumber == 2 ? "-elder" : ""}.png" style="margin-left: 1%; width: 3.5%">` : ""}
+						${modNumber > 0 ? `<img class="inline" src="../assets/mod${modNumber > 2 ? "-extra" : modNumber == 2 ? "-elder" : ""}.png" style="margin-left: 1%; width: 3.5%">` : ""}
 						<p class="commentPercent inline">${x.percent ? x.percent + "%" : ""}</p>
 					</div>
 
@@ -325,7 +326,7 @@ function addComments(res) {
 				<div class="commentLikes">
 					${history ? `<h3 style="margin-right: 1.5vh; pointer-events: all;" class="gold inline"><a href="../${x.levelID}">(${x.levelID})</a></h3>` : ""}
 					<div class="inline gdButton likeComment" commentID="${x.ID}" ${x.levelID ? `levelID="${x.levelID}"` : ""}">
-						<img id="thumb-${x.ID}" class="inline gdButton" ${x.likes < 0 ? "style='transform: translateY(25%); margin-right: 0.4%'" : ""} src="../../assets/${x.likes < 0 ? "dis" : ""}like.png" height=20%>
+						<img id="thumb-${x.ID}" class="inline gdButton" ${x.likes < 0 ? "style='transform: translateY(25%); margin-right: 0.4%'" : ""} src="../assets/${x.likes < 0 ? "dis" : ""}like.png" height=20%>
 					</div>
 					<h3 id="likes-${x.ID}" class="inline">${x.likes}</h3>
 				</div>
@@ -340,7 +341,7 @@ function addComments(res) {
 						<gdicon class="commentIcon inline" cacheID=${x.playerID} iconID=${x.icon.icon} iconForm="${x.icon.form}" col1="${x.icon.col1}" col2="${x.icon.col2}" glow="${x.icon.glow}" imgstyle="height: 25%"></gdicon>
 						<a onclick="profileRedirect('${x.accountID == "0" ? `${x.playerID}','playerID'` : `${x.accountID}'`})">
 						<h2 class="inline gdButton ${x.accountID == "0" ? "green unregistered" : ""}">${userName}</h2></a>
-						${modNumber > 0 ? `<img class="inline" src="../../assets/mod${modNumber > 2 ? "-extra" : modNumber == 2 ? "-elder" : ""}.png" style="margin-left: 1.2%; width: 3.2%">` : ""}
+						${modNumber > 0 ? `<img class="inline" src="../assets/mod${modNumber > 2 ? "-extra" : modNumber == 2 ? "-elder" : ""}.png" style="margin-left: 1.2%; width: 3.2%">` : ""}
 						<p class="commentPercent inline">${x.percent ? x.percent + "%" : ""}</p>
 					</div>
 
@@ -352,7 +353,7 @@ function addComments(res) {
 				<div class="commentLikes">
 					${history ? `<h3 style="margin-right: 0.5vh; pointer-events: all;" class="gold inline"><a href="../${x.levelID}">(${x.levelID})</a></h3>` : ""}
 					<div class="inline gdButton likeComment" commentID="${x.ID}"${x.levelID ? `levelID="${x.levelID}"` : ""}>
-						<img id="thumb-${x.ID}" class="inline" ${x.likes < 0 ? "style='transform: translateY(15%); margin-right: 0.4%'" : ""} src="../../assets/${x.likes < 0 ? "dis" : ""}like.png" height=27%>
+						<img id="thumb-${x.ID}" class="inline" ${x.likes < 0 ? "style='transform: translateY(15%); margin-right: 0.4%'" : ""} src="../assets/${x.likes < 0 ? "dis" : ""}like.png" height=27%>
 					</div>
 					<h3 id="likes-${x.ID}" class="inline">${x.likes}</h3>
 				</div>
@@ -392,15 +393,15 @@ function resetSort() {
 	clearInterval(interval)
 	commentCache = {}
 	$('#liveText').hide()
-	$('#autoMode').attr('src', `../../assets/playbutton.png`)
+	$('#autoMode').attr('src', `../assets/playbutton.png`)
 }
 
 $('#topSort').click(function() {
 	if (mode == "top" || loadingComments) return;
 	resetSort()
 	mode = "top";
-	$('#timeSort').attr('src', "../../assets/sort-time.png")
-	$('#topSort').attr('src', "../../assets/sort-likes-on.png")
+	$('#timeSort').attr('src', "../assets/sort-time.png")
+	$('#topSort').attr('src', "../assets/sort-likes-on.png")
 	appendComments()
 })
 
@@ -408,8 +409,8 @@ $('#timeSort').click(function() {
 	if (mode == "time" || loadingComments) return;
 	resetSort()
 	mode = "time";
-	$('#timeSort').attr('src', "../../assets/sort-time-on.png")
-	$('#topSort').attr('src', "../../assets/sort-likes.png")
+	$('#timeSort').attr('src', "../assets/sort-time-on.png")
+	$('#topSort').attr('src', "../assets/sort-likes.png")
 	appendComments()
 })
 
@@ -418,7 +419,7 @@ $('#compactMode').click(function() {
 	compact = !compact
 	lastPage = 0;
 	page = 0;
-	$('#compactMode').attr('src', `../../assets/compact-${compact ? "on" : "off"}.png`)
+	$('#compactMode').attr('src', `../assets/compact-${compact ? "on" : "off"}.png`)
 	appendComments()
 })
 
@@ -427,19 +428,19 @@ $('#autoMode').click(function() {
 	auto = !auto
 	mode = "time"
 	page = 0;
-	$('#timeSort').attr('src', "../../assets/sort-time-on.png")
-	$('#topSort').attr('src', "../../assets/sort-likes.png")
+	$('#timeSort').attr('src', "../assets/sort-time-on.png")
+	$('#topSort').attr('src', "../assets/sort-likes.png")
 
 	if (auto) {
 		document.title = "[LIVE] " + document.title
 		$('#liveText').show()
-		$('#autoMode').attr('src', `../../assets/stopbutton.png`)
+		$('#autoMode').attr('src', `../assets/stopbutton.png`)
 		interval = setInterval(function() { appendComments(true) }, 3000)
 	}
 	else {
 		document.title = document.title.slice(6)
 		$('#liveText').hide()
-		$('#autoMode').attr('src', `../../assets/playbutton.png`)
+		$('#autoMode').attr('src', `../assets/playbutton.png`)
 		clearInterval(interval)
 	}
 	appendComments(true, true)
@@ -459,12 +460,10 @@ $('#content').on('input', function() {
 
 $('#submitComment').click(function() {
 	let comment = $('#content').val()
-	let username = $('#username').val()
-	let password = $('#password').val()
 	let levelID = window.location.pathname.split('/')[2]
 	let accountID = 0
 
-	if (!content || !username || !password || loadingComments) return $('#postComment').hide()
+	if (!content || loadingComments) return $('#postComment').hide()
 
 	$('#message').text("Posting comment...")
 		$('.postbutton').hide()
@@ -480,8 +479,8 @@ $('#submitComment').click(function() {
 			$('#postComment').hide()
 			$('.postbutton').show()
 			$('#message').html(messageText)
-			$('#timeSort').attr('src', "../../assets/sort-time-on.png")
-			$('#topSort').attr('src', "../../assets/sort-likes.png")
+			$('#timeSort').attr('src', "../assets/sort-time-on.png")
+			$('#topSort').attr('src', "../assets/sort-likes.png")
 			allowEsc = true
 			mode = "time"
 			page = 0
@@ -546,8 +545,8 @@ $('#submitVote').click(function() {
 		.done(x => {
 			let newCount = parseInt(likeCount.text()) + (like ? 1 : -1)
 			likeCount.text(newCount)
-			if (newCount < 0) likeImg.attr('src', '../../assets/dislike.png').css('transform', compact ? 'translateY(15%)' : 'translateY(25%)')
-			else likeImg.attr('src', '../../assets/like.png').removeAttr('style')
+			if (newCount < 0) likeImg.attr('src', '../assets/dislike.png').css('transform', compact ? 'translateY(15%)' : 'translateY(25%)')
+			else likeImg.attr('src', '../assets/like.png').removeAttr('style')
 			$('#likeComment').hide()
 			$('#likebtn').trigger('click')
 			$('.postbutton').show()
