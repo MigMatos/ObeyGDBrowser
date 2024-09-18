@@ -59,8 +59,9 @@
     if (isset($_SESSION['userName']) && isset($_SESSION['accountID']) && isset($_SESSION['isAdmin'])) {
         $logged = true;
     }
-    
-    
+
+
+
 
     // Permissions
     $userPermissions = [];
