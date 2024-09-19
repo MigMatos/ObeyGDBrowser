@@ -8,10 +8,10 @@ $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
-    echo getMapPacks($params, $db, $gdps_settings);
+    echo getGauntlets($params, $db, $gdps_settings);
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
     $action = $_POST['act'] ?? null;
-    if ($isAdmin != "1" || $logged != true) {
+    if (!in_array('admin', $userPermissions) && !in_array('gauntlets', $userPermissions)) {
         echo json_encode(array("error" => "You do not have permission to access this API."));
         exit(401);
     }
@@ -41,10 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     echo json_encode(array("error" => "Invalid request method or script filename mismatch."));
 }
 
-// PARAMS
-// page = page
+// fix incomplete and bugged gdnoxi code
 
-function getMapPacks($params, $db, $gdps_settings) {
+// PARAMS
+// 
+
+function getGauntlets($params, $db, $gdps_settings) {
     $bindings = [];
     $paramsSql = [];
     $order = "ID ASC";
@@ -85,7 +87,7 @@ function getMapPacks($params, $db, $gdps_settings) {
 
     // Result
     
-    function getGauntletName($id) {
+    function getGauntletsInfo($id) {
         global $gdps_settings;
         return $gdps_settings["gauntlets"]["$id"] ?? "Unknown";
     }
@@ -114,7 +116,7 @@ function getMapPacks($params, $db, $gdps_settings) {
         }
         $level = array_merge($level, [
             "id" => intval($result["ID"]),
-            "name" => getGauntletName(intval($result["ID"])),
+            "gauntlet" => getGauntletsInfo(intval($result["ID"])),
             "levels" => returnStringLevels($result["level1"],$result["level2"],$result["level3"],$result["level4"],$result["level5"]),
             "levelsCount" => 5,
         ]);

@@ -441,6 +441,22 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     white-space: nowrap;
 }
 
+/* Box B */
+
+.whiteBox-B {
+    border: 2.8vh solid transparent;
+    border-radius: 3vh;
+    background-color: #c8c8c8;
+    border-image: url('../../assets/whitebox-B.png') 25.5% round;
+    background-clip: padding-box;
+}
+
+.whiteBox-B:hover {
+    background-clip: unset;
+}
+
+
+
 .fancybox {
     width: 69vh;
     padding: 1vh 3vh;
@@ -652,21 +668,37 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .gauntlet {
-    vertical-align: top;
-    width: 300px;
-    height: 50px;
-    margin: 0px 9px 250px 9px;
+    /* vertical-align: top; */
+    width: 30vh;
+    height: 65vh;
+    padding: 0px 1.5vh 0px 1.5vh;
+    margin: 0px 1.5vh 0px 1.5vh;
     display: inline-block;
     cursor: pointer;
+}
+
+.gauntlet.icon {
+
+    height: 25vh;
+    width: auto;
+
+}
+
+#gauntletList {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .gauntlet:hover, .mappack:hover {
     transition-duration: 0.06s;
     transition-timing-function: ease-in-out;
-    transform: translateY(-25%) scale(1.04)
+    transform: scale(1.04)
 }
 
-.mappack h3, .gauntlet h3 {
+.mappack h3 {
     font-size: 35px
 }
 
@@ -679,8 +711,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
+.gauntletTitle {
+    font-size: 5vh;
+    filter: drop-shadow(4px 4px 0px #00000045) ;
+    margin-bottom: 25%;
+}
+
+
 .gauntletText {
-    font-size: 4vh;
+    font-size: 5vh;
 }
 
 .leaderboardTab {

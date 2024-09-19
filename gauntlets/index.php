@@ -25,7 +25,7 @@
 
 	<img id="loading" style="margin-top: 1%" class="spin noSelect" src="../assets/loading.png" height="12%">
 
-	<div id="gauntletList">
+	<div id="gauntletList" style="    flex-wrap: wrap;">
 		<br>
 	</div>
 
@@ -35,17 +35,38 @@
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
+<script type="text/javascript" src="../misc/tintheximg.js"></script>
+
 <script>
 
 fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
+	
 	$('#loading').hide()
+
+	// $('#gauntletList').append('<div class="gauntlet-page"></div>') 
+	
 	gauntlets.forEach((x, y) => {
+
+
 		$('#gauntletList').append(`
-			<div class="gauntlet">
-			<a onclick="redirectGauntlet('${x.levels}','${x.name}')">
-			<img src="../assets/gauntlets/${x.name.toLowerCase()}.png" height="300%"><br>
-			<h3 class="gauntletText"">${x.name}<br>Gauntlet</h3></div></a>`)
-		})
+
+			<a onclick="redirectGauntlet('${x.levels}','${x.gauntlet.name}')">
+	
+			<div class="gauntlet invisibleBox" style="color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'}; background-color: ${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'};">
+			
+			
+			
+
+			<h3 class="gauntletTitle">${x.gauntlet.name}<br>Gauntlet</h3><br>
+
+			<img class="gauntlet icon" src="../assets/gauntlets/${x.id}.png"><br>
+			
+			</div></a>`)
+		
+
+	})
+
+	// applyHexImgTint()
 });
 
 

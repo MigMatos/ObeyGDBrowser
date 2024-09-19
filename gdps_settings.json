@@ -54,52 +54,275 @@
     "browser_path": "browser/",
     "gdps_version": 22,
     "gauntlets": {
-        "-1": "",
-        "0": "Unknown",
-        "1": "Fire",
-        "2": "Ice",
-        "3": "Poison",
-        "4": "Shadow",
-        "5": "Lava",
-        "6": "Bonus",
-        "7": "Chaos",
-        "8": "Demon",
-        "9": "Time",
-        "10": "Crystal",
-        "11": "Magic",
-        "12": "Spike",
-        "13": "Monster",
-        "14": "Doom",
-        "15": "Death",
-        "16": "Forest",
-        "17": "Rune",
-        "18": "Force",
-        "19": "Spooky",
-        "20": "Dragon",
-        "21": "Water",
-        "22": "Haunted",
-        "23": "Acid",
-        "24": "Witch",
-        "25": "Power",
-        "26": "Potion",
-        "27": "Snake",
-        "28": "Toxic",
-        "29": "Halloween",
-        "30": "Treasure",
-        "31": "Ghost",
-        "32": "Spider",
-        "33": "Gem",
-        "34": "Inferno",
-        "35": "Portal",
-        "36": "Strange",
-        "37": "Fantasy",
-        "38": "Christmas",
-        "39": "Surprise",
-        "40": "Mystery",
-        "41": "Cursed",
-        "42": "Cyborg",
-        "43": "Castle",
-        "44": "Grave",
-        "45": "Temple"
-      }
+        "-1": {
+            "name": "",
+            "textColor": "",
+            "bgColor": ""
+        },
+        "0": {
+            "name": "Unknown",
+            "textColor": "",
+            "bgColor": ""
+        },
+        "1": {
+          "name": "Fire",
+          "textColor": "",
+          "bgColor": "#cf1200"
+        },
+        "2": {
+          "name": "Ice",
+          "textColor": "",
+          "bgColor": "#1299ff"
+        },
+        "3": {
+          "name": "Poison",
+          "textColor": "",
+          "bgColor": "#2cb205"
+        },
+        "4": {
+          "name": "Shadow",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "5": {
+          "name": "Lava",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "6": {
+          "name": "Bonus",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "7": {
+          "name": "Chaos",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "8": {
+          "name": "Demon",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "9": {
+          "name": "Time",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "10": {
+          "name": "Crystal",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "11": {
+          "name": "Magic",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "12": {
+          "name": "Spike",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "13": {
+          "name": "Monster",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "14": {
+          "name": "Doom",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "15": {
+          "name": "Death",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "16": {
+          "name": "Forest",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "17": {
+          "name": "Rune",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "18": {
+          "name": "Force",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "19": {
+          "name": "Spooky",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "20": {
+          "name": "Dragon",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "21": {
+          "name": "Water",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "22": {
+          "name": "Haunted",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "23": {
+          "name": "Acid",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "24": {
+          "name": "Witch",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "25": {
+          "name": "Power",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "26": {
+          "name": "Potion",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "27": {
+          "name": "Snake",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "28": {
+          "name": "Toxic",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "29": {
+          "name": "Halloween",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "30": {
+          "name": "Treasure",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "31": {
+          "name": "Ghost",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "32": {
+          "name": "Spider",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "33": {
+          "name": "Gem",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "34": {
+          "name": "Inferno",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "35": {
+          "name": "Portal",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "36": {
+          "name": "Strange",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "37": {
+          "name": "Fantasy",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "38": {
+          "name": "Christmas",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "39": {
+          "name": "Surprise",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "40": {
+          "name": "Mystery",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "41": {
+          "name": "Cursed",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "42": {
+          "name": "Cyborg",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "43": {
+          "name": "Castle",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "44": {
+          "name": "Grave",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "45": {
+          "name": "Temple",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "46": {
+          "name": "World",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "47": {
+          "name": "Galaxy",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "48": {
+          "name": "Universe",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "49": {
+          "name": "Discord",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "50": {
+          "name": "Split",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "51": {
+          "name": "NCS I",
+          "textColor": "",
+          "bgColor": ""
+        },
+        "52": {
+          "name": "NCS II",
+          "textColor": "",
+          "bgColor": ""
+        }
+    }
 }

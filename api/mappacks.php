@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     echo getMapPacks($params, $db, $gdps_settings);
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
     $action = $_POST['act'] ?? null;
-    if ($isAdmin != "1" || $logged != true) {
+    if (!in_array('admin', $userPermissions) && !in_array('mappacks', $userPermissions)) {
         echo json_encode(array("error" => "You do not have permission to access this API."));
         exit(401);
     }
