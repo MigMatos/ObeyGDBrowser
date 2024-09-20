@@ -127,6 +127,7 @@
 		<div class="center profilePostHide" style="margin: 1.5% auto 2.5% auto;">
 			<a id="msgA" target="_blank"><img src="../assets/messages.png" height="10%" id="msgButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()"></a>
 			<img src="../assets/friends.png" height="10%" id="friendButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()">
+			<img src="../assets/settingsbutton.png" height="10%" id="settingsProfileButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()">
 		</div>
 
 		<div style="position: absolute; bottom: 0%; left: 12%;" class="profilePostHide">
@@ -155,6 +156,10 @@
 			<img class="gdButton" id="pageUp" src="../assets/arrow-right.png" height="95%" onclick="page += 1; appendComments()">
 		</div>
 
+		<div id="superCloseButton" style="position:absolute; bottom: 0%; left: 0%; width: 14%; text-align: left; transform: translate(-35%, -665%)">
+			<img class="gdButton" src="../assets/close.png" width="60%" onclick="closeMessageCustomFrame()">
+		</div>
+
 		<div id="postButton" style="position:absolute; bottom: 0%; left: 0%; width: 14%; text-align: left; transform: translate(-35%, 40%);">
 			<!-- <img class="gdButton" src="../assets/comment.png" width="60%" onclick="$('#content').trigger('input'); $('#leavePost').show();"> -->
 		</div>
@@ -169,6 +174,7 @@
 <!-- <script type="text/javascript" src="../iconkit/icon.js"></script> -->
 <script type="text/javascript" src="../misc/global.js?v=6"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
+<script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 
 <script>
 
@@ -177,6 +183,14 @@ function clean(text) {return text.replace(/&/g, "&#38;").replace(/</g, "&#60;").
 // remove ID from URL
 if (window.location.pathname.endsWith(".")) window.history.pushState({}, null, window.location.origin + `/u/[[USERNAME]]`);
 
+if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" === "TRUE") {
+	
+
+} else {
+	$('#superCloseButton').hide();
+	$('#settingsProfileButton').hide();
+
+}
 
 renderIcons()
 

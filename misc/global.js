@@ -48,19 +48,80 @@ $('body').append(`
 `)
 
 
-$(window).resize(function () {
-	if (window.innerHeight > window.innerWidth - 75) { 
-		$('#everything').hide(); 
-		$('#tooSmall').show();
-		$('#rotateDemoDevice').addClass('rotateDemo');
-	}
+window.onerror = function (message, source, lineno, colno, error) {
 
-	else { 
-		$('#everything').show(); 
-		$('#tooSmall').hide()
-		$('#rotateDemoDevice').removeClass('rotateDemo');
-	}
-});
+    // console.error(`Error: ${message} at ${source}:${lineno}:${colno}`);
+
+    CreateFLAlert("Fatal Error in Browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)\n\n\n# `a0 **Click in OK to restart**` \n\n## `g0 **Log Error:**` \n`r0 "+`${message} at ${source}:${lineno}:${colno}`+"`")
+	$('#everything').hide(); 
+
+	document.addEventListener('FLlayerclosed', function() {
+		console.log('FLlayerclosed event triggered! Reloading the page...');
+		location.reload();
+	});
+
+    document.body.style.backgroundImage = "unset";
+	document.body.style.backgroundColor = "black";
+
+    return true;
+};
+
+
+
+
+if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" === "TRUE") {
+
+	const mbody = document.querySelectorAll('.levelBG');
+
+	mbody.forEach(mbodyelem => {
+		mbodyelem.style.backgroundColor = "#ff000000"; 
+		mbodyelem.style.backgroundImage = "unset";    
+	});
+	$(".cornerPiece").hide();
+	$('#backButton').hide();
+} else {
+	$(window).resize(function () {
+		if (window.innerHeight > window.innerWidth - 75) { 
+			$('#everything').hide(); 
+			$('#tooSmall').show();
+			$('#rotateDemoDevice').addClass('rotateDemo');
+		}
+	
+		else { 
+			$('#everything').show(); 
+			$('#tooSmall').hide()
+			$('#rotateDemoDevice').removeClass('rotateDemo');
+		}
+	});
+}
+
+function darknessPage(){
+	const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'black';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease-in-out';
+    overlay.style.pointerEvents = 'none';
+    document.body.appendChild(overlay);
+	setTimeout(function () {
+    	overlay.style.opacity = '1';
+	}, 100);  
+}
+
+// Check if page is cached (SAFARI ISSUE)
+window.onpageshow = function(event) {
+    if (event.persisted) {
+		let overlayCache = document.getElementById("overlay");
+        overlayCache.style.opacity = '0';
+    }
+};
+
+
 
 function saveUrl() {
     if (window.location.href.endsWith('?download')) return;

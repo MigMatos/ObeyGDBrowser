@@ -290,3 +290,72 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     font-size: 16px;
     color: #333;
 }
+
+/* CUSTOM FRAMES */
+
+.gdCustomFrame {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.gdCustomFrame > .brownBox {
+    width: 135vh;
+    height: 82%;
+    margin-top: -0.7%;
+    transform: scale(0);
+    filter: opacity(0.5);
+    animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+}
+
+.gdCustomFrame iframe {
+    
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    /* transform: scale(0);
+    filter: opacity(0.5);
+    animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both; */
+}
+
+.gdCustomFrame iframe.hide {
+    display: none;
+    
+}
+
+.gdCustomFrame iframe.show {
+    display: flex;
+}
+
+
+@keyframes zoomIn {
+    from {
+      transform: scale(0);
+      filter: opacity(0.5);
+    }
+    to {
+      transform: scale(1);
+      filter: opacity(1);
+    }
+}
+
+.gdCustomFrame .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-color: red;
+    cursor: pointer;
+    border-radius: 1vh;
+}

@@ -11,6 +11,8 @@
 	<link href="assets/css/browser.css?v=6" type="text/css" rel="stylesheet">
     <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+	
+
 	<?php
 		
 		include("./assets/htmlext/flayeralert.php");
@@ -19,7 +21,12 @@
     ?>
 
 </head>
+<style>
+	.gdButtonBrowser {
+		cursor: pointer;
+	}
 
+</style>
 
 <body class="levelBG" onbeforeunload="saveUrl()">
 
@@ -55,7 +62,7 @@
 	<p>
 		<?php if(!$logged) echo 'Login here!'; else echo $userName; ?>
 	</p>
-		<a href="./account/login" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
+		<a onclick="openProfle()" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
 	</div>
 
 	<?php if($logged && $isAdmin) { ?> 
@@ -159,7 +166,22 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script type="text/javascript" src="./misc/global.js"></script>
 <script type="text/javascript" src="./misc/updater.js"></script>
+<script type="text/javascript" src="./misc/gdcustomframe.js"></script>
 
+<script>
+let userNameUser = "<?php echo $userName; ?>"
+let isLoggedUser = "<?php echo $logged; ?>"
+
+function openProfle() {
+	
+	if(isLoggedUser == "1") {
+		openGdCustomFrame("./profile/?u="+userNameUser+"&gdframe");
+	} else {
+		urlRedirect('./account/checkLogin.php');
+	}
+}
+
+</script>
 
 <script>
 
@@ -184,31 +206,6 @@ if (isAdmin) {
         }, 700);
 }
 
-function darknessPage(){
-	const overlay = document.createElement('div');
-    overlay.id = 'overlay';
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'black';
-    overlay.style.opacity = '0';
-    overlay.style.transition = 'opacity 0.3s ease-in-out';
-    overlay.style.pointerEvents = 'none';
-    document.body.appendChild(overlay);
-	setTimeout(function () {
-    	overlay.style.opacity = '1';
-	}, 100);  
-}
-
-// Check if page is cached (SAFARI ISSUE)
-window.onpageshow = function(event) {
-    if (event.persisted) {
-		let overlayCache = document.getElementById("overlay");
-        overlayCache.style.opacity = '0';
-    }
-};
 
 function getAbsoluteUrl(relativeUrl) {
 	if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://')) {
@@ -396,3 +393,4 @@ if (noDaily || noWeekly) {
 
 </script>
 <script type="text/javascript" src="./misc/versionadapter.js"></script>
+<script type="text/javascript" src="./misc/hlandeErrors.js"></script>

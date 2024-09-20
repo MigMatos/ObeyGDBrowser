@@ -1,21 +1,20 @@
 <?php
 
-include "../../_init_.php";
+include "../_init_.php";
 
-$includeFile = "../../".$includeFolder."generatePass.php";
+$includeFile = "../".$includeFolder."generatePass.php";
 
 // Verificar si el archivo existe
 if (file_exists($includeFile)) {
     require $includeFile;
 } else {
-    echo "Error, missing File: generatePass.php";
-    exit();
-}
-
-
-if($logged){
-    header("Location: ../");
-    exit();
+    $includeFile = $includeFolder."generatePass.php";
+    if (file_exists($includeFile)) {
+        require $includeFile;
+    } else {
+        echo "Error, missing File: generatePass.php";
+        exit();
+    }
 }
 
 
@@ -29,18 +28,27 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
     if($pass == "1") {
         try {
 
-            $stmt = $db->prepare("SELECT accountID, isAdmin FROM accounts WHERE userName LIKE :userName");
-            $stmt->bindParam(':userName', $userName);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            include("../api/profile.php");
+            include("../api/roles.php");
+
+            $params = ["username" => $userName];
+            $response = profileUsers($params, $db, $gdps_settings);
+            $result = json_decode($response, true);
+            $result = $result[0];
             
 
-            $_SESSION['userName'] = $userName;
+            $_SESSION['userName'] = $result['username'];
+            $_SESSION['userID'] = $result['playerID'];
             $_SESSION['accountID'] = $result['accountID'];
-            $_SESSION['isAdmin'] = $result['isAdmin'];
-            
 
-            header("Location: ../../");
+            $params = ["accountid" => 1];
+            $response = getRoles($params, $db, $gdps_settings);
+            $resultroles = json_decode($response, true);
+
+            $_SESSION['isAdmin'] = $resultroles['user']['isAdmin'] ?? $result['admin'];
+            updateUserPerms($resultroles['permissions'] ?? []);
+
+            //header("Location: ../../");
             exit();
             
         } catch (PDOException $e) {
@@ -76,7 +84,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
     <br>
     <div>
         <button type="submit">Login</button>
-        <button type="button" onclick="window.location.href = '../../';">Back</button>
+        <button type="button" onclick="window.location.href = '../';">Back</button>
     </div>
 </form>
 </fieldset>

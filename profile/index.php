@@ -25,6 +25,8 @@ if (isset($_GET["u"])) {
     if(is_numeric($profile)) $params = array('accountID' => $profile);
     else $params = array('username' => $profile);
 }
+
+
 $html = file_get_contents('./t.html');
 
 
@@ -37,7 +39,12 @@ if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
     header("Location: $redirect_url");
     exit();
 }
+
 $data = $data[0];
+
+if(isset($_GET["gdframe"])) {
+    $data["GDFRAME"] = "TRUE"; 
+} else { $data["GDFRAME"] = "FALSE"; }
 
 // $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
 

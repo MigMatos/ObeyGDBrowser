@@ -89,7 +89,7 @@ function getGauntlets($params, $db, $gdps_settings) {
     
     function getGauntletsInfo($id) {
         global $gdps_settings;
-        return $gdps_settings["gauntlets"]["$id"] ?? "Unknown";
+        return $gdps_settings["gauntlets"]["$id"] ?? array("name" => "Unknown", "textColor" => "", "bgColor" => "");
     }
 
     function returnStringLevels($level1,$level2,$level3,$level4,$level5) {

@@ -9,6 +9,13 @@
 	<link href="../../assets/css/browser.css" type="text/css" rel="stylesheet">
     
 	<link rel="icon" href="../../assets/cp.png">
+
+	<?php
+		
+	include("../../assets/htmlext/flayeralert.php");
+	include("../../assets/htmlext/loadingalert.php");
+
+	?>
 </head>
 
 <body class="levelBG" style="overflow-y:auto;" onbeforeunload="saveUrl()">
@@ -101,10 +108,15 @@
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../misc/global.js"></script>
+<script defer>$("#loading-main").hide()</script>
 <script type="text/javascript" src="../../misc/analyzelvl.js"></script>
 <script>
 
+
+
 function clean(text) {return text.toString().replace(/&/g, "&#38;").replace(/</g, "&#60;").replace(/>/g, "&#62;").replace(/=/g, "&#61;").replace(/"/g, "&#34;").replace(/'/g, "&#39;")}
+
+
 
 let disabledPortals = []
 let altTriggerSort = false
@@ -350,8 +362,10 @@ function appendTriggerGroups() {
 	$('#analysisDiv').show()
 
 }); 
-	}).catch(err => {
-			console.error('Error:', err);
+}).catch(err => {
+	CreateFLAlert("Error in analyzer:", `${err}`);
+	console.error('Error:', err);
 });
+
 
 </script>

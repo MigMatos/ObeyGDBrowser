@@ -66,6 +66,10 @@
     // Permissions
     $userPermissions = [];
     if($isAdmin == "1" || $isAdmin == 1) $userPermissions[] = "admin";
+    function updateUserPerms($newPerms){
+        global $userPermissions;
+        $userPermissions = array_merge($userPermissions, $newPerms);
+    }
 
     $userPermissionsJSON = json_encode($userPermissions);
 

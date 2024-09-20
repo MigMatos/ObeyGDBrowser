@@ -736,6 +736,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     filter: brightness(90%);
 }
 
+
+.loadingBG {
+    width: 20vh;
+    height: 20vh;
+    background-image: url('../loading.png');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
 #scoreTabs {
    position: absolute; 
    text-align: center;

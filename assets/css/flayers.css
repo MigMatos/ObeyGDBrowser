@@ -203,12 +203,12 @@ input.flayersearch-fancy {
     }
   }
   
-  @keyframes zoomIn {
+@keyframes zoomIn {
     from {
       transform: scale(0);
     }
     to {
       transform: scale(1);
     }
-  }
+}
     

@@ -1,12 +1,13 @@
 <?php 
 
-include("../_init_.php");
 
 
 $file = str_replace("\\", "/", __FILE__);
 $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
+    include("../_init_.php");
+
     $params = $_GET;
 
     if (!empty($params)) {
@@ -45,6 +46,13 @@ function profileUsers($params, $db, $gdps_settings) {
     
     $results = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+    function checkisme($userID, $accID) {
+        if(isset($_SESSION['userID']) && isset($_SESSION['accountID'])) {
+            if(strval($_SESSION['userID']) == $userID && strval($_SESSION['accountID']) == $accID) return 1;
+            else return 0;
+        } else return 0;
+    }
+
     $json_data = array_map(function ($result) use ($gdps_settings) {
 
         $level = [
@@ -81,6 +89,8 @@ function profileUsers($params, $db, $gdps_settings) {
             "deathEffect" => intval($result["accExplosion"]),
             "glow" => boolval($result["accGlow"]),
             "lastPlayed" => strval(date('Y-m-d H:i:s', intval($result["lastPlayed"]))),
+            "me" => checkisme(strval($result["userID"]),strval($result["extID"])),
+            "admin" => intval($result["isAdmin"]),
         ];
 
         return $level;

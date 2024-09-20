@@ -642,11 +642,27 @@ function loadValues() {
                 let subkeyData = keyData[subKey];
                 
                 try {
-                    let element = document.getElementById(`${key}-${subKey}`);
-                    element.value = subkeyData;
+                    if(key != "gauntlets") {
+                        let element = document.getElementById(`${key}-${subKey}`);
+                        element.value = subkeyData;
+                    }
                     
                 } catch (e) {
                     console.log("ID Element not found: ", key, "-", subKey);
+                }
+
+                try {
+                    if(key == "gauntlets") {
+                        let rkey = key.replace("gauntlets","gauntlet")
+                        let element = document.getElementById(`${rkey}-${subKey}-name`);
+                        element.value = (subkeyData.name ?? "") || "Unknown";
+                        element = document.getElementById(`${rkey}-${subKey}-textcolor`);
+                        element.value = (subkeyData.textColor ?? "") || "#c8c8c8";
+                        element = document.getElementById(`${rkey}-${subKey}-bgcolor`);
+                        element.value = (subkeyData.bgColor ?? "") || "#c8c8c8";
+                    }
+                } catch (e) {
+                    console.log("ID Element not found: ", key, "-", subKey, "-name/-textcolor/-bgcolor");
                 }
             }
         } else {
