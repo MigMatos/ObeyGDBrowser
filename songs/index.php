@@ -262,18 +262,18 @@ function saveAlbumToCache(songName, imageUrl) {
         data: imageUrl,
         timestamp: Date.now()
     };
-    localStorage.setItem(`albumCover_${songName}`, JSON.stringify(cacheData));
+    sessionStorage.setItem(`albumCover_${songName}`, JSON.stringify(cacheData));
 }
 
 function getAlbumFromCache(songName) {
-    const cacheData = localStorage.getItem(`albumCover_${songName}`);
+    const cacheData = sessionStorage.getItem(`albumCover_${songName}`);
     if (cacheData) {
         const parsedData = JSON.parse(cacheData);
         const now = Date.now();
         if (now - parsedData.timestamp < CACHE_EXPIRATION_TIME) {
             return parsedData.data;
         } else {
-            localStorage.removeItem(`albumCover_${songName}`);
+            sessionStorage.removeItem(`albumCover_${songName}`);
         }
     }
     return null;

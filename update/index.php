@@ -145,7 +145,7 @@ if ($isAdmin != "1" || $logged != true) {
 
 const progressInfo = document.getElementById('progress-info');
 document.addEventListener('DOMContentLoaded', function() { 
-	const branchSelected = sessionStorage.getItem('branchSelected') || 0;
+	const branchSelected = localStorage.getItem('branchSelected') || 0;
 	document.getElementById("updateType").selectedIndex = branchSelected;
 	fetchUpdate(branchSelected);
 	document.addEventListener('FLlayerclosed', function() {
@@ -167,7 +167,7 @@ let version_branch = null;
 let date_branch = null;
 
 function fetchUpdate(branch) {
-	sessionStorage.setItem('branchSelected', branch);
+	localStorage.setItem('branchSelected', branch);
     document.getElementById('progress-rotate').classList.add("spin");
 	progressInfo.textContent = "Fetching version..."
     progressInfo.style.color = 'white';
@@ -230,7 +230,7 @@ function initUpdaterServer() {
 	xhr.withCredentials = true;
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
-        if (xhr.status === 200) {
+        if (xhr.status === 250) {
             console.log("Finished successfully");
             finishedUpdate();
         } else if (xhr.status === 401) {
@@ -244,7 +244,7 @@ function initUpdaterServer() {
 
     xhr.onerror = function() {
         errorUpdate(xhr.responseText);
-        console.error("Request failed. Please check your network connection.");
+        console.error("Request failed. Please check your network connection or ogdbrowser_init_updater.php dont exist.");
     };
 
 	let data = `lru=${encodeURIComponent(lru_branch)}&ver=${encodeURIComponent(version_branch)}&date=${encodeURIComponent(date_branch)}`;
@@ -281,28 +281,33 @@ function checkProgressBar() {
 
 function errorUpdate(data) {
     clearInterval(checkProgressBarPoll);
-    progressInfo.textContent = data;
-    progressInfo.style.color = 'red';
-    document.getElementById('buttonLog').removeAttribute('disabled');
-	document.getElementById('buttonLog').removeAttribute('readonly');
-	document.getElementById('div-progress-bar').style.display = "none";
-    document.getElementById('body-github').style.height = "32.5%";
-	document.getElementById('progress-rotate').classList.remove('spin');
+    setTimeout(function() {
+        progressInfo.textContent = data;
+        progressInfo.style.color = 'red';
+        document.getElementById('buttonLog').removeAttribute('disabled');
+        document.getElementById('buttonLog').removeAttribute('readonly');
+        document.getElementById('div-progress-bar').style.display = "none";
+        document.getElementById('body-github').style.height = "32.5%";
+        document.getElementById('progress-rotate').classList.remove('spin');
+    }, 151);
 }
 
 function finishedUpdate() {
     clearInterval(checkProgressBarPoll);
-	progressInfo.textContent = "Updated!";
-    progressInfo.style.color = '#00ff22';
-    document.getElementById('buttonLog').removeAttribute('disabled');
-	document.getElementById('buttonLog').removeAttribute('readonly');
-    document.getElementById('body-github').style.height = "32.5%";
-	document.getElementById('div-progress-bar').style.display = "none";
-	document.getElementById('progress-rotate').classList.remove('spin');
-    document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;
-    document.getElementById('last-version').textContent = "?";
-    document.getElementById('buttonUpdate').removeAttribute('disabled');
-	document.getElementById('buttonUpdate').removeAttribute('readonly');
+    setTimeout(function() {
+        progressInfo.textContent = "Updated!";
+        progressInfo.style.color = '#00ff22';
+        document.getElementById('buttonLog').removeAttribute('disabled');
+        document.getElementById('buttonLog').removeAttribute('readonly');
+        document.getElementById('body-github').style.height = "32.5%";
+        document.getElementById('div-progress-bar').style.display = "none";
+        document.getElementById('progress-rotate').classList.remove('spin');
+        document.getElementById('act-version').textContent = document.getElementById('last-version').textContent;
+        document.getElementById('last-version').textContent = "?";
+        document.getElementById('buttonUpdate').removeAttribute('disabled');
+        document.getElementById('buttonUpdate').removeAttribute('readonly');
+    }, 151);
+
 	CreateFLAlert("Update finished!","Yayyyy, everything has been `successful with the updates`, if you have any problems or questions you can contact us on our support server!  [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 }
 

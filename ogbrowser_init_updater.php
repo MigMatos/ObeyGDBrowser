@@ -74,6 +74,8 @@ class OGDBrowserUpdater
 
         $this->progressPercentage = 100;
         $this->deleteUpdateFolder();
+
+        http_response_code(250);
     }
 
     private function downloadAndExtractRepo()

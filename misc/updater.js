@@ -30,8 +30,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
         }
 
         if (branchType === 'master') {
-            let masterCache = sessionStorage.getItem('branchMasterCache');
-            let cacheTime = sessionStorage.getItem('branchMasterCacheTime');
+            let masterCache = localStorage.getItem('branchMasterCache');
+            let cacheTime = localStorage.getItem('branchMasterCacheTime');
             let masterData;
 
             if (masterCache && cacheTime && isCacheValid(parseInt(cacheTime))) {
@@ -43,8 +43,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
                 masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-main"; 
                 masterData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/main`;
                 masterData.body = null;
-                sessionStorage.setItem('branchMasterCache', JSON.stringify(masterData));
-                sessionStorage.setItem('branchMasterCacheTime', new Date().getTime().toString());
+                localStorage.setItem('branchMasterCache', JSON.stringify(masterData));
+                localStorage.setItem('branchMasterCacheTime', new Date().getTime().toString());
             }
 
             const latestDate = new Date(masterData.commit.commit.committer.date);
@@ -60,8 +60,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             }
 
         } else if (branchType === 'latest') {
-            let latestCache = sessionStorage.getItem('branchLatestCache');
-            let cacheTime = sessionStorage.getItem('branchLatestCacheTime');
+            let latestCache = localStorage.getItem('branchLatestCache');
+            let cacheTime = localStorage.getItem('branchLatestCacheTime');
             let latestData;
 
             if (latestCache && cacheTime && isCacheValid(parseInt(cacheTime))) {
@@ -70,8 +70,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
                 latestData = await latestResponse.json();
-                sessionStorage.setItem('branchLatestCache', JSON.stringify(latestData));
-                sessionStorage.setItem('branchLatestCacheTime', new Date().getTime().toString());
+                localStorage.setItem('branchLatestCache', JSON.stringify(latestData));
+                localStorage.setItem('branchLatestCacheTime', new Date().getTime().toString());
             }
 
             const latestVersion = latestData.tag_name;
@@ -89,8 +89,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             }
 
         } else if (branchType === 'prerelease') {
-            let prereleaseCache = sessionStorage.getItem('branchPrereleaseCache');
-            let cacheTime = sessionStorage.getItem('branchPrereleaseCacheTime');
+            let prereleaseCache = localStorage.getItem('branchPrereleaseCache');
+            let cacheTime = localStorage.getItem('branchPrereleaseCacheTime');
             let prereleaseData;
 
             if (prereleaseCache && cacheTime && isCacheValid(parseInt(cacheTime))) {
@@ -105,8 +105,8 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
                     isNewerThan(new Date(release.created_at), currentDate))
                 );
                 if (prereleaseData) {
-                    sessionStorage.setItem('branchPrereleaseCache', JSON.stringify(prereleaseData));
-                    sessionStorage.setItem('branchPrereleaseCacheTime', new Date().getTime().toString());
+                    localStorage.setItem('branchPrereleaseCache', JSON.stringify(prereleaseData));
+                    localStorage.setItem('branchPrereleaseCacheTime', new Date().getTime().toString());
                 }
             }
 

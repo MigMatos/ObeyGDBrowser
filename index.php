@@ -329,7 +329,7 @@ function searchRedirect(url,type) {
 	
 
 	function checkCoreBrowser() {
-		let branch = sessionStorage.getItem('branchSelected') || 0;
+		let branch = localStorage.getItem('branchSelected') || 0;
 		if(branch == 0) branch = "latest"
 		else if(branch == 1) branch = "prerelease";
 		else if(branch == 2) branch = "master"

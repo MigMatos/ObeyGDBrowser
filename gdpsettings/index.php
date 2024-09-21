@@ -727,14 +727,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const savedTheme = sessionStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme-settings') || 'light';
     applyTheme(savedTheme);
 
     toggleButton.addEventListener('click', () => {
         const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         applyTheme(newTheme);
-        sessionStorage.setItem('theme', newTheme);
+        localStorage.setItem('theme-settings', newTheme);
     });
 });
 </script>
