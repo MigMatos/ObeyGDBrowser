@@ -91,13 +91,13 @@
         },
         "6": {
           "name": "Bonus",
-          "textColor": "",
+          "textColor": "#FFFFFF",
           "bgColor": "#3954D6"
         },
         "7": {
           "name": "Chaos",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#505050"
         },
         "8": {
           "name": "Demon",
@@ -132,17 +132,17 @@
         "14": {
           "name": "Doom",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#DF0079"
         },
         "15": {
           "name": "Death",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#282828"
         },
         "16": {
           "name": "Forest",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#005300"
         },
         "17": {
           "name": "Rune",
@@ -167,7 +167,7 @@
         "21": {
           "name": "Water",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#0062CE"
         },
         "22": {
           "name": "Haunted",
@@ -177,7 +177,7 @@
         "23": {
           "name": "Acid",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#44443B"
         },
         "24": {
           "name": "Witch",
@@ -232,27 +232,27 @@
         "34": {
           "name": "Inferno",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#450040"
         },
         "35": {
           "name": "Portal",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#2D1757"
         },
         "36": {
           "name": "Strange",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#55007C"
         },
         "37": {
           "name": "Fantasy",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#245200"
         },
         "38": {
           "name": "Christmas",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#0077D3"
         },
         "39": {
           "name": "Surprise",
@@ -262,67 +262,67 @@
         "40": {
           "name": "Mystery",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#112A00"
         },
         "41": {
           "name": "Cursed",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#450029"
         },
         "42": {
           "name": "Cyborg",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#282828"
         },
         "43": {
           "name": "Castle",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#0053D4"
         },
         "44": {
           "name": "Grave",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#002828"
         },
         "45": {
           "name": "Temple",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#003A00"
         },
         "46": {
           "name": "World",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#FFFFFF",
+          "bgColor": "#0051AC"
         },
         "47": {
           "name": "Galaxy",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#351B3D"
         },
         "48": {
           "name": "Universe",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#191843"
         },
         "49": {
           "name": "Discord",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#0F1F39"
         },
         "50": {
           "name": "Split",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#3A0037"
         },
         "51": {
           "name": "NCS I",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#023139"
         },
         "52": {
           "name": "NCS II",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#341536"
         }
     }
 }
