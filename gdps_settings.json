@@ -66,27 +66,27 @@
         },
         "1": {
           "name": "Fire",
-          "textColor": "",
+          "textColor": "#FFC700",
           "bgColor": "#cf1200"
         },
         "2": {
           "name": "Ice",
-          "textColor": "",
+          "textColor": "#5CFFFF",
           "bgColor": "#1299ff"
         },
         "3": {
           "name": "Poison",
-          "textColor": "",
+          "textColor": "#00FF00",
           "bgColor": "#2cb205"
         },
         "4": {
           "name": "Shadow",
-          "textColor": "",
+          "textColor": "#B339DB",
           "bgColor": "#5400A4"
         },
         "5": {
           "name": "Lava",
-          "textColor": "",
+          "textColor": "#E75F19",
           "bgColor": "#AE0000"
         },
         "6": {
@@ -96,52 +96,52 @@
         },
         "7": {
           "name": "Chaos",
-          "textColor": "",
+          "textColor": "#E21C25",
           "bgColor": "#505050"
         },
         "8": {
           "name": "Demon",
-          "textColor": "",
+          "textColor": "#E21C25",
           "bgColor": "#282828"
         },
         "9": {
           "name": "Time",
-          "textColor": "",
+          "textColor": "#1DF7F1",
           "bgColor": "#0053D4"
         },
         "10": {
           "name": "Crystal",
-          "textColor": "",
+          "textColor": "#F4C6EC",
           "bgColor": "#DF0079"
         },
         "11": {
           "name": "Magic",
-          "textColor": "",
+          "textColor": "#3FF6F4",
           "bgColor": "#002969"
         },
         "12": {
           "name": "Spike",
-          "textColor": "",
+          "textColor": "#E5C04F",
           "bgColor": "#7F5000"
         },
         "13": {
           "name": "Monster",
-          "textColor": "",
+          "textColor": "#40E924",
           "bgColor": "#003E00"
         },
         "14": {
           "name": "Doom",
-          "textColor": "",
+          "textColor": "#E62227",
           "bgColor": "#DF0079"
         },
         "15": {
           "name": "Death",
-          "textColor": "",
+          "textColor": "#E62227",
           "bgColor": "#282828"
         },
         "16": {
           "name": "Forest",
-          "textColor": "",
+          "textColor": "#",
           "bgColor": "#005300"
         },
         "17": {
@@ -166,127 +166,127 @@
         },
         "21": {
           "name": "Water",
-          "textColor": "#",
+          "textColor": "#00FFFF",
           "bgColor": "#0062CE"
         },
         "22": {
           "name": "Haunted",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#FBFF52",
+          "bgColor": "#191F23"
         },
         "23": {
           "name": "Acid",
-          "textColor": "",
+          "textColor": "#75FF00",
           "bgColor": "#44443B"
         },
         "24": {
           "name": "Witch",
-          "textColor": "",
+          "textColor": "#60F7FF",
           "bgColor": "#13322F"
         },
         "25": {
           "name": "Power",
-          "textColor": "",
+          "textColor": "#FDE69E",
           "bgColor": "#2F1D1A"
         },
         "26": {
           "name": "Potion",
-          "textColor": "",
+          "textColor": "#FF92FF",
           "bgColor": "#4F1B32"
         },
         "27": {
           "name": "Snake",
-          "textColor": "",
+          "textColor": "#FFB267",
           "bgColor": "#2F225A"
         },
         "28": {
           "name": "Toxic",
-          "textColor": "",
+          "textColor": "#00FF00",
           "bgColor": "#490F4E"
         },
         "29": {
           "name": "Halloween",
-          "textColor": "",
+          "textColor": "#FF7700",
           "bgColor": "#3D1600"
         },
         "30": {
           "name": "Treasure",
-          "textColor": "",
+          "textColor": "#FFDC00",
           "bgColor": "#1F2C22"
         },
         "31": {
           "name": "Ghost",
-          "textColor": "",
+          "textColor": "#FFFFFF",
           "bgColor": "#002843"
         },
         "32": {
           "name": "Spider",
-          "textColor": "",
+          "textColor": "#B059FF",
           "bgColor": "#261B2F"
         },
         "33": {
           "name": "Gem",
-          "textColor": "",
+          "textColor": "#00EBFF",
           "bgColor": "#003B6A"
         },
         "34": {
           "name": "Inferno",
-          "textColor": "",
+          "textColor": "#00FF00",
           "bgColor": "#450040"
         },
         "35": {
           "name": "Portal",
-          "textColor": "",
+          "textColor": "#00FFFF",
           "bgColor": "#2D1757"
         },
         "36": {
           "name": "Strange",
-          "textColor": "",
+          "textColor": "#78FF00",
           "bgColor": "#55007C"
         },
         "37": {
           "name": "Fantasy",
-          "textColor": "",
+          "textColor": "#C7FF00",
           "bgColor": "#245200"
         },
         "38": {
           "name": "Christmas",
-          "textColor": "",
+          "textColor": "#FFFFFF",
           "bgColor": "#0077D3"
         },
         "39": {
           "name": "Surprise",
-          "textColor": "",
+          "textColor": "#FFFFFF",
           "bgColor": "#692A00"
         },
         "40": {
           "name": "Mystery",
-          "textColor": "",
+          "textColor": "#FDFF00",
           "bgColor": "#112A00"
         },
         "41": {
           "name": "Cursed",
-          "textColor": "",
+          "textColor": "#00FF00",
           "bgColor": "#450029"
         },
         "42": {
           "name": "Cyborg",
-          "textColor": "",
+          "textColor": "#00FFFF",
           "bgColor": "#282828"
         },
         "43": {
           "name": "Castle",
-          "textColor": "",
+          "textColor": "#FFFFFF",
           "bgColor": "#0053D4"
         },
         "44": {
           "name": "Grave",
-          "textColor": "",
+          "textColor": "#51FDA6",
           "bgColor": "#002828"
         },
         "45": {
           "name": "Temple",
-          "textColor": "",
+          "textColor": "#F7FE90",
           "bgColor": "#003A00"
         },
         "46": {
@@ -296,33 +296,33 @@
         },
         "47": {
           "name": "Galaxy",
-          "textColor": "",
+          "textColor": "#FFBBFF",
           "bgColor": "#351B3D"
         },
         "48": {
           "name": "Universe",
-          "textColor": "",
+          "textColor": "#00FFFF",
           "bgColor": "#191843"
         },
         "49": {
           "name": "Discord",
-          "textColor": "",
+          "textColor": "#66FFFF",
           "bgColor": "#0F1F39"
         },
         "50": {
           "name": "Split",
-          "textColor": "",
+          "textColor": "#FFA7FB",
           "bgColor": "#3A0037"
         },
         "51": {
           "name": "NCS I",
-          "textColor": "",
+          "textColor": "#00FFFF",
           "bgColor": "#023139"
         },
         "52": {
           "name": "NCS II",
-          "textColor": "",
+          "textColor": "#FFAAFF",
           "bgColor": "#341536"
         }
     }
-}
+        }
