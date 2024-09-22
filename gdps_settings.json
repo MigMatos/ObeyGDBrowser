@@ -146,27 +146,27 @@
         },
         "17": {
           "name": "Rune",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#FFC600",
+          "bgColor": "#814F00"
         },
         "18": {
           "name": "Force",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#FF76FF",
+          "bgColor": "#55009B"
         },
         "19": {
           "name": "Spooky",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#00CDCB",
+          "bgColor": "#003D3D"
         },
         "20": {
           "name": "Dragon",
-          "textColor": "",
-          "bgColor": ""
+          "textColor": "#FF3900",
+          "bgColor": "#600000"
         },
         "21": {
           "name": "Water",
-          "textColor": "",
+          "textColor": "#",
           "bgColor": "#0062CE"
         },
         "22": {
@@ -325,4 +325,4 @@
           "bgColor": "#341536"
         }
     }
-        }
+}
