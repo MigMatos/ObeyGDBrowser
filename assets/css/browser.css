@@ -678,7 +678,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .gauntlet.icon {
-
+    pointer-events: none;
     height: 25vh;
     width: auto;
 
@@ -689,7 +689,42 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     flex-wrap: nowrap;
     align-items: center;
     flex-direction: row;
+    justify-content: center;
+}
+
+.gauntletPage {
+    display: none;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
     justify-content: flex-start;
+    margin-right: 50%;
+    margin-left: 50%;
+}
+
+.gauntletPage.show {
+    display: flex;
+}
+
+.gauntletPage.hide {
+    display: none;
+    animation: hideGauntlet 0.3s ease-in-out;
+}
+
+@keyframes hideGauntlet {
+    0% {
+        display: flex;
+        filter:opacity(0);
+    }
+
+    100% {
+        display: none;
+        margin-left: 0%;
+        margin-right: 0%;
+        width: 0;
+        filter:opacity(0);
+        /* transform: scale(0); */
+    }
 }
 
 .gauntlet:hover, .mappack:hover {
