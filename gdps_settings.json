@@ -182,52 +182,52 @@
         "24": {
           "name": "Witch",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#13322F"
         },
         "25": {
           "name": "Power",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#2F1D1A"
         },
         "26": {
           "name": "Potion",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#4F1B32"
         },
         "27": {
           "name": "Snake",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#2F225A"
         },
         "28": {
           "name": "Toxic",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#490F4E"
         },
         "29": {
           "name": "Halloween",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#3D1600"
         },
         "30": {
           "name": "Treasure",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#1F2C22"
         },
         "31": {
           "name": "Ghost",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#002843"
         },
         "32": {
           "name": "Spider",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#261B2F"
         },
         "33": {
           "name": "Gem",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#003B6A"
         },
         "34": {
           "name": "Inferno",
@@ -257,7 +257,7 @@
         "39": {
           "name": "Surprise",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#692A00"
         },
         "40": {
           "name": "Mystery",
@@ -325,4 +325,4 @@
           "bgColor": "#341536"
         }
     }
-}
+        }
