@@ -82,17 +82,17 @@
         "4": {
           "name": "Shadow",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#5400A4"
         },
         "5": {
           "name": "Lava",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#AE0000"
         },
         "6": {
           "name": "Bonus",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#3954D6"
         },
         "7": {
           "name": "Chaos",
@@ -102,32 +102,32 @@
         "8": {
           "name": "Demon",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#282828"
         },
         "9": {
           "name": "Time",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#0053D4"
         },
         "10": {
           "name": "Crystal",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#DF0079"
         },
         "11": {
           "name": "Magic",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#002969"
         },
         "12": {
           "name": "Spike",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#7F5000"
         },
         "13": {
           "name": "Monster",
           "textColor": "",
-          "bgColor": ""
+          "bgColor": "#003E00"
         },
         "14": {
           "name": "Doom",
