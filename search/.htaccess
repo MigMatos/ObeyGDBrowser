@@ -3,4 +3,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteCond %{REQUEST_URI} !^/replies
-RewriteRule ^(.*/)?([^/]+)/?$ search.html?s=$2 [L]
+RewriteRule ^(.*/)?([^/]+)/?$ search.php?s=$2 [L]

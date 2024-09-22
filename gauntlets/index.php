@@ -12,9 +12,40 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<?php include("../assets/htmlext/flayeralert.php"); ?>
+
 <body class="levelBG darkBG" onbeforeunload="saveUrl()">
 
 <div id="everything" class="center" style="width: 100%; height: 100%;">
+
+	<div class="popup" id="editGauntletPopup">
+		<div class="brownbox bounce center supercenter" style="width: 85vh; height: 70%;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Edit Gauntlet #<span id="editgID"></span></h2>
+			<form id="formGauntletMap">
+			<div class="transparentbox" style="display: contents;">
+				
+				<input type="text" name="act" value="edit" hidden><input type="number" id="editgID2" name="id" value="0" hidden>
+
+				<h3><img src="../assets/info.png" class="smallMapDivIcon">Name:<input class="inputmaps" type="text" id="editgName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
+				
+				<!-- <select api-search-id="2" data-url="../api/search.php" multiple="multiple" required data-min="2" data-max="10"></select> -->
+
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLAlertGauntletsAPI(this,'5')" style="width: 71%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapLevels" name="levels[]" min-options="2" max-options="10" api-url="../api/gauntlets.php" required multiple>
+					
+				</select></div></h3>
+
+				<!-- <h3>ID Levels:<input class="inputmaps" pattern="^\d+,\d+(,\d+)*$" placeholder="1,2..." type="text" id="editmapLevels" name="levels" maxlength="25" required></h3> -->
+				<h3><img src="../assets/star.png" class="smallMapDivIcon">Stars:<input class="inputmaps" type="number" id="editmapStars" name="stars" max="999" required></h3>
+				<h3><img src="../assets/coin.png" class="smallMapDivIcon">Coins:<input class="inputmaps" type="number" id="editmapCoins" name="coins" max="999" required></h3>
+
+			
+			</div>
+			<img onclick="submitEditMap()" src="../assets/ok.png" style="margin-top: 3vh;" height=10%;>
+			<img class="gdButton center closeWindow" src="../assets/close.png" height="15%" style="position: absolute; top: -7.5%; left: -7vh">
+			</form>
+		</div>
+	</div>
+
 
 	<div style="position:absolute; top: 2%; left: -1.95%; width: 10%; height: 25%; pointer-events: none">
 		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
@@ -44,6 +75,9 @@
 </div>
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../misc/gdcustomalerts.js"></script>
+<script type="text/javascript" src="../misc/customselects.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/tintheximg.js"></script>
 
@@ -74,7 +108,8 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 			$('<div>', { id: `gauntletPage-${gCounter}`, class: "gauntletPage" }).appendTo('#gauntletList');
 			
 		}
-
+		
+		console.log(gauntlets);
 
 		console.log(`#gauntletPage-${gCounter}`);
 
@@ -82,12 +117,18 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 
 			<a onclick="redirectGauntlet('${x.levels}','${x.gauntlet.name}')">
 	
-			<div class="gauntlet invisibleBox" style="color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'}; background-color: ${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'};">
+			<div class="gauntlet invisibleBox" style="background-color: ${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'};">
 			
-			<h3 class="gauntletTitle">${x.gauntlet.name}<br>Gauntlet</h3><br>
+			<h3 class="gauntletTitle" style="color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'};">${x.gauntlet.name}<br>Gauntlet</h3><br>
 
 			<img class="gauntlet icon" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${x.id}.png"><br>
 			
+			<div class="checkperm-gauntlets" onclick="event.stopPropagation();" style="pointer-events: unset; cursor: default; background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: 10%; position: relative;">
+				<h3 class="lessSpaced">Mod actions</h3>
+					<img onclick="editGauntlet(${x.id})" title="Edit Gauntlet" class="valign gdButton editGauntlet" src="../assets/editBtn.png" height="10%">
+					<img onclick="deleteGauntlet(${x.id})" title="Delete Gauntlet" class="valign gdButton delGauntlet" src="../assets/trash.png" height="10%">
+			</div>
+
 			</div></a>`)
 	})
 
@@ -98,6 +139,10 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	$('#loading').hide()
 	loading = false;
 });
+
+function editGauntlet(id) {
+	$("#editGauntletPopup").show();
+}
 
 $('#pageUp').click(function() {
 	page += 1;
@@ -150,7 +195,7 @@ let serverType = "<?php print_r($serverType); ?>";
 function redirectGauntlet(url, header) {
 	var queryLvl = "";
     if (serverType == "legacy") {
-		queryLvl = "/search/search.html?s=" + (url || "0") + "&list"
+		queryLvl = "/search/search.php?s=" + (url || "0") + "&list"
 	} else {
 		queryLvl = "/search/" + (url || "0") + "?list"
 	}

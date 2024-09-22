@@ -380,7 +380,7 @@ function profileRedirect(url) {
 function searchLevelsArtistRedirect(songID) {
 	var queryLvl = "";
     if (legacyServer == true) {
-		queryLvl = "/search/search.html?s=0&songID="+ (encodeURIComponent(songID) || "0") + "&customSong";
+		queryLvl = "/search/search.php?s=0&songID="+ (encodeURIComponent(songID) || "0") + "&customSong";
 	} else {
 		queryLvl = "/search/0?songID="+ (encodeURIComponent(songID) || "0") + "&customSong";
 	}

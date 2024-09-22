@@ -240,7 +240,7 @@ $('.levelSearch').click(function() {
 	if (serverType != "legacy") {
 		url = "../search/" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()) || "0") + "?filter=" + $(this).attr('search')
 	} else {
-		url = "../search/search.html?s=" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()) || "0") + "&filter=" + $(this).attr('search')
+		url = "../search/search.php?s=" + (encodeURIComponent($('#levelName1').val() + $('#levelName2').val()) || "0") + "&filter=" + $(this).attr('search')
 	}
 
 	if ($(this).attr('search') == "featured") return window.location.href = url

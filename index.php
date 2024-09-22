@@ -296,7 +296,7 @@ function searchRedirect(url,type) {
 	var queryLvl = "";
 
 	if (legacyServer == true) {
-		queryLvl = "/search/search.html?s=" + (encodeURIComponent(url) || "0")
+		queryLvl = "/search/search.php?s=" + (encodeURIComponent(url) || "0")
 		if (type != null) queryLvl = queryLvl + "&filter=" + type
 	} else {
 		queryLvl = "/search/" + (encodeURIComponent(url) || "0")

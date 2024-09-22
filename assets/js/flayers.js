@@ -8,12 +8,6 @@ function CreateFLSelector(selectId, title = "", maxOptions = 2, desc = "") {
     CreateFLAlert(title, desc, selectId, maxOptions); // Llama a CreateFLAlert con el ID del select como parámetro
 }
 
-function CreateFLSelectorSearch(selectId, title="", maxOptions= 2, desc = "") {
-    const elementSelected = document.getElementById(selectId);
-    const searchType = elementSelected.getAttribute("api-type");
-    CreateFLAlert(title, desc, selectId, maxOptions, searchType);
-}
-
 
 function CreateFLAlert(title, desc, idObject, maxOptions = 2, searchType="") {
     const titleElement = document.getElementById('fllayertitle-fancy');
@@ -36,14 +30,10 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2, searchType="") {
         const selectElement = document.getElementById(idObject);
         const optionsContainer = document.getElementById('options-fl-layer-fancy');
         
-        if(searchType == "levels") {
-            let apiURL = selectElement.getAttribute("api-url") || "../api/search.php";
-            
+        if(searchType != "") {
             EventListenerInput = document.getElementById("flayersearch-layer-fancy");
 
             EventListenerInput.style.display = "flex";
-
-            functionEventListener = eventListenerSearchType(apiURL,selectElement,optionsContainer,maxOptions)
 
             EventListenerInput.addEventListener("input", functionEventListener);
         }
@@ -55,41 +45,7 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2, searchType="") {
     }
 }
 
-function eventListenerSearchType (apiURL,selectElement,optionsContainer,maxOptions) {
 
-    return function(event) {
-
-        let fetchURLAPI = `${apiURL}?levelName=${event.target.value}&page=0`
-
-        for (let i = selectElement.options.length - 1; i >= 0; i--) {
-            let option = selectElement.options[i];
-            
-
-            if (!option.selected) {
-                selectElement.remove(i);
-            }
-
-        }
-        
-
-        Fetch(fetchURLAPI).then(data => {
-
-
-            data.forEach(item => {
-                if (item) { 
-                    const option = document.createElement("option");
-                    option.value = item.id;
-                    option.id = `genoption${item.id}`;
-                    option.setAttribute('title',`${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
-                    option.textContent = `${item.id}`;
-                    selectElement.appendChild(option);
-                }
-            });
-            
-            genMoreFLElements(selectElement,optionsContainer,maxOptions)
-        });
-    }
-}
 
 function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
     const options = Array.from(selectElement.querySelectorAll('option'));
@@ -124,7 +80,9 @@ function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
                 const labelText = document.createElement('label');
                 labelText.classList.add('gdfont-Pusab', 'small'); 
                 labelText.htmlFor = `fl${option.value}`; 
-                labelText.textContent = option.getAttribute('title') || option.textContent; 
+                if(option.getAttribute('html')){
+                    labelText.innerHTML = sanitizerCode(processHTMLContent(option.getAttribute('html')));
+                } else labelText.textContent = option.getAttribute('title') || option.textContent; 
                 div.appendChild(labelText);
 
                 div.appendChild(document.createElement('br'));

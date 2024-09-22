@@ -8,7 +8,11 @@ $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
-    echo getGauntlets($params, $db, $gdps_settings);
+    if(isset($params["list"])){
+        echo getAvailableGauntlets($params, $gdps_settings);
+    } else {
+        echo getGauntlets($params, $db, $gdps_settings);
+    }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
     $action = $_POST['act'] ?? null;
     if (!in_array('admin', $userPermissions) && !in_array('gauntlets', $userPermissions)) {
@@ -126,6 +130,47 @@ function getGauntlets($params, $db, $gdps_settings) {
     }, $results);
 
     return json_encode($json_data);
+}
+
+function getAvailableGauntlets($params, $gdps_settings) {
+    $gauntlets = [];
+    if(isset($gdps_settings["gauntlets"])) {
+        $gauntlets = $gdps_settings["gauntlets"];
+        unset($gauntlets["-1"]);
+        unset($gauntlets["0"]);
+    }
+    $search = strval($params["search"]);
+    $results = [];
+    
+    if (is_numeric($search)) {
+        if (isset($gauntlets[$search])) {
+            $item = $gauntlets[$search];
+
+            return json_encode([[
+                'id' => $search,
+                'name' => $item['name'],
+                'textColor' => $item['textColor'],
+                'bgColor' => $item['bgColor']
+            ]]);
+        }
+    } else {
+        $searchLower = strtolower($search);
+        foreach ($gauntlets as $id => $item) {
+            if (stripos($item['name'], $searchLower) !== false) {
+                $results[] = [
+                    'id' => $id,
+                    'name' => $item['name'],
+                    'textColor' => $item['textColor'],
+                    'bgColor' => $item['bgColor']
+                ];
+                if (count($results) >= 10) {
+                    break;
+                }
+            }
+        }
+    }
+
+    return json_encode($results);
 }
 
 function deleteMapPack($id, $db) {

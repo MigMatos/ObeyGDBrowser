@@ -312,7 +312,7 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     height: 82%;
     margin-top: -0.7%;
     transform: scale(0);
-    filter: opacity(0.5);
+
     animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
 }
 

@@ -10,6 +10,8 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<?php include("../assets/htmlext/flayeralert.php"); ?>
+
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything" style="overflow: auto;">

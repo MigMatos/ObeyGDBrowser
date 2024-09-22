@@ -105,7 +105,7 @@
 				
 				<!-- <select api-search-id="2" data-url="../api/search.php" multiple="multiple" required data-min="2" data-max="10"></select> -->
 
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLSelectorSearch('editmapLevels','Select levels','10')" style="width: 71%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapLevels" name="levels[]" min-options="2" max-options="10" api-type="levels" api-url="../api/search.php" required multiple>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLAlertSearchAPI(this,'10')" style="width: 71%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editmapLevels" name="levels[]" min-options="2" max-options="10" api-url="../api/search.php" required multiple>
 					
 				</select></div></h3>
 
@@ -262,7 +262,8 @@
 </div>
 
 </body>
-
+<script type="text/javascript" src="../misc/gdcustomalerts.js"></script>
+<script type="text/javascript" src="../misc/customselects.js"></script>
 <script type="text/javascript" src="../misc/customselects.js"></script>
 <script type="text/javascript" src="../misc/selectapis.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
@@ -433,7 +434,7 @@ if (path == "0") path = "*"
 function searchRedirect(url, header) {
 	var queryLvl = "";
     if (serverType == "legacy") {
-		queryLvl = "/search/search.html?s=" + (url || "0") + "&list"
+		queryLvl = "/search/search.php?s=" + (url || "0") + "&list"
 	} else {
 		queryLvl = "/search/" + (url || "0") + "?list"
 	}
@@ -523,7 +524,7 @@ function Append(firstLoad, noCache) {
 
 			<div class="center" style="position:absolute; right: 7%; transform: translate(0.5vh, -16.25vh); height: 10%">
 				<div class="checkperm-mappacks" style="background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: -100%; position: relative; margin-bottom: -27%;">
-				<h3 class="lessSpaced">Mod actions</h3>
+				<h3 class="lessSpaced" style="cursor: default;">Mod actions</h3>
 					<img onclick="editMap(${page},${y})" title="Edit Map Pack" class="valign gdButton editMap" src="../assets/editBtn.png" height="105%">
 					<img onclick="deleteMap(${page},${y})" title="Delete Map Pack" class="valign gdButton delMap" src="../assets/trash.png" height="105%">
 				</div>
