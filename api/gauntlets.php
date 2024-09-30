@@ -26,15 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
 
     switch ($action) {
         case 'delete':
-            echo deleteMapPack($id, $db);
+            echo deleteGauntlet($_POST['id'], $db);
             break;
 
         case 'edit':
-            echo editMapPack($_POST, $db);
+            echo editGauntlet($_POST, $db);
             break;
 
         case 'create':
-            echo createMapPack($_POST, $db);
+            echo createGauntlet($_POST, $db);
             break;
 
         default:
@@ -85,7 +85,7 @@ function getGauntlets($params, $db, $gdps_settings) {
     foreach ($bindings as $key => $value) { $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR); }
     $stmt->execute();
     $resultsTotal[] = $stmt->fetchColumn();
-    $resultsTotal[] = intval($resultsTotal[0] / 3) + 1;
+    $resultsTotal[] = intval(ceil($resultsTotal[0] / 3));
     $results[0]["paginator"] = $resultsTotal;
     // --- //
 
@@ -173,13 +173,13 @@ function getAvailableGauntlets($params, $gdps_settings) {
     return json_encode($results);
 }
 
-function deleteMapPack($id, $db) {
+function deleteGauntlet($id, $db) {
     $id = intval($id ?? 0);
     if ($id <= 0) {
         return json_encode(array("error" => "Invalid ID."));
     }
 
-    $sql = "DELETE FROM mappacks WHERE ID = ?";
+    $sql = "DELETE FROM gauntlets WHERE ID = ?";
     $bindings = [$id];
 
     $stmt = $db->prepare($sql);
@@ -196,28 +196,22 @@ function deleteMapPack($id, $db) {
 }
 
 
-function editMapPack($params, $db) {
+function editGauntlet($params, $db) {
     $id = intval($params['id'] ?? 0);
+    
     // print_r($params);
     if ($id <= 0) {
-        return json_encode(array("error" => "Invalid ID."));
+        return json_encode(array("success" => "false","error" => "Invalid ID."));
     }
 
-    $name = strval($params['name'] ?? '');
-    $levels = strval($params['levels'] ?? '');
+    $levels = $params['levels'];
 
-    if (empty($name) || empty($levels)) {
-        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+    if (empty($levels) || count($levels) < 5 || empty($params['newid'])) {
+        return json_encode(array("success" => "false", "error" => "'newid' and 'levels' fields are mandatory."));
     }
 
-    $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
-    $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
-    $stars = intval($params['stars'] ?? 0);
-    $coins = intval($params['coins'] ?? 0);
-    $difficulty = intval($params['difficulty'] ?? 0);
-
-    $sql = "UPDATE gauntlets SET colors2 = ?, rgbcolors = ?, name = ?, levels = ?, stars = ?, coins = ?, difficulty = ? WHERE ID = ?";
-    $bindings = [$colors2, $rgbcolors, $name, $levels, $stars, $coins, $difficulty, $id];
+    $sql = "UPDATE gauntlets SET ID = ?, level1 = ?, level2 = ?, level3 = ?, level4 = ?, level5 = ? WHERE ID = ?";
+    $bindings = [$params['newid'], $levels[0], $levels[1], $levels[2], $levels[3], $levels[4] ,$id];
 
     $stmt = $db->prepare($sql);
 
@@ -233,23 +227,15 @@ function editMapPack($params, $db) {
 }
 
 
-function createMapPack($params, $db) {
-    $name = strval($params['name'] ?? '');
-    $levels = strval($params['levels'] ?? '');
+function createGauntlet($params, $db) {
+    $levels = $params['levels'];
 
-    if (empty($name) || empty($levels)) {
-        return json_encode(array("error" => "'name' and 'levels' fields are mandatory."));
+    if (empty($params['id']) || empty($levels) || count($levels) < 5) {
+        return json_encode(array("success" => "false", "error" => "'ID' and 'levels' fields are mandatory."));
     }
 
-    $colors2 = BrowserUtils::hexToRgb($params['colors2'] ?? '');
-    $rgbcolors = BrowserUtils::hexToRgb($params['rgbcolors'] ?? '');
-    $stars = intval($params['stars'] ?? 0);
-    $coins = intval($params['coins'] ?? 0);
-    $difficulty = intval($params['difficulty'] ?? 0);
-
-    $sql = "INSERT INTO mappacks (colors2, rgbcolors, name, levels, stars, coins, difficulty) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $bindings = [$colors2, $rgbcolors, $name, $levels, $stars, $coins, $difficulty];
+    $sql = "INSERT INTO gauntlets (ID, level1, level2, level3, level4, level5) VALUES (?, ?, ?, ?, ?, ?)";
+    $bindings = [$params['id'], $levels[0], $levels[1], $levels[2], $levels[3], $levels[4]];
 
     $stmt = $db->prepare($sql);
 

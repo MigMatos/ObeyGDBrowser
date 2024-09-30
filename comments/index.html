@@ -109,7 +109,7 @@
 
 		
 		
-		<div id="leaveComment" style="position:absolute; bottom: 0%;right: 0%;width: 14%;text-align: right;transform: translate(30%, 40%);">
+		<div id="leaveComment" style="display: none; position:absolute; bottom: 0%;right: 0%;width: 14%;text-align: right;transform: translate(30%, 40%);">
 			<img class="gdButton" src="../assets/comment.png" width="60%" onclick="$('#content').trigger('input'); $('#postComment').show();">
 		</div>
 
@@ -156,11 +156,11 @@ function levelRedirect(url) {
 function profileRedirect(url) {
 	var queryProfile = "";
     if (legacyServer == true) {
-		queryProfile = "../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+		queryProfile = "profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
 	} else {
-		queryProfile = "../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+		queryProfile = "profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
 	}
-    if (queryProfile) window.location.href = "./u/" + queryProfile
+    if (queryProfile) window.location.href = "../" + queryProfile
 }
 
 

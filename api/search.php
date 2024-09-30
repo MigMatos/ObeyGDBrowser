@@ -13,7 +13,7 @@ function searchLevels($params, $db, $gdps_settings) {
     $downloadLevelData = false;
 
     if (isset($params['levelName']) && isset($params['list'])) {
-        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        
         if (preg_match('/^\d+(,\d+)+$/', $params['levelName'])) {
             $levelNames = explode(',', $params['levelName']);
             $allValid = !array_filter($levelNames, function($value) { return !ctype_digit($value); });
@@ -24,7 +24,7 @@ function searchLevels($params, $db, $gdps_settings) {
         }
     }
     elseif (isset($params['levelName']) && $params['levelName'] === "*") {
-        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        
 
     } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
     
@@ -50,11 +50,11 @@ function searchLevels($params, $db, $gdps_settings) {
 
         $time_left_daily = $midnight - $current_time;
     
-        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        
         $paramsSql[] = "levelID = ?";
         $bindings[] = $lvlID;
     } elseif (isset($params['levelName']) && is_numeric($params['levelName'])) {
-        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        
         $paramsSql[] = "levelID = ?";
         $bindings[] = $params['levelName'];
 
@@ -63,7 +63,7 @@ function searchLevels($params, $db, $gdps_settings) {
         }
 
     } elseif (isset($params['levelName'])) {
-        $sql = "SELECT levels.*, songs.ID, songs.name, songs.authorID, songs.authorName, songs.size, songs.isDisabled, songs.download ";
+        
         $paramsSql[] = "levelName LIKE ?";
         $bindings[] = '%' . $params['levelName'] . '%';
     } else {
@@ -75,7 +75,7 @@ function searchLevels($params, $db, $gdps_settings) {
     $order = "likes";
 
     //Another configs
-    $sql = $sql . " FROM levels LEFT JOIN songs ON levels.songID = songs.ID ";
+    $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID ";
     
     $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDemon = 0  AND starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDemon = 0 AND starAuto = 0 AND starDifficulty = 50"];
     
@@ -127,7 +127,7 @@ function searchLevels($params, $db, $gdps_settings) {
                     $bindings[] = $value;
                 }
             } elseif ($key == 'user' && is_numeric($value)) {
-                $paramsSql[] = "userID = ?";
+                $paramsSql[] = "levels.userID = ?";
                 $bindings[] = $value;
             } elseif ($key == 'filter' && $value == 'recent') {
                 $order = "uploadDate";
@@ -313,7 +313,7 @@ function searchLevels($params, $db, $gdps_settings) {
             "name" => $result["levelName"],
             "id" => $result["levelID"],
             "description" => $description,
-            "author" => $result["userName"],
+            "author" => $result["originaluserName"],
             "playerID" => intval($result["userID"]),
             "accountID" => intval($result["extID"]),
             "difficulty" => $diffString,

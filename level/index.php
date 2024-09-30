@@ -18,7 +18,7 @@ if (isset($_GET["id"])) {
 $html = file_get_contents('./t.html');
 
 
-$params = array('levelName' => $id);
+$params = array('levelName' => $id, 'page' => 0);
 
 
 $response = searchLevels($params, $db, $gdps_settings);
@@ -34,7 +34,7 @@ if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
 $data = $data[0];
 
 
-
+include("../assets/htmlext/flayeralert.php");
 $data["serverType"] = $serverType;
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';

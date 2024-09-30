@@ -1,7 +1,7 @@
 <head>
 	<title>[[USERNAME]]'s Profile</title>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=2" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=14" type="text/css" rel="stylesheet">
     
 	<link rel="icon" href="">
 	<meta id="meta-title" property="og:title" content="[[USERNAME]]'s profile">
@@ -10,6 +10,13 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<style>
+	.box-subopt {
+		text-align: left;
+		display: inline-block;
+		width: 30%;
+	}
+</style>
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything">
@@ -49,6 +56,40 @@
 			<img src="../assets/btn-submit.png" type="submit" height=10%; class="postButton gdButton center" style="margin-left: 1%" id="submitVote">
 		</div>
 	</div>
+
+	<div class="popup" id="LogoutAccountPopup" style="z-index: 100;">
+		<div class="brownbox bounce center supercenter" style="width: 75vh; height: 35%;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Logout</h2>
+				<input type="text" name="act" value="delete" hidden>
+				<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
+					Are you sure you want to unlink your account?<br><cr>This action remove all current ObeyGDBrowser settings.</cr>
+				</p>
+				<img class="gdButton center closeWindow" src="../assets/btn-no.png" height=20%;>
+				<img onclick="confirmLogout()" src="../assets/btn-yes.png"  height=20%; >
+		</div>
+	</div>
+
+	<div class="popup" id="profileAdvSettingsPopup">
+		<div class="brownbox bounce center supercenter" style="height: 90%; width: 120vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">My profile</h3>
+			<div id="filterStuff">
+
+			<h2 class="smaller center" style="margin-top: 2%">Experimental options</h2>
+			<div class="box-subopt" style="width: 93%;background-color: #00000065;border-radius: 2.5vh;padding: 1vh 0vh 1vh 5vh;">
+				<h1><input type="checkbox" id="box-colored-profiles"><label for="box-colored-profiles" class="gdcheckbox gdButton"></label>Colored profiles</h1>
+			</div>
+			
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 55vh;">
+			<div class="gdsButton red" onclick="LogoutAccount()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Logout account</h3></div>
+			<div class="gdsButton red" onclick="$('#profileAdvSettingsPopup').hide();" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Cancel</h3></div>
+			<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
+			</div>
+
+			
+		</div>
+	</div>
 	
 	<div class="popup" id="settingsDiv">
 		<div class="fancybox bounce center supercenter">
@@ -84,7 +125,7 @@
 		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
 	</div>
 
-	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%">
+	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%" id="profileCBox">
 
 		<div id="globalrank0" style="position: absolute; left: 0.3%; top: 1.5%; width: 18%; text-align: left">
 			<p style="margin: 0;"><img src="../assets/trophy.png" class="inline valign help profileTrophy" width="22%" title="Global Rank"> [[RANK]]</p>
@@ -125,9 +166,9 @@
 		</div>
 
 		<div class="center profilePostHide" style="margin: 1.5% auto 2.5% auto;">
-			<a id="msgA" target="_blank"><img src="../assets/messages.png" height="10%" id="msgButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()"></a>
-			<img src="../assets/friends.png" height="10%" id="friendButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()">
-			<img src="../assets/settingsbutton.png" height="10%" id="settingsProfileButton" class="sideSpace gdButton" onclick="$('#featuredBlockedDiv').show()">
+			<a id="msgA" target="_blank"><img src="../assets/messages.png" height="10%" id="msgButton" class="sideSpace gdButton hidemeprofile" onclick="$('#featuredBlockedDiv').show()"></a>
+			<img src="../assets/friends.png" height="10%" id="friendButton" class="sideSpace gdButton hidemeprofile" onclick="$('#featuredBlockedDiv').show()">
+			<img src="../assets/settingsbutton.png" style="display: none;" height="10%" id="settingsProfileButton" class="sideSpace gdButton" onclick="viewAdvProfile()">
 		</div>
 
 		<div style="position: absolute; bottom: 0%; left: 12%;" class="profilePostHide">
@@ -178,18 +219,99 @@
 
 <script>
 
+function submitChanges() {
+	console.log($('#box-colored-profiles').is(":checked"))
+	if($('#box-colored-profiles').is(":checked")){
+		localStorage.setItem('coloredprofiles','1')
+	} else {
+		localStorage.removeItem('coloredprofiles');
+	}
+}
+
+
+function getColors() {
+	if(localStorage.getItem('coloredprofiles') == "1"){
+
+		fetch('../assets/json/colors.json')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Error loading JSON');
+			}
+			return response.json(); 
+		})
+		.then(data => {
+
+			let col1 = data[Number("[[COL1]]")];
+			let col2 = data[Number("[[COL2]]")];
+			let colg = data[Number("[[COLG]]")];
+
+			recolorProfile(col1,col2,colg)
+		})
+		.catch(error => {
+			console.error('JSON Error:', error);
+		});
+
+	}
+}
+
+function recolorProfile(col1,col2,colg) {
+	$("#profileCBox").removeClass('brownBox');
+	$("#profileCBox").addClass('invisibleBox');
+	col1 = `rgb(${col1.r},${col1.g},${col1.b})`;
+	col2 = `rgb(${col2.r},${col2.g},${col2.b})`;
+	colg = `rgb(${colg.r},${colg.g},${colg.b})`;
+
+	$("#profileCBox").css({'background': `linear-gradient(to bottom, ${col1}, ${col2})`})
+	$("#iconsDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	$("#statusDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	
+
+	$('.commentBG').css({'background-color': 'transparent'});
+	$('.commentBG:nth-child(odd)').css({'background-color': '#0000007a'});
+	$('.comment').css({'background-color': '#0000007a'});
+	$('.commentDate').css({'color': 'white'});
+
+}
+
+
+
 function clean(text) {return text.replace(/&/g, "&#38;").replace(/</g, "&#60;").replace(/>/g, "&#62;").replace(/=/g, "&#61;").replace(/"/g, "&#34;").replace(/'/g, "&#39;")}
 
 // remove ID from URL
 if (window.location.pathname.endsWith(".")) window.history.pushState({}, null, window.location.origin + `/u/[[USERNAME]]`);
 
 if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" === "TRUE") {
-	
-
+	if("[[ME]]" == "1") {
+		$('#settingsProfileButton').show();
+		$('.hidemeprofile').hide();
+	}
 } else {
 	$('#superCloseButton').hide();
 	$('#settingsProfileButton').hide();
 
+}
+
+function viewAdvProfile() {
+	$('#profileAdvSettingsPopup').show()
+}
+
+function LogoutAccount() {
+	$('#LogoutAccountPopup').show()
+}
+
+function confirmLogout() {
+	$('#loading-main').show();
+	fetch('../account/logout.php', {
+            method: 'GET',
+			credentials: 'include'
+        })
+        .then(response => response.text())
+        .then(data => {
+			closeandrestartMessageCustomFrame();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 renderIcons()
@@ -311,16 +433,20 @@ function appendComments() {
 					</div>
 				</div>`)
 		})
-
+		
 		$('.commentText').each(function() {
 		if ($(this).text().length > 100) {
 		let overflow = ($(this).text().length - 100) * 0.01
 		$(this).css('font-size', (3.5 - (overflow)) + 'vh')
 		}
 	});
+	getColors()
 	$('#loading').hide()
 	})
 	loadingComments = false;
+	
+	
+
 }
 
 let page = 0

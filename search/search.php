@@ -181,7 +181,6 @@ let count = url.searchParams.get('count')
 let header = url.searchParams.get('header')
 let demonList = ["demonList", "demonlist"].some(x => typeof url.searchParams.get(x) == "string" || type == x)
 let loading = false;
-let gauntlets = ["Fire", "Ice", "Poison", "Shadow", "Lava", "Bonus", "Chaos", "Demon", "Time", "Crystal", "Magic", "Spike", "Monster", "Doom", "Death"]
 
 let page = Math.max(1, url.searchParams.get('page')) - 1
 let pages = 0
@@ -359,9 +358,9 @@ if (type == 'saved') {
 if (gauntlet) {
 	$('body').addClass('darkBG')
 	$('.cornerPiece').addClass('grayscale')
-	$('#header').text((gauntlets[parseInt(gauntlet) - 1] || "Unknown") + " Gauntlet")
-	$('#meta-title').attr('content', (gauntlets[parseInt(gauntlet) - 1] || "Unknown") + " Gauntlet")
-	$('#meta-desc').attr('content',  `View the 5 levels in the ${(gauntlets[parseInt(gauntlet) - 1] || "Unknown") + " Gauntlet"}!`)
+	$('#header').text((gauntlet || "Unknown") + " Gauntlet")
+	$('#meta-title').attr('content', (gauntlet || "Unknown") + " Gauntlet")
+	$('#meta-desc').attr('content',  `View the 5 levels in the ${(gauntlet || "Unknown") + " Gauntlet"}!`)
 }
 
 if (demonList) {

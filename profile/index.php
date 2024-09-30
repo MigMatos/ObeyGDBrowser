@@ -47,7 +47,7 @@ if(isset($_GET["gdframe"])) {
 } else { $data["GDFRAME"] = "FALSE"; }
 
 // $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
-
+include("../assets/htmlext/flayeralert.php");
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
     $value = is_numeric($value) ? intval($value) : $value;

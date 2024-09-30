@@ -107,7 +107,7 @@
 
 	<div class="popup" id="songInfo">
 		
-		<div class="invisiblebox bounce center supercenter" style="width: 130vh; height: 80%; background-color: #282737;">
+		<div class="invisiblebox bounce center supercenter" id="songInfoBox" style="width: 130vh; height: 80%; background-color: #282737;">
 			<div style="position: absolute; left: 0%; width: 133.4vh; left: -1.5%; top: -2.3%; border-top-right-radius: 2.2vh; border-top-left-radius: 2.2vh; overflow: hidden;"><img class="valign rightSpace dAlbum" src="" id="songImageAlbum" style="object-fit: cover; width: 135vh; height: 22.5vh; object-position: 0% 47%; background-color: #00000085;"></div>
 			
 
@@ -118,7 +118,7 @@
 			<h3 class="lessSpaced" style="font-size: 3vh;margin-top: 0%;position: absolute;top: 95%;text-align: left;left: 8.5%;" id="songWarning"><img class="valign rightSpace" src="../assets/exclamation.png" style="height: 4vh;"><cr>Warning:</cr> Songs uploaded from this platform may be unavailable.</h3>
 
 
-			<h3 class="closeWindow lessSpaced" style="font-size: 4.6vh; margin-top: 1%; color: #ffbc3d;" title="Search songs from that artist"><span style="position: absolute; transform: translate(-39.5%, 0%); width: 103vh; top: 27.8%; text-align: left;"><span class="pre smaller inline gdButton help" id="songAuthor">?</span></span></h3>
+			<h3 class="closeWindow lessSpaced" style="font-size: 4.6vh; margin-top: 1%; color: #ffbc3d;" title="Search songs from that artist"><span style="position: absolute; transform: translate(-39.5%, 0%); width: 103vh; top: 27.8%; text-align: left; pointer-events: none;"><span class="pre smaller inline gdButton help" id="songAuthor">?</span></span></h3>
 			
 			<div class="supercenter" style="top: 70%;height: 43%;padding-top: 2%;width: 70%;border: 0.7vh solid #00000075;background-color: #0000003b;border-radius: 5%;">
 			
@@ -138,7 +138,7 @@
 			</div>
 
 			
-			<img class="closeWindow gdButton" src="../assets/close.png" height="15%" style="position: absolute; top: -10.5%; left: -6vh">
+			<img class="closeWindow gdButton" src="../assets/close.png" onclick="closeMessageCustomFrame()" height="15%" style="position: absolute; top: -10.5%; left: -6vh">
 
 			
 		
@@ -173,45 +173,45 @@
 	</div>
 
 	<div style="position:absolute; bottom: 0%; right: 0%; width: 100%; text-align: right;">
-		<img class="cornerPiece" src="../assets/corner.png" width=7%; style="transform: scaleX(-1)">
+		<img class="cornerPiece noframe" src="../assets/corner.png" width=7%; style="transform: scaleX(-1)">
 	</div>
 
 	<div id="searchBox" class="supercenter dragscroll">
 		<div style="height: 4.5%"></div>
 	</div>
 	
-	<div class="leaderboardBox supercenter gs" style="width: 120vh; height: 80%; pointer-events: none;"></div>
+	<div class="leaderboardBox supercenter gs noframe" style="width: 120vh; height: 80%; pointer-events: none;"></div>
 
-	<div class="center" style="position:absolute; top: 8%; left: 0%; right: 0%">
+	<div class="center noframe" style="position:absolute; top: 8%; left: 0%; right: 0%">
 		<h1 id="header" style="position: absolute; left: 50%; transform: translate(-50%, 1280%);"></h1>
 	</div>
 
 	<div style="text-align: right; position:absolute; top: 1%; right: 2%">
-		<h2 class="smaller" style="font-size: 4.5vh" id="pagenum"></h2>
+		<h2 class="smaller noframe" style="font-size: 4.5vh" id="pagenum"></h2>
 	</div>
 
 	<div title="Search Song" style="text-align: right; position:absolute; top: 7.5%; right: 2%; height: 12%;">
-		<img src="../assets/magnify.png" height="60%" class="gdButton" style="margin-top: 5%" onclick="$('#searchDiv').show();">
+		<img src="../assets/magnify.png" height="60%" class="gdButton noframe" style="margin-top: 5%" onclick="$('#searchDiv').show();">
 	</div>
 
 	<div title="Jump to page" style="text-align: right; position:absolute; top: 15.5%; right: 1.5%; height: 11%;">
-		<img src="../assets/double-arrow.png" height="60%" class="gdButton" style="margin-top: 5%" onclick="$('#pageDiv').show(); $('#pageSelect').focus().select()">
+		<img src="../assets/double-arrow.png" height="60%" class="gdButton noframe" style="margin-top: 5%" onclick="$('#pageDiv').show(); $('#pageSelect').focus().select()">
 	</div>
 
 	<div title="Jump to page" style="text-align: right; position:absolute; top: 23.5%; right: 2%; height: 12%;">
-		<img src="../assets/settingsbutton.png" height="60%" class="gdButton" style="margin-top: 5%" onclick="$('#settingsDiv').show();">
+		<img src="../assets/settingsbutton.png" height="60%" class="gdButton noframe" style="margin-top: 5%" onclick="$('#settingsDiv').show();">
 	</div>
 
 	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
-		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
+		<img class="gdButton yesClick noframe" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
 	</div>
 
 	<div id="purge" style="position:absolute; bottom: 1%; right: -3%; width: 10%; display:none;">
-		<img class="gdButton" src="../assets/delete.png" width="60%" onclick="$('#purgeDiv').show()">
+		<img class="gdButton noframe" src="../assets/delete.png" width="60%" onclick="$('#purgeDiv').show()">
 	</div>
 
 	<div style="position:absolute; bottom: 2%; right: 1%; text-align: right; width: 15%;">
-		<img class="gdButton" src="../assets/refresh.png" width="40%" id="refreshPage"></a>
+		<img class="gdButton noframe" src="../assets/refresh.png" width="40%" id="refreshPage"></a>
 	</div>
 
 	<div style="position:absolute; bottom: 2%; right: 8.5%; text-align: right; width: 15%; display: none" id="gdWorld">
@@ -223,14 +223,14 @@
 	</div>
 
 	<div style="position: absolute; left: 7%; top: 45%; height: 10%;">
-		<img class="gdButton" id="pageDown" style="display: none"; src="../assets/arrow-left.png" height="90%">
+		<img class="gdButton noframe" id="pageDown" style="display: none"; src="../assets/arrow-left.png" height="90%">
 	</div>
 
 	<div style="position: absolute; right: 7%; top: 45%; height: 10%;">
-		<img class="gdButton" id="pageUp" style="display: none"; src="../assets/arrow-right.png" height="90%">
+		<img class="gdButton noframe" id="pageUp" style="display: none"; src="../assets/arrow-right.png" height="90%">
 	</div>
 
-	<div class="supercenter" id="loading" style="height: 10%; top: 47%; display: none;">
+	<div class="supercenter noframe" id="loading" style="height: 10%; top: 47%; display: none;">
 		<!-- <img class="spin noSelect" src="../assets/loading.png" height="105%"> -->
 	</div>
 
@@ -242,6 +242,8 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
+<script type="text/javascript" src="../misc/gdcustomframe.js"></script>
+
 <script>
 $("#loading-main").hide();
 
@@ -255,6 +257,7 @@ const ORIGINAL_URL = window.location.href;
 function WIPFunction() {
 	CreateFLAlert("WIP","This feature is  `r0 not finished`, wait for  `g0 future updates!`");
 }
+
 
 
 function saveAlbumToCache(songName, imageUrl) {
@@ -366,6 +369,26 @@ if(path == null) path = "" + window.location.pathname.substring(window.location.
 
 // if (!path || path.trim() === '') window.location.href = './search.php';
 // if (path == "0") path = "*"
+document.addEventListener('endLoadingItems', function(event) {
+	if (new URLSearchParams(window.location.search).has('gdframe')) {
+		$("#searchBox").hide()
+		$("#scoreCustomTabs").hide()
+		$("#leaderboardBox").hide()
+		$('.noframe').hide();
+		let songIDSelected = isNaN(Number(path)) ? 0 : Number(path)
+		const $songElement = $(`#song${songIDSelected}`);
+		if ($songElement.length) {$songElement.click();}
+		else {
+			$('#songInfo').show();
+		}
+		$('#songAuthor').css('pointer-events','none');
+		$('#songInfoBox').removeClass('bounce');
+	} else {
+
+
+	}
+});
+
 
 function profileRedirect(url) {
 	var queryProfile = "";
@@ -490,7 +513,7 @@ function Append(firstLoad, noCache) {
 			</div>
 
 			<div class="center" style="position:absolute; right: 7%; transform:translateY(-13vh); height: 10%">
-				<a title="View level" onclick="showSong('${btoa(encodeURIComponent(x.name))}','${btoa(x.downloadLink)}','${btoa(x.id)}','${btoa(encodeURIComponent(x.songAuthorT))}','${btoa(encodeURIComponent(x.authorName))}','${btoa(x.levelsCount)}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
+				<a title="View level" id="song${x.id}" onclick="showSong('${btoa(encodeURIComponent(x.name))}','${btoa(x.downloadLink)}','${btoa(x.id)}','${btoa(encodeURIComponent(x.songAuthorT))}','${btoa(encodeURIComponent(x.authorName))}','${btoa(x.levelsCount)}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
 			</div>
 
 		</div>`)
@@ -540,7 +563,7 @@ function Append(firstLoad, noCache) {
 
 	$('#searchBox').append('<div style="height: 4.5%"></div>').scrollTop(0)
 	$('#loading').hide()
-
+	document.dispatchEvent(new Event('endLoadingItems'));
 	loading = false;
 	}
 }

@@ -147,6 +147,10 @@ body code {
     filter: grayscale(1);
 }
 
+.gdsButton.red {
+    background: linear-gradient(to bottom right, #de512b, red);
+}
+
 .noclick {
     pointer-events: none;
 }

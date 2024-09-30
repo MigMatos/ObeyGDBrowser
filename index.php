@@ -171,13 +171,14 @@
 <script>
 let userNameUser = "<?php echo $userName; ?>"
 let isLoggedUser = "<?php echo $logged; ?>"
+let accountID = "<?php echo $accountID ?>" ;
 
 function openProfle() {
 	
 	if(isLoggedUser == "1") {
-		openGdCustomFrame("./profile/?u="+userNameUser+"&gdframe");
+		openGdCustomFrame("./profile/?u="+accountID+"&gdframe");
 	} else {
-		urlRedirect('./account/checkLogin.php');
+		openGdCustomFrame('./account/checkLogin.php');
 	}
 }
 

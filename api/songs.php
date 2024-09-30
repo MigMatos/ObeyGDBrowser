@@ -41,12 +41,12 @@ function songsGD($params, $db, $gdps_settings) {
             $bindings[] = "%".strval($params['str'])."%";
         }
     }
-    else if (isset($params['str'])){
+    else if (isset($params['str']) && !is_numeric($params['str'])){
         $paramsSql[] = "songs.name LIKE ?";
         $bindings[] = "%".strval($params['str'])."%";
-    } else if (isset($params['id'])) {
+    } else if (isset($params['str'])) {
         $paramsSql[] = "songs.id = ?";
-        $bindings[] = strval($params['id']);
+        $bindings[] = intval($params['str']);
     }
     else {
         return json_encode(array("error" => "The 'str' or 'id' parameter is required in the GET request."));;

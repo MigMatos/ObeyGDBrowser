@@ -25,7 +25,10 @@ function eventListenerSearchType (apiURL,idObject,maxOptions) {
                     const option = document.createElement("option");
                     option.value = item.id;
                     option.id = `genoption${item.id}`;
-                    option.setAttribute('title',`${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
+                    htmltext = `<div style="display: flex; margin: 1vh 0vh 1vh 1vh; align-items: center;"> <img src='../assets/difficulties/${item.partialDiff}.png' style="width:8%; height:8%;">` + `<p class="gdfont-Pusab small" style="margin: 0vh 0vh 0vh 1vh; color:rgb(255, 200, 0); text-align: left;">${item.name.length > 20 ? item.name.slice(0, 20) + "..." : item.name}<br><span style="color: white;">ID: ${item.id}</span></p>` + "</div>"
+                    option.setAttribute('html',htmltext);
+
+                    // option.setAttribute('title',`${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
                     option.textContent = `${item.id}`;
                     selectElement.appendChild(option);
                 }
@@ -69,11 +72,8 @@ function eventListenerSearchGauntlets(apiURL,idObject,maxOptions) {
 
         Fetch(fetchURLAPI).then(data => {
 
-            console.log(data);
 
             data.forEach(item => {
-
-                console.log(item);
 
                 if (item) { 
                     const option = document.createElement("option");
@@ -84,7 +84,7 @@ function eventListenerSearchGauntlets(apiURL,idObject,maxOptions) {
 
                     option.setAttribute('html', htmlGen)
                     // option.setAttribute('title', `${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
-                    option.textContent = `${item.id}`;
+                    option.textContent = `${item.name} Gauntlet`;
                     selectElement.appendChild(option);
                 }
             });

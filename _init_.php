@@ -49,15 +49,25 @@
         }
     }  else if (!isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {$serverType = "legacy";}
 
-    
+    $sessionLifetime = 15 * 24 * 60 * 60;
+    session_set_cookie_params($sessionLifetime);
 
     session_start();
+
+    
     $logged = false;
     $userName = isset($_SESSION['userName']) ? $_SESSION['userName'] : "None";
+    $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : 0;
     $accountID = isset($_SESSION['accountID']) ? $_SESSION['accountID'] : 0;
     $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0;
-    if (isset($_SESSION['userName']) && isset($_SESSION['accountID']) && isset($_SESSION['isAdmin'])) {
-        $logged = true;
+    if (isset($_SESSION['userName']) && isset($_SESSION['accountID']) && isset($_SESSION['userID'])) { $logged = true; }
+    if($logged == true) {
+        session_regenerate_id(true);
+        $_SESSION['LAST_ACTIVITY'] = time();
+        if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $sessionLifetime)) {
+            session_unset();
+            session_destroy();
+        }
     }
 
 

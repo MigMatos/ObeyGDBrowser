@@ -29,11 +29,11 @@ function profileUsers($params, $db, $gdps_settings) {
     $paramsSql = [];
 
     if (isset($params['accountID'])){
-        $sql = "SELECT users.*, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE extID = :extid";
+        $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE extID = :extid";
         $sql = $db->prepare($sql);
         $sql->execute([':extid' => intval($params['accountID']) ]);
     } else if (isset($params['username'])) {
-        $sql = "SELECT users.*, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE users.userName = :user";
+        $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE users.userName = :user";
         $sql = $db->prepare($sql);
         $sql->execute([':user' => strval($params['username']) ]);
     }
@@ -46,6 +46,7 @@ function profileUsers($params, $db, $gdps_settings) {
     
     $results = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+
     function checkisme($userID, $accID) {
         if(isset($_SESSION['userID']) && isset($_SESSION['accountID'])) {
             if(strval($_SESSION['userID']) == $userID && strval($_SESSION['accountID']) == $accID) return 1;
@@ -56,7 +57,7 @@ function profileUsers($params, $db, $gdps_settings) {
     $json_data = array_map(function ($result) use ($gdps_settings) {
 
         $level = [
-            "username" => strval($result["userName"]),
+            "username" => strval($result["originalUserName"]),
             "playerID" => strval($result["userID"]),
             "accountID" => strval($result["extID"]),
             "rank" => "0", // 

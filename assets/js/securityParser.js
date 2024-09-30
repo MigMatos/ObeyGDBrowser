@@ -6,7 +6,7 @@ function sanitizerCode(code) {
     var doc = parser.parseFromString(code, 'text/html');
 
     // Define allowed HTML tags
-    var allowedTags = ['DIV','P','BR','B', 'I', 'U', 'DISCORD-SPOILER', 'H4', 'H5', 'H6', 'CODE', 'LI', 'A', 'DISCORD-MENTION', 'IMG'];
+    var allowedTags = ['DIV','P','SPAN','BR','B', 'I', 'U', 'DISCORD-SPOILER', 'H4', 'H5', 'H6', 'CODE', 'LI', 'A', 'DISCORD-MENTION', 'IMG'];
 
     // Recursively validate nodes
     function validateNode(node) {

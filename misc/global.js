@@ -47,12 +47,17 @@ $('body').append(`
 	</div>
 `)
 
+console.log("%c" + "Warning!", "color: #ff0000; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;");
+console.log("%cIf someone told you to perform an action here, they might be scamming you!%c\nIf you are a developer and know what you're doing, you can ignore this warning.", "background-color: black; font-size: 15px; color: red; font-weight: normal;", "font-weight: bold;");
 
 window.onerror = function (message, source, lineno, colno, error) {
 
     // console.error(`Error: ${message} at ${source}:${lineno}:${colno}`);
 
-    CreateFLAlert("Fatal Error in Browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)\n\n\n# `a0 **Click in OK to restart**` \n\n## `g0 **Log Error:**` \n`r0 "+`${message} at ${source}:${lineno}:${colno}`+"`")
+	console.log("%c❌ ERROR IN OBEYGDBROWSER!", "font-size: 36px; color: red; font-weight: bold; -webkit-text-stroke: 1px black;");
+	console.log(`%c${message} at ${source}:${lineno}:${colno}`, "color: red; font-size: 16px;");
+
+    CreateFLAlert("Fatal Error in Browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)\n\n\n# `a0 **Click in OK to restart**` \n\n## `g0 **Log Error:**` \n`r0 "+`${error} at ${source}:${lineno}:${colno}`+"`")
 	$('#everything').hide(); 
 
 	document.addEventListener('FLlayerclosed', function() {
@@ -63,9 +68,10 @@ window.onerror = function (message, source, lineno, colno, error) {
     document.body.style.backgroundImage = "unset";
 	document.body.style.backgroundColor = "black";
 
+	
+
     return true;
 };
-
 
 
 
@@ -75,7 +81,7 @@ if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" 
 
 	mbody.forEach(mbodyelem => {
 		mbodyelem.style.backgroundColor = "#ff000000"; 
-		mbodyelem.style.backgroundImage = "unset";    
+		mbodyelem.style.backgroundImage = "unset !IMPORTANT";    
 	});
 	$(".cornerPiece").hide();
 	$('#backButton').hide();
@@ -117,7 +123,7 @@ function darknessPage(){
 window.onpageshow = function(event) {
     if (event.persisted) {
 		let overlayCache = document.getElementById("overlay");
-        overlayCache.style.opacity = '0';
+		if(overlayCache != null) overlayCache.style.opacity = '0';
     }
 };
 
@@ -208,7 +214,7 @@ async function renderIcons() {
 		currentIcon.append(`<img title="${iconConfig.form}" style="${currentIcon.attr("imgStyle") || ""}" src="${urlIcon}">`)
 		currentIcon.attr("rendered", "true")
 
-		console.log(iconConfig);
+		
 	}
 
 }

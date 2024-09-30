@@ -80,10 +80,16 @@ function openGdCustomFrame(url) {
     function handleGDCustomFrame(expectedOrigin, event) {
         if (event.origin === expectedOrigin) {
             if (event.data.type === 'ObeyGDBrowser' && event.data.origin === expectedOrigin && event.data.data === 'closeWindow') {
-                console.log('Mensaje recibido del iframe:', event.data.data);
+                console.log('MD iframe:', event.data.data);
                 unregisterMessageListener();
                 document.body.removeChild(iframeContainer); 
-            } else {
+            } else if (event.data.type === 'ObeyGDBrowser' && event.data.origin === expectedOrigin && event.data.data === 'restartWindow') {
+                console.log('MD iframe:', event.data.data);
+                unregisterMessageListener();
+                document.body.removeChild(iframeContainer); 
+                location.reload(true);
+            }
+             else {
                 console.log('Security events in iFrameCustom were not met: ', event);
             }
         } else {
@@ -100,4 +106,9 @@ function closeGdCustomFrame(iframeContainer) {
 function closeMessageCustomFrame() {
     const originUrl = window.location.origin;
     window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'closeWindow' }, '*');
+}
+
+function closeandrestartMessageCustomFrame() {
+    const originUrl = window.location.origin;
+    window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'restartWindow' }, '*');
 }

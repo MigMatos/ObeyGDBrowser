@@ -1,7 +1,7 @@
 <head>
 	<title>[[NAME]] ([[ID]])</title>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=15" type="text/css" rel="stylesheet">
     
 	<link rel="icon" href="../assets/difficulties/[[DIFFICULTYFACE]].png">
 	<meta id="meta-title" property="og:title" content="[[NAME]] by [[AUTHOR]]">
@@ -143,7 +143,7 @@
 			<h3 id="songNotAllowed" style="display: none; margin-top: 0.5%; color: red">Song is not allowed for use</h3>
 			<h3 id="artistInfo" style="display: none; margin-top: 0.5%"></h3>
 		</div>
-		<a class="songLink" href="https://www.newgrounds.com/audio/listen/[[SONGID]]" target="_blank"><img class="gdButton sideButton" title="Play Song" id="playSong" src="../assets/playsong.png" style="position:absolute; right: 1%; top: 50%; width: 11%; height: auto;"></a>
+		<a class="songLink"><img class="gdButton sideButton" songID="[[SONGID]]" title="Play Song" id="playSong" src="../assets/playsong.png" style="position:absolute; right: 1%; top: 50%; width: 11%; height: auto; z-index: auto;"></a>
 	</div>
 
 	<div class="center" style="position:absolute; bottom: 5%; left: 0; right: 0">
@@ -177,6 +177,7 @@
 </body>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
+<script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 <script>
 
 var legacyServer = true;
@@ -392,6 +393,12 @@ function deleteLevel() {
   $('#saveButton').attr('src', '../assets/plus.png').attr('onclick', '$("#saveDiv").show(); saveLevel()')
   $('.popup').hide()
 }
+
+$('#playSong').click(function() {
+	console.warn("Ok?");
+	let songID = $('#playSong').attr('songID');
+	openGdCustomFrame("../songs/index.php?str="+songID+"&gdframe");
+})
 
 $('#checkSong').click(function() {
 	$('#checkSong').hide()

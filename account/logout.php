@@ -1,11 +1,14 @@
 <?php
+    include "../_init_.php";
 
     session_start();
 
-    // Eliminar variables de sesión específicas
+    
     unset($_SESSION['userName']);
+    unset($_SESSION['userID']);
     unset($_SESSION['accountID']);
     unset($_SESSION['isAdmin']);
-    header("Location: ../../");
+    updateUserPerms([]);
+
     exit();
 ?>

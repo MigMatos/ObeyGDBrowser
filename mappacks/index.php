@@ -146,7 +146,7 @@
 				
 				<input type="text" name="act" value="create" hidden>
 				<h3><img src="../assets/info.png" class="smallMapDivIcon">Name:<input class="inputmaps" type="text" id="mapName" name="name" maxlength="25" placeholder="My first map :D" required></h3>
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLSelectorSearch('mapLevels','Select levels','10')" style="width: 73%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="mapLevels" name="levels[]" min-options="2" max-options="10" api-type="levels" api-url="../api/search.php" required multiple>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 12%;"><img src="../assets/play.png" class="smallMapDivIcon">Levels:<div onclick="CreateFLAlertSearchAPI(this,'10')" style="width: 73%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="mapLevels" name="levels[]" min-options="2" max-options="10" api-url="../api/search.php" required multiple>
 					
 				</select></div></h3>
 				<h3><img src="../assets/star.png" class="smallMapDivIcon">Stars:<input class="inputmaps" type="number" id="mapStars" name="stars" max="999" required></h3>
@@ -263,9 +263,9 @@
 
 </body>
 <script type="text/javascript" src="../misc/gdcustomalerts.js"></script>
+
 <script type="text/javascript" src="../misc/customselects.js"></script>
-<script type="text/javascript" src="../misc/customselects.js"></script>
-<script type="text/javascript" src="../misc/selectapis.js"></script>
+
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 
@@ -283,7 +283,7 @@ function editMap(page,idarray){
 	
 	dataMap.levels.split(',').forEach(level => {
 		// I may add in the future that the API returns the names, for now I will add "?"
-		editmapLevels.append(`<option title="(?) ID: ${level}" value="${level}" selected>${level}</option>`); 
+		editmapLevels.append(`<option title="ID: ${level}" value="${level}" selected>${level}</option>`); 
 	});
 
 	$('#editmapStars').val(dataMap.stars);
