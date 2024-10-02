@@ -280,8 +280,9 @@ function checkProgressBar() {
             }
             else if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
                 progressBarPercentage(percentageValue);
+                progressInfo.textContent = info;
             }
-            progressInfo.textContent = info;
+            
         })
         .catch(error => {
             console.error('Error reading file:', error);

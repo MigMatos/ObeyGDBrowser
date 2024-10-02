@@ -467,8 +467,8 @@ function CurrentPermissions() {
 
 function SocialSettings() {
 	if (`[[YOUTUBE]]` != "null") $('#socialYoutube').val("[[YOUTUBE]]");
-	if (`[[TWITTER]]` != "null") $('#twitter').val("[[TWITTER]]");
-	if (`[[TWITCH]]` != "null")  $('#twitch').val("[[TWITCH]]");
+	if (`[[TWITTER]]` != "null") $('#socialTwitter').val("[[TWITTER]]");
+	if (`[[TWITCH]]` != "null")  $('#socialTwitch').val("[[TWITCH]]");
 
 	$('#socialLinksPopup').show()
 }
@@ -479,7 +479,7 @@ function SocialPreferences() {
 
 function OGDBAccountLink() {
 	if("[[DISCORDRAW]]" != "0") {
-		$("#ogdbdiscordID").val("[[DISCORDID]]");
+		$("#ogdbdiscordID").val("[[DISCORDRAW]]");
 	}
 	if("[[DISCORDRAWREQ]]" != "0") {
 		$("#box-ogdb-enablelink").prop('checked',true);

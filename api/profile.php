@@ -36,7 +36,7 @@ function profileUsers($params, $db, $gdps_settings) {
         $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE users.userName = :user";
         $sql = $db->prepare($sql);
         $sql->execute([':user' => strval($params['username']) ]);
-    } else if (isset($params['discordID'])) {
+    } else if (isset($params['discordID']) && intval($params['discordID']) != 0) {
         $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE accounts.discordID = :id";
         $sql = $db->prepare($sql);
         $sql->execute([':id' => intval($params['discordID']) ]);
