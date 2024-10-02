@@ -36,8 +36,8 @@ $response = profileUsers($params, $db, $gdps_settings);
 $data = json_decode($response, true);
 
 if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
-    $redirect_url = "$protocol://$_SERVER[HTTP_HOST]$path/search/$profile";
-    header("Location: $redirect_url");
+    // $redirect_url = "$protocol://$_SERVER[HTTP_HOST]$path/search/$profile";
+    header("Location: ../search/search.php?s=$profile");
     exit();
 }
 

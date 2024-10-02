@@ -115,7 +115,7 @@
 		<img src="../assets/btn-magic.png" height="27%" class="valign gdButton spaced levelSearch" search="magic">
 		<br>
 		<img src="../assets/btn-awarded.png" height="27%" class="valign gdButton levelSearch" search="awarded">
-		<img disabled src="../assets/btn-friends.png" height="27%" class="valign gdButton levelSearch" search="friends" style="margin: 0% 2%">
+		<img disabled src="../assets/blankbutton.png" height="27%" class="valign gdButton levelSearch" search="friends" style="margin: 0% 2%">
 		<img disabled src="../assets/btn-followed.png" height="27%" id="followedSearch" class="valign gdButton levelSearch" search="followed">
 	</div>
 

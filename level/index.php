@@ -28,8 +28,8 @@ $response = searchLevels($params, $db, $gdps_settings);
 $data = json_decode($response, true);
 
 if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
-    $redirect_url = "$protocol://$_SERVER[HTTP_HOST]$path/$returnmsg";
-    header("Location: $redirect_url");
+    // $redirect_url = "$protocol://$_SERVER[HTTP_HOST]$path/$returnmsg";
+    header("Location: ../$returnmsg");
     exit();
 }
 $data = $data[0];
