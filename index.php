@@ -449,7 +449,6 @@ if (noDaily || noWeekly) {
         "MigMatos is here!",
         "ProTip: Jump.",
         "You can activate the color profiles if you log in from ObeyGDBrowser and go to the ''Experimental options'' section",
-        "An add song button will be added on October 6th! Look forward to it!",
         "If you see this, you need to play Bloodbath'",
         "It took me too long to think of what to put here.",
         "Humans share 60% of their DNA with bananas.",
