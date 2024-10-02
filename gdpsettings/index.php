@@ -612,6 +612,8 @@
         <input type="number" id="gdps_version" required name="gdps_version"><br>
         <label for="path_lib_folder" placeholder="../incl/lib/">Lib Folder:</label>
         <input type="text" id="path_lib_folder" required name="path_lib_folder"><br>
+        <label for="path_browser_folder" placeholder="../incl/lib/">Browser Folder:</label>
+        <input type="text" id="browser_path" required name="browser_path" value="browser/"><br>
         <label for="path_folder_levels">Levels Path Folder (Important for the level analyzer!)</label>
         <input type="text" id="path_folder_levels" placeholder="../../data/levels/" name="path_folder_levels"><br>
     </fieldset>
@@ -1091,7 +1093,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "path_connection" => get_post_value("path_connection"),
         "gdps_version" => get_post_value("gdps_version"),
         "path_lib_folder" => get_post_value("path_lib_folder"),
-        "path_folder_levels" => get_post_value("path_folder_levels")
+        "path_folder_levels" => get_post_value("path_folder_levels"),
+        "browser_path" => get_post_value("browser_path")
     );
 
     $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
