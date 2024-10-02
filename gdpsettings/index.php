@@ -136,421 +136,369 @@
         </button>    
         <div class="content hidden">
 
-    <!-- Gauntlet 1 -->
-    <label for="gauntlet-1-name">Gauntlet 1:</label>
-    <input type="text" id="gauntlet-1-name" name="gauntlet-1-name" value="Fire"><br>
-    <label for="gauntlet-1-textcolor">Gauntlet 1 Text Color:</label>
-    <input type="color" id="gauntlet-1-textcolor" name="gauntlet-1-textcolor" value=""><br>
-    <label for="gauntlet-1-bgcolor">Gauntlet 1 BG Color:</label>
-    <input type="color" id="gauntlet-1-bgcolor" name="gauntlet-1-bgcolor" value=""><br>
+        <label for="gauntlet-1-name">Gauntlet 1:</label>
+<input type="text" id="gauntlet-1-name" name="gauntlet-1-name" value="Fire"><br>
+<label for="gauntlet-1-textcolor">Gauntlet 1 Text Color:</label>
+<input type="color" id="gauntlet-1-textcolor" name="gauntlet-1-textcolor" value="#FFC700"><br>
+<label for="gauntlet-1-bgcolor">Gauntlet 1 BG Color:</label>
+<input type="color" id="gauntlet-1-bgcolor" name="gauntlet-1-bgcolor" value="#cf1200"><br>
 
-    <!-- Gauntlet 2 -->
-    <label for="gauntlet-2-name">Gauntlet 2:</label>
-    <input type="text" id="gauntlet-2-name" name="gauntlet-2-name" value="Ice"><br>
-    <label for="gauntlet-2-textcolor">Gauntlet 2 Text Color:</label>
-    <input type="color" id="gauntlet-2-textcolor" name="gauntlet-2-textcolor" value=""><br>
-    <label for="gauntlet-2-bgcolor">Gauntlet 2 BG Color:</label>
-    <input type="color" id="gauntlet-2-bgcolor" name="gauntlet-2-bgcolor" value=""><br>
+<label for="gauntlet-2-name">Gauntlet 2:</label>
+<input type="text" id="gauntlet-2-name" name="gauntlet-2-name" value="Ice"><br>
+<label for="gauntlet-2-textcolor">Gauntlet 2 Text Color:</label>
+<input type="color" id="gauntlet-2-textcolor" name="gauntlet-2-textcolor" value="#5CFFFF"><br>
+<label for="gauntlet-2-bgcolor">Gauntlet 2 BG Color:</label>
+<input type="color" id="gauntlet-2-bgcolor" name="gauntlet-2-bgcolor" value="#1299ff"><br>
 
-    <!-- Gauntlet 3 -->
-    <label for="gauntlet-3-name">Gauntlet 3:</label>
-    <input type="text" id="gauntlet-3-name" name="gauntlet-3-name" value="Poison"><br>
-    <label for="gauntlet-3-textcolor">Gauntlet 3 Text Color:</label>
-    <input type="color" id="gauntlet-3-textcolor" name="gauntlet-3-textcolor" value=""><br>
-    <label for="gauntlet-3-bgcolor">Gauntlet 3 BG Color:</label>
-    <input type="color" id="gauntlet-3-bgcolor" name="gauntlet-3-bgcolor" value=""><br>
+<label for="gauntlet-3-name">Gauntlet 3:</label>
+<input type="text" id="gauntlet-3-name" name="gauntlet-3-name" value="Poison"><br>
+<label for="gauntlet-3-textcolor">Gauntlet 3 Text Color:</label>
+<input type="color" id="gauntlet-3-textcolor" name="gauntlet-3-textcolor" value="#00FF00"><br>
+<label for="gauntlet-3-bgcolor">Gauntlet 3 BG Color:</label>
+<input type="color" id="gauntlet-3-bgcolor" name="gauntlet-3-bgcolor" value="#2cb205"><br>
 
-    <!-- Gauntlet 4 -->
-    <label for="gauntlet-4-name">Gauntlet 4:</label>
-    <input type="text" id="gauntlet-4-name" name="gauntlet-4-name" value="Shadow"><br>
-    <label for="gauntlet-4-textcolor">Gauntlet 4 Text Color:</label>
-    <input type="color" id="gauntlet-4-textcolor" name="gauntlet-4-textcolor" value=""><br>
-    <label for="gauntlet-4-bgcolor">Gauntlet 4 BG Color:</label>
-    <input type="color" id="gauntlet-4-bgcolor" name="gauntlet-4-bgcolor" value=""><br>
+<label for="gauntlet-4-name">Gauntlet 4:</label>
+<input type="text" id="gauntlet-4-name" name="gauntlet-4-name" value="Shadow"><br>
+<label for="gauntlet-4-textcolor">Gauntlet 4 Text Color:</label>
+<input type="color" id="gauntlet-4-textcolor" name="gauntlet-4-textcolor" value="#B339DB"><br>
+<label for="gauntlet-4-bgcolor">Gauntlet 4 BG Color:</label>
+<input type="color" id="gauntlet-4-bgcolor" name="gauntlet-4-bgcolor" value="#5400A4"><br>
 
-    <!-- Gauntlet 5 -->
-    <label for="gauntlet-5-name">Gauntlet 5:</label>
-    <input type="text" id="gauntlet-5-name" name="gauntlet-5-name" value="Lava"><br>
-    <label for="gauntlet-5-textcolor">Gauntlet 5 Text Color:</label>
-    <input type="color" id="gauntlet-5-textcolor" name="gauntlet-5-textcolor" value=""><br>
-    <label for="gauntlet-5-bgcolor">Gauntlet 5 BG Color:</label>
-    <input type="color" id="gauntlet-5-bgcolor" name="gauntlet-5-bgcolor" value=""><br>
+<label for="gauntlet-5-name">Gauntlet 5:</label>
+<input type="text" id="gauntlet-5-name" name="gauntlet-5-name" value="Lava"><br>
+<label for="gauntlet-5-textcolor">Gauntlet 5 Text Color:</label>
+<input type="color" id="gauntlet-5-textcolor" name="gauntlet-5-textcolor" value="#E75F19"><br>
+<label for="gauntlet-5-bgcolor">Gauntlet 5 BG Color:</label>
+<input type="color" id="gauntlet-5-bgcolor" name="gauntlet-5-bgcolor" value="#AE0000"><br>
 
-    <!-- Gauntlet 6 -->
-    <label for="gauntlet-6-name">Gauntlet 6:</label>
-    <input type="text" id="gauntlet-6-name" name="gauntlet-6-name" value="Bonus"><br>
-    <label for="gauntlet-6-textcolor">Gauntlet 6 Text Color:</label>
-    <input type="color" id="gauntlet-6-textcolor" name="gauntlet-6-textcolor" value=""><br>
-    <label for="gauntlet-6-bgcolor">Gauntlet 6 BG Color:</label>
-    <input type="color" id="gauntlet-6-bgcolor" name="gauntlet-6-bgcolor" value=""><br>
+<label for="gauntlet-6-name">Gauntlet 6:</label>
+<input type="text" id="gauntlet-6-name" name="gauntlet-6-name" value="Bonus"><br>
+<label for="gauntlet-6-textcolor">Gauntlet 6 Text Color:</label>
+<input type="color" id="gauntlet-6-textcolor" name="gauntlet-6-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-6-bgcolor">Gauntlet 6 BG Color:</label>
+<input type="color" id="gauntlet-6-bgcolor" name="gauntlet-6-bgcolor" value="#3954D6"><br>
 
-    <!-- Gauntlet 7 -->
-    <label for="gauntlet-7-name">Gauntlet 7:</label>
-    <input type="text" id="gauntlet-7-name" name="gauntlet-7-name" value="Chaos"><br>
-    <label for="gauntlet-7-textcolor">Gauntlet 7 Text Color:</label>
-    <input type="color" id="gauntlet-7-textcolor" name="gauntlet-7-textcolor" value=""><br>
-    <label for="gauntlet-7-bgcolor">Gauntlet 7 BG Color:</label>
-    <input type="color" id="gauntlet-7-bgcolor" name="gauntlet-7-bgcolor" value=""><br>
+<label for="gauntlet-7-name">Gauntlet 7:</label>
+<input type="text" id="gauntlet-7-name" name="gauntlet-7-name" value="Chaos"><br>
+<label for="gauntlet-7-textcolor">Gauntlet 7 Text Color:</label>
+<input type="color" id="gauntlet-7-textcolor" name="gauntlet-7-textcolor" value="#E21C25"><br>
+<label for="gauntlet-7-bgcolor">Gauntlet 7 BG Color:</label>
+<input type="color" id="gauntlet-7-bgcolor" name="gauntlet-7-bgcolor" value="#505050"><br>
 
-    <!-- Gauntlet 8 -->
-    <label for="gauntlet-8-name">Gauntlet 8:</label>
-    <input type="text" id="gauntlet-8-name" name="gauntlet-8-name" value="Demon"><br>
-    <label for="gauntlet-8-textcolor">Gauntlet 8 Text Color:</label>
-    <input type="color" id="gauntlet-8-textcolor" name="gauntlet-8-textcolor" value=""><br>
-    <label for="gauntlet-8-bgcolor">Gauntlet 8 BG Color:</label>
-    <input type="color" id="gauntlet-8-bgcolor" name="gauntlet-8-bgcolor" value=""><br>
+<label for="gauntlet-8-name">Gauntlet 8:</label>
+<input type="text" id="gauntlet-8-name" name="gauntlet-8-name" value="Demon"><br>
+<label for="gauntlet-8-textcolor">Gauntlet 8 Text Color:</label>
+<input type="color" id="gauntlet-8-textcolor" name="gauntlet-8-textcolor" value="#E21C25"><br>
+<label for="gauntlet-8-bgcolor">Gauntlet 8 BG Color:</label>
+<input type="color" id="gauntlet-8-bgcolor" name="gauntlet-8-bgcolor" value="#282828"><br>
 
-    <!-- Gauntlet 9 -->
-    <label for="gauntlet-9-name">Gauntlet 9:</label>
-    <input type="text" id="gauntlet-9-name" name="gauntlet-9-name" value="Time"><br>
-    <label for="gauntlet-9-textcolor">Gauntlet 9 Text Color:</label>
-    <input type="color" id="gauntlet-9-textcolor" name="gauntlet-9-textcolor" value=""><br>
-    <label for="gauntlet-9-bgcolor">Gauntlet 9 BG Color:</label>
-    <input type="color" id="gauntlet-9-bgcolor" name="gauntlet-9-bgcolor" value=""><br>
+<label for="gauntlet-9-name">Gauntlet 9:</label>
+<input type="text" id="gauntlet-9-name" name="gauntlet-9-name" value="Time"><br>
+<label for="gauntlet-9-textcolor">Gauntlet 9 Text Color:</label>
+<input type="color" id="gauntlet-9-textcolor" name="gauntlet-9-textcolor" value="#1DF7F1"><br>
+<label for="gauntlet-9-bgcolor">Gauntlet 9 BG Color:</label>
+<input type="color" id="gauntlet-9-bgcolor" name="gauntlet-9-bgcolor" value="#0053D4"><br>
 
-    <!-- Gauntlet 10 -->
-    <label for="gauntlet-10-name">Gauntlet 10:</label>
-    <input type="text" id="gauntlet-10-name" name="gauntlet-10-name" value="Crystal"><br>
-    <label for="gauntlet-10-textcolor">Gauntlet 10 Text Color:</label>
-    <input type="color" id="gauntlet-10-textcolor" name="gauntlet-10-textcolor" value=""><br>
-    <label for="gauntlet-10-bgcolor">Gauntlet 10 BG Color:</label>
-    <input type="color" id="gauntlet-10-bgcolor" name="gauntlet-10-bgcolor" value=""><br>
+<label for="gauntlet-10-name">Gauntlet 10:</label>
+<input type="text" id="gauntlet-10-name" name="gauntlet-10-name" value="Crystal"><br>
+<label for="gauntlet-10-textcolor">Gauntlet 10 Text Color:</label>
+<input type="color" id="gauntlet-10-textcolor" name="gauntlet-10-textcolor" value="#F4C6EC"><br>
+<label for="gauntlet-10-bgcolor">Gauntlet 10 BG Color:</label>
+<input type="color" id="gauntlet-10-bgcolor" name="gauntlet-10-bgcolor" value="#DF0079"><br>
 
-    <!-- Gauntlet 11 -->
-    <label for="gauntlet-11-name">Gauntlet 11:</label>
-    <input type="text" id="gauntlet-11-name" name="gauntlet-11-name" value="Magic"><br>
-    <label for="gauntlet-11-textcolor">Gauntlet 11 Text Color:</label>
-    <input type="color" id="gauntlet-11-textcolor" name="gauntlet-11-textcolor" value=""><br>
-    <label for="gauntlet-11-bgcolor">Gauntlet 11 BG Color:</label>
-    <input type="color" id="gauntlet-11-bgcolor" name="gauntlet-11-bgcolor" value=""><br>
+<label for="gauntlet-11-name">Gauntlet 11:</label>
+<input type="text" id="gauntlet-11-name" name="gauntlet-11-name" value="Magic"><br>
+<label for="gauntlet-11-textcolor">Gauntlet 11 Text Color:</label>
+<input type="color" id="gauntlet-11-textcolor" name="gauntlet-11-textcolor" value="#3FF6F4"><br>
+<label for="gauntlet-11-bgcolor">Gauntlet 11 BG Color:</label>
+<input type="color" id="gauntlet-11-bgcolor" name="gauntlet-11-bgcolor" value="#002969"><br>
 
-    <!-- Gauntlet 12 -->
-    <label for="gauntlet-12-name">Gauntlet 12:</label>
-    <input type="text" id="gauntlet-12-name" name="gauntlet-12-name" value="Spike"><br>
-    <label for="gauntlet-12-textcolor">Gauntlet 12 Text Color:</label>
-    <input type="color" id="gauntlet-12-textcolor" name="gauntlet-12-textcolor" value=""><br>
-    <label for="gauntlet-12-bgcolor">Gauntlet 12 BG Color:</label>
-    <input type="color" id="gauntlet-12-bgcolor" name="gauntlet-12-bgcolor" value=""><br>
+<label for="gauntlet-12-name">Gauntlet 12:</label>
+<input type="text" id="gauntlet-12-name" name="gauntlet-12-name" value="Spike"><br>
+<label for="gauntlet-12-textcolor">Gauntlet 12 Text Color:</label>
+<input type="color" id="gauntlet-12-textcolor" name="gauntlet-12-textcolor" value="#E5C04F"><br>
+<label for="gauntlet-12-bgcolor">Gauntlet 12 BG Color:</label>
+<input type="color" id="gauntlet-12-bgcolor" name="gauntlet-12-bgcolor" value="#7F5000"><br>
 
-    <!-- Gauntlet 13 -->
-    <label for="gauntlet-13-name">Gauntlet 13:</label>
-    <input type="text" id="gauntlet-13-name" name="gauntlet-13-name" value="Monster"><br>
-    <label for="gauntlet-13-textcolor">Gauntlet 13 Text Color:</label>
-    <input type="color" id="gauntlet-13-textcolor" name="gauntlet-13-textcolor" value=""><br>
-    <label for="gauntlet-13-bgcolor">Gauntlet 13 BG Color:</label>
-    <input type="color" id="gauntlet-13-bgcolor" name="gauntlet-13-bgcolor" value=""><br>
+<label for="gauntlet-13-name">Gauntlet 13:</label>
+<input type="text" id="gauntlet-13-name" name="gauntlet-13-name" value="Monster"><br>
+<label for="gauntlet-13-textcolor">Gauntlet 13 Text Color:</label>
+<input type="color" id="gauntlet-13-textcolor" name="gauntlet-13-textcolor" value="#40E924"><br>
+<label for="gauntlet-13-bgcolor">Gauntlet 13 BG Color:</label>
+<input type="color" id="gauntlet-13-bgcolor" name="gauntlet-13-bgcolor" value="#008800"><br>
 
-    <!-- Gauntlet 14 -->
-    <label for="gauntlet-14-name">Gauntlet 14:</label>
-    <input type="text" id="gauntlet-14-name" name="gauntlet-14-name" value="Doom"><br>
-    <label for="gauntlet-14-textcolor">Gauntlet 14 Text Color:</label>
-    <input type="color" id="gauntlet-14-textcolor" name="gauntlet-14-textcolor" value=""><br>
-    <label for="gauntlet-14-bgcolor">Gauntlet 14 BG Color:</label>
-    <input type="color" id="gauntlet-14-bgcolor" name="gauntlet-14-bgcolor" value=""><br>
+<label for="gauntlet-14-name">Gauntlet 14:</label>
+<input type="text" id="gauntlet-14-name" name="gauntlet-14-name" value="Doom"><br>
+<label for="gauntlet-14-textcolor">Gauntlet 14 Text Color:</label>
+<input type="color" id="gauntlet-14-textcolor" name="gauntlet-14-textcolor" value="#E62227"><br>
+<label for="gauntlet-14-bgcolor">Gauntlet 14 BG Color:</label>
+<input type="color" id="gauntlet-14-bgcolor" name="gauntlet-14-bgcolor" value="#DF0079"><br>
 
-    <!-- Gauntlet 15 -->
-    <label for="gauntlet-15-name">Gauntlet 15:</label>
-    <input type="text" id="gauntlet-15-name" name="gauntlet-15-name" value="Death"><br>
-    <label for="gauntlet-15-textcolor">Gauntlet 15 Text Color:</label>
-    <input type="color" id="gauntlet-15-textcolor" name="gauntlet-15-textcolor" value=""><br>
-    <label for="gauntlet-15-bgcolor">Gauntlet 15 BG Color:</label>
-    <input type="color" id="gauntlet-15-bgcolor" name="gauntlet-15-bgcolor" value=""><br>
+<label for="gauntlet-15-name">Gauntlet 15:</label>
+<input type="text" id="gauntlet-15-name" name="gauntlet-15-name" value="Death"><br>
+<label for="gauntlet-15-textcolor">Gauntlet 15 Text Color:</label>
+<input type="color" id="gauntlet-15-textcolor" name="gauntlet-15-textcolor" value="#E62227"><br>
+<label for="gauntlet-15-bgcolor">Gauntlet 15 BG Color:</label>
+<input type="color" id="gauntlet-15-bgcolor" name="gauntlet-15-bgcolor" value="#282828"><br>
 
-    <!-- Gauntlet 16 -->
-    <label for="gauntlet-16-name">Gauntlet 16:</label>
-    <input type="text" id="gauntlet-16-name" name="gauntlet-16-name" value="Forest"><br>
-    <label for="gauntlet-16-textcolor">Gauntlet 16 Text Color:</label>
-    <input type="color" id="gauntlet-16-textcolor" name="gauntlet-16-textcolor" value=""><br>
-    <label for="gauntlet-16-bgcolor">Gauntlet 16 BG Color:</label>
-    <input type="color" id="gauntlet-16-bgcolor" name="gauntlet-16-bgcolor" value=""><br>
+<label for="gauntlet-16-name">Gauntlet 16:</label>
+<input type="text" id="gauntlet-16-name" name="gauntlet-16-name" value="Forest"><br>
+<label for="gauntlet-16-textcolor">Gauntlet 16 Text Color:</label>
+<input type="color" id="gauntlet-16-textcolor" name="gauntlet-16-textcolor" value=""><br>
+<label for="gauntlet-16-bgcolor">Gauntlet 16 BG Color:</label>
+<input type="color" id="gauntlet-16-bgcolor" name="gauntlet-16-bgcolor" value="#005300"><br>
 
-    <!-- Gauntlet 17 -->
-    <label for="gauntlet-17-name">Gauntlet 17:</label>
-    <input type="text" id="gauntlet-17-name" name="gauntlet-17-name" value="Rune"><br>
-    <label for="gauntlet-17-textcolor">Gauntlet 17 Text Color:</label>
-    <input type="color" id="gauntlet-17-textcolor" name="gauntlet-17-textcolor" value=""><br>
-    <label for="gauntlet-17-bgcolor">Gauntlet 17 BG Color:</label>
-    <input type="color" id="gauntlet-17-bgcolor" name="gauntlet-17-bgcolor" value=""><br>
+<label for="gauntlet-17-name">Gauntlet 17:</label>
+<input type="text" id="gauntlet-17-name" name="gauntlet-17-name" value="Rune"><br>
+<label for="gauntlet-17-textcolor">Gauntlet 17 Text Color:</label>
+<input type="color" id="gauntlet-17-textcolor" name="gauntlet-17-textcolor" value="#FFC600"><br>
+<label for="gauntlet-17-bgcolor">Gauntlet 17 BG Color:</label>
+<input type="color" id="gauntlet-17-bgcolor" name="gauntlet-17-bgcolor" value="#814F00"><br>
 
-    <!-- Gauntlet 18 -->
-    <label for="gauntlet-18-name">Gauntlet 18:</label>
-    <input type="text" id="gauntlet-18-name" name="gauntlet-18-name" value="Force"><br>
-    <label for="gauntlet-18-textcolor">Gauntlet 18 Text Color:</label>
-    <input type="color" id="gauntlet-18-textcolor" name="gauntlet-18-textcolor" value=""><br>
-    <label for="gauntlet-18-bgcolor">Gauntlet 18 BG Color:</label>
-    <input type="color" id="gauntlet-18-bgcolor" name="gauntlet-18-bgcolor" value=""><br>
+<label for="gauntlet-18-name">Gauntlet 18:</label>
+<input type="text" id="gauntlet-18-name" name="gauntlet-18-name" value="Force"><br>
+<label for="gauntlet-18-textcolor">Gauntlet 18 Text Color:</label>
+<input type="color" id="gauntlet-18-textcolor" name="gauntlet-18-textcolor" value="#FF76FF"><br>
+<label for="gauntlet-18-bgcolor">Gauntlet 18 BG Color:</label>
+<input type="color" id="gauntlet-18-bgcolor" name="gauntlet-18-bgcolor" value="#55009B"><br>
 
-    <!-- Gauntlet 19 -->
-    <label for="gauntlet-19-name">Gauntlet 19:</label>
-    <input type="text" id="gauntlet-19-name" name="gauntlet-19-name" value="Spooky"><br>
-    <label for="gauntlet-19-textcolor">Gauntlet 19 Text Color:</label>
-    <input type="color" id="gauntlet-19-textcolor" name="gauntlet-19-textcolor" value=""><br>
-    <label for="gauntlet-19-bgcolor">Gauntlet 19 BG Color:</label>
-    <input type="color" id="gauntlet-19-bgcolor" name="gauntlet-19-bgcolor" value=""><br>
+<label for="gauntlet-19-name">Gauntlet 19:</label>
+<input type="text" id="gauntlet-19-name" name="gauntlet-19-name" value="Spooky"><br>
+<label for="gauntlet-19-textcolor">Gauntlet 19 Text Color:</label>
+<input type="color" id="gauntlet-19-textcolor" name="gauntlet-19-textcolor" value="#00CDCB"><br>
+<label for="gauntlet-19-bgcolor">Gauntlet 19 BG Color:</label>
+<input type="color" id="gauntlet-19-bgcolor" name="gauntlet-19-bgcolor" value="#003D3D"><br>
 
-    <!-- Gauntlet 20 -->
-    <label for="gauntlet-20-name">Gauntlet 20:</label>
-    <input type="text" id="gauntlet-20-name" name="gauntlet-20-name" value="Dragon"><br>
-    <label for="gauntlet-20-textcolor">Gauntlet 20 Text Color:</label>
-    <input type="color" id="gauntlet-20-textcolor" name="gauntlet-20-textcolor" value=""><br>
-    <label for="gauntlet-20-bgcolor">Gauntlet 20 BG Color:</label>
-    <input type="color" id="gauntlet-20-bgcolor" name="gauntlet-20-bgcolor" value=""><br>
+<label for="gauntlet-20-name">Gauntlet 20:</label>
+<input type="text" id="gauntlet-20-name" name="gauntlet-20-name" value="Dragon"><br>
+<label for="gauntlet-20-textcolor">Gauntlet 20 Text Color:</label>
+<input type="color" id="gauntlet-20-textcolor" name="gauntlet-20-textcolor" value="#FF3900"><br>
+<label for="gauntlet-20-bgcolor">Gauntlet 20 BG Color:</label>
+<input type="color" id="gauntlet-20-bgcolor" name="gauntlet-20-bgcolor" value="#600000"><br>
 
-    <!-- Gauntlet 21 -->
-    <label for="gauntlet-21-name">Gauntlet 21:</label>
-    <input type="text" id="gauntlet-21-name" name="gauntlet-21-name" value="Water"><br>
-    <label for="gauntlet-21-textcolor">Gauntlet 21 Text Color:</label>
-    <input type="color" id="gauntlet-21-textcolor" name="gauntlet-21-textcolor" value=""><br>
-    <label for="gauntlet-21-bgcolor">Gauntlet 21 BG Color:</label>
-    <input type="color" id="gauntlet-21-bgcolor" name="gauntlet-21-bgcolor" value=""><br>
+<label for="gauntlet-21-name">Gauntlet 21:</label>
+<input type="text" id="gauntlet-21-name" name="gauntlet-21-name" value="Water"><br>
+<label for="gauntlet-21-textcolor">Gauntlet 21 Text Color:</label>
+<input type="color" id="gauntlet-21-textcolor" name="gauntlet-21-textcolor" value="#00FFFF"><br>
+<label for="gauntlet-21-bgcolor">Gauntlet 21 BG Color:</label>
+<input type="color" id="gauntlet-21-bgcolor" name="gauntlet-21-bgcolor" value="#0062CE"><br>
 
-    <!-- Gauntlet 22 -->
-    <label for="gauntlet-22-name">Gauntlet 22:</label>
-    <input type="text" id="gauntlet-22-name" name="gauntlet-22-name" value="Haunted"><br>
-    <label for="gauntlet-22-textcolor">Gauntlet 22 Text Color:</label>
-    <input type="color" id="gauntlet-22-textcolor" name="gauntlet-22-textcolor" value=""><br>
-    <label for="gauntlet-22-bgcolor">Gauntlet 22 BG Color:</label>
-    <input type="color" id="gauntlet-22-bgcolor" name="gauntlet-22-bgcolor" value=""><br>
+<label for="gauntlet-22-name">Gauntlet 22:</label>
+<input type="text" id="gauntlet-22-name" name="gauntlet-22-name" value="Haunted"><br>
+<label for="gauntlet-22-textcolor">Gauntlet 22 Text Color:</label>
+<input type="color" id="gauntlet-22-textcolor" name="gauntlet-22-textcolor" value="#FBFF52"><br>
+<label for="gauntlet-22-bgcolor">Gauntlet 22 BG Color:</label>
+<input type="color" id="gauntlet-22-bgcolor" name="gauntlet-22-bgcolor" value="#191F23"><br>
 
-    <!-- Gauntlet 23 -->
-    <label for="gauntlet-23-name">Gauntlet 23:</label>
-    <input type="text" id="gauntlet-23-name" name="gauntlet-23-name" value="Acid"><br>
-    <label for="gauntlet-23-textcolor">Gauntlet 23 Text Color:</label>
-    <input type="color" id="gauntlet-23-textcolor" name="gauntlet-23-textcolor" value=""><br>
-    <label for="gauntlet-23-bgcolor">Gauntlet 23 BG Color:</label>
-    <input type="color" id="gauntlet-23-bgcolor" name="gauntlet-23-bgcolor" value=""><br>
+<label for="gauntlet-23-name">Gauntlet 23:</label>
+<input type="text" id="gauntlet-23-name" name="gauntlet-23-name" value="Acid"><br>
+<label for="gauntlet-23-textcolor">Gauntlet 23 Text Color:</label>
+<input type="color" id="gauntlet-23-textcolor" name="gauntlet-23-textcolor" value="#75FF00"><br>
+<label for="gauntlet-23-bgcolor">Gauntlet 23 BG Color:</label>
+<input type="color" id="gauntlet-23-bgcolor" name="gauntlet-23-bgcolor" value="#44443B"><br>
 
-    <!-- Gauntlet 24 -->
-    <label for="gauntlet-24-name">Gauntlet 24:</label>
-    <input type="text" id="gauntlet-24-name" name="gauntlet-24-name" value="Witch"><br>
-    <label for="gauntlet-24-textcolor">Gauntlet 24 Text Color:</label>
-    <input type="color" id="gauntlet-24-textcolor" name="gauntlet-24-textcolor" value=""><br>
-    <label for="gauntlet-24-bgcolor">Gauntlet 24 BG Color:</label>
-    <input type="color" id="gauntlet-24-bgcolor" name="gauntlet-24-bgcolor" value=""><br>
+<label for="gauntlet-24-name">Gauntlet 24:</label>
+<input type="text" id="gauntlet-24-name" name="gauntlet-24-name" value="Witch"><br>
+<label for="gauntlet-24-textcolor">Gauntlet 24 Text Color:</label>
+<input type="color" id="gauntlet-24-textcolor" name="gauntlet-24-textcolor" value="#60F7FF"><br>
+<label for="gauntlet-24-bgcolor">Gauntlet 24 BG Color:</label>
+<input type="color" id="gauntlet-24-bgcolor" name="gauntlet-24-bgcolor" value="#13322F"><br>
 
-    <!-- Gauntlet 25 -->
-    <label for="gauntlet-25-name">Gauntlet 25:</label>
-    <input type="text" id="gauntlet-25-name" name="gauntlet-25-name" value="Power"><br>
-    <label for="gauntlet-25-textcolor">Gauntlet 25 Text Color:</label>
-    <input type="color" id="gauntlet-25-textcolor" name="gauntlet-25-textcolor" value=""><br>
-    <label for="gauntlet-25-bgcolor">Gauntlet 25 BG Color:</label>
-    <input type="color" id="gauntlet-25-bgcolor" name="gauntlet-25-bgcolor" value=""><br>
+<label for="gauntlet-25-name">Gauntlet 25:</label>
+<input type="text" id="gauntlet-25-name" name="gauntlet-25-name" value="Power"><br>
+<label for="gauntlet-25-textcolor">Gauntlet 25 Text Color:</label>
+<input type="color" id="gauntlet-25-textcolor" name="gauntlet-25-textcolor" value="#FDE69E"><br>
+<label for="gauntlet-25-bgcolor">Gauntlet 25 BG Color:</label>
+<input type="color" id="gauntlet-25-bgcolor" name="gauntlet-25-bgcolor" value="#2F1D1A"><br>
 
-    <!-- Gauntlet 26 -->
-    <label for="gauntlet-26-name">Gauntlet 26:</label>
-    <input type="text" id="gauntlet-26-name" name="gauntlet-26-name" value="Potion"><br>
-    <label for="gauntlet-26-textcolor">Gauntlet 26 Text Color:</label>
-    <input type="color" id="gauntlet-26-textcolor" name="gauntlet-26-textcolor" value=""><br>
-    <label for="gauntlet-26-bgcolor">Gauntlet 26 BG Color:</label>
-    <input type="color" id="gauntlet-26-bgcolor" name="gauntlet-26-bgcolor" value=""><br>
+<label for="gauntlet-26-name">Gauntlet 26:</label>
+<input type="text" id="gauntlet-26-name" name="gauntlet-26-name" value="Potion"><br>
+<label for="gauntlet-26-textcolor">Gauntlet 26 Text Color:</label>
+<input type="color" id="gauntlet-26-textcolor" name="gauntlet-26-textcolor" value="#FF92FF"><br>
+<label for="gauntlet-26-bgcolor">Gauntlet 26 BG Color:</label>
+<input type="color" id="gauntlet-26-bgcolor" name="gauntlet-26-bgcolor" value="#4F1B32"><br>
 
-    <!-- Gauntlet 27 -->
-    <label for="gauntlet-27-name">Gauntlet 27:</label>
-    <input type="text" id="gauntlet-27-name" name="gauntlet-27-name" value="Snake"><br>
-    <label for="gauntlet-27-textcolor">Gauntlet 27 Text Color:</label>
-    <input type="color" id="gauntlet-27-textcolor" name="gauntlet-27-textcolor" value=""><br>
-    <label for="gauntlet-27-bgcolor">Gauntlet 27 BG Color:</label>
-    <input type="color" id="gauntlet-27-bgcolor" name="gauntlet-27-bgcolor" value=""><br>
+<label for="gauntlet-27-name">Gauntlet 27:</label>
+<input type="text" id="gauntlet-27-name" name="gauntlet-27-name" value="Snake"><br>
+<label for="gauntlet-27-textcolor">Gauntlet 27 Text Color:</label>
+<input type="color" id="gauntlet-27-textcolor" name="gauntlet-27-textcolor" value="#FFB267"><br>
+<label for="gauntlet-27-bgcolor">Gauntlet 27 BG Color:</label>
+<input type="color" id="gauntlet-27-bgcolor" name="gauntlet-27-bgcolor" value="#2F225A"><br>
 
-    <!-- Gauntlet 28 -->
-    <label for="gauntlet-28-name">Gauntlet 28:</label>
-    <input type="text" id="gauntlet-28-name" name="gauntlet-28-name" value="Toxic"><br>
-    <label for="gauntlet-28-textcolor">Gauntlet 28 Text Color:</label>
-    <input type="color" id="gauntlet-28-textcolor" name="gauntlet-28-textcolor" value=""><br>
-    <label for="gauntlet-28-bgcolor">Gauntlet 28 BG Color:</label>
-    <input type="color" id="gauntlet-28-bgcolor" name="gauntlet-28-bgcolor" value=""><br>
+<label for="gauntlet-28-name">Gauntlet 28:</label>
+<input type="text" id="gauntlet-28-name" name="gauntlet-28-name" value="Toxic"><br>
+<label for="gauntlet-28-textcolor">Gauntlet 28 Text Color:</label>
+<input type="color" id="gauntlet-28-textcolor" name="gauntlet-28-textcolor" value="#00FF00"><br>
+<label for="gauntlet-28-bgcolor">Gauntlet 28 BG Color:</label>
+<input type="color" id="gauntlet-28-bgcolor" name="gauntlet-28-bgcolor" value="#490F4E"><br>
 
-    <!-- Gauntlet 29 -->
-    <label for="gauntlet-29-name">Gauntlet 29:</label>
-    <input type="text" id="gauntlet-29-name" name="gauntlet-29-name" value="Halloween"><br>
-    <label for="gauntlet-29-textcolor">Gauntlet 29 Text Color:</label>
-    <input type="color" id="gauntlet-29-textcolor" name="gauntlet-29-textcolor" value=""><br>
-    <label for="gauntlet-29-bgcolor">Gauntlet 29 BG Color:</label>
-    <input type="color" id="gauntlet-29-bgcolor" name="gauntlet-29-bgcolor" value=""><br>
+<label for="gauntlet-29-name">Gauntlet 29:</label>
+<input type="text" id="gauntlet-29-name" name="gauntlet-29-name" value="Halloween"><br>
+<label for="gauntlet-29-textcolor">Gauntlet 29 Text Color:</label>
+<input type="color" id="gauntlet-29-textcolor" name="gauntlet-29-textcolor" value="#FF7700"><br>
+<label for="gauntlet-29-bgcolor">Gauntlet 29 BG Color:</label>
+<input type="color" id="gauntlet-29-bgcolor" name="gauntlet-29-bgcolor" value="#3D1600"><br>
 
-    <!-- Gauntlet 30 -->
-    <label for="gauntlet-30-name">Gauntlet 30:</label>
-    <input type="text" id="gauntlet-30-name" name="gauntlet-30-name" value="Treasure"><br>
-    <label for="gauntlet-30-textcolor">Gauntlet 30 Text Color:</label>
-    <input type="color" id="gauntlet-30-textcolor" name="gauntlet-30-textcolor" value=""><br>
-    <label for="gauntlet-30-bgcolor">Gauntlet 30 BG Color:</label>
-    <input type="color" id="gauntlet-30-bgcolor" name="gauntlet-30-bgcolor" value=""><br>
+<label for="gauntlet-30-name">Gauntlet 30:</label>
+<input type="text" id="gauntlet-30-name" name="gauntlet-30-name" value="Treasure"><br>
+<label for="gauntlet-30-textcolor">Gauntlet 30 Text Color:</label>
+<input type="color" id="gauntlet-30-textcolor" name="gauntlet-30-textcolor" value="#FFDC00"><br>
+<label for="gauntlet-30-bgcolor">Gauntlet 30 BG Color:</label>
+<input type="color" id="gauntlet-30-bgcolor" name="gauntlet-30-bgcolor" value="#1F2C22"><br>
 
-    <!-- Gauntlet 31 -->
-    <label for="gauntlet-31-name">Gauntlet 31:</label>
-    <input type="text" id="gauntlet-31-name" name="gauntlet-31-name" value="Ghost"><br>
-    <label for="gauntlet-31-textcolor">Gauntlet 31 Text Color:</label>
-    <input type="color" id="gauntlet-31-textcolor" name="gauntlet-31-textcolor" value=""><br>
-    <label for="gauntlet-31-bgcolor">Gauntlet 31 BG Color:</label>
-    <input type="color" id="gauntlet-31-bgcolor" name="gauntlet-31-bgcolor" value=""><br>
+<label for="gauntlet-31-name">Gauntlet 31:</label>
+<input type="text" id="gauntlet-31-name" name="gauntlet-31-name" value="Ghost"><br>
+<label for="gauntlet-31-textcolor">Gauntlet 31 Text Color:</label>
+<input type="color" id="gauntlet-31-textcolor" name="gauntlet-31-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-31-bgcolor">Gauntlet 31 BG Color:</label>
+<input type="color" id="gauntlet-31-bgcolor" name="gauntlet-31-bgcolor" value="#002843"><br>
 
-    <!-- Gauntlet 32 -->
-    <label for="gauntlet-32-name">Gauntlet 32:</label>
-    <input type="text" id="gauntlet-32-name" name="gauntlet-32-name" value="Spider"><br>
-    <label for="gauntlet-32-textcolor">Gauntlet 32 Text Color:</label>
-    <input type="color" id="gauntlet-32-textcolor" name="gauntlet-32-textcolor" value=""><br>
-    <label for="gauntlet-32-bgcolor">Gauntlet 32 BG Color:</label>
-    <input type="color" id="gauntlet-32-bgcolor" name="gauntlet-32-bgcolor" value=""><br>
+<label for="gauntlet-32-name">Gauntlet 32:</label>
+<input type="text" id="gauntlet-32-name" name="gauntlet-32-name" value="Spider"><br>
+<label for="gauntlet-32-textcolor">Gauntlet 32 Text Color:</label>
+<input type="color" id="gauntlet-32-textcolor" name="gauntlet-32-textcolor" value="#B059FF"><br>
+<label for="gauntlet-32-bgcolor">Gauntlet 32 BG Color:</label>
+<input type="color" id="gauntlet-32-bgcolor" name="gauntlet-32-bgcolor" value="#261B2F"><br>
 
-    <!-- Gauntlet 33 -->
-    <label for="gauntlet-33-name">Gauntlet 33:</label>
-    <input type="text" id="gauntlet-33-name" name="gauntlet-33-name" value="Gem"><br>
-    <label for="gauntlet-33-textcolor">Gauntlet 33 Text Color:</label>
-    <input type="color" id="gauntlet-33-textcolor" name="gauntlet-33-textcolor" value=""><br>
-    <label for="gauntlet-33-bgcolor">Gauntlet 33 BG Color:</label>
-    <input type="color" id="gauntlet-33-bgcolor" name="gauntlet-33-bgcolor" value=""><br>
+<label for="gauntlet-33-name">Gauntlet 33:</label>
+<input type="text" id="gauntlet-33-name" name="gauntlet-33-name" value="Gem"><br>
+<label for="gauntlet-33-textcolor">Gauntlet 33 Text Color:</label>
+<input type="color" id="gauntlet-33-textcolor" name="gauntlet-33-textcolor" value="#00EBFF"><br>
+<label for="gauntlet-33-bgcolor">Gauntlet 33 BG Color:</label>
+<input type="color" id="gauntlet-33-bgcolor" name="gauntlet-33-bgcolor" value="#003B6A"><br>
 
-    <!-- Gauntlet 34 -->
-    <label for="gauntlet-34-name">Gauntlet 34:</label>
-    <input type="text" id="gauntlet-34-name" name="gauntlet-34-name" value="Inferno"><br>
-    <label for="gauntlet-34-textcolor">Gauntlet 34 Text Color:</label>
-    <input type="color" id="gauntlet-34-textcolor" name="gauntlet-34-textcolor" value=""><br>
-    <label for="gauntlet-34-bgcolor">Gauntlet 34 BG Color:</label>
-    <input type="color" id="gauntlet-34-bgcolor" name="gauntlet-34-bgcolor" value=""><br>
+<label for="gauntlet-34-name">Gauntlet 34:</label>
+<input type="text" id="gauntlet-34-name" name="gauntlet-34-name" value="Inferno"><br>
+<label for="gauntlet-34-textcolor">Gauntlet 34 Text Color:</label>
+<input type="color" id="gauntlet-34-textcolor" name="gauntlet-34-textcolor" value="#00FF00"><br>
+<label for="gauntlet-34-bgcolor">Gauntlet 34 BG Color:</label>
+<input type="color" id="gauntlet-34-bgcolor" name="gauntlet-34-bgcolor" value="#450040"><br>
 
-    <!-- Gauntlet 35 -->
-    <label for="gauntlet-35-name">Gauntlet 35:</label>
-    <input type="text" id="gauntlet-35-name" name="gauntlet-35-name" value="Portal"><br>
-    <label for="gauntlet-35-textcolor">Gauntlet 35 Text Color:</label>
-    <input type="color" id="gauntlet-35-textcolor" name="gauntlet-35-textcolor" value=""><br>
-    <label for="gauntlet-35-bgcolor">Gauntlet 35 BG Color:</label>
-    <input type="color" id="gauntlet-35-bgcolor" name="gauntlet-35-bgcolor" value=""><br>
+<label for="gauntlet-35-name">Gauntlet 35:</label>
+<input type="text" id="gauntlet-35-name" name="gauntlet-35-name" value="Portal"><br>
+<label for="gauntlet-35-textcolor">Gauntlet 35 Text Color:</label>
+<input type="color" id="gauntlet-35-textcolor" name="gauntlet-35-textcolor" value="#00FFFF"><br>
+<label for="gauntlet-35-bgcolor">Gauntlet 35 BG Color:</label>
+<input type="color" id="gauntlet-35-bgcolor" name="gauntlet-35-bgcolor" value="#2D1757"><br>
 
-    <!-- Gauntlet 36 -->
-    <label for="gauntlet-36-name">Gauntlet 36:</label>
-    <input type="text" id="gauntlet-36-name" name="gauntlet-36-name" value="Strange"><br>
-    <label for="gauntlet-36-textcolor">Gauntlet 36 Text Color:</label>
-    <input type="color" id="gauntlet-36-textcolor" name="gauntlet-36-textcolor" value=""><br>
-    <label for="gauntlet-36-bgcolor">Gauntlet 36 BG Color:</label>
-    <input type="color" id="gauntlet-36-bgcolor" name="gauntlet-36-bgcolor" value=""><br>
+<label for="gauntlet-36-name">Gauntlet 36:</label>
+<input type="text" id="gauntlet-36-name" name="gauntlet-36-name" value="Strange"><br>
+<label for="gauntlet-36-textcolor">Gauntlet 36 Text Color:</label>
+<input type="color" id="gauntlet-36-textcolor" name="gauntlet-36-textcolor" value="#78FF00"><br>
+<label for="gauntlet-36-bgcolor">Gauntlet 36 BG Color:</label>
+<input type="color" id="gauntlet-36-bgcolor" name="gauntlet-36-bgcolor" value="#55007C"><br>
 
-    <!-- Gauntlet 37 -->
-    <label for="gauntlet-37-name">Gauntlet 37:</label>
-    <input type="text" id="gauntlet-37-name" name="gauntlet-37-name" value="Fantasy"><br>
-    <label for="gauntlet-37-textcolor">Gauntlet 37 Text Color:</label>
-    <input type="color" id="gauntlet-37-textcolor" name="gauntlet-37-textcolor" value=""><br>
-    <label for="gauntlet-37-bgcolor">Gauntlet 37 BG Color:</label>
-    <input type="color" id="gauntlet-37-bgcolor" name="gauntlet-37-bgcolor" value=""><br>
+<label for="gauntlet-37-name">Gauntlet 37:</label>
+<input type="text" id="gauntlet-37-name" name="gauntlet-37-name" value="Fantasy"><br>
+<label for="gauntlet-37-textcolor">Gauntlet 37 Text Color:</label>
+<input type="color" id="gauntlet-37-textcolor" name="gauntlet-37-textcolor" value="#C7FF00"><br>
+<label for="gauntlet-37-bgcolor">Gauntlet 37 BG Color:</label>
+<input type="color" id="gauntlet-37-bgcolor" name="gauntlet-37-bgcolor" value="#245200"><br>
 
-    <!-- Gauntlet 38 -->
-    <label for="gauntlet-38-name">Gauntlet 38:</label>
-    <input type="text" id="gauntlet-38-name" name="gauntlet-38-name" value="Christmas"><br>
-    <label for="gauntlet-38-textcolor">Gauntlet 38 Text Color:</label>
-    <input type="color" id="gauntlet-38-textcolor" name="gauntlet-38-textcolor" value=""><br>
-    <label for="gauntlet-38-bgcolor">Gauntlet 38 BG Color:</label>
-    <input type="color" id="gauntlet-38-bgcolor" name="gauntlet-38-bgcolor" value=""><br>
+<label for="gauntlet-38-name">Gauntlet 38:</label>
+<input type="text" id="gauntlet-38-name" name="gauntlet-38-name" value="Christmas"><br>
+<label for="gauntlet-38-textcolor">Gauntlet 38 Text Color:</label>
+<input type="color" id="gauntlet-38-textcolor" name="gauntlet-38-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-38-bgcolor">Gauntlet 38 BG Color:</label>
+<input type="color" id="gauntlet-38-bgcolor" name="gauntlet-38-bgcolor" value="#0077D3"><br>
 
-    <!-- Gauntlet 39 -->
-    <label for="gauntlet-39-name">Gauntlet 39:</label>
-    <input type="text" id="gauntlet-39-name" name="gauntlet-39-name" value="Surprise"><br>
-    <label for="gauntlet-39-textcolor">Gauntlet 39 Text Color:</label>
-    <input type="color" id="gauntlet-39-textcolor" name="gauntlet-39-textcolor" value=""><br>
-    <label for="gauntlet-39-bgcolor">Gauntlet 39 BG Color:</label>
-    <input type="color" id="gauntlet-39-bgcolor" name="gauntlet-39-bgcolor" value=""><br>
+<label for="gauntlet-39-name">Gauntlet 39:</label>
+<input type="text" id="gauntlet-39-name" name="gauntlet-39-name" value="Surprise"><br>
+<label for="gauntlet-39-textcolor">Gauntlet 39 Text Color:</label>
+<input type="color" id="gauntlet-39-textcolor" name="gauntlet-39-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-39-bgcolor">Gauntlet 39 BG Color:</label>
+<input type="color" id="gauntlet-39-bgcolor" name="gauntlet-39-bgcolor" value="#692A00"><br>
 
-    <!-- Gauntlet 40 -->
-    <label for="gauntlet-40-name">Gauntlet 40:</label>
-    <input type="text" id="gauntlet-40-name" name="gauntlet-40-name" value="Mystery"><br>
-    <label for="gauntlet-40-textcolor">Gauntlet 40 Text Color:</label>
-    <input type="color" id="gauntlet-40-textcolor" name="gauntlet-40-textcolor" value=""><br>
-    <label for="gauntlet-40-bgcolor">Gauntlet 40 BG Color:</label>
-    <input type="color" id="gauntlet-40-bgcolor" name="gauntlet-40-bgcolor" value=""><br>
+<label for="gauntlet-40-name">Gauntlet 40:</label>
+<input type="text" id="gauntlet-40-name" name="gauntlet-40-name" value="Mystery"><br>
+<label for="gauntlet-40-textcolor">Gauntlet 40 Text Color:</label>
+<input type="color" id="gauntlet-40-textcolor" name="gauntlet-40-textcolor" value="#FDFF00"><br>
+<label for="gauntlet-40-bgcolor">Gauntlet 40 BG Color:</label>
+<input type="color" id="gauntlet-40-bgcolor" name="gauntlet-40-bgcolor" value="#112A00"><br>
 
-    <!-- Gauntlet 41 -->
-    <label for="gauntlet-41-name">Gauntlet 41:</label>
-    <input type="text" id="gauntlet-41-name" name="gauntlet-41-name" value="Cursed"><br>
-    <label for="gauntlet-41-textcolor">Gauntlet 41 Text Color:</label>
-    <input type="color" id="gauntlet-41-textcolor" name="gauntlet-41-textcolor" value=""><br>
-    <label for="gauntlet-41-bgcolor">Gauntlet 41 BG Color:</label>
-    <input type="color" id="gauntlet-41-bgcolor" name="gauntlet-41-bgcolor" value=""><br>
+<label for="gauntlet-41-name">Gauntlet 41:</label>
+<input type="text" id="gauntlet-41-name" name="gauntlet-41-name" value="Cursed"><br>
+<label for="gauntlet-41-textcolor">Gauntlet 41 Text Color:</label>
+<input type="color" id="gauntlet-41-textcolor" name="gauntlet-41-textcolor" value="#00FF00"><br>
+<label for="gauntlet-41-bgcolor">Gauntlet 41 BG Color:</label>
+<input type="color" id="gauntlet-41-bgcolor" name="gauntlet-41-bgcolor" value="#450029"><br>
 
-    <!-- Gauntlet 42 -->
-    <label for="gauntlet-42-name">Gauntlet 42:</label>
-    <input type="text" id="gauntlet-42-name" name="gauntlet-42-name" value="Cyborg"><br>
-    <label for="gauntlet-42-textcolor">Gauntlet 42 Text Color:</label>
-    <input type="color" id="gauntlet-42-textcolor" name="gauntlet-42-textcolor" value=""><br>
-    <label for="gauntlet-42-bgcolor">Gauntlet 42 BG Color:</label>
-    <input type="color" id="gauntlet-42-bgcolor" name="gauntlet-42-bgcolor" value=""><br>
+<label for="gauntlet-42-name">Gauntlet 42:</label>
+<input type="text" id="gauntlet-42-name" name="gauntlet-42-name" value="Cyborg"><br>
+<label for="gauntlet-42-textcolor">Gauntlet 42 Text Color:</label>
+<input type="color" id="gauntlet-42-textcolor" name="gauntlet-42-textcolor" value="#00FFFF"><br>
+<label for="gauntlet-42-bgcolor">Gauntlet 42 BG Color:</label>
+<input type="color" id="gauntlet-42-bgcolor" name="gauntlet-42-bgcolor" value="#282828"><br>
 
-    <!-- Gauntlet 43 -->
-    <label for="gauntlet-43-name">Gauntlet 43:</label>
-    <input type="text" id="gauntlet-43-name" name="gauntlet-43-name" value="Castle"><br>
-    <label for="gauntlet-43-textcolor">Gauntlet 43 Text Color:</label>
-    <input type="color" id="gauntlet-43-textcolor" name="gauntlet-43-textcolor" value=""><br>
-    <label for="gauntlet-43-bgcolor">Gauntlet 43 BG Color:</label>
-    <input type="color" id="gauntlet-43-bgcolor" name="gauntlet-43-bgcolor" value=""><br>
+<label for="gauntlet-43-name">Gauntlet 43:</label>
+<input type="text" id="gauntlet-43-name" name="gauntlet-43-name" value="Castle"><br>
+<label for="gauntlet-43-textcolor">Gauntlet 43 Text Color:</label>
+<input type="color" id="gauntlet-43-textcolor" name="gauntlet-43-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-43-bgcolor">Gauntlet 43 BG Color:</label>
+<input type="color" id="gauntlet-43-bgcolor" name="gauntlet-43-bgcolor" value="#0053D4"><br>
 
-    <!-- Gauntlet 44 -->
-    <label for="gauntlet-44-name">Gauntlet 44:</label>
-    <input type="text" id="gauntlet-44-name" name="gauntlet-44-name" value="Grave"><br>
-    <label for="gauntlet-44-textcolor">Gauntlet 44 Text Color:</label>
-    <input type="color" id="gauntlet-44-textcolor" name="gauntlet-44-textcolor" value=""><br>
-    <label for="gauntlet-44-bgcolor">Gauntlet 44 BG Color:</label>
-    <input type="color" id="gauntlet-44-bgcolor" name="gauntlet-44-bgcolor" value=""><br>
+<label for="gauntlet-44-name">Gauntlet 44:</label>
+<input type="text" id="gauntlet-44-name" name="gauntlet-44-name" value="Grave"><br>
+<label for="gauntlet-44-textcolor">Gauntlet 44 Text Color:</label>
+<input type="color" id="gauntlet-44-textcolor" name="gauntlet-44-textcolor" value="#51FDA6"><br>
+<label for="gauntlet-44-bgcolor">Gauntlet 44 BG Color:</label>
+<input type="color" id="gauntlet-44-bgcolor" name="gauntlet-44-bgcolor" value="#002828"><br>
 
-    <!-- Gauntlet 45 -->
-    <label for="gauntlet-45-name">Gauntlet 45:</label>
-    <input type="text" id="gauntlet-45-name" name="gauntlet-45-name" value="Temple"><br>
-    <label for="gauntlet-45-textcolor">Gauntlet 45 Text Color:</label>
-    <input type="color" id="gauntlet-45-textcolor" name="gauntlet-45-textcolor" value=""><br>
-    <label for="gauntlet-45-bgcolor">Gauntlet 45 BG Color:</label>
-    <input type="color" id="gauntlet-45-bgcolor" name="gauntlet-45-bgcolor" value=""><br>
+<label for="gauntlet-45-name">Gauntlet 45:</label>
+<input type="text" id="gauntlet-45-name" name="gauntlet-45-name" value="Temple"><br>
+<label for="gauntlet-45-textcolor">Gauntlet 45 Text Color:</label>
+<input type="color" id="gauntlet-45-textcolor" name="gauntlet-45-textcolor" value="#F7FE90"><br>
+<label for="gauntlet-45-bgcolor">Gauntlet 45 BG Color:</label>
+<input type="color" id="gauntlet-45-bgcolor" name="gauntlet-45-bgcolor" value="#003A00"><br>
 
-    <!-- Gauntlet 46 -->
-    <label for="gauntlet-46-name">Gauntlet 46:</label>
-    <input type="text" id="gauntlet-46-name" name="gauntlet-46-name" value="World"><br>
-    <label for="gauntlet-46-textcolor">Gauntlet 46 Text Color:</label>
-    <input type="color" id="gauntlet-46-textcolor" name="gauntlet-46-textcolor" value=""><br>
-    <label for="gauntlet-46-bgcolor">Gauntlet 46 BG Color:</label>
-    <input type="color" id="gauntlet-46-bgcolor" name="gauntlet-46-bgcolor" value=""><br>
+<label for="gauntlet-46-name">Gauntlet 46:</label>
+<input type="text" id="gauntlet-46-name" name="gauntlet-46-name" value="World"><br>
+<label for="gauntlet-46-textcolor">Gauntlet 46 Text Color:</label>
+<input type="color" id="gauntlet-46-textcolor" name="gauntlet-46-textcolor" value="#FFFFFF"><br>
+<label for="gauntlet-46-bgcolor">Gauntlet 46 BG Color:</label>
+<input type="color" id="gauntlet-46-bgcolor" name="gauntlet-46-bgcolor" value="#0051AC"><br>
 
-    <!-- Gauntlet 47 -->
-    <label for="gauntlet-47-name">Gauntlet 47:</label>
-    <input type="text" id="gauntlet-47-name" name="gauntlet-47-name" value="Galaxy"><br>
-    <label for="gauntlet-47-textcolor">Gauntlet 47 Text Color:</label>
-    <input type="color" id="gauntlet-47-textcolor" name="gauntlet-47-textcolor" value=""><br>
-    <label for="gauntlet-47-bgcolor">Gauntlet 47 BG Color:</label>
-    <input type="color" id="gauntlet-47-bgcolor" name="gauntlet-47-bgcolor" value=""><br>
+<label for="gauntlet-47-name">Gauntlet 47:</label>
+<input type="text" id="gauntlet-47-name" name="gauntlet-47-name" value="Galaxy"><br>
+<label for="gauntlet-47-textcolor">Gauntlet 47 Text Color:</label>
+<input type="color" id="gauntlet-47-textcolor" name="gauntlet-47-textcolor" value="#FFBBFF"><br>
+<label for="gauntlet-47-bgcolor">Gauntlet 47 BG Color:</label>
+<input type="color" id="gauntlet-47-bgcolor" name="gauntlet-47-bgcolor" value="#351B3D"><br>
 
-    <!-- Gauntlet 48 -->
-    <label for="gauntlet-48-name">Gauntlet 48:</label>
-    <input type="text" id="gauntlet-48-name" name="gauntlet-48-name" value="Universe"><br>
-    <label for="gauntlet-48-textcolor">Gauntlet 48 Text Color:</label>
-    <input type="color" id="gauntlet-48-textcolor" name="gauntlet-48-textcolor" value=""><br>
-    <label for="gauntlet-48-bgcolor">Gauntlet 48 BG Color:</label>
-    <input type="color" id="gauntlet-48-bgcolor" name="gauntlet-48-bgcolor" value=""><br>
+<label for="gauntlet-48-name">Gauntlet 48:</label>
+<input type="text" id="gauntlet-48-name" name="gauntlet-48-name" value="Universe"><br>
+<label for="gauntlet-48-textcolor">Gauntlet 48 Text Color:</label>
+<input type="color" id="gauntlet-48-textcolor" name="gauntlet-48-textcolor" value="#00FFFF"><br>
+<label for="gauntlet-48-bgcolor">Gauntlet 48 BG Color:</label>
+<input type="color" id="gauntlet-48-bgcolor" name="gauntlet-48-bgcolor" value="#191843"><br>
 
-    <!-- Gauntlet 49 -->
-    <label for="gauntlet-49-name">Gauntlet 49:</label>
-    <input type="text" id="gauntlet-49-name" name="gauntlet-49-name" value="Discord"><br>
-    <label for="gauntlet-49-textcolor">Gauntlet 49 Text Color:</label>
-    <input type="color" id="gauntlet-49-textcolor" name="gauntlet-49-textcolor" value=""><br>
-    <label for="gauntlet-49-bgcolor">Gauntlet 49 BG Color:</label>
-    <input type="color" id="gauntlet-49-bgcolor" name="gauntlet-49-bgcolor" value=""><br>
+<label for="gauntlet-49-name">Gauntlet 49:</label>
+<input type="text" id="gauntlet-49-name" name="gauntlet-49-name" value="Discord"><br>
+<label for="gauntlet-49-textcolor">Gauntlet 49 Text Color:</label>
+<input type="color" id="gauntlet-49-textcolor" name="gauntlet-49-textcolor" value="#66FFFF"><br>
+<label for="gauntlet-49-bgcolor">Gauntlet 49 BG Color:</label>
+<input type="color" id="gauntlet-49-bgcolor" name="gauntlet-49-bgcolor" value="#0F1F39"><br>
 
-    <!-- Gauntlet 50 -->
-    <label for="gauntlet-50-name">Gauntlet 50:</label>
-    <input type="text" id="gauntlet-50-name" name="gauntlet-50-name" value="Split"><br>
-    <label for="gauntlet-50-textcolor">Gauntlet 50 Text Color:</label>
-    <input type="color" id="gauntlet-50-textcolor" name="gauntlet-50-textcolor" value=""><br>
-    <label for="gauntlet-50-bgcolor">Gauntlet 50 BG Color:</label>
-    <input type="color" id="gauntlet-50-bgcolor" name="gauntlet-50-bgcolor" value=""><br>
+<label for="gauntlet-50-name">Gauntlet 50:</label>
+<input type="text" id="gauntlet-50-name" name="gauntlet-50-name" value="Split"><br>
+<label for="gauntlet-50-textcolor">Gauntlet 50 Text Color:</label>
+<input type="color" id="gauntlet-50-textcolor" name="gauntlet-50-textcolor" value="#FFA7FB"><br>
+<label for="gauntlet-50-bgcolor">Gauntlet 50 BG Color:</label>
+<input type="color" id="gauntlet-50-bgcolor" name="gauntlet-50-bgcolor" value="#3A0037"><br>
 
-    <!-- Gauntlet 51 -->
-    <label for="gauntlet-51-name">Gauntlet 51:</label>
-    <input type="text" id="gauntlet-51-name" name="gauntlet-51-name" value="NCS I"><br>
-    <label for="gauntlet-51-textcolor">Gauntlet 51 Text Color:</label>
-    <input type="color" id="gauntlet-51-textcolor" name="gauntlet-51-textcolor" value=""><br>
-    <label for="gauntlet-51-bgcolor">Gauntlet 51 BG Color:</label>
-    <input type="color" id="gauntlet-51-bgcolor" name="gauntlet-51-bgcolor" value=""><br>
+<label for="gauntlet-51-name">Gauntlet 51:</label>
+<input type="text" id="gauntlet-51-name" name="gauntlet-51-name" value="NCS I"><br>
+<label for="gauntlet-51-textcolor">Gauntlet 51 Text Color:</label>
+<input type="color" id="gauntlet-51-textcolor" name="gauntlet-51-textcolor" value="#00FFFF"><br>
+<label for="gauntlet-51-bgcolor">Gauntlet 51 BG Color:</label>
+<input type="color" id="gauntlet-51-bgcolor" name="gauntlet-51-bgcolor" value="#023139"><br>
 
-    <!-- Gauntlet 52 -->
-    <label for="gauntlet-52-name">Gauntlet 52:</label>
-    <input type="text" id="gauntlet-52-name" name="gauntlet-52-name" value="NCS II"><br>
-    <label for="gauntlet-52-textcolor">Gauntlet 52 Text Color:</label>
-    <input type="color" id="gauntlet-52-textcolor" name="gauntlet-52-textcolor" value=""><br>
-    <label for="gauntlet-52-bgcolor">Gauntlet 52 BG Color:</label>
-    <input type="color" id="gauntlet-52-bgcolor" name="gauntlet-52-bgcolor" value=""><br>
+<label for="gauntlet-52-name">Gauntlet 52:</label>
+<input type="text" id="gauntlet-52-name" name="gauntlet-52-name" value="NCS II"><br>
+<label for="gauntlet-52-textcolor">Gauntlet 52 Text Color:</label>
+<input type="color" id="gauntlet-52-textcolor" name="gauntlet-52-textcolor" value="#FFAAFF"><br>
+<label for="gauntlet-52-bgcolor">Gauntlet 52 BG Color:</label>
+<input type="color" id="gauntlet-52-bgcolor" name="gauntlet-52-bgcolor" value="#341536"><br>
 
         </div>
     </fieldset>

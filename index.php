@@ -194,6 +194,26 @@ function openProfle() {
 	}
 }
 
+
+// NATIVE
+function darknessPage(){
+	const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'black';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease-in-out';
+    overlay.style.pointerEvents = 'none';
+    document.body.appendChild(overlay);
+	setTimeout(function () {
+    	overlay.style.opacity = '1';
+	}, 100);  
+}
+
 </script>
 
 <script>
