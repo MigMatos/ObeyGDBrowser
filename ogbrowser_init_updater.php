@@ -330,8 +330,10 @@ class OGDBrowserUpdater
         if (rmdir($this->updateDir)) {
             $this->updateLogger("Update directory removed: " . $this->updateDir, 100);
         } else {
-            $this->updateLogger("Error removing update directory: " . $this->updateDir, 100);
+            $this->updateLogger("Flushing update directory: " . $this->updateDir, 100);
         }
+
+        http_response_code(250);
 
         $installerFile = $this->targetDir . "/installer.php";
         if (file_exists($installerFile)) {

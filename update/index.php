@@ -274,7 +274,11 @@ function checkProgressBar() {
             info = info ? info.trim() : '';
 
             const percentageValue = parseFloat(percentage.trim());
-            if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
+            if(!isNaN(percentageValue) && percentageValue >= 100) {
+                console.log("Finished successfully");
+                finishedUpdate();
+            }
+            else if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
                 progressBarPercentage(percentageValue);
             }
             progressInfo.textContent = info;
