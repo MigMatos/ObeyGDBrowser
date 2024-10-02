@@ -107,6 +107,54 @@ class BrowserUtils {
         }
     }
 
+    public static function isValidText($text) {
+        return (strlen($text) > 0 && strlen($text) <= 255 && !preg_match('/[^a-zA-Z0-9\s]/', $text));
+    }
+
+    public static function convertBytesToMB($bytes) {
+        $megabytes = $bytes / (1024 * 1024);
+        return floatval(number_format($megabytes, 2)); 
+    }
+    
+    public static function convertSongURL($url) {
+        if (strpos($url, 'dropbox') !== false) {
+            return str_replace('www.dropbox.com', 'dl.dropboxusercontent.com', $url);
+        }
+        return $url;
+    }
+    
+    public static function getFileSizeAndMime($url) {
+        $size = 0;
+        $mime = '';
+    
+        $headers = get_headers($url, 1);
+        if (isset($headers['Content-Length'])) {
+            $size = $headers['Content-Length'];
+        }
+        if (isset($headers['Content-Type'])) {
+            $mime = $headers['Content-Type'];
+        }
+    
+        if (empty($mime) || empty($size)) {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_HEADER, TRUE);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+            curl_exec($ch);
+            $size = curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+            $mime = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+            curl_close($ch);
+        }
+    
+        if (empty($mime) && preg_match('/\.(mp3)$/i', $url)) {
+            $mime = 'audio/mpeg';
+        }
+    
+        return ['size' => $size, 'mime' => $mime];
+    }
+
 }
 
 

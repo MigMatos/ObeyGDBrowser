@@ -146,6 +146,29 @@
 	</div>
 
 
+	<div class="popup" id="addSong">
+		<form autocomplete="off" id="songAddForm" class="purplebox bounce center supercenter" style="width: 80vh; height: 80%">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%">Add Your Song</h2>
+			<p>At the moment YouTube links are <cr>not supported</cr>, only direct links</p>
+
+			<input type="text" name="act" value="add" hidden>
+
+			<h3 class="smaller" style="font-size: 5.5vh; margin-top: 1%">Song Name</h3>
+			<input type="text" name="name" required style="width:85%; margin: 1% 0% 1% 0%; height: 8%; text-align: center;"><br>
+
+			<h3 class="smaller" style="font-size: 5.5vh; margin-top: 1%">Song Author</h3>
+			<input type="text" name="author" required style="width:85%; margin: 1% 0% 1% 0%; height: 8%; text-align: center;"><br>
+
+			<h3 class="smaller" style="font-size: 5.5vh; margin-top: 1%">Song Link (URL)</h3>
+			<input type="url" name="url" required  style="width:85%; margin: 1% 0% 1% 0%; height: 8%; text-align: center;"><br>
+
+			<img style="margin-top: 6vh;" src="../assets/btn-submit.png" height=7.5%; id="" class="gdButton center submitForm">
+
+			<img class="closeWindow gdButton" src="../assets/close.png" height="13%" style="position: absolute; top: -7.5%; left: -6vh">
+		</form>
+	</div>
+
+
 	<div class="popup" id="purgeDiv">
 		<div class="fancybox bounce center supercenter" style="width: 35%; height: 28%">
 			<h2 class="smaller center" style="font-size: 5.5vh">Delete All</h2>
@@ -184,6 +207,7 @@
 
 	<div class="center noframe" style="position:absolute; top: 8%; left: 0%; right: 0%">
 		<h1 id="header" style="position: absolute; left: 50%; transform: translate(-50%, 1280%);"></h1>
+		<img class="gdsButton addSongClass" src="../assets/addSongBtn.png" style="background: unset; border: unset; box-shadow: none; pointer-events: all;  transform: translate(-480%, 495%); filter: hue-rotate(230deg); height: 14.5vh;position: absolute; left: 50%;cursor: click;" tabindex="0">
 	</div>
 
 	<div style="text-align: right; position:absolute; top: 1%; right: 2%">
@@ -258,6 +282,9 @@ function WIPFunction() {
 	CreateFLAlert("WIP","This feature is  `r0 not finished`, wait for  `g0 future updates!`");
 }
 
+$('.addSongClass').click(function() { 
+	$('#addSong').show();
+})
 
 
 function saveAlbumToCache(songName, imageUrl) {
@@ -831,5 +858,58 @@ $(document).keydown(function(k) {
 	if (k.which == 39 && $('#pageUp').is(":visible")) $('#pageUp').trigger('click')       // right
 
 });
+
+$('.submitForm').click(function() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+
+	if ( $('.box-auto').prop("checked") == false ){
+		$('.box-auto').prop("checked",true);
+		$('.box-auto').val("0");
+	}
+	
+    let form = document.getElementById($(this).closest('form').attr('id'));
+	form.dispatchEvent(new Event('submit'));
+    if (form.checkValidity()) {
+        let formData = new FormData(form);
+
+        fetch('../api/songs.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => {$('.box-auto').prop("checked",false); $('.box-auto').val("1"); return response.text();})
+        .then(data => {
+			try {
+				data = JSON.parse(data); 
+			} catch(err) {
+				console.log("Data Response: ", data);
+				console.error("Error in JSON Structure");
+			}
+			console.log("Data Response: ", data);
+			if(data.error == false && data.songID) {
+				changeLoadingAlert(`${data.message}`,"done");
+				CreateFLAlert("Song Uploaded!","Your song ID: `a0 **" + data.songID + "**`")
+				$(`#${$(this).closest('form').attr('id')}`).find('input, textarea, select').not('[name="act"]').val('');
+				$(this).closest('.popup').hide();
+			}
+			else {
+				changeLoadingAlert(`${data.message}`,"error");
+			}
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1500);
+			
+        })
+        .catch(error => {
+			changeLoadingAlert(`${error}`,"error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1500);
+        });
+		
+		
+    } else {
+		changeLoadingAlert("Data not completed!","error");
+        form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+    }
+})
 
 </script>

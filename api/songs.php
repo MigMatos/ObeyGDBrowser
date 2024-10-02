@@ -9,14 +9,32 @@ $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
-
+    include('./utils.php');
     if (!empty($params)) {
         $results = songsGD($params, $db, $gdps_settings);
         echo $results;
     } else {
         echo json_encode(array("error" => "Please provide at least one search parameter in the GET request."));
     }
-} 
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
+    include('./utils.php');
+    $action = $_POST['act'] ?? null;
+
+    if (!$action) {
+        echo json_encode(array("error" => "Please provide an action parameter in the POST request."));
+        exit;
+    }
+
+    switch ($action) {
+        case 'add':
+            echo addSong($_POST, $db, $logged, $accountID);
+            break;
+
+        default:
+            echo json_encode(array("error" => "Invalid action specified."));
+            break;
+    }
+}
 
 // PARAMS
 // username = userName
@@ -151,6 +169,71 @@ function songsGD($params, $db, $gdps_settings) {
 
     return json_encode($json_data);
 }
+
+
+// PARAMS
+// name 
+// author
+// authorID (optional)
+// url
+
+function addSong($params, $db, $logged, $accountID) {
+    if (!isset($params['name']) || !BrowserUtils::isValidText($params['name'])) {
+        return json_encode(['error' => true, 'message' => 'Invalid song name.']);
+    }
+
+    if (!isset($params['author']) || !BrowserUtils::isValidText($params['author'])) {
+        return json_encode(['error' => true, 'message' => 'Invalid author name.']);
+    }
+
+    $authorID = isset($params['authorID']) ? intval($params['authorID']) : ($logged ? intval($accountID) : 9);
+    $url = BrowserUtils::convertSongURL($params['url']);
+    
+    // ------- check if song exist ---------
+    $checkStmt = $db->prepare("SELECT ID FROM songs WHERE download = ? OR download = ?");
+    $checkStmt->execute([urlencode($url), $url]);
+    if ($existingSong = $checkStmt->fetch(PDO::FETCH_ASSOC)) {
+        return json_encode(['error' => false, 'message' => 'Song already exists.', 'songID' => $existingSong['ID']]);
+    }
+    // -------------------------------------
+
+    $sizeAndMime = BrowserUtils::getFileSizeAndMime($url);
+    if ($sizeAndMime['mime'] !== 'audio/mpeg') {
+        return json_encode(['error' => true, 'message' => 'Invalid file format. Only MP3 allowed.']);
+    }
+
+    $hash = base64_encode($_SERVER['REMOTE_ADDR']);
+
+    $query = "INSERT INTO songs (name, authorID, authorName, size, download, hash, isDisabled, levelsCount, reuploadTime) 
+              VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?)";
+    $stmt = $db->prepare($query);
+
+    try {
+        $stmt->execute([
+            strval($params['name']),
+            $authorID,
+            strval($params['author']),
+            BrowserUtils::convertBytesToMB(intval($sizeAndMime['size'])),
+            urlencode($url),
+            $hash,
+            time()
+        ]);
+    } catch (PDOException $e) {
+        return json_encode([
+            'error' => true,
+            'message' => 'SQL execution error: ' . $e->getMessage()
+        ]);
+    }
+
+    return json_encode([
+        'error' => false,
+        'message' => 'Song added successfully.',
+        'songID' => $db->lastInsertId()
+    ]);
+}
+
+
+
 
 
 ?>

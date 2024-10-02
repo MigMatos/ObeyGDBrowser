@@ -117,6 +117,10 @@
 		<img class="gdButton" src="../assets/newBtn.png" width="40%" id="createMapPack"></a>
 	</div>
 
+	<div onclick="helpGauntlet()" title="help" style="cursor: pointer; position:absolute; top: 2.5%; right: 2.5%; width: 15%; text-align: right;">
+		<img class="gdButton" src="../assets/help.png" width="40%"></a>
+	</div>
+
 	<div style="position:absolute; top: 2%; left: -1.95%; width: 10%; height: 25%; pointer-events: none">
 		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
 	</div>
@@ -162,7 +166,9 @@ let loading = true;
 let pageCache = null;
 
 
-
+function helpGauntlet() {
+	CreateFLAlert("Help!","`g0 You can't see your gauntlets?`\n\n\n- You need to have at least 3 gauntlets for **proper display.**\n- Restart the game.\n- Check that your _internet connection_ is working.");
+}
 
 
 function submitsGauntlet(objectform,type) {

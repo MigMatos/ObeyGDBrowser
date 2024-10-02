@@ -1,3 +1,5 @@
+<?php include("../_init_.php"); ?>
+
 <head>
 	<title id="tabTitle">Level Search</title>
 	<meta charset="utf-8">
