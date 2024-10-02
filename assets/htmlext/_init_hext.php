@@ -22,8 +22,4 @@
 
     $baseURL = getPath();
 
-    echo "$baseURL <br>";
-
-echo $_SERVER['SCRIPT_NAME'];
-
 ?>
