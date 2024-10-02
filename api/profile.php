@@ -36,9 +36,12 @@ function profileUsers($params, $db, $gdps_settings) {
         $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE users.userName = :user";
         $sql = $db->prepare($sql);
         $sql->execute([':user' => strval($params['username']) ]);
-    }
-    else {
-        return json_encode(array("error" => "The 'accountID' or 'username' parameter is required in the GET request."));;
+    } else if (isset($params['discordID'])) {
+        $sql = "SELECT users.*, users.userName as originalUserName, accounts.* FROM users LEFT JOIN accounts ON users.extID = accounts.accountID WHERE accounts.discordID = :id";
+        $sql = $db->prepare($sql);
+        $sql->execute([':id' => intval($params['discordID']) ]);
+    } else {
+        return json_encode(array("error" => "'accountID' or 'username' or 'discordID' parameter is required in the GET request."));;
     }
 
 
@@ -61,12 +64,18 @@ function profileUsers($params, $db, $gdps_settings) {
         else return "off";
     }
 
+    function getDiscordBadge($id,$req) {
+        if (intval($req) == "1") return intval($id);
+        else return "null";
+    }
+
 
 
     $json_data = array_map(function ($result) use ($db, $gdps_settings) {
 
         $accountID = strval($result["extID"]);
         $moderation = json_decode(getRoles(["accountid" => $accountID], $db, $gdps_settings), true);
+        $isme = checkisme(strval($result["userID"]),strval($result["extID"]));
 
         $level = [
             "username" => strval($result["originalUserName"]),
@@ -88,6 +97,7 @@ function profileUsers($params, $db, $gdps_settings) {
             "youtube" => !empty($result["youtubeurl"]) ? strval($result["youtubeurl"]) : "null",
             "twitter" => !empty($result["twitter"]) ? strval($result["twitter"]) : "null", 
             "twitch" => !empty($result["twitch"]) ? strval($result["twitch"]) : "null", 
+            "discord" => getDiscordBadge($result["discordID"],$result["discordLinkReq"]),
             "ship" => intval($result["accShip"]),
             "ball" => intval($result["accBall"]),
             "ufo" => intval($result["accBird"]),
@@ -102,9 +112,20 @@ function profileUsers($params, $db, $gdps_settings) {
             "deathEffect" => intval($result["accExplosion"]),
             "glow" => boolval($result["accGlow"]),
             "lastPlayed" => strval(date('Y-m-d H:i:s', intval($result["lastPlayed"]))),
-            "me" => checkisme(strval($result["userID"]),strval($result["extID"])),
+            "me" => $isme,
             "admin" => intval($result["isAdmin"]),
         ];
+
+        if($isme == 1) {
+            $extData = [
+                "discordRaw" => intval($result["discordID"]),
+                "discordRawReq" => intval($result["discordLinkReq"]),
+                "friendsCount" => intval($result["friendsCount"]),
+                "completedLvls" => intval($result["completedLvls"])
+            ];
+
+            $level = array_merge($level, $extData);
+        }
 
         return $level;
     }, $results);

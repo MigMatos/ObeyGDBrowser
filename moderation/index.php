@@ -142,6 +142,8 @@ let isAdmin = false;
 
 
 
+
+
 function locked() {
 	CreateFLAlert("Wait!!!","# This feature will be **available on October 6th.**\nWe're making sure `a0 **this feature works perfectly**` `r0 (and without bugs)` before its big launch! ✨\n\n**Join our support server and get news!** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 }

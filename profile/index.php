@@ -52,6 +52,8 @@ $data["USERPERMISSIONS"] = $userPermissionsJSON;
 
 // $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
 include("../assets/htmlext/flayeralert.php");
+include("../assets/htmlext/loadingalert.php");
+
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
     $value = is_numeric($value) ? intval($value) : $value;

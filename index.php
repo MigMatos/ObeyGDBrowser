@@ -85,6 +85,18 @@
 	} ?>
 	
 
+	<div class="popup" id="alertMismathAssets" style="z-index: 9999; background-color: transparent; top: -38vh; pointer-events: none;">
+		<div class="transparentbox bounce center supercenter" style="width: 83vh; height: auto; background-color: #000000c9;">
+			<h3 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block; color: red;"><img src="./assets/x.png" style="width: 5vh; margin-right: 1.5vh;">Version mismatch</h3>
+				<input type="text" name="act" value="delete" hidden>
+				<h3 class="bigger center" style="line-height: 5vh; margin-top: 1.5vh; text-wrap: wrap;">
+					Clear your cache browser and restart or wait a while until this alert disappears.
+				</h3>
+				<img onclick="viewAdvMismatchAlert('alertMismathAssets')" class="closeWindow gdButton" src="./assets/smallinfo.png" height="30%" style="position: absolute;top: 7.5%;left: 2.5%;cursor: click;" tabindex="0">
+		</div>
+		
+	</div>
+
 	<!-- <div class="menu-achievements" style="position:absolute; top: 5.5%; left: 3%; width: 12%;">
 		<a href="../achievements"><img class="gdButton" src="assets/achievements.png" width="40%"></a>
 	</div>
@@ -205,6 +217,18 @@ if (isAdmin) {
             changeLoadingAlert(`Checking updates...`);
             checkCoreBrowser();
         }, 700);
+}
+
+if (typeof globalMismatch === 'undefined' || globalMismatch != "1") {
+    console.warn("OGDBROWSER: Version and asset discrepancy, this may cause errors when viewing new features or completely broken functionalities. Clear your browser cache for this site and refresh, or wait for your web host to sync the assets. If you're a GDPSFH user, changes may take up to 1 hour to appear.");
+	setTimeout(function () {
+		$("#alertMismathAssets").show()
+	}, 500);
+}
+
+function viewAdvMismatchAlert(obj) {
+	$(`#${obj}`).hide();
+	CreateFLAlert("Discrepancy!","# This may cause errors in new features or completely broken functionalities.\n`a0 Clear your browser cache for this site and refresh, or wait for your web host to sync the assets.`\n\n\n\n## If you're a GDPSFH user, changes may take up to 1 hour to appear.")
 }
 
 
@@ -359,7 +383,7 @@ function searchRedirect(url,type) {
 	}
 
 	function showCredits() {
-		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **RobTop:** Developer for Geometry Dash!\n- **OsitaLolita:** Ideas and feedback! <3 \n\n# `g0 ** Dev Helpers **` \n- **gdNoxi**: _Partial Gauntlets API_. \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD\n- uproxide\n- M366\n- YeahhColix \n- Janix"
+		$creditsDesc = "# `g0 ** Developers ** ` \n- **MigMatos:** Developer of ObeyGDBrowser \n- **GD Colon:** Original developer of GDBrowser \n\n# `g0 ** Special Thanks ** ` \n- **RobTop:** Developer for Geometry Dash!\n- **OsitaLolita:** Ideas and feedback! <3 \n\n# `g0 ** Dev Helpers **` \n- **gdNoxi**: _Small code in get Gauntlets API_. \n- **YeahhColix**: _Gauntlet colors! Thx!_. \n\n# `a0 ** DONATORS **` \n- MidairGD \n\n# `g0 ** Bug Finders ** ` \n- Unix \n- NitroRMX \n- Karmagmr0\n- LostShadowGD\n- uproxide\n- M366\n- YeahhColix \n- Janix \n\n **Join our support server** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)"
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 
@@ -369,7 +393,7 @@ function searchRedirect(url,type) {
 	if (alertValue == "installed"){
 		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
 		window.history.pushState(null, null, newURLpush);
-		CreateFLAlert("ObeyGDBrowser 1.0","# Update installed successfully! \n## `r0 If you are a GDPSFH user, you must wait up to **one hour to see the changes** from the update.`\n")
+		CreateFLAlert("ObeyGDBrowser 1.0","# Update installed successfully! \n## Explore ObeyGDBrowser!\nWe recommend accessing GDPS Settings to update your GDPS configurations (just click in the button `save` and done!).\n\n\n# [Open GDPS Settings!](./gdpsettings/)")
 	}
 
 </script>

@@ -180,16 +180,7 @@
                 if ($result['isAdmin'] == "1") {
 
 
-
-
-
-
-
-
-
-
-
-                    $latesttag = "MASTER";
+                    $latesttag = getLatestReleaseUrl($owner, $repo);
                     
                     
                     mkdir($flw, 0777, true) ?? rmdir($$flw) && mkdir($flw, 0777, true);
@@ -200,7 +191,7 @@
                         echo "<script>";
                         echo 'changeLoadingAlert("Installing...");';
                         echo "</script>";
-                        $dir = "https://github.com/MigMatos/ObeyGDBrowser/archive/refs/heads/main.zip";
+                        $dir = "https://codeload.github.com/MigMatos/ObeyGDBrowser/zip/refs/tags/$latesttag";
                         $dir = downloadAndExtractRepo($dir);
 
                         moveFilesToCurrentDirectory("./" . $dir);

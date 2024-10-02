@@ -127,7 +127,7 @@
 			<h2 class="smaller center" style="margin-top: 2%">Account Settings</h2>
 			<div class="box-subopt">
 				<div class="gdsButton" onclick="SocialSettings()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Links</h3></div>
-				<div class="gdsButton blue" onclick="SocialPreferences()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
+				<div class="gdsButton blue" onclick="SocialPreferences()" disabled style="pointer-events: none; padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
 			</div>
 
 			<h2 class="smaller center" style="margin-top: 2%">ObeyGDBrowser</h2>
@@ -152,20 +152,21 @@
 
 	<div class="popup" id="ogdbDiscordLinkPopup">
 		<form id="formDiscordLink" autocomplete="off" class="bluebox bounce center supercenter" style="height: 40%; width: 95vh">
+			<input type="text" name="act" value="discord" hidden>
 			<h3 class="smaller center" style="font-size: 5.5vh">Link your Discord!</h3>
 			<div id="filterStuff">
 			
 			<h2 class="smaller center" style="margin-top: 2%">Discord ID</h2>
 			<div class="box-subopt" style="background-color: transparent;">
-				<input type="number" name="id" id="discordID" minlength="1" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
-				<div><h1 class="box-subopt-checkbox"><input type="checkbox" name="discord" id="box-ogdb-enablelink"><label for="box-ogdb-enablelink" class="gdcheckbox gdButton"></label>Discord Icon in Profile</h1></div>
+				<input type="number" name="id" id="ogdbdiscordID" min="1" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+				<div><h1 class="box-subopt-checkbox"><input class="box-auto" type="checkbox" name="discordLinkReq" value="1" id="box-ogdb-enablelink"><label for="box-ogdb-enablelink" class="gdcheckbox gdButton"></label>Discord Icon in Profile</h1></div>
 			</div>
 
 			</div>
 			
 			<div style="display: flex; justify-content: center; margin-top: 3vh;">
 				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
-				<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
+				<div class="gdsButton blue submitForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Update</h3></div>
 			</div>
 		</form>
 	</div>
@@ -174,22 +175,23 @@
 
 	<div class="popup" id="socialLinksPopup">
 		<form id="formLinksPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 70.5%; width: 95vh">
+			<input type="text" name="act" value="sociallinks" hidden>
 			<h3 class="smaller center" style="font-size: 5.5vh">Social Links</h3>
 			<div id="filterStuff">
 			
 			<h2 class="smaller center" style="margin-top: 2%">YouTube</h2>
 			<div class="box-subopt" style="background-color: transparent;">
-				<input type="text" name="youtube" id="socialYoutube" placeholder="youtube.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+				<input type="text" name="youtube" id="socialYoutube" maxlength="255" placeholder="youtube.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
 			</div>
 
 			<h2 class="smaller center" style="margin-top: 2%">Twitter</h2>
 			<div class="box-subopt" style="background-color: transparent;">
-				<input type="text" name="twitter" id="socialTwitter" placeholder="twitter.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+				<input type="text" name="twitter" id="socialTwitter" maxlength="255" placeholder="twitter.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
 			</div>
 
 			<h2 class="smaller center" style="margin-top: 2%">Twitch</h2>
 			<div class="box-subopt" style="background-color: transparent;">
-				<input type="text" name="twitch" id="socialTwitch" placeholder="twitch.tv/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+				<input type="text" name="twitch" id="socialTwitch" maxlength="255" placeholder="twitch.tv/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
 			</div>
 
 			</div>
@@ -346,7 +348,7 @@
 			<a id="youtube" style="display: none" target="_blank" href="https://youtube.com/channel/[[YOUTUBE]]"><img src="../assets/social/youtube.png" class="gdButton socialButton"></a>
 			<a id="twitter" style="display: none" target="_blank" href="https://twitter.com/[[TWITTER]]"><img src="../assets/social/twitter.png" class="gdButton socialButton"></a>
 			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/social/twitch.png" class="gdButton socialButton"></a>
-			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/social/discord.png" class="gdButton socialButton"></a>
+			<a id="discord"  style="display: none" target="_blank" href="https://discord.com/users/[[DISCORD]]"><img src="../assets/social/discord.png" class="gdButton socialButton"></a>
 		</div>
 
 		<div class="supercenter" style="left: 5%; top: 65%; height: 10%">
@@ -380,6 +382,7 @@
 $('#mainIcon').on('DOMNodeInserted', 'img', function () {
 	$("link[rel='icon']").attr("href", $(this).attr("src"));
 });
+$("#loading-main").hide();
 </script>
 
 <script>
@@ -463,6 +466,10 @@ function CurrentPermissions() {
 }
 
 function SocialSettings() {
+	if (`[[YOUTUBE]]` != "null") $('#socialYoutube').val("[[YOUTUBE]]");
+	if (`[[TWITTER]]` != "null") $('#twitter').val("[[TWITTER]]");
+	if (`[[TWITCH]]` != "null")  $('#twitch').val("[[TWITCH]]");
+
 	$('#socialLinksPopup').show()
 }
 
@@ -471,6 +478,12 @@ function SocialPreferences() {
 }
 
 function OGDBAccountLink() {
+	if("[[DISCORDRAW]]" != "0") {
+		$("#ogdbdiscordID").val("[[DISCORDID]]");
+	}
+	if("[[DISCORDRAWREQ]]" != "0") {
+		$("#box-ogdb-enablelink").prop('checked',true);
+	}
 	$('#ogdbDiscordLinkPopup').show()
 }
 
@@ -541,6 +554,7 @@ if ([[CP]] > 0) $('#creatorpoints').show()
 if (`[[YOUTUBE]]` != "null") $('#youtube').show()
 if (`[[TWITTER]]` != "null") $('#twitter').show()
 if (`[[TWITCH]]` != "null")  $('#twitch').show()
+if (`[[DISCORD]]` != "null")  $('#discord').show()
 
 let numRank = parseInt("[[RANK]]")
 if (numRank < 2) $(".profileTrophy").attr("src","../assets/trophies/1.png")
@@ -772,6 +786,57 @@ $(document).keydown(function(k) {
 	}
 
 }) 
+
+$('.submitForm').click(function() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+
+	if ( $('.box-auto').prop("checked") == false ){
+		$('.box-auto').prop("checked",true);
+		$('.box-auto').val("0");
+	}
+	
+    let form = document.getElementById($(this).closest('form').attr('id'));
+	form.dispatchEvent(new Event('submit'));
+    if (form.checkValidity()) {
+        let formData = new FormData(form);
+
+        fetch('../api/profileAdv.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => {$('.box-auto').prop("checked",false); $('.box-auto').val("1"); return response.text();})
+        .then(data => {
+			$('#loading-main').show();
+			try {
+				data = JSON.parse(data); 
+			} catch(err) {
+				console.log("Data Response: ", data);
+				console.error("Error in JSON Structure");
+			}
+			console.log("Data Response: ", data);
+			if(data.error == false) {
+				changeLoadingAlert(`${data.message}`,"done");
+			}
+			else {
+				changeLoadingAlert(`${data.message}`,"error");
+			}
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); location.reload(true); }, 1500);
+			$(this).closest('.popup').hide();
+        })
+        .catch(error => {
+			changeLoadingAlert(`${error}`,"error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1500);
+        });
+		
+		
+    } else {
+		changeLoadingAlert("Data not completed!","error");
+        form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+    }
+})
 
 $('.closeWindow').click(function() {
     $(this).closest('.popup').hide();

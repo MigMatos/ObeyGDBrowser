@@ -73,6 +73,11 @@ window.onerror = function (message, source, lineno, colno, error) {
     return true;
 };
 
+// ------------ IMPORTANT ------------ 
+
+let globalMismatch = 1;
+
+// ------------ IMPORTANT ------------ 
 
 
 if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" === "TRUE") {

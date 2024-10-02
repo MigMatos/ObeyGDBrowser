@@ -150,10 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById("updateType").selectedIndex = branchSelected;
 	fetchUpdate(branchSelected);
 	document.addEventListener('FLlayerclosed', function() {
+        try {
 		const selectedValue = document.getElementById(FLIDSelect).value;
 		if (selectedValue == 1) CreateFLAlert("Warning","Pre-release updates may **contain beta or alpha updates**.\n\n\n- `a0 Beta:` is a version with new features and some bugs.\n- `r0 Alpha:` is an early-stage version with new, incomplete features and bugs.")
 		else if (selectedValue == 2) CreateFLAlert("Warning","Unstable updates are **usually unstable, incomplete and unsafe**, these are `r0 not recommended` and their use is mostly for developers.")
 		fetchUpdate(selectedValue);
+        } catch (e) {
+            console.error(e);
+        }
 	});
 });
 
