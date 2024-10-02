@@ -5,7 +5,6 @@ include("../assets/htmlext/flayeralert.php");
 
 $includeFile = "../".$includeFolder."generatePass.php";
 
-// Verificar si el archivo existe
 if (file_exists($includeFile)) {
     require $includeFile;
 } else {
@@ -31,7 +30,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
 
             include("../api/profile.php");
             include("../api/roles.php");
-
+            
             $params = ["username" => $userName];
             $response = profileUsers($params, $db, $gdps_settings);
             $result = json_decode($response, true);
@@ -41,12 +40,18 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
             $_SESSION['userName'] = $result['username'];
             $_SESSION['userID'] = $result['playerID'];
             $_SESSION['accountID'] = $result['accountID'];
+            $_SESSION['userPermissions'] = [];
+
+            
 
             $params = ["accountid" => 1];
             $response = getRoles($params, $db, $gdps_settings);
             $resultroles = json_decode($response, true);
-
+            
             $_SESSION['isAdmin'] = $resultroles['user']['isAdmin'] ?? $result['admin'];
+            
+            // Permissions
+            if($_SESSION['isAdmin'] == "1" || $_SESSION['isAdmin'] == 1) $resultroles['permissions'][] = "admin";
             updateUserPerms($resultroles['permissions'] ?? []);
 
             header("Location: ?success=1");
@@ -77,7 +82,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
 <body style="background: unset; background-color: transparent; width: 100%; height: 100%;">
 
 
-<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%">
+<div class="blueBox center supercenter" style="width: 135vh; height: auto; margin-top: -0.7%">
     <h2>Login</h2>
     <div><h3 id="alertLoginError" style="display: none; color: #ff6e6e; margin: 1vh 20vh 0vh 20vh; padding: 1vh; border-radius: 2vh; background-color: #0000005c;">Username or password is incorrect.</h3></div>
     <div><h3 id="alertIPError" style="display: none; color: #ff6e6e; margin: 1vh 10vh 0vh 10vh; padding: 1vh; border-radius: 2vh; background-color: #0000005c;">Too many attempts, account temporarily blocked from this IP.</h3></div>

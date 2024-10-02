@@ -151,6 +151,10 @@ body code {
     background: linear-gradient(to bottom right, #de512b, red);
 }
 
+.gdsButton.blue {
+    background: linear-gradient(to bottom right, #0edaff, #39ebfe);
+}
+
 .noclick {
     pointer-events: none;
 }

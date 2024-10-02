@@ -1,9 +1,7 @@
 <?php 
 
 
-
-
-// error_reporting(0);
+error_reporting(0);
 
 $file = str_replace("\\", "/", __FILE__);
 $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
@@ -34,7 +32,7 @@ function getRoles($params, $db, $gdps_settings) {
     $order = "timestamp ASC";
 
 
-    $accountID = $params["accountid"]; 
+    $accountID = strval($params["accountid"]); 
     $query = "
         SELECT r.*, acc.isAdmin, acc.userName, acc.accountID
         FROM roleassign AS ra
@@ -54,7 +52,7 @@ function getRoles($params, $db, $gdps_settings) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
-    // Crear el array de permisos excluyendo las columnas no deseadas
+    // remove columns
     $resultPermissions = array_values(array_diff(array_keys($result), ['roleID', 'priority', 'roleName', 'isDefault', 'commentColor', 'modBadgeLevel', 'userName', 'accountID']));
 
 

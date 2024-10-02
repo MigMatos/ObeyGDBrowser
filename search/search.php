@@ -260,8 +260,13 @@ function Append(firstLoad, noCache) {
 
 		let filteredSong = clean(x.songName.replace(/[^ -~]/g, ""))
 		if (!filteredSong) filteredSong = clean(x.songName)
-		let songColor = x.customSong == 0 ? "blue" : (x.songLink && !x.songLink.match(/^https?:\/\/\audio\.ngfiles\.com\//)) ? "nong" : "whatIfItWasPurple"
-		let noLink = songColor != "whatIfItWasPurple"
+		let songColor = x.customSong == 0 ? "blue"
+			: (x.songLibrary == "Unknown") ? "unknownLibrary"
+			: (x.songLibrary == "NCS") ? "ncsLibrary"
+			: (x.songLibrary) ? "songLibrary"
+			: (x.songLink && !x.songLink.match(/^https?:\/\/\audio\.ngfiles\.com\//)) ? "nong"
+			: "whatIfItWasPurple"
+		let noLink = songColor == "blue"
 
 		$('#searchBox').append(`<div class="searchresult" title="${clean(x.description)}">
 			<h1 class="lessspaced pre" title="${x.name} by ${!x.author || x.author == "-" ? "some nerd" : x.author}" style="width: fit-content; padding-right: 1%">${clean(x.name || " ")}</h1>
@@ -272,7 +277,7 @@ function Append(firstLoad, noCache) {
 				-->${x.large ? `<img class="help valign sideSpaceD" title="${x.objects}${x.objects == 65535 ? "+" : ""} objects" src="../assets/large.png" height="12%">` : ''}<!--
 				-->${x.twoPlayer ? `<img class="help valign sideSpaceD" title="Two player level" src="../assets/twoPlayer.png" height="12%">` : ''}
 			</h2>
-			<h3 class="lessSpaced help ${noLink ? "" : 'gdButton '}pre ${songColor}" title="${filteredSong} by ${x.songAuthor} (${x.songID})" style="overflow: hidden; max-height: 19%; width: fit-content; padding: 1% 1% 0% 0%">${noLink ? filteredSong : `<a target="_blank" style="width: fit-content" href="https://www.newgrounds.com/audio/listen/${x.songID}">${filteredSong}</a>`}</h3>
+			<h3 class="lessSpaced help ${noLink ? "" : 'gdButton '}pre ${songColor}" title="${filteredSong} by ${x.songAuthor} (${x.songID})" style="overflow: hidden; max-height: 19%; width: fit-content; padding: 1% 1% 0% 0%">${noLink ? filteredSong : `<a onclick="playSong(this)" songID="${x.songID}" style="width: fit-content" >${filteredSong}</a>`}</h3>
 			<h3 class="lessSpaced" style="width: fit-content" title="">
 				<img class="help valign rightSpace" title="Length" src="../assets/time.png" height="14%">${x.length}
 				<img class="help valign rightSpace" title="Downloads" src="../assets/download.png" height="14%">${x.downloads}
@@ -443,5 +448,12 @@ $(document).keydown(function(k) {
 	if (k.which == 39 && $('#pageUp').is(":visible")) $('#pageUp').trigger('click')       // right
 
 });
+
+function playSong(song) {
+	console.warn("Ok?");
+	let songID = song.getAttribute('songID');
+	openGdCustomFrame("../songs/index.php?str="+songID+"&gdframe");
+}
+
 
 </script>

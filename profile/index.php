@@ -2,6 +2,7 @@
 
 include("../_init_.php");
 include("../api/profile.php");
+include("../api/roles.php");
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http';
 $url = $_SERVER['REQUEST_URI'];
@@ -45,6 +46,9 @@ $data = $data[0];
 if(isset($_GET["gdframe"])) {
     $data["GDFRAME"] = "TRUE"; 
 } else { $data["GDFRAME"] = "FALSE"; }
+
+
+$data["USERPERMISSIONS"] = $userPermissionsJSON;
 
 // $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
 include("../assets/htmlext/flayeralert.php");

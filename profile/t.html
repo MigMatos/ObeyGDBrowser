@@ -3,20 +3,67 @@
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=14" type="text/css" rel="stylesheet">
     
-	<link rel="icon" href="">
+	<link rel="icon" href="" sizes="96x96" type="image/png">
 	<meta id="meta-title" property="og:title" content="[[USERNAME]]'s profile">
 	<meta id="meta-desc" property="og:description" content="Stars: [[STARS]] | Diamonds: [[DIAMONDS]] | Coins: [[COINS]] | User Coins: [[USERCOINS]] | Demons: [[DEMONS]] | CP: [[CP]]">
-	<meta id="meta-image" name="og:image" itemprop="image" content="https://gdbrowser.com/icon/icon?form=cube&icon=[[ICON]]&col1=[[COL1]]&col2=[[COL2]]&glow=[[GLOW]]">
+	<meta id="meta-image" name="og:image" itemprop="image" content="https://gdbrowser.com/assets/icon.png">
 	<meta name="twitter:card" content="summary">
+	<script>
+		function defaultModImage(img) {
+			img.src = "../assets/moderator/0.png"
+		}
+	</script>
 </head>
 
 <style>
 	.box-subopt {
-		text-align: left;
-		display: inline-block;
-		width: 30%;
+		display: flex !important;
+    	justify-content: center;
+		flex-wrap: wrap;
+		/* General */
+		width: 98% !important;
+		background-color: #00000065;
+		border-radius: 2.5vh;
+		padding: 1vh 1vh 1vh 1vh;
 	}
+
+	.box-subopt-checkbox {
+		width: fit-content;
+		display: flex;
+		align-items: center;
+		padding-right: 2.5vh;
+	}
+
+	.box-subopt-checkbox > .gdcheckbox {
+		height: 5vh;
+    	padding: 0vh 6vh 0vh 0vh;
+	}
+
+	.box-subopt > div.gdsButton {
+		width: fit-content !important;
+		min-width: 30%;
+	}
+
+	.box-subopt > div.gdsButton > .gdfont-Pusab {
+		text-wrap: nowrap;
+		text-align: center;
+	}
+
+	#filterStuff div {
+		width: auto !important;
+	}
+
+	#filterStuff > h2.smaller.center {
+		font-size: 3.5vh;
+    	-webkit-text-stroke-width: 0.15vh !important;
+	}
+
+	#profileCBox {
+		background-origin: border-box !important;
+	}
+
 </style>
+
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything">
@@ -57,8 +104,141 @@
 		</div>
 	</div>
 
+
+	<div class="popup" id="profileAdvSettingsPopup">
+		<div class="brownbox bounce center supercenter" style="height: fit-content; width: 120vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">My profile</h3>
+			<div id="filterStuff">
+			
+			<!-- Experimental options stuff -->
+
+			<h2 class="smaller center" style="margin-top: 2%">Experimental options</h2>
+			<div class="box-subopt">
+				<div><h1 class="box-subopt-checkbox"><input type="checkbox" id="box-colored-profiles"><label for="box-colored-profiles" class="gdcheckbox gdButton"></label>Colored profiles</h1></div>
+			</div>
+
+			<!--  -->
+			
+			<h2 class="smaller center" style="margin-top: 2%">ObeyGDBot</h2>
+			<div class="box-subopt">
+				<div class="gdsButton blue" onclick="OGDBAccountLink()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Discord Link</h3></div>
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">Account Settings</h2>
+			<div class="box-subopt">
+				<div class="gdsButton" onclick="SocialSettings()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Links</h3></div>
+				<div class="gdsButton blue" onclick="SocialPreferences()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">ObeyGDBrowser</h2>
+			<div class="box-subopt">
+				<div class="gdsButton" onclick="APIToken()" style="display: none; padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">API Token</h3></div>
+				<div class="gdsButton blue" onclick="CurrentPermissions()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">View Current Permissions</h3></div>
+				<div class="gdsButton red" onclick="LogoutAccount()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Logout account</h3></div>
+			</div>
+
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 5vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<!-- OBEYGDBOT SETTINGS -->
+
+	<div class="popup" id="ogdbDiscordLinkPopup">
+		<form id="formDiscordLink" autocomplete="off" class="bluebox bounce center supercenter" style="height: 40%; width: 95vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">Link your Discord!</h3>
+			<div id="filterStuff">
+			
+			<h2 class="smaller center" style="margin-top: 2%">Discord ID</h2>
+			<div class="box-subopt" style="background-color: transparent;">
+				<input type="number" name="id" id="discordID" minlength="1" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+				<div><h1 class="box-subopt-checkbox"><input type="checkbox" name="discord" id="box-ogdb-enablelink"><label for="box-ogdb-enablelink" class="gdcheckbox gdButton"></label>Discord Icon in Profile</h1></div>
+			</div>
+
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
+			</div>
+		</form>
+	</div>
+
+	<!-- ACCOUNT SETTINGS -->
+
+	<div class="popup" id="socialLinksPopup">
+		<form id="formLinksPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 70.5%; width: 95vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">Social Links</h3>
+			<div id="filterStuff">
+			
+			<h2 class="smaller center" style="margin-top: 2%">YouTube</h2>
+			<div class="box-subopt" style="background-color: transparent;">
+				<input type="text" name="youtube" id="socialYoutube" placeholder="youtube.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">Twitter</h2>
+			<div class="box-subopt" style="background-color: transparent;">
+				<input type="text" name="twitter" id="socialTwitter" placeholder="twitter.com/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">Twitch</h2>
+			<div class="box-subopt" style="background-color: transparent;">
+				<input type="text" name="twitch" id="socialTwitch" placeholder="twitch.tv/" style="height: 8vh; width: 90%; text-align: center; margin-top: 0.5%; margin-bottom: 1.5vh;">
+			</div>
+
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton blue submitForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Update</h3></div>
+			</div>
+		</form>
+	</div>
+
+	<div class="popup" id="socialPreferencesPopup">
+		<form id="formPreferencesPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 56.5%; width: 100vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">Social Preferences</h3>
+			<div id="filterStuff">
+			
+			<h2 class="smaller center" style="margin-top: 2%">Allow messages from:</h2>
+			<div class="box-subopt" style="">
+				<div><h1 class="box-subopt-checkbox"><input name="messages" value="0" class="checkgroup" type="checkbox" id="box-msg-all"><label for="box-msg-all" class="gdcheckbox gdButton"></label>All</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="messages" value="1" class="checkgroup" type="checkbox" id="box-msg-friends"><label for="box-msg-friends" class="gdcheckbox gdButton"></label>Friends</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="messages" value="2" class="checkgroup" type="checkbox" id="box-msg-none"><label for="box-msg-none" class="gdcheckbox gdButton"></label>None</h1></div>
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">Allow friend requests from:</h2>
+			<div class="box-subopt" style="">
+				<div><h1 class="box-subopt-checkbox"><input name="requests" value="0" class="checkgroup" type="checkbox" id="box-fr-all"><label for="box-fr-all" class="gdcheckbox gdButton"></label>All</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="requests" value="1" class="checkgroup" type="checkbox" id="box-fr-none"><label for="box-fr-none" class="gdcheckbox gdButton"></label>None</h1></div>
+			</div>
+
+			<h2 class="smaller center" style="margin-top: 2%">Show comment history to:</h2>
+			<div class="box-subopt" style="">
+				<div><h1 class="box-subopt-checkbox"><input name="history" value="0" class="checkgroup" type="checkbox" id="box-ch-all"><label for="box-ch-all" class="gdcheckbox gdButton"></label>All</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="history" value="1" class="checkgroup" type="checkbox" id="box-ch-friends"><label for="box-ch-friends" class="gdcheckbox gdButton"></label>Friends</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="history" value="2" class="checkgroup" type="checkbox" id="box-ch-none"><label for="box-ch-none" class="gdcheckbox gdButton"></label>None</h1></div>
+			</div>
+
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton blue submitForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Update</h3></div>
+			</div>
+		</form>
+	</div>
+
+	<!-- OBEYGDBROWSER OPTIONS -->
+
 	<div class="popup" id="LogoutAccountPopup" style="z-index: 100;">
-		<div class="brownbox bounce center supercenter" style="width: 75vh; height: 35%;">
+		<div class="graybox bounce center supercenter" style="width: 75vh; height: 35%;">
 			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Logout</h2>
 				<input type="text" name="act" value="delete" hidden>
 				<p class="bigger center" style="line-height: 5vh; margin-top: 1.5vh;">
@@ -69,27 +249,7 @@
 		</div>
 	</div>
 
-	<div class="popup" id="profileAdvSettingsPopup">
-		<div class="brownbox bounce center supercenter" style="height: 90%; width: 120vh">
-			<h3 class="smaller center" style="font-size: 5.5vh">My profile</h3>
-			<div id="filterStuff">
-
-			<h2 class="smaller center" style="margin-top: 2%">Experimental options</h2>
-			<div class="box-subopt" style="width: 93%;background-color: #00000065;border-radius: 2.5vh;padding: 1vh 0vh 1vh 5vh;">
-				<h1><input type="checkbox" id="box-colored-profiles"><label for="box-colored-profiles" class="gdcheckbox gdButton"></label>Colored profiles</h1>
-			</div>
-			
-			</div>
-			
-			<div style="display: flex; justify-content: center; margin-top: 55vh;">
-			<div class="gdsButton red" onclick="LogoutAccount()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Logout account</h3></div>
-			<div class="gdsButton red" onclick="$('#profileAdvSettingsPopup').hide();" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Cancel</h3></div>
-			<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
-			</div>
-
-			
-		</div>
-	</div>
+	<!-- END -->
 	
 	<div class="popup" id="settingsDiv">
 		<div class="fancybox bounce center supercenter">
@@ -125,17 +285,16 @@
 		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
 	</div>
 
-	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%" id="profileCBox">
+	
+	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%;" id="profileCBox">
 
 		<div id="globalrank0" style="position: absolute; left: 0.3%; top: 1.5%; width: 18%; text-align: left">
 			<p style="margin: 0;"><img src="../assets/trophy.png" class="inline valign help profileTrophy" width="22%" title="Global Rank"> [[RANK]]</p>
 		</div>
 
 		<h1 class="veryBig inline" style="width: inherit">
-			<img class="inline valign" id="modBadge1" style="display: none; height: 7%; cursor:help" src="../assets/mod.png" title="[[USERNAME]] is a moderator!"><!--
-			--><img class="inline valign" id="modBadge2" style="display: none; height: 7%; cursor:help" src="../assets/mod-elder.png" title="[[USERNAME]] is an elder moderator!"><!--
-			--><img class="inline valign" id="modBadge3" style="display: none; height: 7%; cursor:help" src="../assets/mod-extra.png" title="[[USERNAME]] is a custom moderator! (tier [[MODERATOR]])"><!--	
-			--><span style="margin-left: 1%">[[USERNAME]]</span>
+			<img class="inline valign" id="modBadge" modLevel="[[MODERATOR]]" onerror="defaultModImage(this)" style="display: none; height: 7vh;" src="../assets/moderator/[[MODERATOR]].png">
+			<span style="">[[USERNAME]]</span>
 		</h1>
 		
 		<hr style="margin-bottom: 2%" class="profilePostHide">
@@ -183,10 +342,11 @@
 
 		<a href="../search/search.php?s=0&user=[[PLAYERID]]"><img src="../assets/levels.png" class="gdButton" style="position: absolute; right: 0.5%; bottom: 1%; width: 6%"></a>
 
-		<div style="position: absolute; right: 0.5%; top: 0%; width: 6%">
-			<a id="youtube" style="display: none" target="_blank" href="https://youtube.com/channel/[[YOUTUBE]]"><img src="../assets/youtube.png" class="gdButton socialButton"></a>
-			<a id="twitter" style="display: none" target="_blank" href="https://twitter.com/[[TWITTER]]"><img src="../assets/twitter.png" class="gdButton socialButton"></a>
-			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/twitch.png" class="gdButton socialButton"></a>
+		<div style="position: absolute; right: 0.5%; top: 0%; width: 6%; display: flex; flex-direction: column;">
+			<a id="youtube" style="display: none" target="_blank" href="https://youtube.com/channel/[[YOUTUBE]]"><img src="../assets/social/youtube.png" class="gdButton socialButton"></a>
+			<a id="twitter" style="display: none" target="_blank" href="https://twitter.com/[[TWITTER]]"><img src="../assets/social/twitter.png" class="gdButton socialButton"></a>
+			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/social/twitch.png" class="gdButton socialButton"></a>
+			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/social/discord.png" class="gdButton socialButton"></a>
 		</div>
 
 		<div class="supercenter" style="left: 5%; top: 65%; height: 10%">
@@ -216,16 +376,23 @@
 <script type="text/javascript" src="../misc/global.js?v=6"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
+<script>
+$('#mainIcon').on('DOMNodeInserted', 'img', function () {
+	$("link[rel='icon']").attr("href", $(this).attr("src"));
+});
+</script>
 
 <script>
 
+let userPermissions = [[USERPERMISSIONS]];
+
 function submitChanges() {
-	console.log($('#box-colored-profiles').is(":checked"))
 	if($('#box-colored-profiles').is(":checked")){
 		localStorage.setItem('coloredprofiles','1')
 	} else {
 		localStorage.removeItem('coloredprofiles');
 	}
+	CreateFLAlert("Saved!","Options saved!")
 }
 
 
@@ -259,7 +426,7 @@ function recolorProfile(col1,col2,colg) {
 	$("#profileCBox").addClass('invisibleBox');
 	col1 = `rgb(${col1.r},${col1.g},${col1.b})`;
 	col2 = `rgb(${col2.r},${col2.g},${col2.b})`;
-	colg = `rgb(${colg.r},${colg.g},${colg.b})`;
+	// colg = `rgb(${colg.r},${colg.g},${colg.b})`;
 
 	$("#profileCBox").css({'background': `linear-gradient(to bottom, ${col1}, ${col2})`})
 	$("#iconsDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
@@ -288,10 +455,27 @@ if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" 
 } else {
 	$('#superCloseButton').hide();
 	$('#settingsProfileButton').hide();
+}
 
+function CurrentPermissions() {
+	const desc = userPermissions.map(item => `- ${item}`).join('\n');
+	CreateFLAlert("[[USERNAME]] Permissions",`# List of permissions\n${desc}`)
+}
+
+function SocialSettings() {
+	$('#socialLinksPopup').show()
+}
+
+function SocialPreferences() {
+	$('#socialPreferencesPopup').show()
+}
+
+function OGDBAccountLink() {
+	$('#ogdbDiscordLinkPopup').show()
 }
 
 function viewAdvProfile() {
+	if(localStorage.getItem('coloredprofiles') == "1") $('#box-colored-profiles').prop('checked', true);
 	$('#profileAdvSettingsPopup').show()
 }
 
@@ -316,18 +500,17 @@ function confirmLogout() {
 
 renderIcons()
 
-// set favicon
-$('#mainIcon').on('DOMNodeInserted', 'img', function () {
-	$("link[rel='icon']").attr("href", $(this).attr("src"));
-});
 
 let messageText = 'Your <cy>Geometry Dash password</cy> will <cg>not be stored</cg> anywhere on the site, both <ca>locally and server-side.</ca> You can view the code used for profile posts <a class="menuLink" target="_blank" href="https://github.com/GDColon/GDBrowser/blob/master/api/post/postProfileComment.js">here</a>.'
 $('#message').html(messageText)
 $('#likeMessage').html(messageText.replace("profile posts", "liking posts").replace("postProfileComment", "like"))
 
-$('#modBadge[[MODERATOR]]').show()
-if ("[[MODERATOR]]" > 3) $('#modBadge3').show()
+
+if ("[[MODERATOR]]" > 0) $('#modBadge').show()
+
 $('#globalrank[[RANK]]').hide()
+
+
 
 let followed = localStorage.followed ? JSON.parse(localStorage.followed) : []
 if (followed.includes([[ACCOUNTID]])) {$('#followOff').hide(); $('#followOn').show()}
@@ -380,12 +563,12 @@ if (commenthistory == "friends") $('#commentButton').attr('src', '../assets/comm
 else if (commenthistory == "off") $('#commentButton').attr('src', '../assets/comments-grey.png')
 else {
 	$('#commentButton').attr('src', '../assets/comments.png').attr('onclick', '')
-	$('#commentA').attr('href', '../comments/[[USERNAME]]')
+	// $('#commentA').attr('href', '../comments/[[USERNAME]]')
 }
 
 if (messages == "all") {
 	$('#msgButton').attr('onclick', '')
-	$('#msgA').attr('href', '../messages?sendTo=[[USERNAME]]')
+	// $('#msgA').attr('href', '../messages?sendTo=[[USERNAME]]')
 }
 
 if (messages == "friends") $('#msgButton').attr('src', '../assets/messages-yellow.png')
@@ -590,5 +773,19 @@ $(document).keydown(function(k) {
 
 }) 
 
+$('.closeWindow').click(function() {
+    $(this).closest('.popup').hide();
+});
+
+$("input:checkbox.checkgroup").on('click', function() {
+    let $box = $(this);
+    let group = "input:checkbox[name='" + $box.attr("name") + "']";
+
+    if (!$box.is(":checked")) {
+        $box.prop("checked", true);
+    } else {
+        $(group).not($box).prop("checked", false);
+    }
+});
 
 </script>

@@ -10,6 +10,80 @@
 	<meta name="twitter:card" content="summary">
 </head>
 
+<style>
+	.box-subopt {
+		display: flex !important;
+    	justify-content: center;
+		flex-wrap: wrap;
+		/* General */
+		width: 98% !important;
+		background-color: #00000065;
+		border-radius: 2.5vh;
+		padding: 1vh 1vh 1vh 1vh;
+	}
+
+	.box-subopt-checkbox {
+		width: fit-content;
+		display: flex;
+		align-items: center;
+		padding-right: 2.5vh;
+	}
+
+	.box-subopt-checkbox > .gdcheckbox {
+		height: 5vh;
+    	padding: 0vh 6vh 0vh 0vh;
+	}
+
+	.box-subopt > div.gdsButton {
+		width: fit-content !important;
+		min-width: 30%;
+	}
+
+	.box-subopt > div.gdsButton > .gdfont-Pusab {
+		text-wrap: nowrap;
+		text-align: center;
+	}
+
+	#filterStuff div {
+		width: auto !important;
+	}
+
+	#filterStuff > h2.smaller.center {
+		font-size: 3.5vh;
+    	-webkit-text-stroke-width: 0.15vh !important;
+	}
+
+	#profileCBox {
+		background-origin: border-box !important;
+	}
+
+	.diffDiv.gdButton {
+		display: flex !important;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	#difficulties, #demons {
+		/* display: flex !important; */
+		text-align: center;
+		align-items: center;
+	}
+
+	.hideBox {
+		display: none !important;
+	}
+
+	.showBox {
+		display: flex !important;
+	}
+
+	input[type=checkbox] {
+		width: 0vh;
+		display: contents;
+	}
+
+</style>
+
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything">
@@ -78,6 +152,83 @@
 		</div>
 	</div> -->
 
+	<div class="popup" id="rateLevelPopup">
+		<form class="brownbox bounce center supercenter" style="height: auto; width: 100vh" id="formRateLevel">
+			<h1 class="smaller center" style="font-size: 5.5vh">Rate Level</h1>
+
+			<input type="text" name="id" value="[[ID]]" hidden>
+			<input type="text" name="act" value="edit" hidden>
+
+			<div style="min-height: 18%; max-height: 18%">
+				<div style="padding: 0% 10%; margin-top: 0%; display: flex;">
+					<p> <ca>Average difficulty:</ca> [[AVGDIFFICULTY]] </p>
+					<p> <ca>Average stars:</ca> [[AVGSTARS]] </p>
+					<p> <ca>Average featured:</ca> [[AVGFEATURED]] </p>
+					<p> <ca>Average auto:</ca> [[AVGAUTO]] </p>
+					<p> <ca>Average demon:</ca> [[AVGDEMON]] </p>
+				</div>
+			</div>
+
+			<div id="filterStuff">
+			
+			
+			<h2 class="smaller center" style="">Stars:</h2>
+			<div class="box-subopt" style="background-color: transparent;">
+				<input type="number" name="stars" id="starsrate" value="[[STARS]]" min="0" max="99999" style="height: 5vh; font-size: 4vh; width: 45%; text-align: center; margin-top: 0.5%" required>
+			</div>
+
+			<div class="box-subopt" style="background-color: transparent;">
+				<div id="gdItem20"><h1 class="box-subopt-checkbox" id="subCoins"><input name="coins" value="1" type="checkbox" id="box-coins"><label for="box-coins" class="gdcheckbox gdButton"></label><img src="../assets/silvercoin.png" style="width: 4vh;"> Verify coins</h1></div>
+			</div>
+			
+
+			<h2 class="smaller center" style="margin-top: 2%">Featured:</h2>
+			<div class="box-subopt" style="">
+				<div><h1 class="box-subopt-checkbox"><input name="feat" value="0" class="checkgroup" type="checkbox" id="box-feat-0"><label for="box-feat-0" class="gdcheckbox gdButton"></label>None</h1></div>
+				<div id="gdItem13"><h1 class="box-subopt-checkbox"><input name="feat" value="1" class="checkgroup gdItem16" type="checkbox" id="box-feat-1"><label for="box-feat-1" class="gdcheckbox gdButton"></label><img src="../assets/features/featured.png" style="width: 4vh;">Featured</h1></div>
+				<div id="gdItem20"><h1 class="box-subopt-checkbox"><input name="feat" value="2" class="checkgroup gdItem21" type="checkbox" id="box-feat-2"><label for="box-feat-2" class="gdcheckbox gdButton"></label><img src="../assets/features/epic.png" style="width: 4vh;">Epic</h1></div>
+				<div id="gdItem22"><h1 class="box-subopt-checkbox"><input name="feat" value="3" class="checkgroup gdItem22" type="checkbox" id="box-feat-3"><label for="box-feat-3" class="gdcheckbox gdButton"></label><img src="../assets/features/legendary.png" style="width: 4vh;">Legendary</h1></div>
+				<div id="gdItem22"><h1 class="box-subopt-checkbox"><input name="feat" value="4" class="checkgroup gdItem22" type="checkbox" id="box-feat-4"><label for="box-feat-4" class="gdcheckbox gdButton"></label><img src="../assets/features/mythic.png" style="width: 4vh;">Mythic</h1></div>
+			</div>
+
+			<input type="text" name="diff" maxlength="5" id="diffValue" value="[[NUMTOTALDIFF]]" hidden>
+
+			<h2 class="smaller center" style="margin-top: 2%">Difficulty:</h2>
+			<div class="box-subopt" style="">
+			<div id="difficulties" class="transparentBox center showBox" style="width: 115vh; height: 12%; margin: 0.5% auto 1% auto; padding-top: 1%; padding-bottom: 1%;">
+				<div id="gdItem16" class="diffDiv gdButton" diff="49"><img src="../assets/difficulties/auto.png"><h3 class="mini">Auto</h3></div>
+				<div class="diffDiv gdButton" diff="0"><img src="../assets/difficulties/unrated.png"><h3 class="mini">N/A</h3></div>
+				<div class="diffDiv gdButton" diff="10"><img src="../assets/difficulties/easy.png"><h3 class="mini">Easy</h3></div>
+				<div class="diffDiv gdButton" diff="20"><img src="../assets/difficulties/normal.png"><h3 class="mini">Normal</h3></div>
+				<div class="diffDiv gdButton" diff="30"><img src="../assets/difficulties/hard.png"><h3 class="mini">Hard</h3></div>
+				<div class="diffDiv gdButton" diff="40"><img src="../assets/difficulties/harder.png"><h3 class="mini">Harder</h3></div>
+				<div class="diffDiv gdButton" diff="50"><img src="../assets/difficulties/insane.png"><h3 class="mini">Insane</h3></div>
+		
+				<div class="diffDiv gdButton" id="demonBtn" diff="51"><img src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="mini">Demon</h3></div>
+		
+		
+				
+			</div>
+		
+			<div id="demons" class="transparentBox hideBox" style="width: 115vh; height: 12%; margin: 0.5% auto 1% auto; padding-top: 0.6%; padding-bottom: 1.4%;">
+				<div id="gdItem21" class="diffDiv gdButton demonDiff" diff="54" style="margin-left: 3.5%"><img src="../assets/difficulties/demon-easy.png" style="width: 90%"><h3 class="mini center">Easy</h3></div>
+				<div id="gdItem21" class="diffDiv gdButton demonDiff" diff="55"><img src="../assets/difficulties/demon-medium.png" style="width: 90%"><h3 class="mini center smallTextWoo">Medium</h3></div>
+				<div id="gdItem21" class="diffDiv gdButton demonDiff" diff="51"><img src="../assets/difficulties/demon-hard.png" style="width: 90%"><h3 class="mini center">Hard</h3></div>
+				<div id="gdItem21" class="diffDiv gdButton demonDiff" diff="56"><img src="../assets/difficulties/demon-insane.png" style="width: 95%"><h3 class="mini center smallTextWoo">Insane</h3></div>
+				<div id="gdItem21" class="diffDiv gdButton demonDiff" diff="57"><img src="../assets/difficulties/demon-extreme.png" style="width: 100%"><h3 class="mini center smallTextWoo">Extreme</h3></div>
+				<div class="diffDiv gdButton goBack" diff="51" style="margin-left: 2.3%; filter: none"><img src="../assets/difficulties/demon.png" style="width: 90%"><h3 class="mini">Demon</h3></div>
+			</div>
+			</div>
+
+			</div>
+
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton blue submitForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Rate</h3></div>
+			</div>
+		</form>
+	</div>
+
 	<div style="position:absolute; bottom: 0%; left: 0%; width: 100%">
 		<img class="cornerPiece" src="../assets/corner.png" width=7%;>
 	</div>
@@ -104,15 +255,15 @@
 	<div class="center valign" style="position:absolute; top: 10.5%; left: 27%; transform:scale(0.8); height: 100%; width: 20%">
 
 		<div class="difficultyBox" style="height: 12%; width: 50%; margin-left: auto; margin-right: auto;">
-			<img class="help fFace" cp="[[FEATFACE]]" src="../assets/features/[[FEATFACE]].png">
+			<img id="gdItem13" class="help fFace" cp="[[FEATFACE]]" src="../assets/features/[[FEATFACE]].png">
 			<img class="help" id="dFace" title="[[DIFFICULTY]]" src="../assets/difficulties/[[PARTIALDIFF]].png">
 		</div>
 
 		<h1 class="smaller" id="difficultytext" style="transform:scale(0.9);">[[DIFFICULTY]]</h1>
-		<h1 class="smaller inline stars" style="transform:scale(0.9)">[[STARS]]</h1> <img class="inline stars" src="../assets/star.png" height=4%; style="transform:translateY(-12%)"><br class="stars">
-		<h1 class="smaller inline diamonds" style="transform:scale(0.9)">[[DIAMONDS]]</h1> <img class="inline diamonds" src="../assets/diamond.png" height=4%; style="transform:translateY(-12%)">
+		<h1 id="gdItem13" class="smaller inline stars" style="transform:scale(0.9)">[[STARS]]</h1> <img id="gdItem13" class="inline stars" src="../assets/star.png" height=4%; style="transform:translateY(-12%)"><br class="stars">
+		<h1 id="gdItem21" class="smaller inline diamonds" style="transform:scale(0.9)">[[DIAMONDS]]</h1> <img id="gdItem21" class="inline diamonds" src="../assets/diamond.png" height=4%; style="transform:translateY(-12%)">
 		<h1 class="smaller inline demonList" style="transform:scale(0.9); display: none;">#[[DEMONLIST]]</h1> <img class="inline demonList" src="../assets/demon.png" height=4.5%; style="transform:translateY(-7%); display: none; margin-left: 1.5%">
-		<div id="coins" style="margin-top: 3%"></div>
+		<div class="gdItem20" id="coins" style="margin-top: 3%"></div>
 	</div>
 
 	<div style="position:absolute; top: 20%; right: 0%; height: 38%; width: 40%;">
@@ -122,8 +273,8 @@
 		<h1 class="inline smaller spaced">[[LIKES]]</h1><br>
 		<img class="inline spaced" src="../assets/time.png" height=15% style="margin-right: 2%">
 		<h1 class="inline smaller spaced">[[LENGTH]]</h1><br>
-		<img class="inline spaced orbs" src="../assets/orbs.png" height=15% style="margin-right: 2%">
-		<h1 class="inline smaller spaced orbs">[[ORBS]]</h1>
+		<img id="gdItem21" class="inline spaced orbs" src="../assets/orbs.png" height=15% style="margin-right: 2%">
+		<h1 id="gdItem21" class="inline smaller spaced orbs">[[ORBS]]</h1>
 	</div>
 
 	<div class="transparentBox center" style="position:absolute; bottom: 32%; left: 0; right: 0; width: 75vh; margin-left: auto; margin-right: auto">
@@ -159,8 +310,14 @@
 		<img class="gdButton sideButton" title="Level Info" id="infoButton"  src="../assets/info.png" onclick="$('#infoDiv').show()"><br>
 		<!-- <img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/vote.png" onclick="$('#likeDiv').show()"><br> -->
 		<a href="./analyze?id=[[ID]]" id="analyzeLink"><img id="analyzeBtn" title="Analyze Level" class="gdButton sideButton" src="../assets/edit.png"></a><br>
-		<a onclick="commentRedirect('[[ID]]')"><img class="gdButton sideButton" title="View Comments" src="../assets/comment.png"></a><br>
+		<a id="gdItem19" onclick="commentRedirect('[[ID]]')"><img class="gdButton sideButton" title="View Comments" src="../assets/comment.png"></a><br>
 		<!-- <a href="./leaderboard/[[ID]]"><img id="leaderboardbtn" title="View Leaderboard" class="gdButton sideButton" src="../assets/leaderboard.png"></a><br> -->
+	</div>
+
+	<div class="checkperm-rates levelButtons moderator" style="position:absolute; top: 65%; left: 3.5%; transform: translateY(-50%); height: 75%;">
+		<h3 style="transform: translate(19%, -5%); pointer-events: none;">Mod</h3>
+		<img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/moderation/rateLevel.png" onclick="openRateLevel()"><br>
+
 	</div>
 
 	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
@@ -179,10 +336,77 @@
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 <script>
+	let userPermissions = [[USERPERMISSIONS]]
+</script>
+<script>
+$("#loading-main").hide()
+let legacyServer = true;
+let gdpsVersion = "[[GDPSVERSION]]";
 
-var legacyServer = true;
+var maxGDPSVersion = 23;
+
 if ('[[SERVERTYPE]]' != "legacy"){
 	legacyServer = false;
+}
+
+function showDemonDiffs() {
+	$('#difficulties').addClass("hideBox");
+	$('#difficulties').removeClass("showBox");
+	$('#demons').addClass("showBox");
+	$('#demons').removeClass("hideBox");
+	demonMode = true;
+}
+
+function hideDemonDiffs() {
+	$('#difficulties').addClass("showBox");
+	$('#difficulties').removeClass("hideBox");
+	$('#demons').addClass("hideBox");
+	$('#demons').removeClass("showBox");
+	demonMode = false;
+}
+
+$('.diffDiv').click(function() {
+
+	if ($(this).hasClass('goBack')) {
+
+		$('#demonBtn').removeClass('selectedFilter')
+		$('.demonDiff').removeClass('selectedFilter')
+		return hideDemonDiffs()
+	}
+
+	
+
+
+	$('.diffDiv').removeClass('selectedFilter')
+	$(this).addClass('selectedFilter')
+	$('#diffValue').val($(this).attr('diff'))
+
+	console.log($('#diffValue').val());
+
+	if ($(this).attr('diff') == "51" && gdpsVersion > 20 ) showDemonDiffs()
+
+})
+
+function openRateLevel() {
+
+	if (!$('#box-feat-[[FEATNUM]]') )  $('#box-feat-0').prop('checked',true);
+	else $('#box-feat-[[FEATNUM]]').prop('checked',true);
+
+	if("[[COINS]]" == "0") {
+		document.getElementById("subCoins").style.setProperty("display", "none", "important");
+		$('#box-coins').prop('checked',true);
+		$('#box-coins').val("2");
+	} 
+
+	if("[[VERIFIEDCOINS]]" == "1") {
+		$('#box-coins').prop('checked',true);
+	} 
+
+	if("[[NUMTOTALDIFF]]" > 50 && gdpsVersion > 20) showDemonDiffs();
+
+	if ($('.diffDiv[diff="[[NUMTOTALDIFF]]"]').css('display') == 'none' || !$('.diffDiv[diff="[[NUMTOTALDIFF]]"]'))  $('.diffDiv[diff="49"]').addClass('selectedFilter');
+	else $('.diffDiv[diff="[[NUMTOTALDIFF]]"]').addClass('selectedFilter');
+	$('#rateLevelPopup').show()
 }
 
 function profileRedirect(url) {
@@ -431,6 +655,68 @@ $('.artistIcon').hover(function() {
 	$('.songStatus').show()
 })
 
+$("input:checkbox.checkgroup").on('click', function() {
+    let $box = $(this);
+    let group = "input:checkbox[name='" + $box.attr("name") + "']";
+
+    if (!$box.is(":checked")) {
+        $box.prop("checked", true);
+    } else {
+        $(group).not($box).prop("checked", false);
+    }
+});
+
+
+$('.submitForm').click(function() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+
+	if ( $('#box-coins').prop("checked") == false ){
+		$('#box-coins').prop("checked",true);
+		$('#box-coins').val("0");
+	}
+	
+    let form = document.getElementById($(this).closest('form').attr('id'));
+	form.dispatchEvent(new Event('submit'));
+    if (form.checkValidity()) {
+        let formData = new FormData(form);
+
+        fetch('../api/levels.php', {
+            method: 'POST',
+            body: formData,
+			credentials: 'include'
+        })
+        .then(response => {$('#box-coins').prop("checked",false); $('#box-coins').val("1"); return response.text();})
+        .then(data => {
+			$('#loading-main').show();
+			try {
+				data = JSON.parse(data); 
+			} catch(err) {
+				console.log("Data Response: ", data);
+				console.error("Error in JSON Structure");
+			}
+			console.log("Data Response: ", data);
+			if(data.error == false) {
+				changeLoadingAlert(`${data.message}`,"done");
+			}
+			else {
+				changeLoadingAlert(`${data.message}`,"error");
+			}
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); location.reload(true); }, 1500);
+			$(this).closest('.popup').hide();
+        })
+        .catch(error => {
+			changeLoadingAlert(`${error}`,"error");
+            console.error('Error:', error);
+			setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1500);
+        });
+		
+		
+    } else {
+		changeLoadingAlert("Data not completed!","error");
+        form.reportValidity();
+		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+    }
+})
 // let like;
 // let likedLevels = localStorage.likedLevels ? JSON.parse(localStorage.likedLevels) : []
 // if (likedLevels.includes('[[ID]]')) $('#likeButton').attr('src', '../assets/voted.png').removeClass('gdButton').prop("onclick", null)
@@ -478,3 +764,6 @@ $('.artistIcon').hover(function() {
 // })
 });
 </script>
+<script type="text/javascript" src="../misc/versionadapter.js"></script>
+
+<script type="text/javascript" src="../misc/checkperms.js"></script>

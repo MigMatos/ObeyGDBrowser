@@ -1,7 +1,6 @@
 <?php 
 
-include("../_init_.php");
-include("./utils.php");
+
 
 
 error_reporting(0);
@@ -11,6 +10,8 @@ $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
+    include("../_init_.php");
+    include("./utils.php");
 
     if (!empty($params)) {
         $results = commentsGD($params, $db, $gdps_settings);

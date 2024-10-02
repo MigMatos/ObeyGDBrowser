@@ -383,9 +383,6 @@ document.addEventListener('endLoadingItems', function(event) {
 		}
 		$('#songAuthor').css('pointer-events','none');
 		$('#songInfoBox').removeClass('bounce');
-	} else {
-
-
 	}
 });
 
@@ -445,7 +442,7 @@ function clean(text) {return ( text || "").toString().replace(/&/g, "&#38;").rep
 // --- End --- //
 
 function Append(firstLoad, noCache) {
-
+	document.dispatchEvent(new Event('endLoadingItems'));
 	loading = true;
 	if (!firstLoad) $('#pagenum').text(`Page ${(page + 1)}${pages ? ` of ${pages}` : ""}`)
 	$('#searchBox').html('<div style="height: 4.5%"></div>')
@@ -563,9 +560,10 @@ function Append(firstLoad, noCache) {
 
 	$('#searchBox').append('<div style="height: 4.5%"></div>').scrollTop(0)
 	$('#loading').hide()
-	document.dispatchEvent(new Event('endLoadingItems'));
 	loading = false;
+	document.dispatchEvent(new Event('endLoadingItems'));
 	}
+	
 }
 
 let debounceTimeout;

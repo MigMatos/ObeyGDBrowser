@@ -1,6 +1,6 @@
 <?php
 
-// error_reporting(0);
+error_reporting(0);
 
 include("../_init_.php");
 
@@ -253,6 +253,12 @@ function searchLevels($params, $db, $gdps_settings) {
         if ($stars < 2) {return 0;} else {return $stars + 2;}
     }
 
+    function getNumDiff($fea,$epic) {
+        if(intval($fea) > 0) return intval($epic) + 1;
+        else if(intval($fea) > 0) return 1;
+        else return 0;
+    }
+
     $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $type_lvl, $downloadLevelData) {
 
         $level = [];
@@ -260,7 +266,7 @@ function searchLevels($params, $db, $gdps_settings) {
         $partialDiff = partialDiff(($result["starAuto"] >= 1), ($result["starDemon"] >= 1), $result["starDemonDiff"], $result["starDifficulty"], $gdps_settings);
         $featDiff = getfeatureType($result["starFeatured"], $result["starEpic"], $gdps_settings);
         $fullDiff = trim($partialDiff . ($featDiff ? "-" . $featDiff : ""));
-
+        $featNumberDiff = getNumDiff($result["starFeatured"], $result["starEpic"]);
         $creatorPoints = calcCP($result["starFeatured"], $result["starEpic"]);
         $diffString = getDiffString(($result["starAuto"] >= 1), ($result["starDemon"] >= 1), $result["starDifficulty"], $gdps_settings);
         $description = isset($result["levelDesc"]) && trim($result["levelDesc"]) !== '' ? base64_decode(strtr($result["levelDesc"], '-_', '+/')) : "(No description provided)";
@@ -325,9 +331,11 @@ function searchLevels($params, $db, $gdps_settings) {
             "stars" => $stars,
             "orbs" => isset($orbs_get[$stars]) ? intval($orbs_get[$stars]) : (intval($result[$stars]) > 10 ? 500 : 0),
             "diamonds" => $diamonds,
+            "featNum" => $featNumberDiff,
             "featFace" => (trim($featDiff) !== "") ? $featDiff : "none",
             "featured" => ($result["starFeatured"] >= 1),
             "featuredValue" => intval($result["starFeatured"]),
+            "numtotalDiff" => intval($result['starDifficulty']) + intval($result['starDemonDiff']) + intval($result['starDemon']) - intval($result['starAuto']),
             "epic" => ($result["starEpic"] == 1),
             "epicValue" => intval($result["starEpic"]),
             "legendary" => ($result["starEpic"] == 2), 

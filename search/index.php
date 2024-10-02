@@ -131,12 +131,12 @@
 		<div class="diffDiv gdButton" diff=4><img src="../assets/difficulties/harder.png"><h3 class="mini">Harder</h3></div>
 		<div class="diffDiv gdButton" diff=5><img src="../assets/difficulties/insane.png"><h3 class="mini">Insane</h3></div>
 
-		<div class="diffDiv gdButton" id="demonBtn" diff=-2><img src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="mini">Demon</h3></div>
+		<div class="diffDiv gdButton" id="demonBtn" diff=-2><img id="gdItem16" src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="mini">Demon</h3></div>
 
 		<!-- <div class="diffDiv gdButton" style="filter: brightness(100%)" id="demonBtn" diff=-2><img class="darkDiff" src="../assets/difficulties/demon.png" style="width: 85%"><h3 class="darkDiff mini">Demon</h3>
 		<img src="../assets/exclamation.png" style="position: absolute; width: 19%; left: 86%; bottom: 68%"></div> -->
 
-		<div class="diffDiv gdButton" diff=-3><img src="../assets/difficulties/auto.png"><h3 class="mini">Auto</h3></div>
+		<div id="gdItem16" class="diffDiv gdButton" diff=-3><img src="../assets/difficulties/auto.png"><h3 class="mini">Auto</h3></div>
 	</div>
 
 	<div id="demons" class="transparentBox" style="display: none; width: 115vh; height: 12%; margin: 0.5% auto 1% auto; padding-top: 0.6%; padding-bottom: 1.4%;">
@@ -156,7 +156,7 @@
 		<div class="lengthDiv" len=2><h1 class="gdButton smaller">Medium</h1></div>
 		<div class="lengthDiv" len=3><h1 class="gdButton smaller">Long</h1></div>
 		<div class="lengthDiv" len=4><h1 class="gdButton smaller">XL</h1></div>
-		<div class="lengthDiv" len=5 id="gd22"><h1 class="gdButton smaller">Plat.</h1></div>
+		<div class="lengthDiv" len=5 id="gdItem22"><h1 class="gdButton smaller">Plat.</h1></div>
 
 		<div class="lengthDiv" id="starCheck"><img src="../assets/star.png" class="gdButton" height="90%"></div>
 	</div>
@@ -183,7 +183,7 @@ let filters = []
 let demons = []
 let demonMode = false
 let customSong = true
-let officialSong = 1
+let officialSong = null
 let serverType = "<?php print_r($serverType); ?>"
 let gdpsVersion = "<?php print_r($gdpsVersion); ?>"
 var maxGDPSVersion = 23;
@@ -269,7 +269,7 @@ $('.levelSearch').click(function() {
 	// === SONG === //
 
 	let selectedOfficial = customSong ? null : officialSong
-	let selectedCustom = customSong && $('#songID').val() ? $('#songID').val().slice(0, 16) : null
+	let selectedCustom = customSong || $('#songID').val() ? $('#songID').val().slice(0, 16) : null
 	let selectedSong = selectedCustom || selectedOfficial
 
 	if (selectedSong) {

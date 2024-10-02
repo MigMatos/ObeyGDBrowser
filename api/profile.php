@@ -1,13 +1,13 @@
 <?php 
 
-
+error_reporting(0);
 
 $file = str_replace("\\", "/", __FILE__);
 $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     include("../_init_.php");
-
+    include("../api/roles.php");
     $params = $_GET;
 
     if (!empty($params)) {
@@ -46,6 +46,7 @@ function profileUsers($params, $db, $gdps_settings) {
     
     $results = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+    
 
     function checkisme($userID, $accID) {
         if(isset($_SESSION['userID']) && isset($_SESSION['accountID'])) {
@@ -54,13 +55,24 @@ function profileUsers($params, $db, $gdps_settings) {
         } else return 0;
     }
 
-    $json_data = array_map(function ($result) use ($gdps_settings) {
+    function checkSocialRes($res) {
+        if ($res == 0) return "all";
+        else if($res == 1) return "friends";
+        else return "off";
+    }
+
+
+
+    $json_data = array_map(function ($result) use ($db, $gdps_settings) {
+
+        $accountID = strval($result["extID"]);
+        $moderation = json_decode(getRoles(["accountid" => $accountID], $db, $gdps_settings), true);
 
         $level = [
             "username" => strval($result["originalUserName"]),
             "playerID" => strval($result["userID"]),
-            "accountID" => strval($result["extID"]),
-            "rank" => "0", // 
+            "accountID" => $accountID,
+            "rank" => "0", 
             "stars" => intval($result["stars"]),
             "diamonds" => intval($result["diamonds"]),
             "coins" => intval($result["coins"]),
@@ -69,13 +81,13 @@ function profileUsers($params, $db, $gdps_settings) {
             "moons" => intval($result["moons"]),
             "cp" => doubleval($result["creatorPoints"]),
             "cube" => intval($result["accIcon"]),
-            "friendRequests" => false, // Upcoming
-            "messages" => "off", // Upcoming
-            "commentHistory" => "off", //  Upcoming
-            "moderator" => 0, // Suponiendo un valor por defecto ya que no está en la estructura SQL
-            "youtube" => !empty($result["youtubeurl"]) ? strval($result["youtubeurl"]) : "null", // Suponiendo un valor por defecto ya que no está en la estructura SQL
-            "twitter" => !empty($result["twitter"]) ? strval($result["twitter"]) : "null", // Suponiendo un valor por defecto ya que no está en la estructura SQL
-            "twitch" => !empty($result["twitch"]) ? strval($result["twitch"]) : "null", // Suponiendo un valor por defecto ya que no está en la estructura SQL
+            "friendRequests" => !empty($result["frS"]) ? $result["frS"] : 1,
+            "messages" => checkSocialRes(intval($result["mS"])),
+            "commentHistory" => checkSocialRes(intval($result["cS"])),
+            "moderator" => isset($moderation["role"]["badge"]) ? intval($moderation["role"]["badge"]) : 0, 
+            "youtube" => !empty($result["youtubeurl"]) ? strval($result["youtubeurl"]) : "null",
+            "twitter" => !empty($result["twitter"]) ? strval($result["twitter"]) : "null", 
+            "twitch" => !empty($result["twitch"]) ? strval($result["twitch"]) : "null", 
             "ship" => intval($result["accShip"]),
             "ball" => intval($result["accBall"]),
             "ufo" => intval($result["accBird"]),

@@ -1452,9 +1452,11 @@ cp { color: #ff00ff }
     color: #FF82FF;
 }
 
-.nong {
-    color: #FFAABE;
-}
+
+.nong { color: #FFAABE }
+.songLibrary { color: #64ffc8 }
+.ncsLibrary { color: #64ffc8 }
+.unknownLibrary { color: #ff6e6e }
 
 .blue {
     color: #27CEFA;

@@ -70,15 +70,33 @@
         }
     }
 
-
+    $userPermissions = isset($_SESSION['userPermissions']) ? $_SESSION['userPermissions'] : [];
 
 
     // Permissions
-    $userPermissions = [];
-    if($isAdmin == "1" || $isAdmin == 1) $userPermissions[] = "admin";
     function updateUserPerms($newPerms){
         global $userPermissions;
-        $userPermissions = array_merge($userPermissions, $newPerms);
+        // Rename perms for easy access :3
+        if (in_array('toolPackcreate', $newPerms) || in_array('dashboardModTools', $newPerms) || in_array('dashboardGauntletCreate', $newPerms)) $newPerms[] = 'gauntlets';
+        if (in_array('toolPackcreate', $newPerms) || in_array('dashboardModTools', $newPerms) || in_array('dashboardLevelPackCreate', $newPerms)) $newPerms[] = 'mappacks';
+        if (in_array('commandRate', $newPerms) || in_array('actionRateStars', $newPerms)) $newPerms[] = 'rates';
+        if (in_array('commandFeature', $newPerms)) $newPerms[] = 'featured';
+        if (in_array('commandEpic', $newPerms)) $newPerms[] = 'epic';
+        if (in_array('commandUnepic', $newPerms)) $newPerms[] = 'unepic';
+        if (in_array('actionRateDifficulty', $newPerms)) $newPerms[] = 'ratedifficulty';
+        if (in_array('actionRateDemon', $newPerms)) $newPerms[] = 'ratedemons';
+        if (in_array('commandVerifycoins', $newPerms)) $newPerms[] = 'coins';
+        if (in_array('toolSuggestlist', $newPerms) || in_array('dashboardModTools', $newPerms)) $newPerms[] = 'suggest';
+
+        $keysToRemove = [
+            'toolSuggestlist', 'toolPackcreate', 'dashboardGauntletCreate', 'dashboardLevelPackCreate', 
+            'commandRate', 'actionRateStars', 'commandFeature', 'commandEpic', 
+            'commandUnepic', 'actionRateDifficulty', 'actionRateDemon', 'commandVerifycoins'
+        ];
+        // Final perms
+        $newPerms = array_diff($newPerms, $keysToRemove);
+
+        $_SESSION['userPermissions'] = array_merge($userPermissions, $newPerms);
     }
 
     $userPermissionsJSON = json_encode($userPermissions);

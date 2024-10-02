@@ -363,7 +363,14 @@ function searchRedirect(url,type) {
 		CreateFLAlert("Credits!",$creditsDesc);
 	}
 
-	
+	/* Legacy code for 0.27.1 */
+
+	let alertValue = (new URLSearchParams(window.location.search)).get("alert");
+	if (alertValue == "installed"){
+		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
+		window.history.pushState(null, null, newURLpush);
+		CreateFLAlert("ObeyGDBrowser 1.0","# Update installed successfully! \n## `r0 If you are a GDPSFH user, you must wait up to **one hour to see the changes** from the update.`\n")
+	}
 
 </script>
 

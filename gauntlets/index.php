@@ -112,7 +112,7 @@
 		</div>
 	</div>
 
-	<div onclick="createGauntlet()" title="Create new mappack" class="checkperm-mappacks" style="position:absolute; bottom: 2.5%; right: 2.5%; width: 15%; text-align: right;">
+	<div onclick="createGauntlet()" title="Create new mappack" class="checkperm-gauntlets" style="position:absolute; bottom: 2.5%; right: 2.5%; width: 15%; text-align: right;">
 		<h3 style="transform: translate(-9%, -5%);">Mod</h3>
 		<img class="gdButton" src="../assets/newBtn.png" width="40%" id="createMapPack"></a>
 	</div>
@@ -260,6 +260,7 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	}
 	$('#loading').hide()
 	loading = false;
+	document.dispatchEvent(new Event('DOMContentLoaded'));
 });
 }
 
@@ -371,3 +372,5 @@ function redirectGauntlet(url, header) {
 
 
 </script>
+<script>let userPermissions = <?php echo $userPermissionsJSON; ?>;</script>
+<script type="text/javascript" src="../misc/checkperms.js"></script>

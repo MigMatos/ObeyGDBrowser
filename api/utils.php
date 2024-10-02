@@ -86,6 +86,27 @@ class BrowserUtils {
         }
     }
 
+    public static function getDifficultyLabel($difficulty, $auto, $demon) {
+        if ($difficulty == 50) {
+            if ($auto == 1) {
+                return $demon == 1 ? 'Demon' : 'Auto';
+            } else if ($demon == 1) {
+                return 'Demon';
+            } else {
+                return 'Insane';
+            }
+        }
+    
+        switch ($difficulty) {
+            case 0: return 'NA';
+            case 10: return 'Easy';
+            case 20: return 'Normal';
+            case 30: return 'Hard';
+            case 40: return 'Harder';
+            default: return 'Unknown';
+        }
+    }
+
 }
 
 

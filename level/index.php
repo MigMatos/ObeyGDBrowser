@@ -24,6 +24,7 @@ $params = array('levelName' => $id, 'page' => 0);
 $response = searchLevels($params, $db, $gdps_settings);
 
 
+
 $data = json_decode($response, true);
 
 if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
@@ -33,9 +34,18 @@ if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
 }
 $data = $data[0];
 
+include("../api/suggests.php");
+include("../api/utils.php");
+$suggestAvg = getAverageSuggestions(["levelID" => $data["id"], "type" => "avg"], $db);
 
+
+$data = array_merge($data, json_decode($suggestAvg,true));
+
+include("../assets/htmlext/loadingalert.php");
 include("../assets/htmlext/flayeralert.php");
 $data["serverType"] = $serverType;
+$data["userpermissions"] = $userPermissionsJSON;
+$data["gdpsVersion"] = intval($gdps_settings["gdps_version"]);
 foreach ($data as $key => $value) {
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
     $value = is_numeric($value) ? intval($value) : $value;

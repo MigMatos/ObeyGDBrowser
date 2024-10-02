@@ -3,6 +3,8 @@
 include("../_init_.php");
 include("./utils.php");
 
+error_reporting(0);
+
 $file = str_replace("\\", "/", __FILE__);
 $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
 
