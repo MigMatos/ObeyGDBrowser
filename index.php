@@ -144,7 +144,7 @@
 			</table>
 
 
-			<p style="color: #ffffff1f; font-size: 2.5vh;">Development in alpha, this may contain unwanted bugs.</p>
+			<p style="color: #ffffff1f; font-size: 2.5vh;">ObeyGDBrowser 1.0 Stable Version.<br><span id="randomStuffText"></span></p>
 	</div>
 
 	<!-- <div style="position:absolute; bottom: 17%; right: 7%; width: 9%; text-align: right; pointer-events: none">
@@ -424,5 +424,22 @@ if (noDaily || noWeekly) {
 
 
 </script>
+<script>
+    const facts = [
+        "MigMatos is here!",
+        "ProTip: Jump.",
+        "You can activate the color profiles if you log in from ObeyGDBrowser and go to the ''Experimental options'' section",
+        "An add song button will be added on October 6th! Look forward to it!",
+        "If you see this, you need to play Bloodbath'",
+        "It took me too long to think of what to put here.",
+        "Humans share 60% of their DNA with bananas.",
+        "RobTop releases 2.4! 🗣🗣🗣",
+        "Explorers never existed, it was a government invention",
+        "B",
+		"Link your Discord with ObeyGDBrowser!!!",
+		"Complete daily in one attempt",
+		"Obey"
+    ];
+    document.getElementById("randomStuffText").innerText = facts[Math.floor(Math.random() * facts.length)];
+</script>
 <script type="text/javascript" src="./misc/versionadapter.js"></script>
-<script type="text/javascript" src="./misc/hlandeErrors.js"></script>
