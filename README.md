@@ -6,6 +6,9 @@ A port of [GDColon](https://github.com/GDColon) original [GDBrowser](https://git
 ## Installation is as simple as uploading a file to your GDPS and opening it with your browser!
 ![image](https://github.com/MigMatos/ObeyGDBrowser/assets/87149085/9e99c1f6-6a0c-43e4-bcda-3a981e2156bd)
 
+### Video of how install ObeyGDBrowser:
+https://www.youtube.com/watch?v=Rl0w0EiS7uY
+
 If you are interested, download now!
 https://github.com/MigMatos/ObeyGDBrowser/releases/latest
 
