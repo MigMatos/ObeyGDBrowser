@@ -27,7 +27,7 @@
    </p>
     <h3 align="center">Installation Tutorial</h3>
    <p align="center">
-        <div align="center"><img src="https://github.com/user-attachments/assets/297233f3-211d-434d-92ca-7f09e62684cc" alt="" width="auto" height="15"> <b>View in Youtube:</b> https://www.youtube.com/watch?v=Rl0w0EiS7uY</div>
+        <div align="center"><img src="https://github.com/user-attachments/assets/297233f3-211d-434d-92ca-7f09e62684cc" alt="" width="auto" height="15"> <b>View in Youtube:</b> https://youtu.be/9xkbF9fZb2M </div>
         <br>
         <li>1. Place the "installer.php" file in the path where your GDPS files are located.</li>
         <li>2. Open the file in your browser.</li>
