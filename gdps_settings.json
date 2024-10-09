@@ -51,7 +51,7 @@
     "path_connection": "../incl/lib/connection.php",
     "path_folder_levels": "../../data/levels/",
     "path_lib_folder": "../incl/lib/",
-    "browser_path": "obeywebtools/",
+    "browser_path": "browser/",
     "gdps_version": 22,
     "gauntlets": {
         "-1": {
