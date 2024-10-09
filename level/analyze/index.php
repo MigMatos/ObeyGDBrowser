@@ -1,3 +1,4 @@
+<?php include("../../_init_.php"); ?>
 <head>
 	<title>Level Analysis</title>
 	<meta charset="utf-8">

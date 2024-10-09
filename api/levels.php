@@ -38,6 +38,11 @@ function rateLevel($params, $db, $userPermissions) {
     $fields = [];
     $bindings = [];
 
+    // Fix: add updated
+    $fields[] = "rateDate = ?";
+    $bindings[] = intval(time());
+
+    // ------------- //
     if (isset($params['stars'])) {
         if ($isAdmin || in_array('rates', $userPermissions)) {
             $fields[] = "starStars = ?";
@@ -126,4 +131,7 @@ function rateLevel($params, $db, $userPermissions) {
         ]);
     }
 }
+
+
+
 ?>

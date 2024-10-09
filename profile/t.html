@@ -127,13 +127,13 @@
 			<h2 class="smaller center" style="margin-top: 2%">Account Settings</h2>
 			<div class="box-subopt">
 				<div class="gdsButton" onclick="SocialSettings()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Links</h3></div>
-				<div class="gdsButton blue" onclick="SocialPreferences()" disabled style="pointer-events: none; padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
+				<div class="gdsButton blue" onclick="SocialPreferences()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
 			</div>
 
 			<h2 class="smaller center" style="margin-top: 2%">ObeyGDBrowser</h2>
 			<div class="box-subopt">
 				<div class="gdsButton" onclick="APIToken()" style="display: none; padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">API Token</h3></div>
-				<div class="gdsButton blue" onclick="CurrentPermissions()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">View Current Permissions</h3></div>
+				<div class="gdsButton" onclick="CurrentPermissions()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">View Current Permissions</h3></div>
 				<div class="gdsButton red" onclick="LogoutAccount()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Logout account</h3></div>
 			</div>
 
@@ -207,9 +207,9 @@
 		<form id="formPreferencesPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 56.5%; width: 100vh">
 			<h3 class="smaller center" style="font-size: 5.5vh">Social Preferences</h3>
 			<div id="filterStuff">
-			
+			<input type="text" name="act" value="socialsettings" hidden>
 			<h2 class="smaller center" style="margin-top: 2%">Allow messages from:</h2>
-			<div class="box-subopt" style="">
+			<div class="box-subopt" style=""> 
 				<div><h1 class="box-subopt-checkbox"><input name="messages" value="0" class="checkgroup" type="checkbox" id="box-msg-all"><label for="box-msg-all" class="gdcheckbox gdButton"></label>All</h1></div>
 				<div><h1 class="box-subopt-checkbox"><input name="messages" value="1" class="checkgroup" type="checkbox" id="box-msg-friends"><label for="box-msg-friends" class="gdcheckbox gdButton"></label>Friends</h1></div>
 				<div><h1 class="box-subopt-checkbox"><input name="messages" value="2" class="checkgroup" type="checkbox" id="box-msg-none"><label for="box-msg-none" class="gdcheckbox gdButton"></label>None</h1></div>
@@ -475,6 +475,18 @@ function SocialSettings() {
 
 function SocialPreferences() {
 	$('#socialPreferencesPopup').show()
+
+	function setSocialCheckbox(selector, value) {
+		if (value == "all") { $(selector + '-all').prop('checked', true);
+		} else if (value == "friends") { $(selector + '-friends').prop('checked', true);
+		} else { $(selector + '-none').prop('checked', true); }
+	}
+
+	setSocialCheckbox('#box-msg', "[[MESSAGES]]");
+	setSocialCheckbox('#box-ch', "[[COMMENTHISTORY]]");
+
+	if ("[[FRIENDREQUESTS]]" == "all") { $('#box-fr-all').prop('checked', true); }
+	else { $('#box-fr-none').prop('checked', true); }
 }
 
 function OGDBAccountLink() {

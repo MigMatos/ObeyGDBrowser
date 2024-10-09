@@ -186,7 +186,7 @@ function addSong($params, $db, $logged, $accountID) {
         return json_encode(['error' => true, 'message' => 'Invalid author name.']);
     }
 
-    $authorID = isset($params['authorID']) ? intval($params['authorID']) : ($logged ? intval($accountID) : 9);
+    $authorID = isset($params['authorID']) ? strval($params['authorID']) : ($logged ? strval($accountID) : 9);
     $url = BrowserUtils::convertSongURL($params['url']);
     
     // ------- check if song exist ---------

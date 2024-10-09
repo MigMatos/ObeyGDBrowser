@@ -45,6 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     echo json_encode(array("error" => "Invalid request method or script filename mismatch."));
 }
 
+
+
 // PARAMS
 // page = page
 
@@ -144,7 +146,7 @@ function deleteMapPack($params, $db) {
     }
 
     if ($stmt->execute()) {
-        return json_encode(array("success" => "true", "ID" => $id));
+        return json_encode(array("success" => "true", "ID" => $id, JSON_FORCE_OBJECT));
     } else {
         return json_encode(array("success" => "false"));
     }

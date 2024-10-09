@@ -93,7 +93,7 @@ function commentsGD($params, $db, $gdps_settings) {
             "percent" => intval($result["percent"]),
             "username" => strval($result["userName"]),
             "playerID" => intval($result["userID"]),
-            "accountID" => intval($result["extID"]),
+            "accountID" => strval($result["extID"]),
             "icon" => [
                 "form" => strval($iconTypes[intval($result["iconType"])]),
                 "icon" => intval($result["accIcon"]),

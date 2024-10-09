@@ -321,7 +321,7 @@ function searchLevels($params, $db, $gdps_settings) {
             "description" => $description,
             "author" => $result["originaluserName"],
             "playerID" => intval($result["userID"]),
-            "accountID" => intval($result["extID"]),
+            "accountID" => strval($result["extID"]),
             "difficulty" => $diffString,
             "downloads" => intval($result["downloads"]),
             "likes" => $likes,
