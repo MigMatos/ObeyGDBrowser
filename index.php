@@ -248,7 +248,7 @@ if (isAdmin) {
         }, 700);
 }
 
-if (typeof globalMismatch === 'undefined' || globalMismatch != "1") {
+if (typeof globalMismatch === 'undefined' || globalMismatch != "2") {
     console.warn("OGDBROWSER: Version and asset discrepancy, this may cause errors when viewing new features or completely broken functionalities. Clear your browser cache for this site and refresh, or wait for your web host to sync the assets. If you're a GDPSFH user, changes may take up to 1 hour to appear.");
 	setTimeout(function () {
 		$("#alertMismathAssets").show()

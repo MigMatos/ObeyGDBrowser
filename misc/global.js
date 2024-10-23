@@ -75,7 +75,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 
 // ------------ IMPORTANT ------------ 
 
-let globalMismatch = 1;
+let globalMismatch = 2;
 
 // ------------ IMPORTANT ------------ 
 
