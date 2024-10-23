@@ -26,17 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
         exit;
     }
 
+    include('actions.php');
+
     switch ($action) {
         case 'delete':
-            echo deleteGauntlet($_POST['id'], $db);
+            echo deleteGauntlet($_POST['id'], $db, $accountID);
             break;
 
         case 'edit':
-            echo editGauntlet($_POST, $db);
+            echo editGauntlet($_POST, $db, $accountID);
             break;
 
         case 'create':
-            echo createGauntlet($_POST, $db);
+            echo createGauntlet($_POST, $db, $accountID);
             break;
 
         default:
@@ -175,7 +177,7 @@ function getAvailableGauntlets($params, $gdps_settings) {
     return json_encode($results);
 }
 
-function deleteGauntlet($id, $db) {
+function deleteGauntlet($id, $db, $accountID) {
     $id = intval($id ?? 0);
     if ($id <= 0) {
         return json_encode(array("error" => "Invalid ID."));
@@ -191,14 +193,18 @@ function deleteGauntlet($id, $db) {
     }
 
     if ($stmt->execute()) {
+
+        setModAction(DELETE_GAUNTLET, ['value' => $id], $db, $accountID);
+
         return json_encode(array("success" => "true", "ID" => $id));
+        
     } else {
         return json_encode(array("success" => "false"));
     }
 }
 
 
-function editGauntlet($params, $db) {
+function editGauntlet($params, $db, $accountID) {
     $id = intval($params['id'] ?? 0);
     
     // print_r($params);
@@ -222,6 +228,9 @@ function editGauntlet($params, $db) {
     }
 
     if ($stmt->execute()) {
+
+        setModAction(CHANGE_GAUNTLET, ['value' => $id, 'value2' => strval(implode(", ", $levels))], $db, $accountID);
+
         return json_encode(array("success" => "true", "ID" => $id));
     } else {
         return json_encode(array("success" => "false"));
@@ -229,7 +238,7 @@ function editGauntlet($params, $db) {
 }
 
 
-function createGauntlet($params, $db) {
+function createGauntlet($params, $db, $accountID) {
     $levels = $params['levels'];
 
     if (empty($params['id']) || empty($levels) || count($levels) < 5) {
@@ -247,6 +256,9 @@ function createGauntlet($params, $db) {
 
     if ($stmt->execute()) {
         $id = $db->lastInsertId();
+
+        setModAction(CREATE_GAUNTLET, ['value' => $id, 'value2' => strval(implode(", ", $levels))], $db, $accountID);
+
         return json_encode(array("success" => "true", "ID" => $id));
     } else {
         return json_encode(array("success" => "false"));

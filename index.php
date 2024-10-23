@@ -109,7 +109,7 @@
 		<a href="./iconkit"><img class="iconRope" src="assets/iconrope.png" width="40%"></a>
 	</div> -->
 	
-	<div class="supercenter center" id="menuButtons" style="bottom: 5%;">
+	<div class="supercenter center" id="menuButtons" style="bottom: -4%;">
 			<table>
 					<tr class="menuButtonList">
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
@@ -119,13 +119,15 @@
 						<td id="gdItem21"><a tabindex="1" onclick="levelRedirect('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
 						
 						
-						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-daily" src="assets/category-songs.png" title="Songs"></a></td>
+						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-songs" src="assets/category-songs.png" title="Songs"></a></td>
 
 						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
+						
+						<td><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
 						<?php if($logged && $isAdmin) { ?> 
 
-						<td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
+						<!-- <td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td> -->
 						
 						<?php } ?>
 					</tr>
@@ -139,12 +141,19 @@
 						<td id="gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
 						
 						<td id="gdItem16"><a tabindex="1" onclick="urlRedirect('./mappacks')"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
+						
+						<td><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
+						
+						
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
+					</tr>
+					<tr class="menuButtonList">
+						<td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
 					</tr>
 			</table>
 
 
-			<p style="color: #ffffff1f; font-size: 2.5vh;">ObeyGDBrowser 1.0 Stable Version.<br><span id="randomStuffText"></span></p>
+			
 	</div>
 
 	<!-- <div style="position:absolute; bottom: 17%; right: 7%; width: 9%; text-align: right; pointer-events: none">
@@ -158,9 +167,9 @@
 	 -->
 
 	
-  
+	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser 1.0 Stable Version.<br><span id="randomStuffText"></span></p>
 
-	<div class="center" width="100%" style="margin-top: 2%">
+	<div class="center" width="100%" style="margin-top: -0.5%">
     	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>
     	<img id="browserlogo" src="<?php echo isset($gdps_settings["gdps_level_browser_logo_url"]) ? $gdps_settings["gdps_level_browser_logo_url"] : 'assets/browser.png'; ?>" height="7%" style="margin: 0.5% 0% 0% 30%">
 	</div>

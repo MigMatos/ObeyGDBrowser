@@ -15,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $file == $scriptFilename) {
     }
     switch ($action) {
         case 'edit':
-            echo rateLevel($_POST, $db, $userPermissions);
+            echo rateLevel($_POST, $db, $userPermissions, $accountID);
             break;
         default:
             echo json_encode(array("error" => "Invalid action specified."));
             break;
     }
 }
-function rateLevel($params, $db, $userPermissions) {
+function rateLevel($params, $db, $userPermissions, $accountID) {
 
     if (!isset($params['id'])) {
         return json_encode([
@@ -37,6 +37,7 @@ function rateLevel($params, $db, $userPermissions) {
     $query = "UPDATE levels SET ";
     $fields = [];
     $bindings = [];
+    $modActions = [];
 
     // Fix: add updated
     $fields[] = "rateDate = ?";
@@ -47,6 +48,9 @@ function rateLevel($params, $db, $userPermissions) {
         if ($isAdmin || in_array('rates', $userPermissions)) {
             $fields[] = "starStars = ?";
             $bindings[] = intval($params['stars']);
+            
+            $modActions[] = 'rate';
+
         } else {
             $missingPermissions[] = 'rates';
         }
@@ -66,6 +70,7 @@ function rateLevel($params, $db, $userPermissions) {
                 $fields[] = "starDifficulty = ?, starDemon = ?, starDemonDiff = ?, starAuto = ?";
                 $bindings = array_merge($bindings, [50, 1, $demonDiff, 0]);
             } 
+            
         } else {
             $missingPermissions[] = 'ratedemons or ratedifficulty';
         }
@@ -78,6 +83,9 @@ function rateLevel($params, $db, $userPermissions) {
             if ($isAdmin || in_array('coins', $userPermissions)) {
                 $fields[] = "starCoins = ?";
                 $bindings[] = $coins;
+                
+                $modActions[] = 'coin';
+
             } else {
                 $missingPermissions[] = 'coins';
             }
@@ -91,6 +99,10 @@ function rateLevel($params, $db, $userPermissions) {
                 $fields[] = "starFeatured = ?, starEpic = ?";
                 $bindings[] = $feat;
                 $bindings[] = 0;
+
+                $modActions[] = 'featured';
+
+
             } else {
                 $missingPermissions[] = 'featured';
             }
@@ -99,6 +111,9 @@ function rateLevel($params, $db, $userPermissions) {
                 $fields[] = "starEpic = ?, starFeatured = ?";
                 $bindings[] = $feat - 1; 
                 $bindings[] = 1;
+
+                $modActions[] = 'epic';
+
             } else {
                 $missingPermissions[] = 'epic or unepic';
             }
@@ -118,6 +133,22 @@ function rateLevel($params, $db, $userPermissions) {
 
     $stmt = $db->prepare($query);
     $stmt->execute($bindings);
+
+    if($stmt) {
+        if (in_array('rate', $modActions)) setModAction(RATE_LEVEL, ['value' => $params['id'], 'value2' => intval($params['stars'])], $db, $accountID);
+
+        if (in_array('coin', $modActions)) setModAction(CHANGE_COINS_LEVEL, ['value' => $params['id'], 'value2' => intval($params['coins'])], $db, $accountID);
+
+        if (in_array('featured', $modActions)) setModAction(CHANGE_FEATURE_LEVEL, ['value' => $params['id'], 'value2' => $feat], $db, $accountID);
+
+        if (in_array('epic', $modActions)) setModAction(CHANGE_EPIC_LEVEL, ['value' => $params['id'], 'value2' => intval($feat - 1)], $db, $accountID);
+    } else {
+        return json_encode([
+            'error' => true,
+            'message' => 'SQL Error: ' . strval($stmt->errorInfo()[2])
+        ]);
+    }
+
 
     if (!empty($missingPermissions)) {
         return json_encode([

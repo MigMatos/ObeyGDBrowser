@@ -10,6 +10,7 @@
         if (strpos($url, $base) === false) {
             global $gdps_settings;
             $base = isset($gdps_settings["browser_path"]) ? $gdps_settings["browser_path"] : 'browser/';
+            echo '<p style="display:none" id="browser_path">'.$base.'</p>';
         }
         
         $path = substr($url, strpos($url, $base) + strlen($base));
@@ -19,6 +20,8 @@
     }
 
     global $baseURL;
+
+    
 
     $baseURL = getPath();
 

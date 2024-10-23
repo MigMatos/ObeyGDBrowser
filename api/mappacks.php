@@ -24,17 +24,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
         exit;
     }
 
+    include('actions.php');
+
     switch ($action) {
         case 'delete':
-            echo deleteMapPack($_POST, $db);
+            echo deleteMapPack($_POST, $db, $accountID);
             break;
 
         case 'edit':
-            echo editMapPack($_POST, $db);
+            echo editMapPack($_POST, $db, $accountID);
             break;
 
         case 'create':
-            echo createMapPack($_POST, $db);
+            echo createMapPack($_POST, $db, $accountID);
             break;
 
         default:
@@ -130,7 +132,7 @@ function getMapPacks($params, $db, $gdps_settings) {
     return json_encode($json_data);
 }
 
-function deleteMapPack($params, $db) {
+function deleteMapPack($params, $db, $accountID) {
     $id = intval($params['id'] ?? 0);
     if ($id <= 0) {
         return json_encode(array("error" => "Invalid ID."));
@@ -146,14 +148,17 @@ function deleteMapPack($params, $db) {
     }
 
     if ($stmt->execute()) {
-        return json_encode(array("success" => "true", "ID" => $id, JSON_FORCE_OBJECT));
+
+        setModAction(DELETE_MAP_PACK, ['value' => $id], $db, $accountID);
+
+        return json_encode(array("success" => "true", "ID" => $id));
     } else {
         return json_encode(array("success" => "false"));
     }
 }
 
 
-function editMapPack($params, $db) {
+function editMapPack($params, $db, $accountID) {
     $id = intval($params['id'] ?? 0);
     // print_r($params);
     if ($id <= 0) {
@@ -184,6 +189,9 @@ function editMapPack($params, $db) {
     }
 
     if ($stmt->execute()) {
+
+        setModAction(CHANGE_MAP_PACK, ['value' => $id, 'value2' => $levels, 'value3' => $difficulty, 'value5' => $stars, 'value6' => $coins], $db, $accountID);
+
         return json_encode(array("success" => "true", "ID" => $id));
     } else {
         return json_encode(array("success" => "false"));
@@ -191,7 +199,7 @@ function editMapPack($params, $db) {
 }
 
 
-function createMapPack($params, $db) {
+function createMapPack($params, $db, $accountID) {
     $name = strval($params['name'] ?? '');
     $levels = $params['levels'];
 
@@ -217,6 +225,9 @@ function createMapPack($params, $db) {
 
     if ($stmt->execute()) {
         $id = $db->lastInsertId();
+
+        setModAction(CREATE_MAP_PACK, ['value' => $id, 'value2' => $levels, 'value3' => $difficulty, 'value5' => $stars, 'value6' => $coins], $db, $accountID);
+
         return json_encode(array("success" => "true", "ID" => $id));
     } else {
         return json_encode(array("success" => "false"));
