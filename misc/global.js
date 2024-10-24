@@ -303,3 +303,6 @@ function enableFullScreenLandscape() {
 		console.error('%cOGDW Error in FullScreen Request: ' + err, 'background: black; color: red;');
 	});
 }
+
+// Service worker
+

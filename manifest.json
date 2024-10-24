@@ -1,5 +1,5 @@
 {
-    "start_url": "/",
+    "start_url": "/browser/",
     "dir": "auto",
     "lang": "en",
     "display": "fullscreen",
@@ -14,7 +14,7 @@
     "name": "MyGDPS: ObeyGDBrowser",
     "theme_color": "#000000",
     "background_color": "#000000",
-    "short_name": "MyGDPS",
+    "short_name": "MyGDPS: ObeyGDBrowser",
     "description": "My GDPS! :D",
     "icons": [
         {

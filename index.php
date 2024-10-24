@@ -26,11 +26,30 @@
 		cursor: pointer;
 	}
 
+	.ad2hs-prompt {
+        background-color: rgb(59, 134, 196);
+        border: none;
+        display: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        position: absolute;
+        margin: 0 1rem 1rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: calc(100% - 32px);
+    }
+
 </style>
 
 <body class="levelBG" onbeforeunload="saveUrl()">
 
 <div id="everything">
+
+	<button type="button" class="ad2hs-prompt">Install Web App</button>
 
 	<div class="popup" id="credits">
 	</div>
@@ -475,5 +494,20 @@ if (noDaily || noWeekly) {
 <script type="text/javascript" src="./misc/versionadapter.js"></script>
 
 <script>
+var deferredPrompt;
 
+window.addEventListener('beforeinstallprompt', function (e) {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  showAddToHomeScreen();
+});
+   
+
+function showAddToHomeScreen() {
+  var a2hsBtn = document.querySelector(".ad2hs-prompt");
+  a2hsBtn.style.display = "block";
+  a2hsBtn.addEventListener("click", addToHomeScreen);
+}
 </script>
