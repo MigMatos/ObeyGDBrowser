@@ -1,5 +1,5 @@
 {
-    "start_url": "/browser/",
+    "start_url": "\/browser\/",
     "dir": "auto",
     "lang": "en",
     "display": "fullscreen",
@@ -18,27 +18,27 @@
     "description": "My GDPS! :D",
     "icons": [
         {
-            "src": "assets/gdps/launchericon-512-512.png",
+            "src": "assets\/gdps\/launchericon-512-512.png",
             "sizes": "512x512"
         },
         {
-            "src": "assets/gdps/launchericon-192-192.png",
+            "src": "assets\/gdps\/launchericon-192-192.png",
             "sizes": "192x192"
         },
         {
-            "src": "assets/gdps/launchericon-144-144.png",
+            "src": "assets\/gdps\/launchericon-144-144.png",
             "sizes": "144x144"
         },
         {
-            "src": "assets/gdps/launchericon-96-96.png",
+            "src": "assets\/gdps\/launchericon-96-96.png",
             "sizes": "96x96"
         },
         {
-            "src": "assets/gdps/launchericon-72-72.png",
+            "src": "assets\/gdps\/launchericon-72-72.png",
             "sizes": "72x72"
         },
         {
-            "src": "assets/gdps/launchericon-48-48.png",
+            "src": "assets\/gdps\/launchericon-48-48.png",
             "sizes": "48x48"
         }
     ]

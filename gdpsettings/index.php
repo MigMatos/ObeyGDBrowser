@@ -564,6 +564,30 @@
         <input type="text" id="browser_path" required name="browser_path" value="browser/"><br>
         <label for="path_folder_levels">Levels Path Folder (Important for the level analyzer!)</label>
         <input type="text" id="path_folder_levels" placeholder="../../data/levels/" name="path_folder_levels"><br>
+        <h2>App installer</h2><br>
+        <!-- App Start URL -->
+        <label for="manifest_start_url">App Start URL</label>
+        <input type="text" id="manifest_start_url" placeholder="/browser/" name="manifest_start_url" value="/browser/" required><br>
+
+        <!-- App Name -->
+        <label for="manifest_name">App Name</label>
+        <input type="text" id="manifest_name" placeholder="MyGDPS: ObeyGDBrowser" name="manifest_name" value="MyGDPS: ObeyGDBrowser" required><br>
+
+        <!-- App Theme Color -->
+        <label for="manifest_theme_color">App Theme Color</label>
+        <input type="color" id="manifest_theme_color" name="manifest_theme_color" value="#000000" required><br>
+
+        <!-- App Background Color -->
+        <label for="manifest_background_color">App Background Color</label>
+        <input type="color" id="manifest_background_color" name="manifest_background_color" value="#000000" required><br>
+
+        <!-- App Short Name -->
+        <label for="manifest_short_name">App Short Name</label>
+        <input type="text" id="manifest_short_name" placeholder="MyGDPS: ObeyGDBrowser" name="manifest_short_name" value="MyGDPS: ObeyGDBrowser" required><br>
+
+        <!-- App Description -->
+        <label for="manifest_description">App Description</label>
+        <input type="text" id="manifest_description" placeholder="My GDPS! :D" name="manifest_description" value="My GDPS! :D" required><br>
     </fieldset>
 
 
@@ -639,6 +663,20 @@ function loadValues() {
 }
 
 loadValues();
+
+// Manifest
+
+fetch('../manifest.json')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('manifest_name').value = data.name;
+        document.getElementById('manifest_theme_color').value = data.theme_color;
+        document.getElementById('manifest_background_color').value = data.background_color;
+        document.getElementById('manifest_short_name').value = data.short_name;
+        document.getElementById('manifest_description').value = data.description;
+        document.getElementById('manifest_start_url').value = data.start_url;
+    })
+    .catch(console.error);
 
     </script>
 
@@ -1047,6 +1085,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
     file_put_contents("../gdps_settings.json", $json_data);
+
+
+    $jsonFile = '../manifest.json';
+    $data = json_decode(file_get_contents($jsonFile), true);
+
+    $data['name'] = get_post_value('manifest_name');
+    $data['theme_color'] = get_post_value('manifest_theme_color');
+    $data['background_color'] = get_post_value('manifest_background_color');
+    $data['short_name'] = get_post_value('manifest_short_name');
+    $data['description'] = get_post_value('manifest_description');
+    $data['start_url'] = get_post_value('manifest_start_url');
+
+    file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
+
 
     ?>
     <script>

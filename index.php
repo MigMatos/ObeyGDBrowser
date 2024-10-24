@@ -48,6 +48,12 @@
 		transform: translate(-50%, -50%) scale(1.05);
 	}
 
+	.notfinishedBtn {
+		filter: grayscale(1);
+		cursor:not-allowed;
+		pointer-events: none;
+	}
+
 </style>
 
 <body class="levelBG" onbeforeunload="saveUrl()">
@@ -165,7 +171,7 @@
 						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
 						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
 						
-						<td><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
+						<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
 						
 
 						<!-- <td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td> -->
@@ -183,7 +189,7 @@
 						
 						<td id="gdItem16"><a tabindex="1" onclick="urlRedirect('./mappacks')"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
 						
-						<td><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
+						<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
 						
 						
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
