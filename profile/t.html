@@ -516,6 +516,8 @@ function confirmLogout() {
         })
         .then(response => response.text())
         .then(data => {
+			localStorage.clear();
+			sessionStorage.clear();
 			closeandrestartMessageCustomFrame();
         })
         .catch(error => {

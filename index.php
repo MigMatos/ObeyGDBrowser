@@ -121,6 +121,23 @@
 		
 	</div>
 
+	<div class="popup" id="installOGDWApp" style="z-index: 9999;">
+		<div class="purplebox bounce center supercenter" style="width: 83vh; height: auto;">
+			<h3 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block; color: #76da28;"><img src="./assets/download.png" style="width: 5vh; margin-right: 1.5vh;">Install Web App</h3>
+				<input type="text" name="act" value="delete" hidden>
+				<h3 class="bigger center" style="line-height: 5vh; margin-top: 1.5vh; text-wrap: wrap;">
+					<cy>Install the web app</cy> on your mobile phone for a <cg>better experience</cg>, <cb>it doesn't take up space on your device</cb> and <cg>it's free!</cg>
+				</h3>
+				<div style="display: flex; justify-content: center; flex-wrap: wrap;">
+				<div class="gdsButton" onclick="installPWABrowser('installOGDWApp')" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="font-size: 3.5vh;" id="textContentFileSelect">Install now!</h3></div>
+				<div class="closeWindow gdsButton red" onclick="closeWindow('installOGDWApp')" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center; font-size: 3.5vh;" id="textContentFileSelect">No, thanks!</h3></div>
+				<div class="closeWindow gdsButton red" onclick="hidePWAInstaller('installOGDWApp')" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center; font-size: 3.5vh;" id="textContentFileSelect">Do not show this alert again</h3></div>
+				</div>
+
+		</div>
+		
+	</div>
+
 	<!-- <div class="menu-achievements" style="position:absolute; top: 5.5%; left: 3%; width: 12%;">
 		<a href="../achievements"><img class="gdButton" src="assets/achievements.png" width="40%"></a>
 	</div>
@@ -506,25 +523,61 @@ window.addEventListener('beforeinstallprompt', function (e) {
   e.preventDefault();
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
-  showAddToHomeScreen();
+  if (isMobileDevice() && shouldShowInstallButton()) showAddToHomeScreen();
 });
-   
+
+function shouldShowInstallButton() {
+    return localStorage.getItem('showInstallerbutton') == null;
+}
+
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+}
+
+function showpopupPWA() {
+	$('#installOGDWApp').show();
+}
+
+function closeWindow(obj) {
+	$(`#${obj}`).hide();
+	var a2hsBtn = document.querySelector(".ad2hs-prompt");
+  	a2hsBtn.style.display = "none";
+}
+
+function hidePWAInstaller(obj) {
+	var a2hsBtn = document.querySelector(".ad2hs-prompt");
+  	a2hsBtn.style.display = "none";
+	localStorage.setItem('showInstallerbutton', '0');
+	$(`#${obj}`).hide();
+}
+
+function installPWABrowser(obj) {
+	var a2hsBtn = document.querySelector(".ad2hs-prompt");
+	console.log("Requesting PWA installer...")
+    a2hsBtn.style.display = 'none';
+	try{ deferredPrompt.prompt(); }
+	catch(e) {
+		CreateFLAlert("Installation Error", "This browser or mobile device may not support this feature.");
+		$(`#${obj}`).hide();
+		return;
+	}
+	deferredPrompt.userChoice.then((choiceResult) => {
+		if (choiceResult.outcome === 'accepted') {
+			CreateFLAlert("Installed!", "The app was successfully installed on your mobile phone!");
+			$(`#${obj}`).hide();
+		} else {
+			CreateFLAlert("Installation Error", "This browser or mobile device may not support this feature.");
+			$(`#${obj}`).hide();
+		}
+		deferredPrompt = null;
+	});
+}
 
 function showAddToHomeScreen() {
   var a2hsBtn = document.querySelector(".ad2hs-prompt");
   a2hsBtn.style.display = "block";
   a2hsBtn.addEventListener('click', () => {
-	console.log("Requesting PWA installer...")
-    a2hsBtn.style.display = 'none';
-	deferredPrompt.prompt();
-	deferredPrompt.userChoice.then((choiceResult) => {
-		if (choiceResult.outcome === 'accepted') {
-			console.log('PWA Installed');
-		} else {
-			console.log('Error: PWA declined');
-		}
-		deferredPrompt = null;
+		showpopupPWA();
 	});
-});
 }
 </script>
