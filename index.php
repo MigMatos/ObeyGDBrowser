@@ -109,7 +109,7 @@
 		<a href="./iconkit"><img class="iconRope" src="assets/iconrope.png" width="40%"></a>
 	</div> -->
 	
-	<div class="supercenter center" id="menuButtons" style="bottom: -4%;">
+	<div class="supercenter center" id="menuButtons">
 			<table>
 					<tr class="menuButtonList">
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
@@ -169,7 +169,7 @@
 	
 	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser 1.0 Stable Version.<br><span id="randomStuffText"></span></p>
 
-	<div class="center" width="100%" style="margin-top: -0.5%">
+	<div class="center" width="100%" style="margin-top: 1%">
     	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>
     	<img id="browserlogo" src="<?php echo isset($gdps_settings["gdps_level_browser_logo_url"]) ? $gdps_settings["gdps_level_browser_logo_url"] : 'assets/browser.png'; ?>" height="7%" style="margin: 0.5% 0% 0% 30%">
 	</div>

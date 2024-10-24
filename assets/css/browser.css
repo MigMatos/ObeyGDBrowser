@@ -625,6 +625,19 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
+#menuButtons {
+    bottom: 1%;
+}
+
+@media (max-height: 500px) {
+    .menuButton {
+        width: 19.5vh;
+    }
+    #menuButtons {
+        bottom: 5%;
+    }
+}
+
 .menuButton:active, .menuButton:focus-visible, a:focus-visible .menuButton {
   animation: bounceButton 0.25s ease-in-out forwards;
 }
