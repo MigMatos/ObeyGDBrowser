@@ -27,21 +27,26 @@
 	}
 
 	.ad2hs-prompt {
-        background-color: rgb(59, 134, 196);
-        border: none;
+
         display: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        position: absolute;
-        margin: 0 1rem 1rem;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: calc(100% - 32px);
+		position: absolute;
+		margin: 0 1rem 1rem;
+		width: max-content;
+		z-index: 9999;
+		font-family: Pusab;
+		padding: 1vh;
+		font-size: clamp(0.5px, 2.2vw, 10vh);
+		-webkit-text-stroke: clamp(0.5px, 0.09vw, 1.8px) black;
+		text-align: center;
+		bottom: -5%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1.05);
+		transition: unset;
     }
+
+	.ad2hs-prompt:hover {
+		transform: translate(-50%, -50%) scale(1.05);
+	}
 
 </style>
 
@@ -49,7 +54,7 @@
 
 <div id="everything">
 
-	<button type="button" class="ad2hs-prompt">Install Web App</button>
+	<button type="button" class="ad2hs-prompt gdsButton center"><img src="assets/gdps/launchericon-48-48.png"> Install Web App for better experience!</button>
 
 	<div class="popup" id="credits">
 	</div>
@@ -508,6 +513,18 @@ window.addEventListener('beforeinstallprompt', function (e) {
 function showAddToHomeScreen() {
   var a2hsBtn = document.querySelector(".ad2hs-prompt");
   a2hsBtn.style.display = "block";
-  //a2hsBtn.addEventListener("click", addToHomeScreen);
+  a2hsBtn.addEventListener('click', () => {
+	console.log("Requesting PWA installer...")
+    installButton.style.display = 'none';
+	deferredPrompt.prompt();
+		deferredPrompt.userChoice.then((choiceResult) => {
+			if (choiceResult.outcome === 'accepted') {
+				console.log('PWA Installed');
+			} else {
+				console.log('Error: PWA declined');
+			}
+			deferredPrompt = null;
+		});
+});
 }
 </script>
