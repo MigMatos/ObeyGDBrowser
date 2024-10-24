@@ -515,16 +515,16 @@ function showAddToHomeScreen() {
   a2hsBtn.style.display = "block";
   a2hsBtn.addEventListener('click', () => {
 	console.log("Requesting PWA installer...")
-    installButton.style.display = 'none';
+    a2hsBtn.style.display = 'none';
 	deferredPrompt.prompt();
-		deferredPrompt.userChoice.then((choiceResult) => {
-			if (choiceResult.outcome === 'accepted') {
-				console.log('PWA Installed');
-			} else {
-				console.log('Error: PWA declined');
-			}
-			deferredPrompt = null;
-		});
+	deferredPrompt.userChoice.then((choiceResult) => {
+		if (choiceResult.outcome === 'accepted') {
+			console.log('PWA Installed');
+		} else {
+			console.log('Error: PWA declined');
+		}
+		deferredPrompt = null;
+	});
 });
 }
 </script>
