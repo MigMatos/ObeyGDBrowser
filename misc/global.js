@@ -44,6 +44,7 @@ $('body').append(`
 	</div>
 
 	<p style="font-size: 2.2vh">Are you on desktop? Just increase the window size (or rotate the screen yee!).</p>
+	<p style="font-size: 2.2vh; background: linear-gradient(to bottom right, #c7fc57, #47a20d); background-size: auto; background-repeat: no-repeat; background-position: center; border: 2px solid white; box-shadow: 0 0 0 2px black inset; border-radius: 10px; outline: none; width: max-content; margin: auto; padding: 1vh; color: #ffffff; font-family: Pusab; -webkit-text-stroke: clamp(0.5px, 0.4vw, 1.2px) black; text-align: center;" id="fullscreenrequest">Click here to put your device in fullscreen!</p>
 	</div>
 `)
 
@@ -231,6 +232,15 @@ while ($(this).scrollTop() != 0) {
 
 $(document).ready(function() {
 	$(window).trigger('resize');
+	if (localStorage.getItem('isFullScreenOGDW') === 'true') {
+		document.addEventListener('click', () => {
+			if (!document.fullscreenElement) {
+				enableFullScreenLandscape();
+			}
+		}, { once: true });
+    } else {
+        reqFullScreenLandscape();
+    }
 });
 
 // Adds all necessary elements into the tab index (all buttons and links that aren't natively focusable)
@@ -259,3 +269,37 @@ $.fn.isInViewport = function () {
     let viewportBottom = viewportTop + $(window).height();
     return elementBottom > viewportTop && elementTop < viewportBottom;
 };
+
+
+function reqFullScreenLandscape() {
+    if (document.documentElement.requestFullscreen ||screen.orientation) {
+
+		console.log("Requesting...")
+
+		CreateFLAlert(
+			"Enabling fullscreen...",
+			'_ObeyGDBrowser_ has been detected that you can set to **fullscreen or landscape mode**\n\n\n- Click in `y0 OK` to setup!',
+			'ogdwfullscreen'
+		);
+
+		waitForFLlayerclosed().then(() => {
+			enableFullScreenLandscape();
+		});
+    } else {
+        console.error('%cOGDW Error: Fullscreen API is not supported by this browser.', 'background: black; color: red;');
+    }
+}
+
+function enableFullScreenLandscape() {
+	document.documentElement.requestFullscreen().then(() => {
+		localStorage.setItem('isFullScreenOGDW', 'true');
+		if (screen.orientation && screen.orientation.lock) {
+			screen.orientation.lock('landscape').catch((err) => {
+				console.error('%cOGDW Error: ' + err, 'background: black; color: red;');
+			});
+		}
+		
+	}).catch((err) => {
+		console.error('%cOGDW Error in FullScreen Request: ' + err, 'background: black; color: red;');
+	});
+}

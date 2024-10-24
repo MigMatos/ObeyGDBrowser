@@ -11,7 +11,7 @@
 	<link href="assets/css/browser.css?v=6" type="text/css" rel="stylesheet">
     <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-	
+	<link rel="manifest" href="manifest.json">
 
 	<?php
 		
@@ -272,25 +272,25 @@ function getAbsoluteUrl(relativeUrl) {
 }
 
 
-function urlRedirect(url) {
+function urlRedirect(url_browser) {
 	const event = new Event('initLoadingAlert');
     document.dispatchEvent(event);
 
-	url = getAbsoluteUrl(url)
+	url_browser = getAbsoluteUrl(url_browser)
 	
 	if (window.location.protocol === 'https:') { 
-		url = url.replace('http:', 'https:')
+		url_browser = url_browser.replace('http:', 'https:')
 	}
 
 
-	fetch(url, { method: 'HEAD' })
+	fetch(url_browser, { method: 'HEAD' })
     .then(response => {
     	if (response.ok) {
 			darknessPage();
 			const event = new Event('finishLoadingAlert');
 			document.dispatchEvent(event);
 			setTimeout(function () {
-            	window.location.href = url;
+            	window.location.href = url_browser;
 			}, 500);
         } else {
 			changeLoadingAlert(`Browser error code: ${response.status}`)
@@ -308,8 +308,8 @@ function urlRedirect(url) {
 					const event = new Event('finishLoadingAlert');
 					document.dispatchEvent(event);
 					setTimeout(function () {
-						url = url.replace('https:', 'http:')
-						window.location.href = url;
+						url_browser = url_browser.replace('https:', 'http:')
+						window.location.href = url_browser;
 					}, 500);
 			}, 500);
 		} else {
@@ -323,24 +323,24 @@ function urlRedirect(url) {
     });
 }
 
-function profileRedirect(url) {
+function profileRedirect(url_browser) {
 	var queryProfile = "";
     if (legacyServer == true) {
-		queryProfile = "../../profile/?u=" + (encodeURIComponent(url).replace(/%2F/gi, "") || "");
+		queryProfile = "../../profile/?u=" + (encodeURIComponent(url_browser).replace(/%2F/gi, "") || "");
 	} else {
-		queryProfile = "../../profile/" + (encodeURIComponent(url).replace(/%2F/gi, "") || "") 
+		queryProfile = "../../profile/" + (encodeURIComponent(url_browser).replace(/%2F/gi, "") || "") 
 	}
     if (queryProfile) urlRedirect("./u/" + queryProfile);
 }
 
-function levelRedirect(url,type) {
+function levelRedirect(url_browser,type) {
 	var queryLvl = "";
 
 
     if (legacyServer == true) {
-		queryLvl = "/level/?id=" + (encodeURIComponent(url) || "0")
+		queryLvl = "/level/?id=" + (encodeURIComponent(url_browser) || "0")
 	} else {
-		queryLvl = "/level/" + (encodeURIComponent(url) || "0")
+		queryLvl = "/level/" + (encodeURIComponent(url_browser) || "0")
 	}
 
 	console.log(queryLvl);
@@ -348,14 +348,14 @@ function levelRedirect(url,type) {
     if (queryLvl) urlRedirect("." + queryLvl);
 }
 
-function searchRedirect(url,type) {
+function searchRedirect(url_browser,type) {
 	var queryLvl = "";
 
 	if (legacyServer == true) {
-		queryLvl = "/search/search.php?s=" + (encodeURIComponent(url) || "0")
+		queryLvl = "/search/search.php?s=" + (encodeURIComponent(url_browser) || "0")
 		if (type != null) queryLvl = queryLvl + "&filter=" + type
 	} else {
-		queryLvl = "/search/" + (encodeURIComponent(url) || "0")
+		queryLvl = "/search/" + (encodeURIComponent(url_browser) || "0")
 		if (type != null) queryLvl = queryLvl + "?filter=" + type
 	}
 
@@ -473,3 +473,7 @@ if (noDaily || noWeekly) {
     document.getElementById("randomStuffText").innerText = facts[Math.floor(Math.random() * facts.length)];
 </script>
 <script type="text/javascript" src="./misc/versionadapter.js"></script>
+
+<script>
+
+</script>

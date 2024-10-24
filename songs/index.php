@@ -318,10 +318,10 @@ async function fetchAlbumCoverDeezer(songName) {
             return;
     }
 
-    const url = `https://api.deezer.com/search/track/autocomplete?q=${encodeURIComponent(songName)}&limit=1&output=jsonp`;
+    const url_dezeer = `https://api.deezer.com/search/track/autocomplete?q=${encodeURIComponent(songName)}&limit=1&output=jsonp`;
 
     try {
-		const response = await fetchJsonp(url)
+		const response = await fetchJsonp(url_dezeer)
         const data = await response.json();
 				
         if (data.data.length > 0) {
@@ -338,8 +338,8 @@ async function fetchAlbumCoverDeezer(songName) {
     }
 }
 
-function getNGSongID(url) {
-        const parts = url.split('/');
+function getNGSongID(url_ng) {
+        const parts = url_ng.split('/');
         if (parts.length < 5) return null;
         return parts[4].split('_')[0];
 }
@@ -350,9 +350,9 @@ async function fetchAlbumCoverNewgrounds(downloadLink) {
         return null;
     }
 
-    const url = `https://aicon.ngfiles.com/${songID.substring(0, parseInt((songID.length/2)))}/${songID}.png`;
+    const url_ng_icon = `https://aicon.ngfiles.com/${songID.substring(0, parseInt((songID.length/2)))}/${songID}.png`;
 
-    return url;
+    return url_ng_icon;
 }
 
 
@@ -364,7 +364,7 @@ $('#pageUp').hide()
 
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
-let url = new URL(window.location.href)
+let url_browser = new URL(window.location.href)
 
 let path = urlParams.get('str');
 let filterSong = urlParams.get('filter');
@@ -436,12 +436,12 @@ function searchLevelsArtistRedirect(songID) {
 
 //if (!path || path.trim() === '') path = '*';
 
-let type = url.searchParams.get('type')
+let type = url_browser.searchParams.get('type')
 
 
 let loading = false;
 
-let page = Math.max(0, url.searchParams.get('page'))
+let page = Math.max(0, url_browser.searchParams.get('page'))
 
 console.log(page);
 

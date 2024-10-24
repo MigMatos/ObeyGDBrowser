@@ -423,7 +423,7 @@ $('#pageUp').hide()
 
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
-let url = new URL(window.location.href)
+let url_browser = new URL(window.location.href)
 
 var path = urlParams.get('s');
 let serverType = "<?php print_r($serverType); ?>";
@@ -442,8 +442,8 @@ function searchRedirect(url, header) {
 }
 
 let loading = false;
-let count = url.searchParams.get('count')
-let page = Math.max(1, url.searchParams.get('page')) - 1
+let count = url_browser.searchParams.get('count')
+let page = Math.max(1, url_browser.searchParams.get('page')) - 1
 let pages = 0
 let results = 0
 let legalPages = true

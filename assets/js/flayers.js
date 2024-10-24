@@ -169,3 +169,13 @@ document.getElementById("fllayeriframe-brown").onload = function() {
     document.getElementById("fllayeriframe-brown").style.display = "flex";
     document.getElementById("fllayeriframe-brown-rotating-img").style.display = "none";
 };
+
+async function waitForFLlayerclosed() {
+    return new Promise(resolve => {
+        const handler = () => {
+            document.removeEventListener('FLlayerclosed', handler);
+            resolve();
+        };
+        document.addEventListener('FLlayerclosed', handler);
+    });
+}
