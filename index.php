@@ -215,7 +215,7 @@
 	 -->
 
 	
-	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser 1.0 Stable Version.<br><span id="randomStuffText"></span></p>
+	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser 1.1 Alpha Version.<br><span id="randomStuffText"></span></p>
 
 	<div class="center" width="100%" style="margin-top: 1%">
     	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>

@@ -140,7 +140,7 @@ $('#pageUp').hide()
 
 let accID;
 const urlParams = new URLSearchParams(window.location.search);
-let url = new URL(window.location.href)
+let url_browser = new URL(window.location.href)
 
 var path = urlParams.get('s');
 
@@ -175,16 +175,16 @@ function levelRedirect(url) {
 
 //if (!path || path.trim() === '') path = '*';
 
-let gauntlet = url.searchParams.get('gauntlet')
-let userMode = url.searchParams.get('user')
-let type = url.searchParams.get('type')
-let list = url.searchParams.get('list')
-let count = url.searchParams.get('count')
-let header = url.searchParams.get('header')
-let demonList = ["demonList", "demonlist"].some(x => typeof url.searchParams.get(x) == "string" || type == x)
+let gauntlet = url_browser.searchParams.get('gauntlet')
+let userMode = url_browser.searchParams.get('user')
+let type = url_browser.searchParams.get('type')
+let list = url_browser.searchParams.get('list')
+let count = url_browser.searchParams.get('count')
+let header = url_browser.searchParams.get('header')
+let demonList = ["demonList", "demonlist"].some(x => typeof url_browser.searchParams.get(x) == "string" || type == x)
 let loading = false;
 
-let page = Math.max(1, url.searchParams.get('page')) - 1
+let page = Math.max(1, url_browser.searchParams.get('page')) - 1
 let pages = 0
 let results = 0
 let legalPages = true
