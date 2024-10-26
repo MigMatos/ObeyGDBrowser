@@ -238,8 +238,10 @@ $(document).ready(function() {
 	$(window).trigger('resize');
 	loadFile(`${scriptPath}/gdps_settings.json`, 'json')
 	.then(data => {
-		if(data.browser_theme_path && data.browser_theme_path != "") setThemeBrowser('', data.browser_theme_path)
-		if(data.browser_theme && data.browser_theme == "1") loadDefaultThemeBrowser()
+		data.browser_theme = data.browser_theme || "1";
+		data.browser_theme_path = data.browser_theme_path || "";
+		if(data.browser_theme_path != "") setThemeBrowser('', data.browser_theme_path)
+		if(data.browser_theme == "1") loadDefaultThemeBrowser()
 	})
 	.catch(error => {
 		console.error(error);
