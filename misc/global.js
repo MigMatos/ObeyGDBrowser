@@ -77,6 +77,11 @@ window.onerror = function (message, source, lineno, colno, error) {
 
 let globalMismatch = 2;
 
+themeBrowser = ""
+hasThemeBrowser = false;
+const currentScript = document.currentScript || document.querySelector('script[src*="global.js"]');
+const scriptPath = currentScript.src.split('/').slice(0, -2).join('/');
+
 // ------------ IMPORTANT ------------ 
 
 
@@ -231,6 +236,14 @@ while ($(this).scrollTop() != 0) {
 
 $(document).ready(function() {
 	$(window).trigger('resize');
+	loadFile(`${scriptPath}/gdps_settings.json`, 'json')
+	.then(data => {
+		if(data.browser_theme_path && data.browser_theme_path != "") setThemeBrowser('', data.browser_theme_path)
+		if(data.browser_theme && data.browser_theme == "1") loadDefaultThemeBrowser()
+	})
+	.catch(error => {
+		console.error(error);
+	});
 });
 
 // Adds all necessary elements into the tab index (all buttons and links that aren't natively focusable)
@@ -260,6 +273,78 @@ $.fn.isInViewport = function () {
     return elementBottom > viewportTop && elementTop < viewportBottom;
 };
 
+function loadDefaultThemeBrowser() {
+	const isHalloweenSeason = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 9, 25) && today <= new Date(today.getFullYear(), 10, 23); };
+	const isChristmasSeason = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 10, 24) && today <= new Date(today.getFullYear(), 11, 31); };
+	const isNewYearSeason = () => new Date().getMonth() === 0 && new Date().getDate() === 1;
+
+	if(isHalloweenSeason) setThemeBrowser('halloween');
+	else if(isChristmasSeason) setThemeBrowser('christmas');
+	else if(isNewYearSeason) setThemeBrowser('newyear');
+}
+
+
+function setThemeBrowser(themeName, themePath = null) {
+
+	let cssPath = `${scriptPath}/assets/theme/${themeName}.css`;
+	if(themePath) cssPath = `${scriptPath}/${themePath}`
+
+	console.log(cssPath)
+ 
+	loadIfExists(cssPath).then(exists => {
+		if(exists) {
+			$('<link>')
+			.attr('rel', 'stylesheet')
+			.attr('type', 'text/css')
+			.attr('href', cssPath)
+			.attr('crossorigin', 'anonymous')
+			.appendTo('body');
+	
+			console.log('Appended CSS Theme')
+			loadThemeAttr();
+		} else {
+			console.log("Error loading CSS Theme")
+		}
+	});
+
+	
+}
+
+function loadThemeAttr() {
+	hasThemeBrowser = true;
+}
+
+function loadIfExists(url) {
+	return new Promise((resolve, reject) => {
+	  $.ajax({
+		url: url,
+		type: 'HEAD',
+		success: function() {
+		  resolve(true);
+		},
+		error: function() {
+		  resolve(false);
+		}
+	  });
+	});
+}
+
+function loadFile(url, dataType = 'text') {
+	return new Promise((resolve, reject) => {
+	  $.ajax({
+		url: url,
+		type: 'GET',
+		dataType: dataType,
+		success: function(data) {
+		  resolve(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+		  reject(`Error loading file: ${textStatus}, ${errorThrown}`);
+		}
+	  });
+	});
+  }
+  
 
 
 // Service worker

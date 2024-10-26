@@ -324,5 +324,7 @@
     "gdps_version": "22",
     "path_lib_folder": "..\/incl\/lib\/",
     "path_folder_levels": "..\/..\/data\/levels\/",
-    "browser_path": "browser\/"
+    "browser_path": "browser\/",
+    "browser_theme_path": "",
+    "browser_theme": "1"
 }

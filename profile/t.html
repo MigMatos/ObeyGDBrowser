@@ -62,6 +62,15 @@
 		background-origin: border-box !important;
 	}
 
+	.rainbowCBox {
+		background: 
+   linear-gradient(rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%) 0 0/100% 200%;
+		
+		animation: rainbow-Profile-Effect 2.5s linear infinite;
+	}
+
+	@keyframes rainbow-Profile-Effect { to {background-position:0 -200%} }
+
 </style>
 
 <body class="levelBG" onbeforeunload="saveUrl()">
@@ -112,9 +121,9 @@
 			
 			<!-- Experimental options stuff -->
 
-			<h2 class="smaller center" style="margin-top: 2%">Experimental options</h2>
+			<h2 class="smaller center" style="margin-top: 2%">Experimental</h2>
 			<div class="box-subopt">
-				<div><h1 class="box-subopt-checkbox"><input type="checkbox" id="box-colored-profiles"><label for="box-colored-profiles" class="gdcheckbox gdButton"></label>Colored profiles</h1></div>
+				<h3>No experimental features available</h3>
 			</div>
 
 			<!--  -->
@@ -126,6 +135,7 @@
 
 			<h2 class="smaller center" style="margin-top: 2%">Account Settings</h2>
 			<div class="box-subopt">
+				<div class="gdsButton bluepink" onclick="ProfileCustomization()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Profile Customization</h3></div>
 				<div class="gdsButton" onclick="SocialSettings()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Links</h3></div>
 				<div class="gdsButton blue" onclick="SocialPreferences()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh; display: flex; justify-content: center;"><h3 class="gdfont-Pusab" style="" id="textContentFileSelect">Social Preferences</h3></div>
 			</div>
@@ -141,11 +151,34 @@
 			
 			<div style="display: flex; justify-content: center; margin-top: 5vh;">
 				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
-				<div class="gdsButton" onclick="submitChanges()" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Submit</h3></div>
 			</div>
 
 			
 		</div>
+	</div>
+
+	<!-- PROFILES -->
+
+	<div class="popup" id="ogdbProfilesPopup">
+		<form id="formProfilesPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 56.5%; width: 100vh">
+			<h3 class="smaller center" style="font-size: 5.5vh">Profile customization</h3>
+			<div id="filterStuff">
+			<input type="text" name="act" value="socialsettings" hidden>
+			<h2 class="smaller center" style="margin-top: 2%">Theme:</h2>
+			<div class="box-subopt" style=""> 
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="ogdb" class="checkgroup" type="checkbox" id="box-theme-ogdb"><label for="box-theme-ogdb" class="gdcheckbox gdButton"></label>BG from ObeyGDBot</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-colorful" class="checkgroup" type="checkbox" id="box-theme-colored"><label for="box-theme-colored" class="gdcheckbox gdButton"></label>Colorful BG</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-rainbow" class="checkgroup" type="checkbox" id="box-theme-rainbow"><label for="box-theme-rainbow" class="gdcheckbox gdButton"></label>Rainbow BG</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-default" class="checkgroup" type="checkbox" id="box-theme-default"><label for="box-theme-default" class="gdcheckbox gdButton"></label>Default</h1></div>
+			</div>
+
+			</div>
+			
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton blue submitProfileCustomForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Update</h3></div>
+			</div>
+		</form>
 	</div>
 
 	<!-- OBEYGDBOT SETTINGS -->
@@ -288,7 +321,7 @@
 	</div>
 
 	
-	<div class="brownBox center supercenter" style="width: 135vh; height: 82%; margin-top: -0.7%;" id="profileCBox">
+	<div class="brownBox center supercenter assetprofileImage" style="width: 135vh; height: 82%; margin-top: -0.7%;" id="profileCBox">
 
 		<div id="globalrank0" style="position: absolute; left: 0.3%; top: 1.5%; width: 18%; text-align: left">
 			<p style="margin: 0;"><img src="../assets/trophy.png" class="inline valign help profileTrophy" width="22%" title="Global Rank"> [[RANK]]</p>
@@ -344,7 +377,7 @@
 
 		<a href="../search/search.php?s=0&user=[[PLAYERID]]"><img src="../assets/levels.png" class="gdButton" style="position: absolute; right: 0.5%; bottom: 1%; width: 6%"></a>
 
-		<div style="position: absolute; right: 0.5%; top: 0%; width: 6%; display: flex; flex-direction: column;">
+		<div style="position: absolute; right: 0.5%; top: 0%; width: 6%; display: flex; flex-direction: column;" class="socialButtonsProfile">
 			<a id="youtube" style="display: none" target="_blank" href="https://youtube.com/channel/[[YOUTUBE]]"><img src="../assets/social/youtube.png" class="gdButton socialButton"></a>
 			<a id="twitter" style="display: none" target="_blank" href="https://twitter.com/[[TWITTER]]"><img src="../assets/social/twitter.png" class="gdButton socialButton"></a>
 			<a id="twitch"  style="display: none" target="_blank" href="https://twitch.tv/[[TWITCH]]"><img src="../assets/social/twitch.png" class="gdButton socialButton"></a>
@@ -372,7 +405,10 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.2/browser/pixi.js"></script>
 <!-- <script type="text/javascript" src="../iconkit/icon.js"></script> -->
 <script type="text/javascript" src="../misc/global.js?v=6"></script>
@@ -390,17 +426,12 @@ $("#loading-main").hide();
 let userPermissions = [[USERPERMISSIONS]];
 
 function submitChanges() {
-	if($('#box-colored-profiles').is(":checked")){
-		localStorage.setItem('coloredprofiles','1')
-	} else {
-		localStorage.removeItem('coloredprofiles');
-	}
 	CreateFLAlert("Saved!","Options saved!")
 }
 
 
 function getColors() {
-	if(localStorage.getItem('coloredprofiles') == "1"){
+	if(localStorage.getItem('profileTheme') == "colored"){
 
 		fetch('../assets/json/colors.json')
 		.then(response => {
@@ -421,17 +452,24 @@ function getColors() {
 			console.error('JSON Error:', error);
 		});
 
+	} else if(localStorage.getItem('profileTheme') == 'rainbow') {
+		rainbowProfile()
+	} else {
+		defaultProfile()
 	}
 }
 
 function recolorProfile(col1,col2,colg) {
 	$("#profileCBox").removeClass('brownBox');
+	$("#profileCBox").removeClass('rainbowCBox');
 	$("#profileCBox").addClass('invisibleBox');
+	$("#profileCBox").removeClass('customBox');
+	
 	col1 = `rgb(${col1.r},${col1.g},${col1.b})`;
 	col2 = `rgb(${col2.r},${col2.g},${col2.b})`;
 	// colg = `rgb(${colg.r},${colg.g},${colg.b})`;
 
-	$("#profileCBox").css({'background': `linear-gradient(to bottom, ${col1}, ${col2})`})
+	$("#profileCBox").css({'background': `linear-gradient(to bottom, ${col1}, ${col2})`, 'background-size': '', 'background-repeat': '', 'background-position': ''})
 	$("#iconsDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
 	$("#statusDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
 	
@@ -442,6 +480,76 @@ function recolorProfile(col1,col2,colg) {
 	$('.commentDate').css({'color': 'white'});
 
 }
+
+function rainbowProfile() {
+	$("#profileCBox").removeClass('brownBox');
+	$("#profileCBox").addClass('invisibleBox');
+	$("#profileCBox").addClass('rainbowCBox');
+	$("#profileCBox").removeClass('customBox');
+
+	$("#profileCBox").css({'background': ``, 'background-size': '', 'background-repeat': '', 'background-position': ''})
+	$("#iconsDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	$("#statusDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	
+
+	$('.commentBG').css({'background-color': 'transparent'});
+	$('.commentBG:nth-child(odd)').css({'background-color': '#0000007a'});
+	$('.comment').css({'background-color': '#0000007a'});
+	$('.commentDate').css({'color': 'white'});
+}
+
+function ogdbColorProfile(urlProfile,custom=false) {
+
+	$("#profileCBox").removeClass('brownBox');
+	$("#profileCBox").removeClass('rainbowCBox');
+	$("#profileCBox").addClass('invisibleBox');
+
+	if(custom) {
+		$("#profileCBox").addClass('customBox');
+		$("#profileCBox").css({ 'background-image': `` });
+	} else {
+		$("#profileCBox").css({ 'background-image': `url('${urlProfile}')` })
+	}
+
+	$("#profileCBox").css({'background': '', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'})
+	$("#iconsDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	$("#statusDiv").css({'background-color': `#0000007a`, 'border': '0.2vh solid #000000bf'})
+	
+
+	$('.commentBG').css({'background-color': 'transparent'});
+	$('.commentBG:nth-child(odd)').css({'background-color': '#0000007a'});
+	$('.comment').css({'background-color': '#0000007a'});
+	$('.commentDate').css({'color': 'white'});
+
+	console.log('done OGDB');
+}
+
+
+function defaultProfile() {
+
+	
+
+	if(hasThemeBrowser == true) {
+		console.log("Theme Profile Defined")
+		ogdbColorProfile('',true);
+		return;
+	}
+
+	$("#profileCBox").addClass('brownBox');
+	$("#profileCBox").removeClass('invisibleBox');
+	$("#profileCBox").removeClass('rainbowCBox');
+
+	$("#profileCBox").css({'background': ``})
+	$("#iconsDiv").css({'background-color': ``, 'border': ''})
+	$("#statusDiv").css({'background-color': ``, 'border': ''})
+	
+
+	$('.commentBG').css({'background-color': ''});
+	$('.commentBG:nth-child(odd)').css({'background-color': ''});
+	$('.comment').css({'background-color': ''});
+	$('.commentDate').css({'color': ''});
+}
+
 
 
 
@@ -489,6 +597,26 @@ function SocialPreferences() {
 	else { $('#box-fr-none').prop('checked', true); }
 }
 
+function ProfileCustomization() {
+	if(localStorage.getItem('profileTheme') == "colored") $('#box-theme-colored').prop('checked', true);
+	else if(localStorage.getItem('profileTheme') == "rainbow") $('#box-theme-rainbow').prop('checked', true);
+	else $('#box-theme-default').prop('checked', true);
+	$('#ogdbProfilesPopup').show()
+}
+
+$('.submitProfileCustomForm').click(function() {
+	document.dispatchEvent(new Event('initLoadingAlert'));
+
+	if($('#box-theme-colored').is(":checked")){ localStorage.setItem('profileTheme','colored')}
+	else if($('#box-theme-rainbow').is(":checked")){ localStorage.setItem('profileTheme','rainbow')}
+	else { localStorage.setItem('profileTheme','default') }
+
+	changeLoadingAlert(`Profile Customized`,"done");
+	getColors();
+	setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
+})
+
+
 function OGDBAccountLink() {
 	if("[[DISCORDRAW]]" != "0") {
 		$("#ogdbdiscordID").val("[[DISCORDRAW]]");
@@ -500,7 +628,6 @@ function OGDBAccountLink() {
 }
 
 function viewAdvProfile() {
-	if(localStorage.getItem('coloredprofiles') == "1") $('#box-colored-profiles').prop('checked', true);
 	$('#profileAdvSettingsPopup').show()
 }
 

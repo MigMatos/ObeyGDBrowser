@@ -155,6 +155,10 @@ body code {
     background: linear-gradient(to bottom right, #0edaff, #39ebfe);
 }
 
+.gdsButton.bluepink {
+    background: linear-gradient(to bottom right, #bd0eff, #3b39fe);
+}
+
 .noclick {
     pointer-events: none;
 }

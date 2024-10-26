@@ -1,0 +1,139 @@
+.levelBG {
+    background-image: linear-gradient(#000000, #4b0092 37%);
+}
+
+.menuButtonList {
+    filter: brightness(1) hue-rotate(290deg);
+}
+
+.cornerPiece {
+    filter: brightness(0.6) hue-rotate(220deg);
+}
+
+.gdButtonBrowser{
+    filter: brightness(1) hue-rotate(290deg);
+}
+
+.sideButton {
+    filter: brightness(1) hue-rotate(290deg);
+}
+
+#playButton{
+    filter: brightness(0.8) hue-rotate(290deg);
+}
+
+#songBox{
+    border: 2.5vh solid transparent;
+    border-radius: 3vh;
+    background-color: #502d7b;
+    border-image: url('../../assets/purplebox.png') 10% round;
+}
+
+.epicBox {
+    filter: brightness(0.8) hue-rotate(290deg);
+}
+
+#searchBox {
+    background-color: unset;
+}
+
+.searchresult {
+    background-color: #00000071;
+}
+
+.searchresult:nth-child(odd) {
+    background-color: #000000b7;
+}
+
+h2 {
+    filter: unset;
+}
+
+.lightBox {
+    border: 0.2vh solid #5c1e80;
+    border-radius: 2vh;
+    background-color: #813fbe;
+    white-space: nowrap;
+}
+
+.brownBox {
+    background-color: #502d7b;
+    border-image: url('../../assets/purplebox.png') 10% round;
+}
+
+#commentBox {
+    background-color: #682793 !important;
+}
+
+.commentBG {
+    background-color: unset;
+}
+
+.commentBG:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.commentBG.oddComment {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.comment {
+    background-color: rgba(86, 39, 147, 0.8);
+}
+
+.comment.compact {
+    background-color: transparent;
+}
+
+.commentBG.evenComment {
+    background-color: rgba(57, 16, 110, 0.8) !important;
+}
+
+.gdButton {
+    filter: hue-rotate(290deg);
+}
+
+.diffDiv {
+    filter: brightness(50%) !important;
+}
+
+.selectedFilter, .diffDiv.selectedFilter, .lengthDiv.selectedFilter, .goBack {
+    filter: brightness(100%) !important;
+}
+
+.lengthDiv {
+    filter: brightness(50%) !important;
+}
+
+.center > p {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.leaderboardCustomTab[activetab='off'] {
+    background-color: #3100a3;
+}
+
+.leaderboardCustomTab {
+    filter: hue-rotate(290deg);
+}
+
+.leaderboardBox {
+    filter: brightness(1) hue-rotate(290deg);
+}
+
+.socialButton {
+    filter: unset;
+}
+
+
+h2 {
+    filter: brightness(1) hue-rotate(290deg);
+}
+
+
+/* SUPER ASSETS */
+
+#profileCBox.customBox.assetprofileImage {
+    background-image: url('https://cdn.obeygdbot.xyz/bg/gd_special_halloween.jpg');
+}
+

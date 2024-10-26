@@ -508,62 +508,93 @@
 
     <fieldset><legend><h5>GDBrowser Settings</h5></legend>
 
+        <h2>GDPS Basic Settings</h2><br>
+
         <label for="gdbrowser_title">GDPS Title:</label>
         <input type="text" id="gdbrowser_title" name="gdbrowser_title"><br>
         <label for="gdbrowser_name">GDPS Name:</label>
         <input type="text" id="gdbrowser_name" name="gdbrowser_name"><br>
         <label for="gdbrowser_icon">GDPS Icon:</label>
         <input type="text" id="gdbrowser_icon" name="gdbrowser_icon"><br>
-        <label for="gdbrowser_icon_embed">GDPS Icon URL (for embeds) <label style="color:#af0000;">[ONLY .JPG, JPEG AND .PNG]</label>: </label>
-        <input type="text" id="gdbrowser_icon_embed" name="gdbrowser_icon_embed"><br>
+        <label for="gdps_version">GDPS Version:</label>
+        <input type="number" id="gdps_version" required name="gdps_version"><br>
+        <label for="show_level_passwords">Show Level Passwords:</label>
+        <label for="">
+            <input type="radio" id="show_level_passwords-0" name="show_level_passwords" value="0">
+            Disable
+        </label>
+        <label for="">
+            <input type="radio" id="show_level_passwords-1" name="show_level_passwords" value="1">
+            Enable
+        </label>
         <label for="gdbrowser_desc">GDPS Description:</label>
         <input type="text" size="100" id="gdbrowser_desc" name="gdbrowser_desc"><br>
+
+        <label>Theme Settings:</label>
+        <label for="">
+            <input type="radio" id="browser_theme-0" name="browser_theme" value="0">
+            Disable automatic event themes
+        </label>
+        <label for="">
+            <input type="radio" id="browser_theme-1" name="browser_theme" value="1">
+            Enable automatic event themes
+        </label>
+        <br>
+        <label for="browser_theme_path">Custom CSS Path <label style="color:#af0000;">[Recommended to place in "customfiles/" folder]</label>: </label>
+        <input type="text" size="50" id="browser_theme_path" name="browser_theme_path" placeholder="customfiles/mycustomtheme.css"><br>
+
+        <label for="disable_colored_texture_level_browser">Colored Texture Level Browser:</label>
+        <label for="">
+            <input type="radio" id="disable_colored_texture_level_browser-0" name="disable_colored_texture_level_browser" value="0">
+            Disable
+        </label>
+        <label for="">
+            <input type="radio" id="disable_colored_texture_level_browser-1" name="disable_colored_texture_level_browser" value="1">
+            Enable
+        </label>
+    <!-- More -->
+        <h2>GDPS Assets Settings</h2><br>
+
+        <label for="gdbrowser_icon_embed">GDPS Icon URL (for embeds) <label style="color:#af0000;">[ONLY .JPG, JPEG AND .PNG]</label>: </label>
+        <input type="text" id="gdbrowser_icon_embed" name="gdbrowser_icon_embed"><br>
         <label for="gdbrowser_assets_full_url">GDPS Assets Folder URL (for embeds):</label>
         <input type="text" size="50" id="gdbrowser_assets_full_url" name="gdbrowser_assets_full_url"><br>
-    <!-- More -->
-        <label for="show_level_passwords">Show Level Passwords:</label>
-        <input type="number" id="show_level_passwords" min="0" max="1" name="show_level_passwords"><br>
         <label for="gdps_logo_url">GDPS Logo URL:</label>
         <input type="text" id="gdps_logo_url" name="gdps_logo_url"><br>
         <label for="gdps_level_browser_logo_url">GDPS Level Browser Logo URL:</label>
         <input type="text" id="gdps_level_browser_logo_url" name="gdps_level_browser_logo_url"><br>
+        
+        <h2>GDPS Advanced Settings</h2><br>
+
 
         <label>Server Software:</label>
-
         <label for="automatic">
             <input type="radio" id="server_software-automatic" name="server_software" value="automatic">
             Automatic
         </label>
-
         <label for="apache">
             <input type="radio" id="server_software-apache" name="server_software" value="apache">
             Apache
         </label>
-
         <label for="nginx">
             <input type="radio" id="server_software-nginx" name="server_software" value="nginx">
             Nginx <label style="color:#af0000;">(Needs install nginx.conf)</label>
         </label>
-
         <label for="legacy">
             <input type="radio" id="server_software-legacy" name="server_software" value="legacy">
             Legacy (Compatible with most host servers)
         </label>
-
-
         <br>
-        <label for="disable_colored_texture_level_browser">Disable Colored Texture Level Browser:</label>
-        <input type="number" id="disable_colored_texture_level_browser" min="0" max="1" name="disable_colored_texture_level_browser"><br>
+
         <label for="path_connection">Path Connection <label style="color:#af0000;">(Deprecated, please configure "Lib Folder"!):</label></label>
         <input type="text" id="path_connection" name="path_connection"><br>
-        <label for="gdps_version">GDPS Version:</label>
-        <input type="number" id="gdps_version" required name="gdps_version"><br>
         <label for="path_lib_folder" placeholder="../incl/lib/">Lib Folder:</label>
         <input type="text" id="path_lib_folder" required name="path_lib_folder"><br>
         <label for="path_browser_folder" placeholder="../incl/lib/">Browser Folder:</label>
         <input type="text" id="browser_path" required name="browser_path" value="browser/"><br>
         <label for="path_folder_levels">Levels Path Folder (Important for the level analyzer!)</label>
         <input type="text" id="path_folder_levels" placeholder="../../data/levels/" name="path_folder_levels"><br>
+        
         <h2>App installer</h2><br>
         <!-- App Start URL -->
         <label for="manifest_start_url">App Start URL</label>
@@ -1080,7 +1111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "gdps_version" => get_post_value("gdps_version"),
         "path_lib_folder" => get_post_value("path_lib_folder"),
         "path_folder_levels" => get_post_value("path_folder_levels"),
-        "browser_path" => get_post_value("browser_path")
+        "browser_path" => get_post_value("browser_path"),
+        "browser_theme_path" => get_post_value("browser_theme_path"),
+        "browser_theme" => get_post_value("browser_theme")
     );
 
     $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
@@ -1103,6 +1136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
     <script>
         alert("Configurations saved!");
+        window.location.href = window.location.href;
     </script>
 
     <?php
