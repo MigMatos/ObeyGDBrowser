@@ -38,8 +38,8 @@ include("../api/utils.php");
 $suggestAvg = getAverageSuggestions(["levelID" => $data["id"], "type" => "avg"], $db);
 
 // GMD File support (thx MegaSa1nt)
-if (file_exists($includeFolder . "/mainLin.php") && is_readable($includeFolder . "/mainLin.php")) {
-    include($includeFolder . "/mainLin.php");
+if (file_exists($includeFolder . "mainLib.php") && is_readable($includeFolder . "mainLib.php")) {
+    include($includeFolder . "mainLib.php");
     $mainLibInstance = new mainLib();
     if (method_exists($mainLibInstance, 'getGMDFile')) {
         $gmdFileData = $mainLibInstance->getGMDFile($id);

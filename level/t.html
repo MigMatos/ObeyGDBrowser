@@ -350,9 +350,11 @@
 $("#loading-main").hide()
 let legacyServer = true;
 let gdpsVersion = "[[GDPSVERSION]]";
-const gmdData = "[[GMDDATA]]";
-
 var maxGDPSVersion = 23;
+
+const gmdData = `[[GMDDATA]]`;
+
+
 
 if ('[[SERVERTYPE]]' != "legacy"){
 	legacyServer = false;
@@ -376,7 +378,7 @@ function hideDemonDiffs() {
 
 //GD Share support
 
-if(!gmdData || gmdData == "[[GMDDATA]]") $('#exportGDShareButton').hide();
+if(!gmdData || gmdData.includes("[GMDDATA]")) $('#exportGDShareButton').hide();
 
 function exportGDShare(levelID) {
 	const blobgmdData = new Blob([gmdData], { type: 'text/plain' });
@@ -785,6 +787,6 @@ $('.submitForm').click(function() {
 // })
 });
 </script>
-<script type="text/javascript" src="../misc/versionadapter.js"></script>
 
+<script type="text/javascript" src="../misc/versionadapter.js"></script>
 <script type="text/javascript" src="../misc/checkperms.js"></script>

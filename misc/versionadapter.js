@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (typeof gdpsVersion === 'undefined') {
         console.log("Warning: GDPS version not defined");
-        let gdpsVersion = 22;
+        let gdpsVersion = "22";
     }
     let gdItems = document.querySelectorAll('[id^="gdItem"], [class*="gdItem"]');
 
