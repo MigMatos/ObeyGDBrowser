@@ -306,6 +306,7 @@
 		<img class="gdButton yesClick" id="playButton" src="../assets/play.png" width="11%">
 	</div>
 
+	<!-- RIGHT -->
 	<div class="levelButtons" style="position:absolute; top: 46%; right: 3.5%; transform: translateY(-50%); height: 75%;">
 		<!-- <img class="gdButton sideButton" title="Save level" id="saveButton" src="../assets/plus.png" onclick="$('#saveDiv').show(); saveLevel()"><br> -->
 		<img class="gdButton sideButton" title="Level Info" id="infoButton"  src="../assets/info.png" onclick="$('#infoDiv').show()"><br>
@@ -315,11 +316,16 @@
 		<!-- <a href="./leaderboard/[[ID]]"><img id="leaderboardbtn" title="View Leaderboard" class="gdButton sideButton" src="../assets/leaderboard.png"></a><br> -->
 	</div>
 
-	<div class="checkperm-rates levelButtons moderator" style="position:absolute; top: 65%; left: 3.5%; transform: translateY(-50%); height: 75%;">
-		<h3 style="transform: translate(19%, -5%); pointer-events: none;">Mod</h3>
-		<img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/moderation/rateLevel.png" onclick="openRateLevel()"><br>
-
+	<!-- LEFT -->
+	<div class="levelButtons" style="position:absolute; top: 54.5%; left: 3.5%; transform: translateY(-50%); height: 75%;">
+		<div class="checkperm-rates levelButtons moderator">
+			<h3 style="transform: translate(19%, -5%); pointer-events: none;">Mod</h3>
+			<img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/moderation/rateLevel.png" onclick="openRateLevel()"><br>
+		</div>
+		<img class="gdButton sideButton" title="export Level in .gmd" id="exportGDShareButton"  src="../assets/extension/gdshare/export.png" onclick="exportGDShare()"><br>
 	</div>
+
+
 
 	<div style="position:absolute; top: 2%; left: 1.5%; width: 10%; height: 25%; pointer-events: none">
 		<img class="gdButton yesClick" id="backButton" src="../assets/back.png" height="30%" onclick="backButton()">
@@ -336,6 +342,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
+<script type="text/javascript" src="../misc/fileSaver.js"></script>
 <script>
 	let userPermissions = [[USERPERMISSIONS]]
 </script>
@@ -343,6 +350,7 @@
 $("#loading-main").hide()
 let legacyServer = true;
 let gdpsVersion = "[[GDPSVERSION]]";
+const gmdData = "[[GMDDATA]]";
 
 var maxGDPSVersion = 23;
 
@@ -365,6 +373,18 @@ function hideDemonDiffs() {
 	$('#demons').removeClass("showBox");
 	demonMode = false;
 }
+
+//GD Share support
+
+if(!gmdData || gmdData == "[[GMDDATA]]") $('#exportGDShareButton').hide();
+
+function exportGDShare(levelID) {
+	const blobgmdData = new Blob([gmdData], { type: 'text/plain' });
+    const url_data_gmd = URL.createObjectURL(blobgmdData);
+	saveAs(blobgmdData, "[[ID]].gmd");
+}
+
+// --------
 
 $('.diffDiv').click(function() {
 

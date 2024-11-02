@@ -24,7 +24,6 @@ $params = array('levelName' => $id, 'page' => 0);
 $response = searchLevels($params, $db, $gdps_settings);
 
 
-
 $data = json_decode($response, true);
 
 if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
@@ -37,6 +36,17 @@ $data = $data[0];
 include("../api/suggests.php");
 include("../api/utils.php");
 $suggestAvg = getAverageSuggestions(["levelID" => $data["id"], "type" => "avg"], $db);
+
+// GMD File support (thx MegaSa1nt)
+if (file_exists($includeFolder . "/mainLin.php") && is_readable($includeFolder . "/mainLin.php")) {
+    include($includeFolder . "/mainLin.php");
+    $mainLibInstance = new mainLib();
+    if (method_exists($mainLibInstance, 'getGMDFile')) {
+        $gmdFileData = $mainLibInstance->getGMDFile($id);
+        $data = array_merge($data, ["gmdData" => $gmdFileData]);
+    }
+}
+// -------------------------------
 
 
 $data = array_merge($data, json_decode($suggestAvg,true));
