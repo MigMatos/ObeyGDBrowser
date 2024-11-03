@@ -93,6 +93,10 @@ h2 {
     filter: hue-rotate(290deg);
 }
 
+.gauntlet-level.gdButton {
+    filter: unset;
+}
+
 .diffDiv {
     filter: brightness(50%) !important;
 }

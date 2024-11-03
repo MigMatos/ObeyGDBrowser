@@ -243,7 +243,7 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 
 		$(`#gauntletPage-${gCounter}`).append(`
 
-			<a onclick="redirectGauntlet('${x.levels}','${x.gauntlet.name}')">
+			<a onclick="redirectGauntlet('${x.id}')">
 	
 			<div class="gauntlet invisibleBox" style="background-color: ${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'};">
 			
@@ -364,14 +364,14 @@ $(document).keydown(function(k) {
 
 let serverType = "<?php print_r($serverType); ?>";
 
-function redirectGauntlet(url, header) {
+function redirectGauntlet(gauntletID) {
 	var queryLvl = "";
     if (serverType == "legacy") {
-		queryLvl = "/search/search.php?s=" + (url || "0") + "&list"
+		queryLvl = "/gauntlet.php?id=" + (gauntletID || "0")
 	} else {
-		queryLvl = "/search/" + (url || "0") + "?list"
+		queryLvl = "/" + (gauntletID || "0")
 	}
-    if (queryLvl) window.location.href = ".." + queryLvl + "&gauntlet=" + header;
+    if (queryLvl) window.location.href = "." + queryLvl ;
 }
 
 

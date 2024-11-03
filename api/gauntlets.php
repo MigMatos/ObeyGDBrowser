@@ -3,7 +3,7 @@
 include("../_init_.php");
 include("./utils.php");
 
-error_reporting(0);
+// error_reporting(0);
 
 $file = str_replace("\\", "/", __FILE__);
 $scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
@@ -62,11 +62,19 @@ function getGauntlets($params, $db, $gdps_settings) {
     $sql = "SELECT ID,level1, level2, level3, level4, level5 FROM gauntlets ";
 
 
-    // Final
-    if ($order) $sql .= " ORDER BY $order";
+    
     // $sql .= " LIMIT 10 OFFSET ? ";
     // if(!isset($params['page'])) { $params['page'] = intval($params['page']); }
     // $bindings[] = ($params['page'] <= 0) ? 0 : $params['page'] * 10;
+
+    if (isset($params['id']) && is_numeric($params['id'])) {
+        $paramsSql[] = "ID = ?";
+        $bindings[] = $params['id'];
+    }
+
+    if(!empty($paramsSql) ) $sql .= " WHERE (" . implode(" ) AND ( ", $paramsSql) . ")";
+
+    if ($order) $sql .= " ORDER BY $order";
 
     $stmt = $db->prepare($sql);
 
@@ -84,7 +92,7 @@ function getGauntlets($params, $db, $gdps_settings) {
     $sql = "SELECT COUNT(*) FROM gauntlets ";
     if(!empty($paramsSql) ) $sql .= " WHERE (" . implode(" ) AND ( ", $paramsSql) . ")";
     if ($order) $sql .= " ORDER BY $order";
-    array_pop($bindings);
+    // array_pop($bindings);
     $stmt = $db->prepare($sql);
     foreach ($bindings as $key => $value) { $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR); }
     $stmt->execute();
