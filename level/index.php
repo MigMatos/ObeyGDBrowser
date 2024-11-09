@@ -14,6 +14,7 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
     if ($id == "!daily") $returnmsg = "?daily=1";
     elseif ($id == "!weekly") $returnmsg = "?daily=2";
+    elseif ($id == "!event") $returnmsg = "?daily=3";
 }
 $html = file_get_contents('./t.html');
 

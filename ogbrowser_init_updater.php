@@ -103,7 +103,6 @@ class OGDBrowserUpdater
     {
         $fileInfo = [];
     
-        // Iterar sobre los archivos en $updateDir
         $updateIterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator($this->updateDir, RecursiveDirectoryIterator::SKIP_DOTS),
             RecursiveIteratorIterator::SELF_FIRST
@@ -256,7 +255,7 @@ class OGDBrowserUpdater
 
     private function shouldIgnore($relativePath)
     {
-        if ($relativePath === 'gdps_settings.json') {
+        if ($relativePath === 'gdps_settings.json' || $relativePath === 'manifest.json') {
             return true;
         }
 

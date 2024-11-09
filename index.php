@@ -186,15 +186,20 @@
 						
 						<td id="gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
 						
+						<td class="notfinishedBtn" id="idItem22"><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
+
 						<td id="gdItem16"><a tabindex="1" onclick="urlRedirect('./mappacks')"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
 						
-						<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
+						
 						
 						
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
 					</tr>
 					
 					<tr class="menuButtonList">
+
+						<td id="gdItem22"><a tabindex="1" onclick="levelRedirect('!event')"><img class="menubutton menu-weekly" src="assets/category-event.png" title="Event level"></a></td>
+
 						<td class="checkperm-moderator"><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
 					</tr>
 					
@@ -485,15 +490,12 @@ let page = 1
 let xButtonPos = '43%'
 let lastPage
 
-let noDaily = (window.location.search == "?daily=1")
-let noWeekly = (window.location.search == "?daily=2")
-
-
-if (noDaily || noWeekly) {
-	if (noWeekly) $('#noLevel').html("weekly")
-	$('#noDaily').fadeIn(200).delay(500).fadeOut(500)
-	let newURLpush = window.location.href.replace(/(\?daily=1|\?daily=2)/g, '');
-	window.history.pushState(null, null, newURLpush);
+let dailyType = window.location.search.match(/\?daily=(\d)/);
+if (dailyType) {
+    let typeText = dailyType[1] == "2" ? "weekly" : dailyType[1] == "3" ? "event" : "daily";
+    $('#noLevel').html(typeText);
+    $('#noDaily').fadeIn(200).delay(700).fadeOut(500);
+    window.history.pushState(null, null, window.location.href.replace(/\?daily=\d/g, ''));
 }
 
 

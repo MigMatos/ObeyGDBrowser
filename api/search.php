@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(0);
+// error_reporting(0);
 
 include("../_init_.php");
 
@@ -8,6 +8,7 @@ function searchLevels($params, $db, $gdps_settings) {
     $time_left_daily = 0;
     $feaID = 0;
     $type_lvl = "none";
+    $eventReward = [];
     $bindings = [];
     $paramsSql = [];
     $downloadLevelData = false;
@@ -35,7 +36,7 @@ function searchLevels($params, $db, $gdps_settings) {
         $query->execute([':current_time' => $current_time, ':type' => $type]);
     
         if ($query->rowCount() == 0) {
-            return json_encode(array("error" => "No daily/weekly"));
+            return json_encode(array("error" => "No daily/weekly available"));
         }
         $results = $query->fetchAll(PDO::FETCH_ASSOC)[0];
     
@@ -49,6 +50,34 @@ function searchLevels($params, $db, $gdps_settings) {
         
 
         $time_left_daily = $midnight - $current_time;
+    
+        
+        $paramsSql[] = "levelID = ?";
+        $bindings[] = $lvlID;
+    } elseif (isset($params['levelName']) && $params['levelName'] === "!event") {
+    
+        $current_time = time();
+
+        $query = $db->prepare("SELECT feaID, levelID, timestamp, duration, type, reward FROM events WHERE timestamp <= :current_time AND duration > :current_time ORDER BY timestamp DESC LIMIT 1");
+
+        try {
+            $query->execute([':current_time' => $current_time]);
+
+            if ($query->rowCount() == 0) {
+                return json_encode(array("error" => "No event available"));
+            }
+        } catch(Exception) {
+            return json_encode(array("error" => "No event available"));
+        }
+        $results = $query->fetchAll(PDO::FETCH_ASSOC)[0];
+    
+        $feaID = $results["feaID"];
+        $lvlID = $results["levelID"];
+        $eventReward["type"] = intval($results["type"]);
+        $eventReward["reward"] = intval($results["reward"]);
+
+        $type_lvl = str_replace('!', '', $params['levelName']);
+        $time_left_daily = intval($results["duration"]) - $current_time;
     
         
         $paramsSql[] = "levelID = ?";
@@ -259,7 +288,7 @@ function searchLevels($params, $db, $gdps_settings) {
         else return 0;
     }
 
-    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $type_lvl, $downloadLevelData) {
+    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $eventReward, $type_lvl, $downloadLevelData) {
 
         $level = [];
 
@@ -286,6 +315,7 @@ function searchLevels($params, $db, $gdps_settings) {
             $level["dailynumber"] = $feaID;
             $level["$type_lvl"] = 1;
             $level["nextdaily"] = $time_left_daily;
+            if($type_lvl == "event"){ $level["rewardEvent"] = $eventReward["reward"]; $level["rewardEventType"] = $eventReward["type"];}
         }
         if($downloadLevelData){
 
