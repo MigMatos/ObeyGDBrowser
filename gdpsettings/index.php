@@ -500,6 +500,20 @@
 <label for="gauntlet-52-bgcolor">Gauntlet 52 BG Color:</label>
 <input type="color" id="gauntlet-52-bgcolor" name="gauntlet-52-bgcolor" value="#341536"><br>
 
+<label for="gauntlet-53-name">Gauntlet 53:</label>
+<input type="text" id="gauntlet-53-name" name="gauntlet-53-name" value="Space"><br>
+<label for="gauntlet-53-textcolor">Gauntlet 53 Text Color:</label>
+<input type="color" id="gauntlet-53-textcolor" name="gauntlet-53-textcolor" value="#32ffff"><br>
+<label for="gauntlet-53-bgcolor">Gauntlet 53 BG Color:</label>
+<input type="color" id="gauntlet-53-bgcolor" name="gauntlet-53-bgcolor" value="#162a35"><br>
+
+<label for="gauntlet-54-name">Gauntlet 54:</label>
+<input type="text" id="gauntlet-54-name" name="gauntlet-54-name" value="Cosmos"><br>
+<label for="gauntlet-54-textcolor">Gauntlet 54 Text Color:</label>
+<input type="color" id="gauntlet-54-textcolor" name="gauntlet-54-textcolor" value="#f9c800"><br>
+<label for="gauntlet-54-bgcolor">Gauntlet 54 BG Color:</label>
+<input type="color" id="gauntlet-54-bgcolor" name="gauntlet-54-bgcolor" value="#2c2424"><br>
+
         </div>
     </fieldset>
 
@@ -1094,6 +1108,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "name" => get_post_value("gauntlet-52-name"),
                 "textColor" => get_post_value("gauntlet-52-textcolor"),
                 "bgColor" => get_post_value("gauntlet-52-bgcolor")
+            ),
+            "53" => array(
+                "name" => get_post_value("gauntlet-53-name"),
+                "textColor" => get_post_value("gauntlet-53-textcolor"),
+                "bgColor" => get_post_value("gauntlet-53-bgcolor")
+            ),
+            "54" => array(
+                "name" => get_post_value("gauntlet-54-name"),
+                "textColor" => get_post_value("gauntlet-54-textcolor"),
+                "bgColor" => get_post_value("gauntlet-54-bgcolor")
             )
         ),
         "server_software" => get_post_value("server_software"),

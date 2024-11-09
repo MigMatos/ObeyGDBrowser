@@ -307,6 +307,16 @@
             "name": "NCS II",
             "textColor": "#ffaaff",
             "bgColor": "#341536"
+        },
+        "53": {
+            "name": "Space",
+            "textColor": "#32ffff",
+            "bgColor": "#162a35"
+        },
+        "54": {
+            "name": "Cosmos",
+            "textColor": "#f9c800",
+            "bgColor": "#2c2424"
         }
     },
     "server_software": "automatic",
