@@ -30,9 +30,8 @@
         <br>
         <li>1. Place the "installer.php" file in the path where your GDPS files are located.</li>
         <li>2. Open the file in your browser.</li>
-        <li>3. Open the file in your browser.</li>
-        <li>4. Log in with an account that has administrator permissions in your GDPS.</li>
-        <li>5. Click in Install</li>
+        <li>3. Log in with an account that has administrator permissions in your GDPS.</li>
+        <li>4. Click in Install</li>
    </p>
     <div>
       <img src="https://github.com/MigMatos/ObeyGDBrowser/assets/87149085/9e99c1f6-6a0c-43e4-bcda-3a981e2156bd" alt="" width="auto" height="300">
