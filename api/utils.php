@@ -155,6 +155,15 @@ class BrowserUtils {
         return ['size' => $size, 'mime' => $mime];
     }
 
+    public static function genToken($length = 32, $pattern = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>?') {
+        $token = '';
+        $maxIndex = strlen($pattern) - 1;
+        if ($length < 1 || $maxIndex < 0) {throw new InvalidArgumentException("Invalid Token: The length must be greater than 0 and token pattern cannot be empty.");}
+        for ($i = 0; $i < $length; $i++) {$token .= $pattern[random_int(0, $maxIndex)];}
+        $token = str_shuffle($token);
+        return $token;
+    }
+
 }
 
 

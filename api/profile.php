@@ -1,13 +1,13 @@
 <?php 
-
+header('Access-Control-Allow-Methods: GET');
 error_reporting(0);
 
-$file = str_replace("\\", "/", __FILE__);
-$scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
+$file = basename(__FILE__);
+$scriptFilename = basename($_SERVER['SCRIPT_NAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     include("../_init_.php");
-    include("../api/roles.php");
+    include_once("../api/roles.php");
     $params = $_GET;
 
     if (!empty($params)) {

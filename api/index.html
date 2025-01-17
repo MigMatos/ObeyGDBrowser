@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="../assets/css/api.css">
+    <script src="../assets/js/api.js" defer></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">API Docs</div>
+        <ul class="menu">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#endpoints">Endpoints</a></li>
+            <ul>
+                <li><a href="#roles">Roles API</a></li>
+                <li><a href="#search">Search API</a></li>
+                <li><a href="#songs">Songs API</a></li>
+                <li><a href="#tokens">Tokens API</a></li>
+            </ul>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#testing">API Testing</a></li>
+        </ul>
+        <select id="language-select">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+        </select>
+        <button id="theme-toggle">Toggle Theme</button>
+    </nav>
+
+    <!-- LeftBar and Main Content -->
+    <div class="container">
+        <main>
+            <section id="overview">
+                <h1 data-translate="overview_title">API Overview</h1>
+                <p data-translate="overview_description">Welcome to the API documentation. This guide provides an overview of available endpoints, authentication methods, and data formats.</p>
+            </section>
+
+            <section id="authentication">
+                <h2 data-translate="authentication_title">Authentication</h2>
+                <p data-translate="authentication_description">To authenticate, include the following headers in your requests:</p>
+                <ul>
+                    <li><strong>OGDW_APPTOKEN</strong>: <span data-translate="auth_token">Your application token.</span></li>
+                    <li><strong>OGDWAPPNAME</strong>: <span data-translate="auth_appname">Your application name.</span></li>
+                </ul>
+            </section>
+
+            <section id="endpoints">
+                <h2 data-translate="endpoints_title">Endpoints</h2>
+                <!-- Roles API -->
+                <article id="roles">
+                    <h3 data-translate="roles_title">Roles API</h3>
+                    <p><strong data-translate="endpoint_label">Endpoint:</strong> <code>/roles</code></p>
+                    <p><strong data-translate="methods_label">Methods:</strong> GET, POST</p>
+                    <p data-translate="roles_description">Manage user roles.</p>
+                    <p><strong data-translate="parameters_label">Parameters:</strong></p>
+                    <ul>
+                        <li><strong>role_id</strong> (optional, int): <span data-translate="roles_param_roleid">The ID of the role to fetch or modify.</span></li>
+                        <li><strong>name</strong> (POST only, string): <span data-translate="roles_param_name">The name of the role to create.</span></li>
+                    </ul>
+                </article>
+
+                <!-- Search API -->
+                <article id="search">
+                    <h3 data-translate="search_title">Search API</h3>
+                    <p><strong data-translate="endpoint_label">Endpoint:</strong> <code>/search</code></p>
+                    <p><strong data-translate="methods_label">Methods:</strong> GET</p>
+                    <p data-translate="search_description">Search for items in the database.</p>
+                    <p><strong data-translate="parameters_label">Parameters:</strong></p>
+                    <ul>
+                        <li><strong>query</strong> (required, string): <span data-translate="search_param_query">The search term.</span></li>
+                        <li><strong>limit</strong> (optional, int): <span data-translate="search_param_limit">Number of results to return.</span></li>
+                    </ul>
+                </article>
+
+                <!-- Songs API -->
+                <article id="songs">
+                    <h3 data-translate="songs_title">Songs API</h3>
+                    <p><strong data-translate="endpoint_label">Endpoint:</strong> <code>/songs</code></p>
+                    <p><strong data-translate="methods_label">Methods:</strong> GET, POST, DELETE</p>
+                    <p data-translate="songs_description">Manage songs in the database.</p>
+                    <p><strong data-translate="parameters_label">Parameters:</strong></p>
+                    <ul>
+                        <li><strong>song_id</strong> (optional, int): <span data-translate="songs_param_songid">The ID of the song to fetch, update, or delete.</span></li>
+                        <li><strong>title</strong> (POST only, string): <span data-translate="songs_param_title">The title of the song to add.</span></li>
+                        <li><strong>artist</strong> (POST only, string): <span data-translate="songs_param_artist">The artist of the song to add.</span></li>
+                    </ul>
+                </article>
+
+                <!-- Tokens API -->
+                <article id="tokens">
+                    <h3 data-translate="tokens_title">Tokens API</h3>
+                    <p><strong data-translate="endpoint_label">Endpoint:</strong> <code>/tokenApps</code></p>
+                    <p><strong data-translate="methods_label">Methods:</strong> POST</p>
+                    <p data-translate="tokens_description">Manage application tokens.</p>
+                    <p><strong data-translate="parameters_label">Parameters:</strong></p>
+                    <ul>
+                        <li><strong>app_name</strong> (required, string): <span data-translate="tokens_param_appname">The name of the application.</span></li>
+                        <li><strong>app_description</strong> (optional, string): <span data-translate="tokens_param_description">Description of the application.</span></li>
+                    </ul>
+                </article>
+            </section>
+
+            <section id="testing">
+                <h2 data-translate="testing_title">API Testing</h2>
+                <p data-translate="testing_description">Use the form below to send test requests to the API:</p>
+                <form id="api-test-form">
+                    <label for="endpoint" data-translate="testing_label_endpoint">Endpoint:</label>
+                    <input type="text" id="endpoint" name="endpoint" placeholder="e.g., /roles" required>
+
+                    <label for="method" data-translate="testing_label_method">Method:</label>
+                    <select id="method" name="method">
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+
+                    <label for="headers" data-translate="testing_label_headers">Headers (JSON):</label>
+                    <textarea id="headers" name="headers">{"OGDW_APPTOKEN": "your_token", "OGDWAPPNAME": "your_app"}</textarea>
+
+                    <label for="body" data-translate="testing_label_body">Body (JSON, optional):</label>
+                    <textarea id="body" name="body"></textarea>
+
+                    <button type="submit" data-translate="testing_button_submit">Send Request</button>
+                </form>
+                <div id="response">
+                    <h3 data-translate="response_title">Response</h3>
+                    <pre id="response-output"></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

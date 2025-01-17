@@ -280,13 +280,23 @@ function loadDefaultThemeBrowser() {
 	const isChristmasSeason = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 10, 24) && today <= new Date(today.getFullYear(), 11, 31); };
 	const isNewYearSeason = () => new Date().getMonth() === 0 && new Date().getDate() === 1;
 
-	if(isHalloweenSeason) setThemeBrowser('halloween');
-	else if(isChristmasSeason) setThemeBrowser('christmas');
-	else if(isNewYearSeason) setThemeBrowser('newyear');
+	
+
+	if(isHalloweenSeason()){
+		setThemeBrowser('halloween')
+	}
+	else if(isChristmasSeason()){
+		setThemeBrowser('christmas')
+	}
+	else if(isNewYearSeason()){
+		setThemeBrowser('newyear')
+	}
 }
 
 
 function setThemeBrowser(themeName, themePath = null) {
+
+	console.log(themeName, themePath);
 
 	let cssPath = `${scriptPath}/assets/theme/${themeName}.css`;
 	if(themePath) cssPath = `${scriptPath}/${themePath}`
@@ -346,7 +356,10 @@ function loadFile(url, dataType = 'text') {
 	  });
 	});
   }
-  
+
+function generateToken(length) {
+	return Array.from({ length: length }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'.charAt(Math.floor(Math.random() * 64))).join('')
+}
 
 
 // Service worker

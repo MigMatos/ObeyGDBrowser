@@ -1,12 +1,13 @@
 <?php 
+header('Access-Control-Allow-Methods: GET, POST');
 
-include("../_init_.php");
-include("./utils.php");
+include_once("../_init_.php");
+include_once("./utils.php");
 
 error_reporting(0);
 
-$file = str_replace("\\", "/", __FILE__);
-$scriptFilename = str_replace("\\", "/", $_SERVER['SCRIPT_FILENAME']);
+$file = basename(__FILE__);
+$scriptFilename = basename($_SERVER['SCRIPT_NAME']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;

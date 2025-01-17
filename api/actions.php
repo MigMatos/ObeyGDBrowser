@@ -44,8 +44,13 @@ define('SUGGEST_LEVEL', 41);
 
 // ObeyGDBrowser Actions
 
+define('REGISTERED_TOKEN_APP', 1038);
+define('ADD_TOKEN_APP', 1039);
+define('EDIT_TOKEN_APP', 1040);
+define('DELETE_TOKEN_APP', 1041);
 define('DELETE_GAUNTLET', 1042);
 define('DELETE_MAP_PACK', 1043);
+
 
 
 

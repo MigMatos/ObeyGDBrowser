@@ -105,4 +105,5 @@ function CreateFLAlertGauntletsAPI(obj,maxOptions=2,title="Select your Gauntlet!
     CreateFLAlert(title,desc,obj.id,maxOptions,"custom")
 }
 
+
 // add custom searchType with functionEventListener!

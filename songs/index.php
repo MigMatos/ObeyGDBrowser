@@ -207,7 +207,7 @@
 
 	<div class="center noframe" style="position:absolute; top: 8%; left: 0%; right: 0%">
 		<h1 id="header" style="position: absolute; left: 50%; transform: translate(-50%, 1280%);"></h1>
-		<img class="gdsButton addSongClass" src="../assets/addSongBtn.png" style="background: unset; border: unset; box-shadow: none; pointer-events: all;  transform: translate(-480%, 495%); filter: hue-rotate(230deg); height: 14.5vh;position: absolute; left: 50%;cursor: click;" tabindex="0">
+		
 	</div>
 
 	<div style="text-align: right; position:absolute; top: 1%; right: 2%">
@@ -235,7 +235,8 @@
 	</div>
 
 	<div style="position:absolute; bottom: 2%; right: 1%; text-align: right; width: 15%;">
-		<img class="gdButton noframe" src="../assets/refresh.png" width="40%" id="refreshPage"></a>
+		<img class="gdButton noframe addSongClass" src="../assets/addSongBtn.png" style="width: 40%;" tabindex="0"><br>
+		<img class="gdButton noframe" src="../assets/refresh.png" width="40%" id="refreshPage">
 	</div>
 
 	<div style="position:absolute; bottom: 2%; right: 8.5%; text-align: right; width: 15%; display: none" id="gdWorld">

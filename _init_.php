@@ -70,7 +70,19 @@
         }
     }
 
-    $userPermissions = isset($_SESSION['userPermissions']) ? $_SESSION['userPermissions'] : [];
+    $_CUSTOM_HEADERS = getallheaders();
+    
+    if (isset($_CUSTOM_HEADERS['OGDW_APPNAME']) && strlen($_CUSTOM_HEADERS['OGDW_APPNAME']) > 0) {
+
+        $includePath = file_exists("./api/tokenApps.php") ? "./api/tokenApps.php" :(file_exists("../api/tokenApps.php") ? "../api/tokenApps.php" :(file_exists("../../api/tokenApps.php") ? "../../api/tokenApps.php" :(file_exists("./browser/api/tokenApps.php") ? "./browser/api/tokenApps.php" : null)));
+        if ($includePath) {
+            include_once($includePath);
+            checkOGDWDevApp($db);
+        }
+        else {printf("Fatal Error searching library file: 'api/tokenApps.php'.");}
+    }
+
+    
 
 
     // Permissions
@@ -99,6 +111,7 @@
         $_SESSION['userPermissions'] = array_merge($userPermissions, $newPerms);
     }
 
+    $userPermissions = isset($_SESSION['userPermissions']) ? $_SESSION['userPermissions'] : [];
     $userPermissionsJSON = json_encode($userPermissions);
 
 ?>

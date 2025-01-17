@@ -67,8 +67,9 @@
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
 						
 						
-						<td id="gdItem21"><a tabindex="1" onclick="locked()"><img class="menubutton menu-daily" src="../assets/mod-roles.png" title="Daily Level"></a></td>
-						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./webhook/')"><img class="menubutton menu-weekly" src="../assets/mod-webhooks.png" title="Weekly Demon"></a></td>
+						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-daily" src="../assets/mod-roles.png" title="Daily Level"></a></td>
+						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-weekly" src="../assets/mod-webhooks.png" title="Weekly Demon"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./devapps')"><img class="menubutton menu-weekly" src="../assets/mod-devapps.png" title="Weekly Demon"></a></td>
 						
 
 					</tr>
@@ -145,7 +146,7 @@ let isAdmin = false;
 
 
 function locked() {
-	CreateFLAlert("Wait!!!","# This feature will be **available on November 23h.**\nWe're making sure `a0 **this feature works perfectly**` `r0 (and without bugs)` before its big launch! ✨\n\n**Join our support server and get news!** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
+	CreateFLAlert("Wait!!!","# This feature will be **available on January 28.**\nWe're making sure `a0 **this feature works perfectly**` `r0 (and without bugs)` before its big launch! ✨\n\n**Join our support server and get news!** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)");
 }
 
 
