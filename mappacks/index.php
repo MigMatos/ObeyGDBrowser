@@ -512,7 +512,7 @@ function Append(firstLoad, noCache) {
 			</h3>
 			</div>
 
-			<div class="center" style="position:absolute; top: ${11.5 + (y * 33.5) + (x.coins == 0 ? 2.5 : 0)}%; left: 4.4%; transform:scale(0.82); height: 10%; width: 12.5%;">
+			<div class="center" style="position:absolute; top: ${11.5 + (y * 33.5)}%; left: 4.4%; transform:scale(0.82); height: 10%; width: 12.5%;">
 				
 				<div class="difficultyBox">
 					<img class="help" id="dFace" title="Difficulty: ${x.difficultyText}" src="../assets/difficulties/${x.difficultyFace}.png">

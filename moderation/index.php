@@ -9,7 +9,7 @@
 	<?php include("../customEmbed.php"); ?>
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=6" type="text/css" rel="stylesheet">
-    <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
+    <!-- <link href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	
 

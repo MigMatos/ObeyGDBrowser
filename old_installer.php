@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installer</title>
-	<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/dashboard.css" />
+	<link rel="stylesheet" href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php 
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/loadingalert.html");
-        echo file_get_contents("https://cdn.obeygdbot.xyz/htmlext/flayeralert.html");
+        echo file_get_contents("https://migmatos.alwaysdata.net/legacy/cdn/htmlext/loadingalert.html");
+        echo file_get_contents("https://migmatos.alwaysdata.net/legacy/cdn/htmlext/flayeralert.html");
     ?>
 </head>
 <style>

@@ -8,7 +8,7 @@
 	<link rel="icon" href="../assets/song/disc.png">
 	<meta id="meta-title" property="og:title" content="Song Search">
 	<meta id="meta-desc" property="og:description" content="Find songs to use in your levels!">
-	<meta id="meta-image" name="og:image" itemprop="image" content="https://cdn.obeygdbot.xyz/icons/disc.png">
+	<meta id="meta-image" name="og:image" itemprop="image" content="https://migmatos.alwaysdata.net/legacy/cdn/icons/disc.png">
 	<meta name="twitter:card" content="summary">
 </head>
 

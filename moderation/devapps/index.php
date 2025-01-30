@@ -10,7 +10,7 @@
 	<link rel="icon" href="../../assets/devapps/defaultDevApp.png">
 	<meta id="meta-title" property="og:title" content="Developer Apps">
 	<meta id="meta-desc" property="og:description" content="Find songs to use in your levels!">
-	<meta id="meta-image" name="og:image" itemprop="image" content="https://cdn.obeygdbot.xyz/icons/disc.png">
+	<meta id="meta-image" name="og:image" itemprop="image" content="https://migmatos.alwaysdata.net/legacy/cdn/icons/disc.png">
 	<meta name="twitter:card" content="summary">
 	
 </head>
@@ -184,12 +184,12 @@
 
 			<h1 class="lessSpaced" style="font-size: 5.8vh; margin-top: 8.5%; margin-bottom: 4%; width: 90vh; "><img class="valign rightSpace dAlbum" src="../../assets/devapps/defaultDevApp.png" onerror="this.onerror=null; this.src='../../assets/devapps/defaultDevApp.png';" style="transform: translate(-160%, 0%); height: 23%;" id="devAppImage"><span style="position: absolute; transform: translate(-31%, 0%); width: 103vh; top: 17.6%; text-align: left; overflow: hidden;" id="appName">?</span></h1>
 			
-			<h3 class="lessSpaced" style="font-size: 3vh;margin-top: 0%;position: absolute;top: 95%;text-align: left;left: 8.5%;" id="songWarning"><img class="valign rightSpace" src="../../assets/exclamation.png" style="height: 4vh;"><cr>Warning:</cr> Songs uploaded from this platform may be unavailable.</h3>
+			<h3 class="lessSpaced" style="font-size: 3vh;margin-top: 0%;position: absolute;top: 91.5%;text-align: center;left: 21.5%;" id="devAppInfoExt">Developer apps will have <cg>permissions</cg> <br>based on the <cy>moderator</cy> who added the app.</h3>
 
 
 			<h3 class="closeWindow lessSpaced" style="font-size: 4.6vh; margin-top: 1%; color: #ffbc3d;" title="Search songs from that artist"><span style="position: absolute; transform: translate(-39.5%, 0%); width: 103vh; top: 27.8%; text-align: left; pointer-events: none;"><span class="pre smaller inline gdButton help" id="appAuthor">?</span></span></h3>
 			
-			<div class="supercenter" style="top: 70%;height: 43%;padding-top: 2%;width: 70%;border: 0.7vh solid #00000075;background-color: #0000003b;border-radius: 5%;">
+			<div class="supercenter" style="top: 66%;height: 43%;padding-top: 2%;width: 70%;border: 0.7vh solid #00000075;background-color: #0000003b;border-radius: 5%;">
 			
 			
 			<h3 class="lessSpaced" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../../assets/song/note.png" height="10%">SongID: <cg1 style="color:#ff75ff;"><span id="songID">0</span></cg1></h3>
@@ -200,10 +200,10 @@
 				
 			</div>
 
-			<div class="supercenter" style="top: 85%; height: 5%; display: inline-flex; align-items: center;">
-				<div class="gdsButton" onclick="playSong(this.getAttribute('src'))" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/song/playButton.png" height="80%">Play song</h3></div>
-				<div class="gdsButton" onclick="copySongID(this.getAttribute('idSong'))" id="songCopyID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/iconkitbuttons/copy.png" height="80%">Copy songID</h3></div>
-				<div class="gdsButton" onclick="searchLevelSong(this.getAttribute('idSong'))" id="songLevelID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/iconkitbuttons/copy.png" height="80%">Levels</h3></div>
+			<div class="supercenter" style="top: 82%; height: 5%; display: inline-flex; align-items: center;">
+				<div class="gdsButton blue" onclick="regenerateAppToken(document.getElementById('activateAppID').value)" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 1vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/new.png" height="80%">Regenerate token</h3></div>
+				<div class="gdsButton" onclick="copyTokenApp(document.getElementById('appTokenResult').textContent)" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 1vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/iconkitbuttons/copy.png" height="80%">Copy token</h3></div>
+				<div class="gdsButton red closeWindow" style="padding-left:1.5vh;padding-right:1vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/x.png" height="80%">Exit</h3></div>
 			</div>
 
 			
@@ -413,6 +413,36 @@ public class ApiRequest {
 		</form>
 	</div>
 
+	<div class="popup" id="editApp">
+		<form autocomplete="off" id="editAppForm" class="bluebox bounce center supercenter" style="width: 65%; height: 60%; overflow-y: auto;">
+			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%">Edit app</h2>
+			<p>Developer apps will have <cg>permissions</cg> based on the <cy>moderator</cy> who added the app.</p>
+
+			<input type="text" name="act" value="edit" hidden id="editAppAct">
+			<input type="number" name="id" value="0" hidden id="editAppID">
+
+			<h3 class="smaller" style="font-size: 5.5vh; margin-top: 1%">App name</h3>
+			<input type="text" name="nameApp" required style="width:60%; margin: 1% 0% 1% 0%; height: 10%; text-align: center;" id="editAppName"><br>
+
+			<h3 class="smaller" style="font-size: 5.5vh; margin-top: 1%">App expiration
+				<div onclick="CreateFLSelector('appExpdevEdit','Select Difficulty')"><select class="gdsInput select" size="1" style="width:60%; height: 10%; text-align: center; margin-left: 20%;" id="appExpdevEdit" name="expireDate" required>
+					<option value="-1" selected>Never</option>
+					<option value="43200">12 hours</option> 
+					<option value="86400">1 day</option> 
+					<option value="604800">1 week</option>  
+					<option value="3628800">6 weeks</option> 
+					<option value="31536000">1 year</option> 
+			</select></div></h3>
+
+			<div style="position: relative; top: 5%;height: 5%;display: ruby;align-items: center;justify-content: center; text-wrap: nowrap;">
+				<div class="gdsButton" onclick="editAppInfo(document.getElementById('editAppID').value)" style="padding-left:1.5vh;padding-right:1vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/editBtn.png" height="80%">Edit App</h3></div>
+				<div class="gdsButton red closeWindow" style="padding-left:1.5vh;padding-right:1vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../../assets/x.png" height="80%">Exit</h3></div>
+			</div>
+
+			<button type="button" class="submitForm" id="submitAppActive" hidden>
+		</form>
+	</div>
+
 
 	<div class="popup" id="purgeDiv">
 		<div class="fancybox bounce center supercenter" style="width: 35%; height: 28%">
@@ -525,31 +555,10 @@ public class ApiRequest {
 
 <script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 <script> function devAppsErrorImg(img) { img.src = "../assets/devapps/defaultDevApp.png"; } 
 	const imageAppMain = document.getElementById('devAppImage');
-
-	
-
     const imageAppBG = document.getElementById('appImageBG');
     
-    let colorThief = new ColorThief();
-
-    imageAppMain.addEventListener('load', (event) => {
-		console.log(event.target.src);
-
-		let fileSrc = event.target.src;
-		
-		
-			let color = colorThief.getColor(imageAppMain);
-			let rgb = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-			console.log("Color: ", color, " rgb: ", rgb);
-			imageAppBG.src = `data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100%' height='100%' fill='${rgb}'/></svg>`;
-		
-      
-    });
-
 	const tabs = document.querySelectorAll('.codeApp-tab');
     const contents = document.querySelectorAll('.codeApp-content');
 
@@ -768,17 +777,20 @@ function Append(firstLoad, noCache) {
 
 		console.log("Loading levels...", x, y)
 		
-		$('#searchBox').append(`<div class="searchresult" style="height:25%;" title="${x.nameRGApp}" id="app${x.id}">
+		$('#searchBox').append(`<div class="searchresult" title="${x.nameRGApp}" id="app${x.id}">
+
+			<div style="position: relative; height: 85%; align-content: center;">
 			<h1 title="${x.nameApp}" id="devAppTitle${x.id}" style="width: fit-content; padding-right: 1%; font-size: 5.5vh;">${(x.nameApp.length > 20 ? x.nameRGApp.substring(0,20) + '...' : x.nameApp) || " "}</h1>
 			<h2 class="pre smaller inline gdButton help" title="Developer: ${x.developer}" style="margin-bottom: 2%; font-size: 3.9vh;"><span id="devNameSpan${x.id}" onclick="searchArtist('${btoa(encodeURIComponent(x.developer))}','1')">dev: ${x.developer}</span></h2>
 			<h3 class="lessSpaced" style="width: fit-content;margin-bottom: 0.1%; font-size: 3vh;" title="${x.isAlive} requests(s) from this app">
 				<span id="devRequests${x.id}"><img class="help valign rightSpace"  title="${x.isAlive} requests(s) from this app" src="../../assets/song/views.png" height="10%">${x.isAlive} request(s)</span>
 				<br><img class="help valign rightSpace" title="AuthorID: ${x.requester.accountID}" src="../../assets/achievements/social.png" height="16%">added by: ${x.requester.userName}
 			</h3>
+			</div>
 
 			
 		
-			<div class="center" style="position:absolute; top: ${9 + (y * 26.5)}%; left: 4.4%; transform:scale(0.82); height: 10%; width: 12.5%;">
+			<div class="center" style="position:absolute; top: ${11.5 + (y * 33.5)}%; left: 4.4%; transform:scale(0.82); height: 10%; width: 12.5%;">
 
 
 				<div class="difficultyBox">
@@ -787,7 +799,12 @@ function Append(firstLoad, noCache) {
 			</div>
 
 			<div class="center" style="position:absolute; right: 7%; transform:translateY(-13vh); height: 10%">
-				<a title="View app" id="app${x.id}" onclick="${x.isAlive} > 0 ? showDevPanel('${btoa(encodeURIComponent(page))}','${btoa(encodeURIComponent(y))}') : showActiveAppPanelWithRegenerateToken('${btoa(encodeURIComponent(page))}','${btoa(encodeURIComponent(y))}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../../assets/view.png" height="105%"></a>
+				<div style="background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: -100%; position: relative; margin-bottom: -27%;">
+					<h3 class="lessSpaced" style="cursor: default;">Mod actions</h3>
+						<img onclick="editApp(${page},${y})" title="Edit App" class="valign gdButton editApp" src="../../assets/editBtn.png" height="105%">
+						<img onclick="deleteApp(${page},${y})" title="Delete App" class="valign gdButton delApp" src="../../assets/trash.png" height="105%">
+				</div>
+				<a title="View app" id="app${x.id}" onclick="${x.isAlive} > 0 ? showDevPanel(${page},${y}) : showActiveAppPanelWithRegenerateToken('${btoa(encodeURIComponent(page))}','${btoa(encodeURIComponent(y))}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../../assets/view.png" height="105%"></a>
 			</div>
 
 		</div>`)
@@ -838,7 +855,6 @@ function setFilter(filter) {
 
 function initLoadingEvent() {
 	document.dispatchEvent(new Event('initLoadingAlert'));
-	changeLoadingAlert("Loading songs...")
 }
 
 function finishLoadingEvent() {
@@ -877,7 +893,12 @@ function searchLevelSong(songID) {
 	else searchLevelsArtistRedirect(songID);
 }
 
-function showDevPanel(a) {
+function showDevPanel(a,b) {
+	appCache = pageCache[a][b]
+	console.log(appCache);
+	$('#devAppImage').prop('src', appCache.imageURLApp)
+	$('#appName').text(appCache.nameApp)
+	$('#appAuthor').text(appCache.developer)
 	$('#devAppInfo').show();
 }
 
@@ -894,6 +915,16 @@ function regenerateAppToken(appID) {
 	$('#activateAppToken').val(generateToken(16));
 	$('#submitAppActive').trigger('click');
 }
+
+function editApp(pg, id) {
+	$('#editApp').show();
+	appEditCache = pageCache[pg][id]
+	$('#editAppID').val(appEditCache.id)
+	$('#editAppName').val(appEditCache.nameApp)
+	$('#appExpdevEdit').val(appEditCache.expireDate)
+	console.log(appEditCache);
+}
+
 
 function updateAppInfo(appID) {
 	$('#activateAppAct').val("refresh").attr("value", "refresh");

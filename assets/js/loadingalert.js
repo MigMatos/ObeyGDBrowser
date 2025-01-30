@@ -47,12 +47,12 @@ function changeLoadingAlert(Message = "Loading...",Status = "load") {
     document.getElementById('loading-alert-buttom-display-text').textContent = Message;
     let IconAlert = document.getElementById('alert-buttom-icon');
     if(Status == "load"){
-        IconAlert.src = "https://cdn.obeygdbot.xyz/icons/loading.png";
+        IconAlert.src = "https://migmatos.alwaysdata.net/legacy/cdn/icons/loading.png";
         IconAlert.className = Status;
     } else if (Status == "done" || Status == "error") {
         IconAlert.className = Status;
-        if (Status == "done") IconAlert.src = "https://cdn.obeygdbot.xyz/icons/sucess.png";
-        else IconAlert.src = "https://cdn.obeygdbot.xyz/icons/failed.png";
+        if (Status == "done") IconAlert.src = "https://migmatos.alwaysdata.net/legacy/cdn/icons/sucess.png";
+        else IconAlert.src = "https://migmatos.alwaysdata.net/legacy/cdn/icons/failed.png";
     } else {
         console.log(`Error in changeLoadingAlert(): Status "${Status}" no found.`);
     }

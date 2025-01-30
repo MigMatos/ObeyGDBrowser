@@ -6,7 +6,7 @@
     <title>ObeyGDBrowser Installer</title>
 	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/dashboard.css" />
+    <link rel="stylesheet" href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css" />
 </head>
 <style>
     .songscontent {
@@ -23,8 +23,8 @@
 </style>
 <body>
 
-<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/utils.css">
-<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/flayers.css?v=8">
+<link rel="stylesheet" href="https://migmatos.alwaysdata.net/legacy/cdn/css/utils.css">
+<link rel="stylesheet" href="https://migmatos.alwaysdata.net/legacy/cdn/css/flayers.css?v=8">
   <div class="over-flalert" id="gd-fancy-box">
     
     <div class="gdalert fancy-box">
@@ -41,29 +41,29 @@
       <div class="flayercontent">
         <p class="font-gold-pusab" id="fllayertitle-brown">TEST ALERT</p>
         <p class="font-helvetica" id="fllayerdesc-brown">TEST ALERT 123</p>
-        <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" class="fllayeriframe-brown-rotating-img" id="fllayeriframe-brown-rotating-img">
+        <img src="https://migmatos.alwaysdata.net/legacy/cdn/icons/loading.png" alt="Loading" class="fllayeriframe-brown-rotating-img" id="fllayeriframe-brown-rotating-img">
         <iframe class="iframe-brown" id="fllayeriframe-brown" src="" frameborder="0"></iframe>
         <button class="gdbtn-close brown-0" id="gdclose-brown-btn"></button>
       </div>
     </div>
   </div>
-<script src="https://cdn.obeygdbot.xyz/js/utils.js?v=4"></script>
-<script src="https://cdn.obeygdbot.xyz/js/securityParser.js?v=8"></script>
-<script src="https://cdn.obeygdbot.xyz/js/flayers.js?v=10"></script>
+<script src="https://migmatos.alwaysdata.net/legacy/cdn/js/utils.js?v=4"></script>
+<script src="https://migmatos.alwaysdata.net/legacy/cdn/js/securityParser.js?v=8"></script>
+<script src="https://migmatos.alwaysdata.net/legacy/cdn/js/flayers.js?v=10"></script>
 
-<link rel="stylesheet" href="https://cdn.obeygdbot.xyz/css/loadingalert.css?v=6">
+<link rel="stylesheet" href="https://migmatos.alwaysdata.net/legacy/cdn/css/loadingalert.css?v=6">
 <div class="loading-main" id="loading-main">
     <div class="rotating-loadermain-image">
-      <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" id="rotating-img">
+      <img src="https://migmatos.alwaysdata.net/legacy/cdn/icons/loading.png" alt="Loading" id="rotating-img">
     </div>
 </div>
 <div class="loading-alert-buttom-display" id="loading-alert-buttom-display">
   <div class="rotating-loadermain-image">
-    <img src="https://cdn.obeygdbot.xyz/icons/loading.png" alt="Loading" id="rotating-img">
+    <img src="https://migmatos.alwaysdata.net/legacy/cdn/icons/loading.png" alt="Loading" id="rotating-img">
     <p class="gdfont-Pusab small" id="loading-alert-buttom-display-text">Loading...</p>
   </div>
 </div>
-<script src="https://cdn.obeygdbot.xyz/js/loadingalert.js?v=4"></script>
+<script src="https://migmatos.alwaysdata.net/legacy/cdn/js/loadingalert.js?v=4"></script>
 
 
 <div class="dashboard-container gdbox-brown songs">

@@ -29,7 +29,7 @@ if ($isAdmin != "1" || $logged != true) {
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.47">
 	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
-    <!-- <link href="https://cdn.obeygdbot.xyz/css/dashboard.css?v=14" rel="stylesheet"> -->	
+    <!-- <link href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<?php
 		include("../assets/htmlext/flayeralert.php");
