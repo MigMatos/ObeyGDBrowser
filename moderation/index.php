@@ -69,7 +69,7 @@
 						
 						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-daily" src="../assets/mod-roles.png" title="Daily Level"></a></td>
 						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-weekly" src="../assets/mod-webhooks.png" title="Weekly Demon"></a></td>
-						<td><a tabindex="1" onclick="urlRedirect('./devapps')"><img class="menubutton menu-weekly" src="../assets/mod-devapps.png" title="Weekly Demon"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./devapps')"><img class="menubutton menu-weekly" src="../assets/mod-devapps.png" title="Add developer apps!"></a></td>
 						
 
 					</tr>

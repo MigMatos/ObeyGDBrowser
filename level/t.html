@@ -153,6 +153,40 @@
 		</div>
 	</div> -->
 
+	<div class="popup" id="rateSpecialLevelPopup">
+		<form class="brownbox bounce center supercenter" style="height: auto; width: 100vh" id="formSpecialRateLevel">
+			<h1 class="smaller center" style="font-size: 5.5vh">Special Rate Level</h1>
+
+			<input type="text" name="id" value="[[ID]]" hidden>
+			<input type="text" name="act" value="edit" hidden>
+
+			<div id="filterStuff">
+
+
+			
+			<h2 class="smaller center" style="margin-top: 2%">Set special status:</h2>
+			<div class="box-subopt box-events-items">
+				<div id="gdItem21"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="1" class="checkgroup gdItem21" type="checkbox" id="box-df-1"><label for="box-df-1" class="gdcheckbox gdButton"></label><img src="../assets/crown-daily.png" style="width: 4vh;">Daily</h1></div>
+				<div id="gdItem21"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="2" class="checkgroup gdItem22" type="checkbox" id="box-df-2"><label for="box-df-2" class="gdcheckbox gdButton"></label><img src="../assets/crown-weekly.png" style="width: 4vh;">Weekly</h1></div>
+				<div id="gdItem22"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="3" class="checkgroup gdItem22" type="checkbox" id="box-df-3"><label for="box-df-3" class="gdcheckbox gdButton"></label><img src="../assets/crown-event.png" style="width: 4vh;">Event</h1></div>
+			</div>
+			<br>
+			<h2 class="smaller center eventDurationKey" style="display: none;justify-content: center;align-items: center;"><img src="../assets/time.png" style="width: 4vh; padding-right: 1vh;">Event duration:</h2>
+			<div class="box-subopt eventDurationKey" style="display: none !important;background-color: transparent;">
+				<input type="datetime-local" onclick="this.showPicker()" name="stars" id="starsrate" value="[[STARS]]" min="0" max="99999" style="height: 6vh; font-size: 4vh; width: 60%; text-align: center; margin-top: 0.5%" required>
+			</div>
+
+
+			</div>
+
+			<div style="display: flex; justify-content: center; margin-top: 3vh;">
+				<div class="gdsButton red closeWindow" id="hideBtn" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Back</h3></div>
+				<div class="gdsButton blue submitForm" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Rate</h3></div>
+			</div>
+		</form>
+	</div>
+
+
 	<div class="popup" id="rateLevelPopup">
 		<form class="brownbox bounce center supercenter" style="height: auto; width: 100vh" id="formRateLevel">
 			<h1 class="smaller center" style="font-size: 5.5vh">Rate Level</h1>
@@ -320,7 +354,8 @@
 	<div class="levelButtons" style="position:absolute; top: 54.5%; left: 3.5%; transform: translateY(-50%); height: 75%;">
 		<div class="checkperm-rates levelButtons moderator">
 			<h3 style="transform: translate(19%, -5%); pointer-events: none;">Mod</h3>
-			<img class="gdButton sideButton" title="Rate Level" id="likeButton"  src="../assets/moderation/rateLevel.png" onclick="openRateLevel()"><br>
+			<img class="gdButton sideButton" title="Rate Level" id="rateButton"  src="../assets/moderation/rateLevel.png" onclick="openRateLevel()"><br>
+			<img class="gdButton sideButton" title="Set a special status like daily or weekly!" id="specialRateButton"  src="../assets/moderation/rateDaily.png" onclick="openSpecialRateLevel()"><br>
 		</div>
 		<img class="gdButton sideButton" title="export Level in .gmd" id="exportGDShareButton"  src="../assets/extension/gdshare/export.png" onclick="exportGDShare()"><br>
 	</div>
@@ -410,6 +445,15 @@ $('.diffDiv').click(function() {
 
 })
 
+$('.box-events-items').on('change', function() {
+    if ($('#box-df-3').prop('checked')) {
+        $('.eventDurationKey').css('display', 'flex');
+    } else {
+        $('.eventDurationKey').attr('style', 'display: none !important; justify-content: center; background-color: transparent;');
+    }
+});
+
+
 function openRateLevel() {
 
 	if (!$('#box-feat-[[FEATNUM]]') )  $('#box-feat-0').prop('checked',true);
@@ -430,6 +474,10 @@ function openRateLevel() {
 	if ($('.diffDiv[diff="[[NUMTOTALDIFF]]"]').css('display') == 'none' || !$('.diffDiv[diff="[[NUMTOTALDIFF]]"]'))  $('.diffDiv[diff="49"]').addClass('selectedFilter');
 	else $('.diffDiv[diff="[[NUMTOTALDIFF]]"]').addClass('selectedFilter');
 	$('#rateLevelPopup').show()
+}
+
+function openSpecialRateLevel() {
+	$('#rateSpecialLevelPopup').show()
 }
 
 function profileRedirect(url) {

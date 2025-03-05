@@ -25,7 +25,7 @@ function searchLevels($params, $db, $gdps_settings) {
         }
     }
     elseif (isset($params['levelName']) && $params['levelName'] === "*") {
-        
+
 
     } elseif (isset($params['levelName']) && ($params['levelName'] === "!daily" || $params['levelName'] === "!weekly")) {
     
@@ -35,8 +35,10 @@ function searchLevels($params, $db, $gdps_settings) {
         $query = $db->prepare("SELECT feaID, levelID FROM dailyfeatures WHERE timestamp < :current_time AND type = :type ORDER BY timestamp DESC LIMIT 1");
         $query->execute([':current_time' => $current_time, ':type' => $type]);
     
+        $type_lvl = str_replace('!', '', $params['levelName']);
+        
         if ($query->rowCount() == 0) {
-            return json_encode(array("error" => "No daily/weekly available"));
+            return json_encode(array("error" => "No daily/weekly available", "$type_lvl" => 1));
         }
         $results = $query->fetchAll(PDO::FETCH_ASSOC)[0];
     
@@ -46,7 +48,7 @@ function searchLevels($params, $db, $gdps_settings) {
         // if ($type == 1) {
         //     $feaID += 100001;
         // }
-        $type_lvl = str_replace('!', '', $params['levelName']);
+        
         
 
         $time_left_daily = $midnight - $current_time;
@@ -64,10 +66,10 @@ function searchLevels($params, $db, $gdps_settings) {
             $query->execute([':current_time' => $current_time]);
 
             if ($query->rowCount() == 0) {
-                return json_encode(array("error" => "No event available"));
+                return json_encode(array("error" => "No event available","event" => 1));
             }
         } catch(Exception) {
-            return json_encode(array("error" => "No event available"));
+            return json_encode(array("error" => "No event available","event" => 1));
         }
         $results = $query->fetchAll(PDO::FETCH_ASSOC)[0];
     
@@ -173,6 +175,17 @@ function searchLevels($params, $db, $gdps_settings) {
             } elseif ($key == 'filter' && $value == 'awarded') {
                 $paramsSql[] = "NOT starStars = 0";
                 $order = "rateDate DESC, uploadDate";
+            } elseif ($key == 'thesafe') {
+                $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN dailyfeatures ON levels.levelID = dailyfeatures.levelID ";
+                $order = "dailyfeatures.feaID";
+                if($value == "daily") {
+                    $paramsSql[] = "dailyfeatures.type = 0";
+                } else if($value == "weekly") {
+                    $paramsSql[] = "dailyfeatures.type = 1";
+                } else if($value == "events") {
+                    $order = "events.feaID";
+                    $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN events ON levels.levelID = events.levelID ";
+                }
             }
             
         }

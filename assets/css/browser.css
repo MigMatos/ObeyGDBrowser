@@ -245,7 +245,7 @@ h2 {
     text-shadow: 0.35vh 0.35vh 0.1vh rgba(0, 0, 0, 0.3);
 }
 
-h3, input[type=text], input[type=password], input[type=number], input[type=url], .h3Size {
+h3, input[type=text], input[type=password], input[type=number], input[type=url],input[type=datetime-local], .h3Size {
     font-size: 3.5vh;
     color: white;
     -webkit-text-stroke-width: 0.14vh;
@@ -268,7 +268,7 @@ hr {
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(rgba(255, 255, 255, 0.5)), to(rgba(0, 0, 0, 0)));
 }
 
-input[type=text], input[type=password], input[type=number], input[type=url] {
+input[type=text], input[type=password], input[type=number], input[type=url], input[type=datetime-local] {
     padding-left: 1.2%;
     border-radius: 1vh;
     height: 80%;
@@ -360,7 +360,7 @@ input:focus, textarea:focus {
     vertical-align: middle;
 }
 
-.transparentBox, input[type=text], input[type=password], input[type=url], input[type=number], textarea {
+.transparentBox, input[type=text], input[type=password], input[type=url], input[type=number],input[type=datetime-local], textarea {
     border: 0 solid transparent;
     border-radius: 2vh;
     background-color: rgba(0, 0, 0, 0.3);
@@ -376,7 +376,7 @@ input:focus, textarea:focus {
     padding-left: 0;
 }
 
-input[type='number'] {
+input[type='number'],input[type=datetime-local] {
     -moz-appearance:textfield;
 }
 

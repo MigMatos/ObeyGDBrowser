@@ -15,8 +15,13 @@ if (isset($_GET["id"])) {
     if ($id == "!daily") $returnmsg = "?daily=1";
     elseif ($id == "!weekly") $returnmsg = "?daily=2";
     elseif ($id == "!event") $returnmsg = "?daily=3";
+
+    if($id == "!daily" || $id == "!weekly" || $id == "!event") $html = file_get_contents('./w.html');
+    else $html = file_get_contents('./t.html');
+} else {
+    
 }
-$html = file_get_contents('./t.html');
+
 
 
 $params = array('levelName' => $id, 'page' => 0);
@@ -29,10 +34,16 @@ $data = json_decode($response, true);
 
 if(is_array($data) && (count($data) == 0 || isset($data["error"])) ){
     // $redirect_url = "$protocol://$_SERVER[HTTP_HOST]$path/$returnmsg";
-    header("Location: ../$returnmsg");
-    exit();
+
+    if($id == "!daily" || $id == "!weekly" || $id == "!event") {
+        $typeEvent = str_replace('!', '', $id); 
+        $data = array("id" => "-1","name"=>"None event", "author" => "?", "difficultyface" => "unrated", "partialdiff" => "unrated", "featface" => "featured", "coins" => 0, "large" => 0, "twoplayer" => 0, "copiedid" => 0, "orbs" => 0, "stars" => 0, "diamonds" => 0, "$typeEvent" => 1, "dailynumber" => 0);
+    }
+    else header("Location: ../");
+} else {
+    $data = $data[0];
 }
-$data = $data[0];
+
 
 include("../api/suggests.php");
 include("../api/utils.php");

@@ -123,6 +123,10 @@
 		<img class="spin noSelect" src="../assets/loading.png" height="105%">
 	</div>
 
+	<div class="supercenter" id="header-div-img" style="height: 10%; top: 6%; display: none;">
+		<img class="noSelect" id="header-img-src" src="../assets/tabspecial/theSafelabel.png" height="125%">
+	</div>
+
 </div>
 
 </body>
@@ -176,6 +180,7 @@ function levelRedirect(url) {
 //if (!path || path.trim() === '') path = '*';
 
 let gauntlet = url_browser.searchParams.get('gauntlet')
+let thesafe = url_browser.searchParams.get('thesafe')
 let userMode = url_browser.searchParams.get('user')
 let type = url_browser.searchParams.get('type')
 let list = url_browser.searchParams.get('list')
@@ -194,6 +199,7 @@ let pageCache = {}
 
 let demonListLink = "https://pointercrate.com/"
 let searchFilters = `../api/search.php?levelName=${type == 'saved' ? JSON.parse(localStorage.getItem('saved') || '[]').reverse().toString() : accID || path}&page=[PAGE]${count ? "" : "&count=10"}${window.location.search.replace(/\?/g, "&").replace("page", "nope")}`
+if(thesafe) searchFilters += `&thesafe=${thesafe}`;
 
 function clean(text) {return (text || "").toString().replace(/&/g, "&#38;").replace(/</g, "&#60;").replace(/>/g, "&#62;").replace(/=/g, "&#61;").replace(/"/g, "&#34;").replace(/'/g, "&#39;")}
 
@@ -368,6 +374,13 @@ if (gauntlet) {
 	$('#header').text((gauntlet || "Unknown") + " Gauntlet")
 	$('#meta-title').attr('content', (gauntlet || "Unknown") + " Gauntlet")
 	$('#meta-desc').attr('content',  `View the 5 levels in the ${(gauntlet || "Unknown") + " Gauntlet"}!`)
+}
+
+if(thesafe) {
+	$('#header').text(" ")
+	$('#header-div-img').show();
+	$('#meta-title').attr('content', "The Safe!")
+	$('#meta-desc').attr('content',  `View the levels of the safe!`)
 }
 
 if (demonList) {

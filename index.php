@@ -161,8 +161,8 @@
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
 						
 						
-						<td id="gdItem21"><a tabindex="1" onclick="levelRedirect('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
-						<td id="gdItem21"><a tabindex="1" onclick="levelRedirect('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
+						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
+						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
 						
 						
 						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-songs" src="assets/category-songs.png" title="Songs"></a></td>
@@ -198,7 +198,7 @@
 					
 					<tr class="menuButtonList">
 
-						<td id="gdItem22"><a tabindex="1" onclick="levelRedirect('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
+						<td id="gdItem22"><a tabindex="1" onclick="openSpecialLvl('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
 
 						<td class="checkperm-gauntlets"><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
 					</tr>
@@ -254,6 +254,10 @@ function openProfle() {
 	} else {
 		openGdCustomFrame('./account/checkLogin.php');
 	}
+}
+
+function openSpecialLvl(id) {
+	openGdCustomFrame(`./level/?id=${id}`);
 }
 
 
@@ -507,7 +511,6 @@ if (dailyType) {
     const facts = [
         "MigMatos is here!",
         "ProTip: Jump.",
-        "You can activate the color profiles if you log in from ObeyGDBrowser and go to the ''Experimental options'' section",
         "If you see this, you need to play Bloodbath'",
         "It took me too long to think of what to put here.",
         "Humans share 60% of their DNA with bananas.",

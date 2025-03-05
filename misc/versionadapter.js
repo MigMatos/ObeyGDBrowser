@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     gdItems.forEach(function(element) {
         let id = element.id;
+        let matchingClass = Array.from(element.classList).find(className => /^gdItem\d+$/.test(className));
+        
+        if (matchingClass) {
+            console.log(`Ignorating ID ${id}, replacing with class ${matchingClass}`);
+            id = matchingClass;
+        }
         
         if (id.includes('-')) {
             let parts = id.match(/\d+/g);
@@ -19,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }
         } else {
+
             try {let version = parseInt(id.match(/\d+/)[0]);
 
             if (version > parseInt(gdpsVersion)) {
@@ -26,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }}
             catch (e) {
-                console.error("Error in Version Adapter with: ", e, " in elementID: ", element.id, element.classList);
+                console.error("Ignorating error in Version Adapter with: ", e, " in elementID: ", element.id, element.classList);
             }
         }
     });
