@@ -43,11 +43,6 @@
             "textColor": "",
             "bgColor": ""
         },
-        "0": {
-            "name": "",
-            "textColor": "",
-            "bgColor": ""
-        },
         "1": {
             "name": "Fire",
             "textColor": "#ffc700",
@@ -317,6 +312,213 @@
             "name": "Cosmos",
             "textColor": "#f9c800",
             "bgColor": "#2c2424"
+        }
+    },
+    "official_songs": {
+        "-1": {
+            "name": "",
+            "artist": "",
+            "songLink": ""
+        },
+        "1": {
+            "name": "Stereo Madness",
+            "artist": "ForeverBound",
+            "songLink": "https:\/\/youtu.be\/JhKyKEDxo8Q"
+        },
+        "2": {
+            "name": "Back On Track",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/N9vDTYZpqXM"
+        },
+        "3": {
+            "name": "Polargeist",
+            "artist": "Step",
+            "songLink": "https:\/\/youtu.be\/4W28wWWxKuQ"
+        },
+        "4": {
+            "name": "Dry Out",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/FnXabH2q2A0"
+        },
+        "5": {
+            "name": "Base After Base",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/TZULkgQPHt0"
+        },
+        "6": {
+            "name": "Cant Let Go",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/fLnF-QnR1Zw"
+        },
+        "7": {
+            "name": "Jumper",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/ZXHO4AN_49Q"
+        },
+        "8": {
+            "name": "Time Machine",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/zZ1L9JD6l0g"
+        },
+        "9": {
+            "name": "Cycles",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/KDdvGZn6Gfs"
+        },
+        "10": {
+            "name": "xStep",
+            "artist": "DJVI",
+            "songLink": "https:\/\/youtu.be\/PSvYfVGyQfw"
+        },
+        "11": {
+            "name": "Clutterfunk",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/D5uJOpItgNg"
+        },
+        "12": {
+            "name": "Theory of Everything",
+            "artist": "DJ-Nate",
+            "songLink": "https:\/\/youtu.be\/ZUGJ0vWqfis"
+        },
+        "13": {
+            "name": "Electroman Adventures",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/Pb6KyewC_Vg"
+        },
+        "14": {
+            "name": "Clubstep",
+            "artist": "DJ-Nate",
+            "songLink": "https:\/\/youtu.be\/7yFmhiRHeBA"
+        },
+        "15": {
+            "name": "Electrodynamix",
+            "artist": "DJ-Nate",
+            "songLink": "https:\/\/youtu.be\/MWSzoIQ-0jk"
+        },
+        "16": {
+            "name": "Hexagon Force",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/afwK743PL2Y"
+        },
+        "17": {
+            "name": "Blast Proccesing",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/Z5RufkDHsdM"
+        },
+        "18": {
+            "name": "Theory of Everything 2",
+            "artist": "DJ-Nate",
+            "songLink": "https:\/\/youtu.be\/BastdO1o0cU"
+        },
+        "19": {
+            "name": "Geometrical Dominator",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/MQ7vI7cdYJY"
+        },
+        "20": {
+            "name": "Deadlocked",
+            "artist": "F-777",
+            "songLink": "https:\/\/youtu.be\/oOpYofyG6Ls"
+        },
+        "21": {
+            "name": "Fingerdash",
+            "artist": "MDK",
+            "songLink": "https:\/\/youtu.be\/BuPmq7yjDnI"
+        },
+        "22": {
+            "name": "Dash",
+            "artist": "MDK",
+            "songLink": "https:\/\/youtu.be\/SkYv_cIsbV8"
+        },
+        "23": {
+            "name": "Explorers",
+            "artist": "Hinkik",
+            "songLink": "https:\/\/youtu.be\/fc1tg9qkGyI"
+        },
+        "24": {
+            "name": "The Seven Seas",
+            "artist": "F-777",
+            "songLink": "https:\/\/youtu.be\/RaJ6Vf2w9hY"
+        },
+        "25": {
+            "name": "Viking Arena",
+            "artist": "F-777",
+            "songLink": "https:\/\/youtu.be\/RaJ6Vf2w9hY"
+        },
+        "26": {
+            "name": "Airborne Robots",
+            "artist": "F-777",
+            "songLink": "https:\/\/youtu.be\/guBpnPY32s0"
+        },
+        "27": {
+            "name": "Secret",
+            "artist": "Robtop Games",
+            "songLink": ""
+        },
+        "28": {
+            "name": "Payload",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/ofqEZdYXx2k"
+        },
+        "29": {
+            "name": "Beast Mode",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/koY1Aqd95IE"
+        },
+        "30": {
+            "name": "Machina",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/EWjZOxs87yg"
+        },
+        "31": {
+            "name": "Years",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/0MZvDD_sy-w"
+        },
+        "32": {
+            "name": "Frontlines",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/f3wAripOdag"
+        },
+        "33": {
+            "name": "Space Pirates",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/Cu7HaeRHMhM"
+        },
+        "34": {
+            "name": "Striker",
+            "artist": "Waterflame",
+            "songLink": "https:\/\/youtu.be\/MAy9XW-TWjY"
+        },
+        "35": {
+            "name": "Embers",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/nMDMlIvdqlA"
+        },
+        "36": {
+            "name": "Round 1",
+            "artist": "Dex Arson",
+            "songLink": "https:\/\/youtu.be\/NvQoY4gTIGU"
+        },
+        "37": {
+            "name": "Monster Dance Off",
+            "artist": "F-777",
+            "songLink": "https:\/\/youtu.be\/B8YkwDbGBr8"
+        },
+        "38": {
+            "name": "Press Start",
+            "artist": "MDK",
+            "songLink": "https:\/\/www.youtube.com\/watch?v=XoLouT7TqZY"
+        },
+        "39": {
+            "name": "Nock Em",
+            "artist": "Bossfight",
+            "songLink": "https:\/\/www.youtube.com\/watch?v=ePv2X_CCaGg"
+        },
+        "40": {
+            "name": "Power Trip",
+            "artist": "Boom Kitty",
+            "songLink": "https:\/\/www.youtube.com\/watch?v=l6OsF7RlQb4"
         }
     },
     "server_software": "automatic",

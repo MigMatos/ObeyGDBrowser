@@ -1,3 +1,5 @@
+@font-face {font-family: Pusab; src: url('../../assets/Pusab.ttf')}
+
 body {
     font-family: Arial, sans-serif;
 
@@ -11,6 +13,50 @@ label {
 body.light {
     background-color: #f9f9f9;
     color: #333;
+}
+
+.bg.light {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.bg.dark {
+    background-color: #333;
+    color: #f9f9f9;
+}
+
+button.radiusdesing.red-btn.dark, button.radiusdesing.red-btn.light {
+    background-color: #f44336;
+}
+
+button.radiusdesing.green-btn.dark, button.radiusdesing.green-btn.light {
+    background-color: #4CAF50;
+}
+
+button.radiusdesing.blue-btn.dark, button.radiusdesing.blue-btn.light {
+    background-color: #4491b5;
+}
+
+div.modalTop {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+button.radiusdesing {
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
 }
 
 fieldset {
@@ -30,7 +76,7 @@ legend.light {
     color: #555;
 }
 
-input[type="text"].light, input[type="number"].light {
+input[type="text"].light, input[type="number"].light,input[type="url"].light {
     border: 1px solid #797979;
 }
 
@@ -65,7 +111,7 @@ legend.dark {
     color: #ddd;
 }
 
-input[type="text"].dark, input[type="number"].dark {
+input[type="text"].dark, input[type="number"].dark,input[type="url"].dark {
     border: 1px solid #666;
     background-color: #555;
     color: #f9f9f9;
@@ -110,4 +156,53 @@ button.dark {
 
 .content.hidden {
     display: none;
+}
+
+.newcontentdiv {
+    display: none;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1em;
+}
+
+.newcontentdiv > img {
+    width: 2em;
+    height: 2em;
+    margin-right: 0.5em;
+}
+
+.newcontentdiv > h4 {
+    animation: textAnimationWhileSize 2s infinite;
+}
+
+.newcontentdiv > button.update.dark,button.update.light {
+    margin-left: 1em;
+    animation: buttonAnimationWhileSize 2s infinite;
+}
+
+@keyframes textAnimationWhileSize {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(1.1);
+        color:rgb(255, 90, 117);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes buttonAnimationWhileSize {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(1.1);
+        background-color: gold;
+        color:rgb(0, 0, 0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
