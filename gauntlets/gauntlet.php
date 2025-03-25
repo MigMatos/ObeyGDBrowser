@@ -26,12 +26,12 @@
 
     .dots {
         top: 35%;
-        height: 31%;
-        display: none;
+        height: 99%;
+        /* display: none; */
     }
     .gauntlet-level {
         position: relative;
-        width: 18vw;
+        width: 30vh;
     }
     .gauntlet-level.down {
         top: 27vh;
@@ -43,13 +43,11 @@
     }
     .level-last {
         position: absolute;
-        width: 6vw;
-        right: 5.5vw;
-        top: 9vh;
+        width: 9vh;
     }
     .level-text.name {
-        margin: 0 0 5px 0;
-        font-size: 30px;
+        margin: 0 0 1vh 0;
+        font-size: 3.8vh;
         width: 100%;
         position: relative;
         text-align: center;
@@ -57,15 +55,15 @@
     }
     .level-text.stars {
         position: relative;
-        margin: 5px 0;
-        font-size: 40px;
+        margin: 0.5vh 0;
+        font-size: 5vh;
     }
     .level-star {
-        margin: -4px -12px;
-        height: 42px;
+        margin: -0.5vh -1vh;
+        height: 5vh;
     }
     .level-img {
-        height: 11vw;
+        height: 15vh;
     }
 </style>
 
@@ -73,12 +71,12 @@
 
 <div id="everything" style="overflow: auto;">
 
-    <div style="position: absolute; height: 100%; width: 100%;">
+    <!-- <div style="position: absolute; height: 100%; width: 100%;">
         <img class="dots" src="../assets/gauntlets/icons/dots.png" style="position: absolute; left: 21vw;">
         <img class="dots" src="../assets/gauntlets/icons/dots.png" style="transform:scaleX(-1); position: absolute; left: 39vw;">
         <img class="dots" src="../assets/gauntlets/icons/dots.png" style="position: absolute; left: 57.5vw;">
         <img class="dots" src="../assets/gauntlets/icons/dots.png" style="transform:scaleX(-1); position: absolute; left: 75vw;">
-    </div>
+    </div> -->
     <div style="position: absolute; height: 100%; width: 100%; background: rgba(0, 0, 0, 0.6)"></div>
 
     <div class="supercenter" style="top: 7%; width: 100%; text-align: center">
@@ -165,10 +163,18 @@
                 $("#gauntlet-title").show()
 
                 levelsData.forEach((x, y) => {
-                    $("#levels").append(`<a onclick="levelRedirect(${x.id})" class="gauntlet-level gdButton${y % 2 ? "" : " down"}">
+                $("#levels").append(`
+                ${y == 1 ? '<img class="dots" src="../assets/gauntlets/icons/dots.png" style="height: 1vh;transform: translateY(14.5vh) scale(30.5);">' : ''}
+                ${y == 2 ? '<img class="dots" src="../assets/gauntlets/icons/dots.png" style="height: 1vh;transform: translateY(14.5vh) scale(30.5) scaleX(-1);">' : ''}
+                ${y == 3 ? '<img class="dots" src="../assets/gauntlets/icons/dots.png" style="height: 1vh;transform: translateY(14.5vh) scale(30.5);">' : ''}
+                ${y == 4 ? '<img class="dots" src="../assets/gauntlets/icons/dots.png" style="height: 1vh;transform: translateY(14.5vh) scale(30.5) scaleX(-1);">' : ''}
+                <a onclick="levelRedirect(${x.id})" class="gauntlet-level gdButton${y % 2 ? "" : " down"}">
+               
                 <p class="level-text name">${x.name}</p>
+                <div style="display: flex;justify-content: center;align-items: center;">
                 <img class="level-img" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${res.id}.png">
                 ${y == 4 ? '<img class="level-last" src="../assets/gauntlets/icons/skull.png">' : ""}
+                </div>
                 <p class="level-text stars">${x.stars}
                 <img class="level-star" src="../assets/bigstar.png"></p>
                 </a>`)

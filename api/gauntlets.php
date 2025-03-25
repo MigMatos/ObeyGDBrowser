@@ -176,7 +176,7 @@ function getAvailableGauntlets($params, $gdps_settings) {
                     'textColor' => $item['textColor'],
                     'bgColor' => $item['bgColor']
                 ];
-                if (count($results) >= 10) {
+                if (count($results) >= 999) {
                     break;
                 }
             }

@@ -502,7 +502,7 @@ function Append(firstLoad, noCache) {
 		$('#searchBox').append(`<div class="searchresult" title="${clean(x.packName)}">
 
 			<div style="position: relative; height: 100%; align-content: center;">
-			<h1 class="lessspaced pre" title="${x.packName}" id="titlePackName" style="text-wrap: wrap; width: 75%; text-align: center; color: ${x.textColor}">${clean(x.packName || " ")}</h1>
+			<h1 class="lessspaced pre" title="${x.packName}" id="titlePackName" style="white-space: collapse; text-wrap: wrap; width: 75%; text-align: center; color: ${x.textColor}">${clean(x.packName || " ")}</h1>
 
 			<div style="border-radius: 3vh; background-color: #0000007d; width: 50%; transform: translate(22.5%, 0px); padding: 0.2%;"><h3 class="lessspaced pre" style="text-align: center; color: ${x.barColor};">${x.levelsCount} Levels</h1></div>
 			
@@ -523,7 +523,7 @@ function Append(firstLoad, noCache) {
 			</div>
 
 			<div class="center" style="position:absolute; right: 7%; transform: translate(0.5vh, -16.25vh); height: 10%">
-				<div class="checkperm-mappacks" style="background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: -100%; position: relative; margin-bottom: -27%;">
+				<div class="checkperm-mappacks modActionBox">
 				<h3 class="lessSpaced" style="cursor: default;">Mod actions</h3>
 					<img onclick="editMap(${page},${y})" title="Edit Map Pack" class="valign gdButton editMap" src="../assets/editBtn.png" height="105%">
 					<img onclick="deleteMap(${page},${y})" title="Delete Map Pack" class="valign gdButton delMap" src="../assets/trash.png" height="105%">

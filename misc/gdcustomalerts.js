@@ -60,6 +60,8 @@ function eventListenerSearchGauntlets(apiURL,idObject,maxOptions) {
 
         let fetchURLAPI = `${apiURL}?list&search=${event.target.value}`
 
+        console.log(fetchURLAPI);
+
         for (let i = selectElement.options.length - 1; i >= 0; i--) {
             let option = selectElement.options[i];
             
@@ -102,7 +104,11 @@ function CreateFLAlertGauntletsAPI(obj,maxOptions=2,title="Select your Gauntlet!
 
     if(apiURL == "" || apiURL == null) throw new Error(`'api-url' is not defined in ${obj.id}`);
     functionEventListener = eventListenerSearchGauntlets(apiURL,obj.id,maxOptions);
-    CreateFLAlert(title,desc,obj.id,maxOptions,"custom")
+    CreateFLAlert(title,desc,obj.id,maxOptions,"custom");
+
+    document.getElementById("flayersearch-layer-fancy").value = "";  
+    document.getElementById("flayersearch-layer-fancy").dispatchEvent(new Event("input", { bubbles: true })); 
+
 }
 
 

@@ -88,9 +88,9 @@
     align-content: center;
     flex-direction: column;
 	width: 15%;">
-	<p>
+	<h1 class="smaller noSelect" style="font-size: 3vh; -webkit-text-stroke-width: 0.15vh;text-wrap: auto;text-align: center;">
 		<?php if(!$logged) echo 'Login here!'; else echo $userName; ?>
-	</p>
+	</h1>
 		<a onclick="openProfle()" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
 	</div>
 
@@ -99,15 +99,17 @@
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;">
-			<p style="text-align: center;" id="updateText">OGDW Updater</p>
+			<h1 class="smaller noSelect" style="font-size: 3vh; -webkit-text-stroke-width: 0.15vh;text-wrap: auto;text-align: center;" id="updateText">
+			<!-- <p style="text-align: center;" id="updateText">OGDW Updater</p> -->OGDW Updater
+			</h1>
 			<img class="gdButtonBrowser" id="updateButtonImg" src="assets/replay.png" width="40%" onclick="updateCoreWebButton()"></a>
 		</div>; 
 
-		<div style="position:absolute; bottom: 27%; right: 1%; text-align: right; width: 15%; display: flex;
+		<div style="position:absolute; bottom: 30%; right: 1%; text-align: right; width: 15%; display: flex;
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;">
-			<p style="text-align: center;">GDPS Settings</p>
+			<h1 class="smaller noSelect" style="font-size: 3vh; -webkit-text-stroke-width: 0.15vh;text-wrap: auto;text-align: center;">GDPS Settings</h1>
 			<img class="gdButtonBrowser" src="assets/edit.png" width="40%" onclick="openGDPSSettings()"></a>
 		</div>; 
 		<?php

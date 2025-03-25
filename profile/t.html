@@ -160,16 +160,17 @@
 	<!-- PROFILES -->
 
 	<div class="popup" id="ogdbProfilesPopup">
-		<form id="formProfilesPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 56.5%; width: 100vh">
+		<form id="formProfilesPopup" autocomplete="off" class="purplebox bounce center supercenter" style="height: 35.5%; width: 100vh">
 			<h3 class="smaller center" style="font-size: 5.5vh">Profile customization</h3>
 			<div id="filterStuff">
 			<input type="text" name="act" value="socialsettings" hidden>
 			<h2 class="smaller center" style="margin-top: 2%">Theme:</h2>
 			<div class="box-subopt" style=""> 
-				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="ogdb" class="checkgroup" type="checkbox" id="box-theme-ogdb"><label for="box-theme-ogdb" class="gdcheckbox gdButton"></label>BG from ObeyGDBot</h1></div>
+				<!-- <div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="ogdb" class="checkgroup" type="checkbox" id="box-theme-ogdb"><label for="box-theme-ogdb" class="gdcheckbox gdButton"></label>BG from ObeyGDBot</h1></div> -->
 				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-colorful" class="checkgroup" type="checkbox" id="box-theme-colored"><label for="box-theme-colored" class="gdcheckbox gdButton"></label>Colorful BG</h1></div>
 				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-rainbow" class="checkgroup" type="checkbox" id="box-theme-rainbow"><label for="box-theme-rainbow" class="gdcheckbox gdButton"></label>Rainbow BG</h1></div>
-				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-default" class="checkgroup" type="checkbox" id="box-theme-default"><label for="box-theme-default" class="gdcheckbox gdButton"></label>Default</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-default" class="checkgroup" type="checkbox" id="box-theme-default"><label for="box-theme-default" class="gdcheckbox gdButton"></label>Themed</h1></div>
+				<div><h1 class="box-subopt-checkbox"><input name="themeprofile" value="browser-brown" class="checkgroup" type="checkbox" id="box-theme-brown"><label for="box-theme-brown" class="gdcheckbox gdButton"></label>Default brown</h1></div>
 			</div>
 
 			</div>
@@ -454,8 +455,10 @@ function getColors() {
 
 	} else if(localStorage.getItem('profileTheme') == 'rainbow') {
 		rainbowProfile()
-	} else {
-		defaultProfile()
+	} else if(localStorage.getItem('profileTheme') == 'brown'){
+		defaultProfile(true)
+	} else { // Default
+		defaultProfile(false)
 	}
 }
 
@@ -525,15 +528,15 @@ function ogdbColorProfile(urlProfile,custom=false) {
 }
 
 
-function defaultProfile() {
+function defaultProfile(ignoreTheme=false) {
 
 	
 
-	if(hasThemeBrowser == true) {
+	if(hasThemeBrowser == true && ignoreTheme == false) {
 		console.log("Theme Profile Defined")
 		ogdbColorProfile('',true);
 		return;
-	}
+	} 
 
 	$("#profileCBox").addClass('brownBox');
 	$("#profileCBox").removeClass('invisibleBox');
@@ -600,6 +603,7 @@ function SocialPreferences() {
 function ProfileCustomization() {
 	if(localStorage.getItem('profileTheme') == "colored") $('#box-theme-colored').prop('checked', true);
 	else if(localStorage.getItem('profileTheme') == "rainbow") $('#box-theme-rainbow').prop('checked', true);
+	else if(localStorage.getItem('profileTheme') == "brown") $('#box-theme-brown').prop('checked', true);
 	else $('#box-theme-default').prop('checked', true);
 	$('#ogdbProfilesPopup').show()
 }
@@ -609,6 +613,7 @@ $('.submitProfileCustomForm').click(function() {
 
 	if($('#box-theme-colored').is(":checked")){ localStorage.setItem('profileTheme','colored')}
 	else if($('#box-theme-rainbow').is(":checked")){ localStorage.setItem('profileTheme','rainbow')}
+	else if($('#box-theme-brown').is(":checked")){ localStorage.setItem('profileTheme','brown')}
 	else { localStorage.setItem('profileTheme','default') }
 
 	changeLoadingAlert(`Profile Customized`,"done");

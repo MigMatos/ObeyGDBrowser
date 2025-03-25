@@ -1,7 +1,8 @@
-function openGdCustomFrame(url) {
+function openGdCustomFrame(url,typo=false) {
 
     const iframeContainer = document.createElement('div');
-    iframeContainer.className = 'gdCustomFrame';
+    if(typo == false) iframeContainer.className = 'gdCustomFrame';
+    else iframeContainer.className = 'gdCustomFrameAlt';
     iframeContainer.style.display = 'flex';
 
 
@@ -13,7 +14,8 @@ function openGdCustomFrame(url) {
     iframe.style.backgroundColor = 'transparent';
 
     const loadingObj = document.createElement('div');
-    loadingObj.className = "brownBox center";
+    if(typo == false) loadingObj.className = "brownBox center";
+    else loadingObj.className = "transparentBox center";
     // <img class="spin noSelect" src="../assets/loading.png" height="105%">
     const centerLoadingObj = document.createElement('div');
     centerLoadingObj.className = "supercenter";
@@ -21,12 +23,11 @@ function openGdCustomFrame(url) {
     const imgLoadingObj = document.createElement('div');
     imgLoadingObj.className = "spin noSelect loadingBG";
 
+
     centerLoadingObj.appendChild(imgLoadingObj);
-
     loadingObj.appendChild(centerLoadingObj);
-
     iframeContainer.appendChild(loadingObj);
-
+    
     let myTimer = Date.now();
 
     iframe.addEventListener('load', function() {

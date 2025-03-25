@@ -124,15 +124,15 @@ body code {
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
-    border: 2px solid white;
-    box-shadow: 0 0 0 2px black inset;
-    border-radius: 10px;
+    border: 0.3vh solid white;
+    box-shadow: 0 0 0 0.3vh black inset;
+    border-radius: 1.5vh;
     outline: none;
     width: auto; 
     height: auto;
     color: white; 
     cursor: pointer;
-    margin: 5px 0px 5px 0px;
+    margin: 0.5vh 0 0.5vh 0;
     transition: all 0.3s;
     filter: none;
 }
@@ -315,8 +315,18 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     background-color: rgba(0, 0, 0, 0.5); 
     justify-content: center;
     align-items: center;
+}
 
-
+.gdCustomFrameAlt {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); 
+    justify-content: center;
+    align-items: center;
 }
 
 .gdCustomFrame > .brownBox {
@@ -328,7 +338,7 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
 }
 
-.gdCustomFrame iframe {
+.gdCustomFrame iframe, .gdCustomFrameAlt iframe {
     
     width: 100%;
     height: 100%;
@@ -348,6 +358,15 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     display: flex;
 }
 
+.modActionBox {
+    background-color: #0000007d;
+    border-radius: 2vh;
+    padding: 0.5vh;
+    top: -100%;
+    position: relative;
+    margin-bottom: -27%;
+    width: 23vh;
+}
 
 @keyframes zoomIn {
     from {

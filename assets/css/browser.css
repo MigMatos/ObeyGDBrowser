@@ -62,15 +62,15 @@ body {
 
 
 .dAlbum,.dAlbum[custom="0"] {
-    border: 6.5px solid transparent;
+    border: 0.8vh solid transparent;
 }
 
 .dAlbum[custom="1"] {
-    border: 6.5px solid white;
+    border: 0.8vh solid white
 }
 
 .dAlbum[custom="3"] {
-    border: 5.5px solid white;
+    border: 0.8vh solid white;
     border-radius: 50%;
 }
 
@@ -710,39 +710,48 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .gauntletPage {
-    display: none;
+    /* display: none; */
+    display: flex;
     flex-wrap: nowrap;
     align-items: center;
     flex-direction: row;
     justify-content: flex-start;
     margin-right: 50%;
     margin-left: 50%;
+    position: absolute;
 }
 
-.gauntletPage.show {
+/* .gauntletPage.show {
     display: flex;
+    animation: showGauntlet 0.3s ease-in-out;
 }
 
 .gauntletPage.hide {
-    display: none;
+    display: flex;
     animation: hideGauntlet 0.3s ease-in-out;
-}
+} */
 
-@keyframes hideGauntlet {
-    0% {
-        display: flex;
-        filter:opacity(0);
+/* @keyframes hideGauntlet {
+    0% {    
+        opacity: 100;
     }
 
     100% {
-        display: none;
-        margin-left: 0%;
-        margin-right: 0%;
-        width: 0;
-        filter:opacity(0);
-        /* transform: scale(0); */
+        opacity: 0;
     }
 }
+
+@keyframes showGauntlet {
+    0% {    
+        opacity: 0;
+        left: 1000;
+    }
+
+    100% {
+        opacity: 100;
+        left: 0;
+    }
+} */
 
 .gauntlet:hover, .mappack:hover {
     transition-duration: 0.06s;
@@ -848,6 +857,12 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 #searchBox::-webkit-scrollbar, #statusDiv::-webkit-scrollbar, #commentBox::-webkit-scrollbar { 
     display: none; 
+}
+
+/* Firefox */
+#searchBox, #statusDiv, #commentBox {
+    scrollbar-width: thin;
+    scrollbar-color: #00000045 #fff0;
 }
 
 .searchResult {

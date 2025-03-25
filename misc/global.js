@@ -87,12 +87,21 @@ const scriptPath = currentScript.src.split('/').slice(0, -2).join('/');
 
 if (new URLSearchParams(window.location.search).has('gdframe') || "[[GDFRAME]]" === "TRUE") {
 
-	const mbody = document.querySelectorAll('.levelBG');
+	const mbody = document.body;
 
-	mbody.forEach(mbodyelem => {
-		mbodyelem.style.backgroundColor = "#ff000000"; 
-		mbodyelem.style.backgroundImage = "unset !IMPORTANT";    
-	});
+	
+	mbody.classList.remove("levelBG");
+	mbody.classList.remove("darkBG");
+	mbody.style = "background-color: #ff000000 !IMPORTANT; background-image: url('') !IMPORTANT;";
+
+	// mbody.forEach(mbodyelem => {
+	// 	console.log(mbody.classList);
+	// 	mbodyelem.classList.remove("darkBG");
+	// 	mbodyelem.style = "background-color: #ff000000; background-image: #00000000;";
+	// 	// mbodyelem.style.backgroundColor = "#ff000000"; 
+	// 	mbodyelem.style.backgroundImage = 'url("")';
+	// 	// background-image: none !important;
+	// });
 	$(".cornerPiece").hide();
 	$('#backButton').hide();
 } else {

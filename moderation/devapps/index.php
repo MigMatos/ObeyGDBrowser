@@ -799,7 +799,7 @@ function Append(firstLoad, noCache) {
 			</div>
 
 			<div class="center" style="position:absolute; right: 7%; transform:translateY(-13vh); height: 10%">
-				<div style="background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: -100%; position: relative; margin-bottom: -27%;">
+				<div class="modActionBox">
 					<h3 class="lessSpaced" style="cursor: default;">Mod actions</h3>
 						<img onclick="editApp(${page},${y})" title="Edit App" class="valign gdButton editApp" src="../../assets/editBtn.png" height="105%">
 						<img onclick="deleteApp(${page},${y})" title="Delete App" class="valign gdButton delApp" src="../../assets/trash.png" height="105%">

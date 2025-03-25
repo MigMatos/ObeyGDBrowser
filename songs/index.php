@@ -111,34 +111,38 @@
 			<div style="position: absolute; left: 0%; width: 133.4vh; left: -1.5%; top: -2.3%; border-top-right-radius: 2.2vh; border-top-left-radius: 2.2vh; overflow: hidden;"><img class="valign rightSpace dAlbum" src="" id="songImageAlbum" style="object-fit: cover; width: 135vh; height: 22.5vh; object-position: 0% 47%; background-color: #00000085;"></div>
 			
 
-			
+			<div class="supercenter noframe" id="loadingSongInfo" style="height: 35%; top: 62%;">
+				<img class="spin noSelect" src="../assets/loading.png" height="105%">
+			</div>
 
-			<h1 class="lessSpaced" style="font-size: 5.8vh; margin-top: 8.5%; margin-bottom: 4%; width: 90vh; "><img class="valign rightSpace dAlbum" src="../assets/song/disc.png" onerror="this.onerror=null; this.src='../assets/song/disc.png';" style="transform: translate(-160%, 0%); height: 23%; border-radius: 50%;" id="songImageAuthor"><span style="position: absolute; transform: translate(-31%, 0%); width: 103vh; top: 17.6%; text-align: left; overflow: hidden;" id="songName">?</span></h1>
+			<h1 class="lessSpaced songDatapopup" style="font-size: 5.8vh; margin-top: 8.5%; margin-bottom: 4%; width: 90vh; "><img class="valign rightSpace dAlbum" src="../assets/song/disc.png" onerror="this.onerror=null; this.src='../assets/song/disc.png';" style="transform: translate(-160%, 0%); height: 23%; border-radius: 50%;" id="songImageAuthor"><span style="position: absolute; transform: translate(-31%, 0%); width: 103vh; top: 17.6%; text-align: left; overflow: hidden;" id="songName">?</span></h1>
 			
-			<h3 class="lessSpaced" style="font-size: 3vh;margin-top: 0%;position: absolute;top: 95%;text-align: left;left: 8.5%;" id="songWarning"><img class="valign rightSpace" src="../assets/exclamation.png" style="height: 4vh;"><cr>Warning:</cr> Songs uploaded from this platform may be unavailable.</h3>
+			<!-- No song Info --><h3 class="lessSpaced" style="font-size: 6vh;margin-top: 0%;position: absolute;top: 60%;text-align: left;left: 13%; display:none;" id="songNoInfoAvailable"><img class="valign rightSpace" src="../assets/exclamation.png" style="height: 6.5vh;"><cr>No song information available</cr></h3>
+
+			<h3 class="lessSpaced songDatapopup" style="font-size: 3vh;margin-top: 0%;position: absolute;top: 95%;text-align: left;left: 8.5%;" id="songWarning"><img class="valign rightSpace" src="../assets/exclamation.png" style="height: 4vh;"><cr>Warning:</cr> Songs uploaded from this platform may be unavailable.</h3>
 
 
-			<h3 class="closeWindow lessSpaced" style="font-size: 4.6vh; margin-top: 1%; color: #ffbc3d;" title="Search songs from that artist"><span style="position: absolute; transform: translate(-39.5%, 0%); width: 103vh; top: 27.8%; text-align: left; pointer-events: none;"><span class="pre smaller inline gdButton help" id="songAuthor">?</span></span></h3>
+			<h3 class="closeWindow lessSpaced songDatapopup" style="font-size: 4.6vh; margin-top: 1%; color: #ffbc3d;" title="Search songs from that artist"><span style="position: absolute; transform: translate(-39.5%, 0%); width: 103vh; top: 27.8%; text-align: left; pointer-events: none;"><span class="pre smaller inline gdButton help" id="songAuthor">?</span></span></h3>
 			
-			<div class="supercenter" style="top: 70%;height: 43%;padding-top: 2%;width: 70%;border: 0.7vh solid #00000075;background-color: #0000003b;border-radius: 5%;">
+			<div class="supercenter songDatapopup" style="top: 70%;height: 43%;padding-top: 2%;width: 70%;border: 0.7vh solid #00000075;background-color: #0000003b;border-radius: 5%;">
 			
 			
-			<h3 class="lessSpaced" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/song/note.png" height="10%">SongID: <cg1 style="color:#ff75ff;"><span id="songID">0</span></cg1></h3>
-			<h3 class="lessSpaced" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/smallinfo.png" height="10%">Size: <cg1 style="color:#ff75ff;"><span id="songID">0</span> MB</cg1></h3>
-			<h3 class="lessSpaced" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/song/views.png" height="7%">Level(s) count: <cg1 style="color:#ff75ff;"><span id="songCount">0</span></cg1></h3>
-			<h3 class="lessSpaced" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/site.png" height="10%">Platform: <cg1 style="color:#ff75ff;"><span id="songPlatform">?</span></cg1></h3>
+			<h3 class="lessSpaced songDatapopup" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/song/note.png" height="10%">SongID: <cg1 style="color:#ff75ff;"><span id="songID">0</span></cg1></h3>
+			<h3 class="lessSpaced songDatapopup" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/smallinfo.png" height="10%">Size: <cg1 style="color:#ff75ff;"><span id="songID">0</span> MB</cg1></h3>
+			<h3 class="lessSpaced songDatapopup" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/song/views.png" height="7%">Level(s) count: <cg1 style="color:#ff75ff;"><span id="songCount">0</span></cg1></h3>
+			<h3 class="lessSpaced songDatapopup" style="font-size: 3.5vh; margin-top: 1%;"><img class="valign rightSpace" src="../assets/site.png" height="10%">Platform: <cg1 style="color:#ff75ff;"><span id="songPlatform">?</span></cg1></h3>
 			
 				
 			</div>
 
-			<div class="supercenter" style="top: 85%; height: 5%; display: inline-flex; align-items: center;">
-				<div class="gdsButton" onclick="playSong(this.getAttribute('src'))" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/song/playButton.png" height="80%">Play song</h3></div>
-				<div class="gdsButton" onclick="copySongID(this.getAttribute('idSong'))" id="songCopyID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" height="80%">Copy songID</h3></div>
-				<div class="gdsButton" onclick="searchLevelSong(this.getAttribute('idSong'))" id="songLevelID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" height="80%">Levels</h3></div>
+			<div class="supercenter songDatapopup" style="top: 85%; height: 5%; display: inline-flex; align-items: center;">
+				<div class="gdsButton" onclick="playSong(this.getAttribute('src'))" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/song/playButton.png" style="height:4vh;width: min-content;">Play song</h3></div>
+				<div class="gdsButton" onclick="copySongID(this.getAttribute('idSong'))" id="songCopyID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" style="height:4vh;width: min-content;">Copy songID</h3></div>
+				<div class="gdsButton" onclick="searchLevelSong(this.getAttribute('idSong'))" id="songLevelID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" style="height:4vh;width: min-content;">Levels</h3></div>
 			</div>
 
 			
-			<img class="closeWindow gdButton" src="../assets/close.png" onclick="closeMessageCustomFrame()" height="15%" style="position: absolute; top: -10.5%; left: -6vh">
+			<img class="closeWindow gdButton" src="../assets/close.png" onclick="closeMessageCustomFrame(),resetInfoSongs()" height="15%" style="position: absolute; top: -10.5%; left: -6vh">
 
 			
 		
@@ -278,6 +282,17 @@ const TIME_API_WINDOW = 5000; // 5 segundos
 let requestAPITimestamps = [];
 const CACHE_EXPIRATION_TIME = 2 * 24 * 60 * 60 * 1000; 
 const ORIGINAL_URL = window.location.href;
+let isFrame = false;
+
+if (new URLSearchParams(window.location.search).has('gdframe')) {
+	isFrame = true;
+}
+
+$('.songDatapopup').hide();
+
+// document.querySelectorAll('.songDatapopup').forEach(el => {
+//     el.style.display = 'none';
+// });
 
 function WIPFunction() {
 	CreateFLAlert("WIP","This feature is  `r0 not finished`, wait for  `g0 future updates!`");
@@ -397,22 +412,41 @@ if(path == null) path = "" + window.location.pathname.substring(window.location.
 
 // if (!path || path.trim() === '') window.location.href = './search.php';
 // if (path == "0") path = "*"
-document.addEventListener('endLoadingItems', function(event) {
-	if (new URLSearchParams(window.location.search).has('gdframe')) {
-		$("#searchBox").hide()
-		$("#scoreCustomTabs").hide()
-		$("#leaderboardBox").hide()
-		$('.noframe').hide();
-		let songIDSelected = isNaN(Number(path)) ? 0 : Number(path)
-		const $songElement = $(`#song${songIDSelected}`);
-		if ($songElement.length) {$songElement.click();}
-		else {
-			$('#songInfo').show();
-		}
-		$('#songAuthor').css('pointer-events','none');
-		$('#songInfoBox').removeClass('bounce');
-	}
-});
+// document.addEventListener('endLoadingItems', function(event) {
+// 	if (new URLSearchParams(window.location.search).has('gdframe')) {
+
+// 		console.log("loading Frame SongInfo");
+
+// 		$("#searchBox").hide()
+// 		$("#scoreCustomTabs").hide()
+// 		$("#leaderboardBox").hide()
+// 		$('.noframe').hide();
+// 		let songIDSelected = isNaN(Number(path)) ? 0 : Number(path)
+// 		const $songElement = $(`#song${songIDSelected}`);
+// 		if ($songElement.length) {$songElement.click();}
+// 		else {
+// 			$('#songInfo').show();
+// 		}
+// 		$('#songAuthor').css('pointer-events','none');
+// 		$('#songInfoBox').removeClass('bounce');
+// 	}
+// });
+
+if(isFrame) {
+	$("#searchBox").hide()
+	$('#songInfoBox').removeClass('bounce');
+	$("#scoreCustomTabs").hide()
+	$('.noframe').hide();
+	$('#songInfo').show();
+	$('#songAuthor').css('pointer-events','none');
+	document.getElementById("songInfo").style = "display:block";
+	$('#loadingSongInfo').show();
+
+	console.log("loading Frame SongInfo");
+} else {
+	$('#songNoInfoAvailable').show();
+	$('#loadingSongInfo').hide();
+}
 
 
 function profileRedirect(url) {
@@ -470,7 +504,7 @@ function clean(text) {return ( text || "").toString().replace(/&/g, "&#38;").rep
 // --- End --- //
 
 function Append(firstLoad, noCache) {
-	document.dispatchEvent(new Event('endLoadingItems'));
+	// document.dispatchEvent(new Event('endLoadingItems'));
 	loading = true;
 	if (!firstLoad) $('#pagenum').text(`Page ${(page + 1)}${pages ? ` of ${pages}` : ""}`)
 	$('#searchBox').html('<div style="height: 4.5%"></div>')
@@ -589,7 +623,7 @@ function Append(firstLoad, noCache) {
 	$('#searchBox').append('<div style="height: 4.5%"></div>').scrollTop(0)
 	$('#loading').hide()
 	loading = false;
-	document.dispatchEvent(new Event('endLoadingItems'));
+	// document.dispatchEvent(new Event('endLoadingItems'));
 	}
 	
 }
@@ -625,11 +659,13 @@ function setFilter(filter) {
 }
 
 function initLoadingEvent() {
+	if(isFrame) return;
 	document.dispatchEvent(new Event('initLoadingAlert'));
 	changeLoadingAlert("Loading songs...")
 }
 
 function finishLoadingEvent() {
+	if(isFrame) return;
 	changeLoadingAlert("Songs loaded!","done")
 	event = new Event('finishLoadingAlert');
 	
@@ -640,8 +676,30 @@ function debounceLoadingEvent(type) {
     if (debounceTimeout && type) {
         clearTimeout(debounceTimeout);
     }
-	if (type){ debounceTimeout = setTimeout(initLoadingEvent, 500); }
-	else { debounceTimeout = setTimeout(finishLoadingEvent, 1000); }
+	let initTimeOutInt = 100;
+	let endTimeOutInt = 700;
+	if (new URLSearchParams(window.location.search).has('gdframe')) {
+		initTimeOutInt = 5;
+		endTimeOutInt = 100;
+	}
+
+	if (type){ debounceTimeout = setTimeout(initLoadingEvent, initTimeOutInt); }
+	else { debounceTimeout = setTimeout(() => {
+		finishLoadingEvent()
+		if(isFrame){
+			$('#loadingSongInfo').hide();
+			let songIDSelected = isNaN(Number(path)) ? 0 : Number(path)
+			const $songElement = $(`#song${songIDSelected}`);
+			if ($songElement.length) {
+				$songElement.click();
+			}
+			else {
+				$('#songNoInfoAvailable').show();
+				$('#songInfo').show();
+			}
+		}
+	}, endTimeOutInt); }
+	
 }
 
 
@@ -668,6 +726,11 @@ function copySongID(id){
 function searchLevelSong(songID) {
 	if(document.getElementById("songLevelID").getAttribute("disabled")) return
 	else searchLevelsArtistRedirect(songID);
+}
+
+function resetInfoSongs() {
+	$('.songDatapopup').hide();
+	$('#songNoInfoAvailable').show();
 }
 
 function showSong(name,link,id,songAltName,author, songCount) {
@@ -713,6 +776,8 @@ function showSong(name,link,id,songAltName,author, songCount) {
 	document.getElementById("songCount").textContent = songCount;
 
 	document.getElementById("songPlatform").textContent = textPlatform;
+	$('.songDatapopup').show();
+	$('#songNoInfoAvailable').hide();
 	$('#songInfo').show();
 	
 }
