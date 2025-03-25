@@ -528,7 +528,7 @@ function Append(firstLoad, noCache) {
 					<img onclick="editMap(${page},${y})" title="Edit Map Pack" class="valign gdButton editMap" src="../assets/editBtn.png" height="105%">
 					<img onclick="deleteMap(${page},${y})" title="Delete Map Pack" class="valign gdButton delMap" src="../assets/trash.png" height="105%">
 				</div>
-				<a title="View levels" onclick=searchRedirect('${encodeURIComponent(x.levels)}','${encodeURIComponent(clean(x.packName || " "))}') "><img class="valign gdButton" src="../assets/view.png" height="105%"></a>
+				<a title="View levels" onclick=searchRedirect('${encodeURI(x.levels)}','${encodeURIComponent(clean(x.packName || " ? "))}') "><img class="valign gdButton" src="../assets/view.png" height="105%"></a>
 			</div>
 
 
