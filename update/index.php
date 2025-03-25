@@ -235,7 +235,7 @@ function initUpdaterServer() {
 	xhr.withCredentials = true;
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
-        if (xhr.status === 250) {
+        if (xhr.status === 250 || xhr.status === 200) {
             console.log("Finished successfully");
             finishedUpdate();
         } else if (xhr.status === 401) {

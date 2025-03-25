@@ -471,5 +471,5 @@ $version_file_path = "./" . $folder_browser . 'update/version.txt';
 file_put_contents($version_file_path , $version_ogdb . "|" . $date_ogdb);
 
 
-
+exit(250);
 ?>

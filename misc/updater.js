@@ -48,7 +48,7 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             }
 
             const latestDate = new Date(masterData.commit.commit.committer.date);
-            if (isNewerThan(latestDate, currentDate)){
+            if (isNewerThan(latestDate, currentDate) || latestVersion !== currentVersion) {
                 masterData.version_date = latestDate.toISOString();
                 return {
                     type: 'master',
