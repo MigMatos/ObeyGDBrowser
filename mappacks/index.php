@@ -309,7 +309,7 @@ function deleteMap(page,idarray) {
 function submitNewMap() {
 	document.dispatchEvent(new Event('initLoadingAlert'));
     let form = document.getElementById('formNewMap');
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
     if (form.checkValidity()) {
         var formData = new FormData(form);
 		
@@ -345,7 +345,7 @@ function submitNewMap() {
 function submitDelMap() {
 	document.dispatchEvent(new Event('initLoadingAlert'));
     let form = document.getElementById('formDelMap');
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
 	
     if (form.checkValidity()) {
         var formData = new FormData(form);
@@ -380,7 +380,7 @@ function submitDelMap() {
 function submitEditMap() {
 	document.dispatchEvent(new Event('initLoadingAlert'));
     let form = document.getElementById('formEditMap');
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
 	form = document.getElementById('formEditMap');
     if (form.checkValidity()) {
         var formData = new FormData(form);

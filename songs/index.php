@@ -934,7 +934,7 @@ $('.submitForm').click(function() {
 	}
 	
     let form = document.getElementById($(this).closest('form').attr('id'));
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
     if (form.checkValidity()) {
         let formData = new FormData(form);
 

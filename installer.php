@@ -20,6 +20,10 @@
         margin-bottom: 1%;
     }
 
+    .small {
+        padding: 1vh;
+    }
+
 </style>
 <body>
 
@@ -68,7 +72,8 @@
 
 <div class="dashboard-container gdbox-brown songs">
     <h1 class="gdfont-Pusab normal">ObeyGDBrowser Installer</h1>
-    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install. (MODERATORS NO ALLOWED) <span style="color:red;">(Unstable version)</span></label>
+    <label class="gdfont-Pusab small">Log into an administrator account in that gdps database to install.</label>
+    <label class="gdfont-Pusab small" style="font-size: 4vh; -webkit-text-stroke: clamp(0.3vh,0.3vw,0.3vh) black;">Only the owner of the GDPS can install OGDW.</label>
     <?php
 	
     $path_conn = "./incl/lib/";

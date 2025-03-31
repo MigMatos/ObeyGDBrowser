@@ -242,7 +242,7 @@ function submitsGauntlet(objectform,type) {
 	document.dispatchEvent(new Event('initLoadingAlert'));
 
     let form = document.getElementById(objectform);
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
     if (form.checkValidity()) {
         var formData = new FormData(form);
 		

@@ -86,9 +86,9 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
     .alertError {
         display: none; 
         color: #ff6e6e; 
-        margin: 1vh 20vh 0vh 20vh; 
+        margin: 2vh 15vh 0vh 15vh;
         padding: 1vh; 
-        border-radius: 2vh; 
+        border-radius: 5vh; 
         background-color: #0000005c;
         overflow-y: scroll;
         max-height: 20vh;
@@ -110,16 +110,16 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
 
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="loginForm">
 
-        <div style="margin-top: 2vh;">
-            <h3 for="userName">Username:</h3><br>
+        <div style="margin-top: 4vh;">
+            <h3 for="userName">Username:</h3>
             <input type="text" id="userName" name="userName" style="height: 8%;" required>
         </div>
-        <div style="margin-top: 2vh;">
-            <h3 for="password">Password:</h3><br>
+        <div style="margin-top: 4vh;">
+            <h3 for="password">Password:</h3>
             <input type="password" id="password" name="password" style="height: 8%;" required>
         </div>
         <br>
-        <div style="display: flex; justify-content: center;">
+        <div style="display: flex; justify-content: center; height: 8vh;">
         <div class="gdsButton" onclick="let form = document.getElementById('loginForm'); form.checkValidity() ? form.submit() : form.reportValidity(); return false;" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Login</h3></div>
         <div class="gdsButton red" onclick="closeMessageCustomFrame();" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Exit</h3></div>
 

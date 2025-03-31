@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link href="../../assets/css/browser.css?v=3" type="text/css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.css" rel="stylesheet">
-	<link href="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+	<!-- <link href="https://unpkg.com/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"> -->
     
 	<link rel="icon" href="../../assets/devapps/defaultDevApp.png">
 	<meta id="meta-title" property="og:title" content="Developer Apps">
@@ -216,7 +216,7 @@
 
 
 	<div class="popup" id="createApp">
-		<form autocomplete="off" id="createAppForm" class="purplebox bounce center supercenter" style="width: 80vh; height: 42%">
+		<form autocomplete="off" id="createAppForm" class="purplebox bounce center supercenter" style="width: 80vh; height: 42%" target="_blank" onsubmit="return false;">
 			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%">Add a developer app</h2>
 			<input type="text" name="act" value="create" hidden>
 			<input type="text" name="token" id="partialCreateApptoken" value="" hidden>
@@ -242,7 +242,7 @@
 	</div>
 
 	<div class="popup" id="activateApp">
-		<form autocomplete="off" id="activateAppForm" class="bluebox bounce center supercenter" style="width: 75%; height: 88%; overflow-y: auto;">
+		<form autocomplete="off" id="activateAppForm" class="bluebox bounce center supercenter" style="width: 75%; height: 88%; overflow-y: auto;" action="" onsubmit="return false;">
 			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%">Activate app</h2>
 			<p>Developer apps will have <cg>permissions</cg> based on the <cy>moderator</cy> who added the app.</p>
 			<p>You must send a <cg>POST</cg> request with the corresponding data in the <cg>HEADERS</cg> and <cg>BODY</cg>.</p>
@@ -553,7 +553,7 @@ public class ApiRequest {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <!-- PrismJS Language Plugins -->
 
-<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<!-- <script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script> -->
 
 <script> function devAppsErrorImg(img) { img.src = "../assets/devapps/defaultDevApp.png"; } 
 	const imageAppMain = document.getElementById('devAppImage');
@@ -1168,7 +1168,7 @@ $('.submitForm').click(function() {
 	console.log(form)
 	console.log(typeact)
 
-	form.dispatchEvent(new Event('submit'));
+	// form.dispatchEvent(new Event('submit'));
     if (form.checkValidity()) {
         let formData = new FormData(form);
 
@@ -1232,6 +1232,7 @@ $('.submitForm').click(function() {
         form.reportValidity();
 		setTimeout(function() { document.dispatchEvent(new Event('finishLoadingAlert')); }, 1200);
     }
+
 })
 
 </script>
