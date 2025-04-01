@@ -162,37 +162,29 @@
 					<tr class="menuButtonList">
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
 						
-						
 						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
 						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
-						
+						<td id="gdItem22"><a tabindex="1" onclick="openSpecialLvl('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
 						
 						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-songs" src="assets/category-songs.png" title="Songs"></a></td>
 
-						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
-						<!-- <td><a tabindex="1" href="./leaderboard"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td> -->
 						
-						<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
-						
-
-						<!-- <td><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td> -->
-						
+						<td class="notfinishedBtn" id="gdItem11"><a tabindex="1" onclick="urlRedirect('./leaderboard')"><img class="menubutton menu-leaderboard" src="assets/category-scores.png" title="Scores"></a></td>
 						
 					</tr>
 					<tr class="menuButtonList">
 
 						<td style="display: block" id="menu_featured"><a tabindex="1" onclick="searchRedirect('0','featured')"><img class="menubutton menu-featured" src="assets/category-featured.png" title="Featured"></a></td>
 						
+						<td id="gdItem21-gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
+
+						<td id="gdItem21"><a tabindex="1" onclick="urlRedirect('./gauntlets')"><img class="menubutton menu-gauntlets" src="assets/category-gauntlets.png" title="Gauntlets"></a></td>
 						
 						<!-- <img src="./assets/exclamation.png" style="position: absolute; height: 18%; left: 3.5%; bottom: 23%; pointer-events: none; z-index: 50;"> -->
 						
-						<td id="gdItem21"><a tabindex="1" onclick="searchRedirect('0','hof')"><img class="menubutton menu-hof" src="assets/category-hof.png" title="Hall Of Fame"></a></td>
-						
-						<td class="notfinishedBtn" id="idItem22"><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
+						<td class="notfinishedBtn" id="gdItem22"><a tabindex="1" onclick="urlRedirect('./lists')"><img class="menubutton menu-request" src="assets/category-lists.png" title="Lists"></a></td>
 
 						<td id="gdItem16"><a tabindex="1" onclick="urlRedirect('./mappacks')"><img class="menubutton menu-mappacks" src="assets/category-packs.png" title="Map Packs"></a></td>
-						
-						
 						
 						
 						<td><a tabindex="1" onclick="urlRedirect('./search')"><img class="menubutton menu-search" src="assets/category-search.png" title="Search"></a></td>
@@ -200,11 +192,11 @@
 					
 					<tr class="menuButtonList">
 
-						<td id="gdItem22"><a tabindex="1" onclick="openSpecialLvl('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
+					<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
 
-						<td class="checkperm-gauntlets"><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
-					</tr>
+					<td class="checkperm-gauntlets"><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
 					
+					</tr>
 			</table>
 
 

@@ -864,7 +864,8 @@ $('#searchAdvSong').click(function() {
 })
 
 function pushNewStateURL(){
-	window.history.pushState(null, null, ORIGINAL_URL.slice(0,ORIGINAL_URL.lastIndexOf("?")) + searchFilters.replace("[PAGE]",page).replace(apiURL,""));
+	return;
+	// window.history.pushState(null, null, ORIGINAL_URL.slice(0,ORIGINAL_URL.lastIndexOf("?")) + searchFilters.replace("[PAGE]",page).replace(apiURL,""));
 }
 
 if (type == 'saved') {

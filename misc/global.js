@@ -287,11 +287,14 @@ $.fn.isInViewport = function () {
 function loadDefaultThemeBrowser() {
 	const isHalloweenSeason = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 9, 25) && today <= new Date(today.getFullYear(), 10, 23); };
 	const isChristmasSeason = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 10, 24) && today <= new Date(today.getFullYear(), 11, 31); };
+	const isAprilFools = () => { const today = new Date(); return today >= new Date(today.getFullYear(), 3, 1) && today <= new Date(today.getFullYear(), 3, 2); };
 	const isNewYearSeason = () => new Date().getMonth() === 0 && new Date().getDate() === 1;
 
 	
-
-	if(isHalloweenSeason()){
+	if(isAprilFools()) {
+		setThemeBrowser('aprilfools')
+	}
+	else if(isHalloweenSeason()){
 		setThemeBrowser('halloween')
 	}
 	else if(isChristmasSeason()){
@@ -323,6 +326,7 @@ function setThemeBrowser(themeName, themePath = null) {
 	
 			console.log('Appended CSS Theme')
 			loadThemeAttr();
+			document.dispatchEvent(new CustomEvent('loadedTheme', { detail: { message: 'Theme has been loaded', time: new Date() } }));
 		} else {
 			console.log("Error loading CSS Theme")
 		}

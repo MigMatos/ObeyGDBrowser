@@ -430,6 +430,10 @@ function submitChanges() {
 	CreateFLAlert("Saved!","Options saved!")
 }
 
+document.addEventListener('loadedTheme', function(e) {
+	console.log("Reloaded due theme");
+    getColors();
+});
 
 function getColors() {
 	if(localStorage.getItem('profileTheme') == "colored"){
@@ -530,7 +534,8 @@ function ogdbColorProfile(urlProfile,custom=false) {
 
 function defaultProfile(ignoreTheme=false) {
 
-	
+	console.log("test2:", hasThemeBrowser);
+	console.log("test:", ignoreTheme);
 
 	if(hasThemeBrowser == true && ignoreTheme == false) {
 		console.log("Theme Profile Defined")

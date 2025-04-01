@@ -2,6 +2,7 @@
 
 include "../_init_.php";
 include("../assets/htmlext/flayeralert.php");
+include("../assets/htmlext/loadingalert.php");
 
 $includeFile = "../".$includeFolder."generatePass.php";
 
@@ -95,6 +96,10 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
         scrollbar-color: #fefefe33 #00000000;
         scrollbar-width: thin;
     }
+
+    .loading-main{
+        display: none;
+    }
 </style>
 <body style="background: unset; background-color: transparent; width: 100%; height: 100%;">
 
@@ -120,7 +125,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
         </div>
         <br>
         <div style="display: flex; justify-content: center; height: 8vh;">
-        <div class="gdsButton" onclick="let form = document.getElementById('loginForm'); form.checkValidity() ? form.submit() : form.reportValidity(); return false;" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Login</h3></div>
+        <div id="loginBtnForm" class="gdsButton" onclick="let form = document.getElementById('loginForm'); form.checkValidity() ? submitForm() : form.reportValidity(); return false;" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Login</h3></div>
         <div class="gdsButton red" onclick="closeMessageCustomFrame();" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Exit</h3></div>
 
         </div>
@@ -148,6 +153,19 @@ if (window.location.search.includes("error=1")) {
     document.getElementById('alertLoginError').style.display = 'none';
     closeandrestartMessageCustomFrame();
 }
+
+document.addEventListener("keydown", function (k) {
+    if (k.which === 13) document.getElementById("loginBtnForm").click(); // enter
+});
+
+function submitForm() {
+    let formLogin = document.getElementById('loginForm');
+    const event = new Event('initLoadingAlert');
+	document.dispatchEvent(event);
+	changeLoadingAlert("Login...");
+    formLogin.submit()
+}
+
 </script>
 
 </html>
