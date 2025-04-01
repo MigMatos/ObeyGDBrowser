@@ -75,7 +75,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 
 // ------------ IMPORTANT ------------ 
 
-let globalMismatch = 3;
+let globalMismatch = 4;
 
 themeBrowser = ""
 hasThemeBrowser = false;

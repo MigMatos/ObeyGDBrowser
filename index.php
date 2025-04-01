@@ -116,14 +116,16 @@
 	} ?>
 	
 
-	<div class="popup" id="alertMismathAssets" style="z-index: 9999; background-color: transparent; top: -38vh; pointer-events: none;">
-		<div class="transparentbox bounce center supercenter" style="width: 83vh; height: auto; background-color: #000000c9;">
+	<div class="popup" id="alertMismathAssets" style="z-index: 9999; pointer-events: all; background-color: transparent; top: -34vh; pointer-events: none;">
+		<div class="transparentbox bounce center supercenter" style="width: 85vh; height: auto; background-color: #000000c9;">
 			<h3 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block; color: red;"><img src="./assets/x.png" style="width: 5vh; margin-right: 1.5vh;">Version mismatch</h3>
 				<input type="text" name="act" value="delete" hidden>
 				<h3 class="bigger center" style="line-height: 5vh; margin-top: 1.5vh; text-wrap: wrap;">
 					Clear your cache browser and restart or wait a while until this alert disappears.
 				</h3>
-				<img onclick="viewAdvMismatchAlert('alertMismathAssets')" class="closeWindow gdButton" src="./assets/smallinfo.png" height="30%" style="position: absolute;top: 7.5%;left: 2.5%;cursor: click;" tabindex="0">
+
+				<div onclick="viewAdvMismatchAlert('alertMismathAssets')" class="closeWindow gdsButton" style="margin-left: 6vh; padding-left:1.5vh;padding-right:1.5vh;margin-right: 6vh;height: 6vh; padding-top: 0.5vh; user-select: none; pointer-events: all; z-index: 9999; cursor: pointer;" tabindex="0"><h3 class="gdfont-Pusab" style="align-items: center;">View more information</h3></div>
+
 		</div>
 		
 	</div>
@@ -299,7 +301,7 @@ if (isAdmin) {
         }, 700);
 }
 
-if (typeof globalMismatch === 'undefined' || globalMismatch != "3") {
+if (typeof globalMismatch === 'undefined' || globalMismatch != "4") {
     console.warn("OGDBROWSER: Version and asset discrepancy, this may cause errors when viewing new features or completely broken functionalities. Clear your browser cache for this site and refresh, or wait for your web host to sync the assets. If you're a GDPSFH user, changes may take up to 1 hour to appear.");
 	setTimeout(function () {
 		$("#alertMismathAssets").show()
