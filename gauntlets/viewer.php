@@ -23,7 +23,7 @@
 	}
 
 	.loading-main {
-		display:none;
+		display: none;
 	}
 
 	select.gdsInput{
@@ -114,6 +114,55 @@
 		pointer-events: all;
 	}
 
+	.gauntletBGCustom {
+		position: relative;
+		top: 5vh;
+		width: 33vh;
+		height: 75vh;
+		background-size: 50vh;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: rgba(0, 0, 0, 0);
+		animation: float-bg-custom 4s ease-in-out infinite;
+	}
+
+	.gauntletBGCustom:hover {
+		transition-duration: 0.06s;
+		transition-timing-function: ease-in-out;
+		filter: contrast(1.1) brightness(1.3) drop-shadow(0.7vh 0.7vh 1.6vh black);
+		transform: unset;
+	}
+
+	@keyframes float-bg-custom {
+		0%   { transform: translateY(0vh); }
+		50%  { transform: translateY(-3vh); }
+		100% { transform: translateY(0vh); }
+	}
+
+	.gauntlet.bg {
+		position: absolute;
+		width: 50vh;
+		height: auto;
+		padding: 0 0vh 0 1vh;
+		margin: 0 0vh 0 2vh;
+		transform: translate(-28vh, -5vh);
+		pointer-events: none;
+	}
+
+	.cornerPiece {
+		filter: grayscale(1) brightness(0.5) contrast(1.6);
+	}
+
+	.groundPiece {
+		width: 100%;
+		height: 7vh;
+		z-index: -99999;
+		position: absolute;
+		bottom: -100vh;
+		left: 0vh;
+		filter: brightness(0.8) contrast(1.1) grayscale(1);
+	}
+
 </style>
 
 <body style="background-color: transparent;">
@@ -181,6 +230,14 @@
 		</div>
 	</div>
 
+	<!-- New desing -->
+	<div style="position:absolute;bottom: 83.9%;left: -44.8%;width: 100%"><img class="cornerPiece" src="../assets/corner.png" width=10%; style="transform: scaleY(-1)"></div>
+	<div style="position:absolute;bottom: 83.9%;left: 44.9%;width: 100%"><img class="cornerPiece" src="../assets/corner.png" width=10%; style="transform: scaleX(-1) scaleY(-1)"></div>
+
+	<div style="position:absolute;width: 100%"><img class="groundPiece" src="../assets/gauntlets/gauntletGround.png" style="width: 100%;"></div>
+
+	<!-- -->
+
 	<div onclick="createGauntlet()" title="Create new mappack" class="checkperm-gauntlets" style="position:absolute; bottom: 2.5%; right: 2.5%; width: 15%; text-align: right;">
 		<h3 style="transform: translate(-9%, -5%);">Mod</h3>
 		<img class="gdButton" src="../assets/newBtn.png" width="40%" id="createMapPack"></a>
@@ -195,7 +252,7 @@
 	</div>
 
 	<div class="center supercenter">
-		<img id="loading" style="margin-top: 1%" class="spin noSelect" src="../assets/loading.png" height="1000%">
+		<img id="loading" style="margin-top: 1%; display: none;" class="spin noSelect" src="../assets/loading.png" height="1000%">
 	</div>
 
 	<div style="position: absolute; left: 2%; top: 45%; height: 10%;">
@@ -205,6 +262,8 @@
 	<div style="position: absolute; right: 2%; top: 45%; height: 10%;">
 		<img class="gdButton" id="pageUp" style="display: none" src="../assets/whitearrow-right.png" height="90%">
 	</div>
+
+
 
 	<div class="center supercenter">
 		<div id="gauntletList" class="center supercenter">
@@ -224,7 +283,14 @@
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 
 <script>
+let gauntletBackgrounds = JSON.parse(`[{}]`);
+try {
+	gauntletBackgrounds = JSON.parse(`<?php print_r(file_get_contents('../assets/gauntlets/backgrounds/background_positions.json')); ?>`);
+} catch {
+	CreateFLAlert("Warning!","JSON in `../assets/gauntlets/backgrounds/background_positions.json` not found!");
+}
 
+console.log(gauntletBackgrounds);
 </script>
 <script>
 
@@ -292,6 +358,9 @@ function loadingGauntlet() {
 $('#gauntletList').empty();
 page = 1;
 pages = 0;
+
+const imageExists = url => fetch(url, { method: 'HEAD' }).then(res => res.ok).catch(() => false);
+
 fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	
 	
@@ -306,19 +375,32 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 		if ((y) % 3 === 0 || y == 0) {
 			gCounter += 1;
 			$('<div>', { id: `gauntletPage-${gCounter}`, class: "gauntletPage outsideBox" }).appendTo('#gauntletList');
+			console.log("DIV" , gCounter);
 		}
 
+		console.log(x);
+
+
+		let { x: posX = 0, y: posY = 0, scale: scale = 0 } = gauntletBackgrounds[x.id] ?? {};
+		posX = -28 + parseFloat(posX);
+		posY = -5 + parseFloat(posY);
+		scale = 1 + parseFloat(scale);
+		animationDelay = `-${Math.random() * 4}s`;
+		
+		
 		$(`#gauntletPage-${gCounter}`).append(`
 
 			<a onclick="redirectGauntlet('${x.id}')">
 	
-			<div class="gauntlet invisibleBox" style="background-color: ${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'};">
+			<div class="gauntlet transparentBox gauntletBGCustom" id="div-g-${x.id}" style="animation-delay: ${animationDelay};">
 			
-			<h3 class="gauntletTitle" style="color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'};">${x.gauntlet.name}<br>Gauntlet</h3><br>
+			<img class="gauntlet bg" id="img-g-alt-${x.id}" style="transform: translate(${posX}vh, ${posY}vh) scale(${scale});" onerror="gauntletNoBGIMG(this, '${x.id}' , '${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'}')" src="../assets/gauntlets/backgrounds/${x.id}.png"><br>
 
-			<img class="gauntlet icon" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${x.id}.png"><br>
+			<h3 class="gauntletTitle" id="h3-g-${x.id}" style="display:none; color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'};">${x.gauntlet.name}<br>Gauntlet</h3><br>
+
+			<img class="gauntlet icon" id="img-g-${x.id}" style="display:none;" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${x.id}.png"><br>
 			
-			<div class="checkperm-gauntlets" onclick="event.stopPropagation();" style="pointer-events: unset; cursor: default; background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: 7.5%; position: relative;">
+			<div class="checkperm-gauntlets" id="perms-g-${x.id}" onclick="event.stopPropagation();" style="pointer-events: unset; cursor: default; background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: 48.5vh; position: relative;">
 				<h3 class="lessSpaced">Mod actions</h3>
 					<img onclick="editGauntlet(${y})" title="Edit Gauntlet" class="valign gdButton editGauntlet" src="../assets/editBtn.png" height="10%">
 					<img onclick="deleteGauntlet(${y})" title="Delete Gauntlet" class="valign gdButton delGauntlet" src="../assets/trash.png" height="10%">
@@ -336,6 +418,16 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	document.dispatchEvent(new Event('DOMContentLoaded'));
 });
 }
+
+function gauntletNoBGIMG(div, id, backgroundColor) {
+	console.log("Changing to default BG with id", id ,"in div", div);
+	$(`#h3-g-${id}`).show();
+	$(`#img-g-${id}`).show();
+	$(`#img-g-alt-${id}`).hide();
+	$(`#perms-g-${id}`).css(`top`, `7.5%`);
+	$(`#div-g-${id}`).css(`background-color`,`${backgroundColor}`).removeClass('transparentBox gauntletBGCustom').addClass('invisibleBox'); 
+}
+
 
 // Loading gauntlets;
 loadingGauntlet();

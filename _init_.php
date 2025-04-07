@@ -40,6 +40,9 @@
 
     global $serverType;
     $serverType = isset($gdps_settings["server_software"]) ? strval($gdps_settings["server_software"]) : "automatic";
+    $iconsJSON = json_encode(isset($gdps_settings["icons"]) ? $gdps_settings["icons"] : "");
+    $colorsJSON = json_encode(isset($gdps_settings["colors"]) ? $gdps_settings["colors"] : "");
+
     if (isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {
         $server_software = $_SERVER['SERVER_SOFTWARE'];
         if (strpos($server_software, 'Apache') !== false) {
@@ -99,11 +102,13 @@
         if (in_array('actionRateDemon', $newPerms)) $newPerms[] = 'ratedemons';
         if (in_array('commandVerifycoins', $newPerms)) $newPerms[] = 'coins';
         if (in_array('toolSuggestlist', $newPerms) || in_array('dashboardModTools', $newPerms)) $newPerms[] = 'suggest';
+        if (in_array('dashboardVaultCodesManage', $newPerms) || in_array('ogdwManageVaultCodes', $newPerms)) $newPerms[] = 'vaultcodes';
 
         $keysToRemove = [
             'toolSuggestlist', 'toolPackcreate', 'dashboardGauntletCreate', 'dashboardLevelPackCreate', 
             'commandRate', 'actionRateStars', 'commandFeature', 'commandEpic', 
-            'commandUnepic', 'actionRateDifficulty', 'actionRateDemon', 'commandVerifycoins'
+            'commandUnepic', 'actionRateDifficulty', 'actionRateDemon', 'commandVerifycoins',
+            'dashboardVaultCodesManage', 'ogdwManageVaultCodes'
         ];
         // Final perms
         $newPerms = array_diff($newPerms, $keysToRemove);

@@ -173,6 +173,25 @@
         </div>
     </fieldset>
 
+    <fieldset><legend><h3>Colors</h3></legend>
+        <div id="colornewcont" class="newcontentdiv"><img src="../assets/newBtn.png"><h4>New colors content!</h4>
+            <button type="button" class="radiusdesing update" onclick="showConfirmation(confirmed => confirmed && updateContent('colors'))"><strong class="content-btn-viewer">Update!</strong></button>
+        </div>
+        <button type="button" class="toggle-btn">
+            <strong class="content-btn-viewer">View/Hide</strong>
+            <span>▼</span>
+        </button>    
+        <div class="content hidden" id="colors-content">
+            <!-- Songs data -->
+            <fieldset><legend><h4>Add new colors</h4></legend>
+                <div>
+                    <input type="number" id="addidcolor" placeholder="ID">
+                    <button type="button" class="radiusdesing green-btn" onclick="showConfirmation(confirmed => confirmed && addContentID(document.getElementById('addidcolor').value, 'color-div'))">Add color!</button>
+                </div>
+            </fieldset>
+        </div>
+    </fieldset>
+
 
 
 
@@ -309,12 +328,19 @@
     const jsonData = <?php echo json_encode($gdps_settings); ?>;
     const currentGauntletsData = <?php echo json_encode(json_decode(file_get_contents('./default_gauntlets.json'),true)); ?>;
     const currentSongsData = <?php echo json_encode(json_decode(file_get_contents('./official_songs.json'),true)); ?>;
+    const currentColorsData = <?php echo json_encode(json_decode(file_get_contents('./official_colors.json'),true)); ?>;
+    const currentIconsData = <?php echo json_encode(json_decode(file_get_contents('./official_icons.json'),true)); ?>;
 
 
     const oldGauntletsKeys = new Set(Object.keys(jsonData.gauntlets || {}));
     const oldSongsKeys = new Set(Object.keys(jsonData.official_songs || {}));
     const newGauntletsKeys = new Set(Object.keys(currentGauntletsData || {}));
     const newSongsKeys = new Set(Object.keys(currentSongsData || {}));
+
+    const oldIconsKeys = new Set(Object.keys(jsonData.colors || {}));
+    const oldColorKeys = new Set(Object.keys(jsonData.icons || {}));
+    const newColorKeys = new Set(Object.keys(currentColorsData || {}));
+    const newIconsKeys = new Set(Object.keys(currentIconsData || {}));
 
     function updateContent(type) {
         const event = new Event('initLoadingAlert');

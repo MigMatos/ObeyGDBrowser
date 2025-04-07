@@ -164,6 +164,41 @@ class BrowserUtils {
         return $token;
     }
 
+    public static function getRewards()
+    {
+        return [
+            ["id" => 0, "name" => "Unknown", "type" => "item", "ignore" => "1"],
+            ["id" => 7, "name" => "Orb", "type" => "item"],
+            ["id" => 8, "name" => "Diamond", "type" => "item"],
+            ["id" => 6, "name" => "Demon Key", "type" => "item"],
+            ["id" => 15, "name" => "Gold Key", "type" => "item"],
+            ["id" => 1002, "name" => "Color 1", "type" => "color"],
+            ["id" => 1003, "name" => "Color 2", "type" => "color"],
+            ["id" => 1001, "name" => "Cube", "type" => "icon-cube"],
+            ["id" => 1004, "name" => "Ship", "type" => "icon-ship"],
+            ["id" => 1005, "name" => "Ball", "type" => "icon-ball"],
+            ["id" => 1006, "name" => "UFO", "type" => "icon-ufo"],
+            ["id" => 1007, "name" => "Wave", "type" => "icon-wave"],
+            ["id" => 1008, "name" => "Robot", "type" => "icon-robot"],
+            ["id" => 1009, "name" => "Spider", "type" => "icon-spider"],
+            ["id" => 1013, "name" => "Swing", "type" => "icon-swing"],
+            ["id" => 1014, "name" => "Jetpack", "type" => "icon-jetpack"],
+            ["id" => 1011, "name" => "Death Effect", "type" => "deatheffect"],
+            ["id" => 1012, "name" => "Custom Item", "type" => "item-custom"],
+            ["id" => 1010, "name" => "Trail", "type" => "trail"],
+            ["id" => 1015, "name" => "Ship Trail", "type" => "trail-ship"],
+            ["id" => 1, "name" => "Fire Shard", "type" => "item"],
+            ["id" => 2, "name" => "Ice Shard", "type" => "item"],
+            ["id" => 3, "name" => "Poison Shard", "type" => "item"],
+            ["id" => 4, "name" => "Shadow Shard", "type" => "item"],
+            ["id" => 5, "name" => "Lava Shard", "type" => "item"],
+            ["id" => 10, "name" => "Earth Shard", "type" => "item"],
+            ["id" => 11, "name" => "Blood Shard", "type" => "item"],
+            ["id" => 12, "name" => "Metal Shard", "type" => "item"],
+            ["id" => 13, "name" => "Light Shard", "type" => "item"],
+            ["id" => 14, "name" => "Soul Shard", "type" => "item"],
+        ];
+    }
 }
 
 

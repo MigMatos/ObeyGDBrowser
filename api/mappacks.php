@@ -87,7 +87,7 @@ function getMapPacks($params, $db, $gdps_settings) {
     foreach ($bindings as $key => $value) { $stmt->bindValue($key + 1, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR); }
     $stmt->execute();
     $resultsTotal[] = $stmt->fetchColumn();
-    $resultsTotal[] = intval($resultsTotal[0] / 10) + 1;
+    $resultsTotal[] = intval(ceil($resultsTotal[0] / 10)) + 1;
     $results[0]["paginator"] = $resultsTotal;
     // --- //
 

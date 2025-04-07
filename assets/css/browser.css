@@ -689,7 +689,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     width: 30vh;
     height: 65vh;
     padding: 0px 1.5vh 0px 1.5vh;
-    margin: 0px 1.5vh 0px 1.5vh;
+    margin: 0px 3.5vh 0px 3.5vh;
     display: inline-block;
     cursor: pointer;
 }
@@ -698,7 +698,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     pointer-events: none;
     height: 25vh;
     width: auto;
-
+    padding: 0;
+    margin: 0;
 }
 
 #gauntletList {
@@ -775,7 +776,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .gauntletTitle {
     font-size: 5vh;
     filter: drop-shadow(4px 4px 0px #00000045) ;
-    margin-bottom: 25%;
+    margin-bottom: 5vh;
 }
 
 

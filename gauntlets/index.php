@@ -50,6 +50,34 @@
 		margin-right: 1vh;
 	}
 
+	.darkBG {
+		background-image: linear-gradient(#333333, #0f0f0f) !important;
+	}
+
+	.gauntlet-title {
+		/* mask-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%); */
+		mask-image: linear-gradient(180deg, #0000, #fff, #0000);
+		animation: maskMovement 2s ease-in-out infinite;
+		mask-size: 300% 120%;
+	}
+
+	.gauntlet-title::after {
+		background-image: white;
+	}
+
+	@keyframes maskMovement {
+	0% {
+		mask-position: 0% 0%;
+		
+	}
+	10% {
+		filter: brightness(1.1) contrast(1.1);
+	}
+	25% {
+		mask-position: 100% 100%;
+	}
+	}
+	
 </style>
 
 <body class="levelBG darkBG" onbeforeunload="saveUrl()">
@@ -57,8 +85,9 @@
 <div id="everything" class="center" style="width: 100%; height: 100%;">
 
 	<div class="center" width="100%" style="margin-top: 1.2%; margin-bottom: 1%;">
-		<img src="../assets/gauntlets.png" width="50%">
+		<img class="gauntlet-title" src="../assets/gauntlets.png" width="50%">
 	</div>
+	
 
 	<br>
 	

@@ -153,7 +153,7 @@ document.getElementById("gdclose-fancy-btn").addEventListener("click", function(
     document.getElementById("gd-fancy-box").style.display = "none";
     document.querySelector(".fancy-box").style.transform = "scale(0)";
     document.getElementById('options-fl-layer-fancy').innerHTML = "";
-    document.dispatchEvent(new Event('FLlayerclosed'));
+    document.dispatchEvent(new CustomEvent('FLlayerclosed', {detail: {message: `${FLIDSelect}`}}));
     FLIDSelect = null;
 });
 
@@ -161,7 +161,7 @@ document.getElementById("gdclose-brown-btn").addEventListener("click", function(
     document.getElementById("gd-brown-box").style.display = "none";
     document.querySelector(".brown-box").style.transform = "scale(0)";
     document.getElementById("fllayeriframe-brown").src = "";
-    document.dispatchEvent(new Event('FLlayerclosed'));
+    document.dispatchEvent(new CustomEvent('FLlayerclosed', {detail: {message: `${FLIDSelect}`}}));
     FLIDSelect = null;
 });
 

@@ -28,7 +28,7 @@ define('CREATE_QUEST', 25);
 define('CHANGE_USERNAME_PASSWORD', 26);
 define('CHANGE_SFX', 27);
 define('BAN_PERSON', 28);
-define('LOCK_LEVEL_UPDATING', 29);
+define('LOCK_OR_UNLOCK_LEVEL_UPDATING', 29);
 define('RATE_LIST', 30);
 define('SEND_LIST', 31);
 define('CHANGE_FEATURE_LIST', 32);
@@ -37,10 +37,14 @@ define('DELETE_LIST', 34);
 define('CHANGE_LIST_CREATOR', 35);
 define('CHANGE_LIST_NAME', 36);
 define('CHANGE_LIST_DESCRIPTION', 37);
-define('LOCK_LEVEL_COMMENTING', 38);
-define('LOCK_LIST_COMMENTING', 39);
+define('LOCK_OR_UNLOCK_LEVEL_COMMENTING', 38);
+define('LOCK_OR_UNLOCK_LIST_COMMENTING', 39);
 define('REMOVE_SENT_LEVEL', 40);
 define('SUGGEST_LEVEL', 41);
+define('CREATE_VAULT_CODE', 42);
+define('CHANGE_VAULT_CODE', 43);
+define('SET_EVENT', 44);
+
 
 // ObeyGDBrowser Actions
 
@@ -50,7 +54,10 @@ define('EDIT_TOKEN_APP', 1040);
 define('DELETE_TOKEN_APP', 1041);
 define('DELETE_GAUNTLET', 1042);
 define('DELETE_MAP_PACK', 1043);
-
+define('DELETE_VAULT_CODE', 1044);
+define('DELETE_EVENT', 1045);
+define('DELETE_DAILY', 1046);
+define('DELETE_RATE_LEVEL', 1047);
 
 
 

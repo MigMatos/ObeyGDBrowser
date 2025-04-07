@@ -67,9 +67,10 @@
 						<!-- <td><a tabindex="1" href="./search/*?type=saved"><img class="menubutton menu-saved" src="assets/category-saved.png" title="Saved Levels"></a></td> -->
 						
 						
-						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-daily" src="../assets/mod-roles.png" title="Daily Level"></a></td>
-						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-weekly" src="../assets/mod-webhooks.png" title="Weekly Demon"></a></td>
-						<td><a tabindex="1" onclick="urlRedirect('./devapps')"><img class="menubutton menu-weekly" src="../assets/mod-devapps.png" title="Add developer apps!"></a></td>
+						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-roles" src="../assets/mod-roles.png" title="Create mod roles!"></a></td>
+						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-webhooks" src="../assets/mod-webhooks.png" title="Create webhooks!"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./devapps/')"><img class="menubutton menu-developerapps" src="../assets/mod-devapps.png" title="Add developer apps!"></a></td>
+						<td><a tabindex="1" onclick="urlRedirect('./vaultcodes/')"><img class="menubutton menu-vaultcodes" src="../assets/mod-vaultcodes.png" title="Add vault codes!"></a></td>
 						
 
 					</tr>
