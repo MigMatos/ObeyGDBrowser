@@ -199,6 +199,31 @@ class BrowserUtils {
             ["id" => 14, "name" => "Soul Shard", "type" => "item"],
         ];
     }
+
+    public static function sanitizeText($text, $limit = 50000, $force = false) {
+        $text = mb_substr($text, 0, $limit, 'UTF-8');
+        if ($force) {return preg_replace('/[^\p{L}\p{N}\p{Z}]/u', '', $text);}
+        $extPattern = '\x{1F600}-\x{1F64F}'
+                      . '\x{1F300}-\x{1F5FF}'
+                      . '\x{1F680}-\x{1F6FF}'
+                      . '\x{1F1E0}-\x{1F1FF}'
+                      . '\x{2600}-\x{26FF}'
+                      . '\x{2700}-\x{27BF}'
+                      . '\x{1F900}-\x{1F9FF}'
+                      . '\x{1FA70}-\x{1FAFF}'
+                      . '\x{200D}'
+                      . '\x{FE0F}';
+        $allowedPattern = '/[^\p{L}\p{N}\p{Z}\{\}\[\]\(\)\$\|\@\%\?\!\/\\\\:;,&\*\+\-\=\<\>\~\.,\'\"\`\^\_\¡\¿\x{00A1}-\x{00FF}\x{2013}-\x{201D}'.$extPattern.']/u';
+        return preg_replace($allowedPattern, '', $text);
+    }
+
+    // https://github.com/ElfSundae/urlsafe-base64/blob/master/src/helpers.php
+    public static function url_base64_decode($data) {
+        return base64_decode(strtr($data, '-_', '+/'), false);
+    }
+    public static function url_base64_encode($data) { 
+        return strtr(base64_encode($data), ['+' => '-', '/' => '_']);
+    }
 }
 
 

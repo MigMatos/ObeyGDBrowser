@@ -25,7 +25,7 @@ function eventListenerSearchType (apiURL,idObject,maxOptions) {
                     const option = document.createElement("option");
                     option.value = item.id;
                     option.id = `genoption${item.id}`;
-                    htmltext = `<div style="display: flex; margin: 1vh 0vh 1vh 1vh; align-items: center;"> <img src='../assets/difficulties/${item.partialDiff}.png' style="width:8%; height:8%;">` + `<p class="gdfont-Pusab small" style="margin: 0vh 0vh 0vh 1vh; color:rgb(255, 200, 0); text-align: left;">${item.name.length > 20 ? item.name.slice(0, 20) + "..." : item.name}<br><span style="color: white;">ID: ${item.id}</span></p>` + "</div>"
+                    htmltext = `<div style="display: flex; margin: 1vh 0vh 1vh 1vh; align-items: center;"> <img src='../assets/difficulties/${item.partialDiff}.png' style="width:auto; height: 4.5vh;">` + `<p class="gdfont-Pusab small" style="margin: 0vh 0vh 0vh 1vh; color:rgb(255, 200, 0); text-align: left;">${item.name.length > 20 ? item.name.slice(0, 20) + "..." : item.name}<br><span style="color: white;">ID: ${item.id}</span></p>` + "</div>"
                     option.setAttribute('html',htmltext);
 
                     // option.setAttribute('title',`${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)
@@ -82,7 +82,7 @@ function eventListenerSearchGauntlets(apiURL,idObject,maxOptions) {
                     option.value = item.id;
                     option.id = `genoption${item.id}`;
 
-                    htmlGen = `<div style="display: flex; margin-left: 1vh;"> <img src='../assets/gauntlets/${item.id}.png' width="20%">` + `<p class="gdfont-Pusab small" style="margin-right: 0; margin-left: 2vh;color:${item.textColor}">${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name}</p>` + "</div>";
+                    htmlGen = `<div style="display: flex; margin-left: 1vh;"> <img src='../assets/gauntlets/${item.id}.png' style="width:10vh; height:auto;">` + `<p class="gdfont-Pusab small" style="margin-right: 0; margin-left: 2vh;color:${item.textColor}">${item.name.length > 15 ? item.name.slice(0, 15) + "..." : item.name}</p>` + "</div>";
 
                     option.setAttribute('html', htmlGen)
                     // option.setAttribute('title', `${item.name.length > 13 ? item.name.slice(0, 13) + "..." : item.name} (ID: ${item.id})`)

@@ -74,7 +74,7 @@ function profileUsers($params, $db, $gdps_settings) {
     $json_data = array_map(function ($result) use ($db, $gdps_settings) {
 
         $accountID = strval($result["extID"]);
-        $moderation = json_decode(getRoles(["accountid" => $accountID], $db, $gdps_settings), true);
+        $moderation = json_decode(getAccountMaxRole(["accountid" => $accountID], $db, $gdps_settings), true);
         $isme = checkisme(strval($result["userID"]),strval($result["extID"]));
 
         $level = [

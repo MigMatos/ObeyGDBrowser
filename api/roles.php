@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
 
     if (!empty($params)) {
-        $results = getRoles($params, $db, $gdps_settings);
+        $results = getAccountMaxRole($params, $db, $gdps_settings);
         echo $results;
     } else {
         echo json_encode(array("error" => "Please provide at least one search parameter in the GET request."));
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
 // accountID = extID
 // userID = userID
 
-function getRoles($params, $db, $gdps_settings) {
+function getAccountMaxRole($params, $db, $gdps_settings) {
     $bindings = [];
     $paramsSql = [];
     $order = "timestamp ASC";

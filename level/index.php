@@ -27,8 +27,10 @@ if (isset($_GET["id"])) {
 $params = array('levelName' => $id, 'page' => 0);
 
 
-$response = searchLevels($params, $db, $gdps_settings);
+$response = searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID);
 
+// print_r($userPermissions);
+// print_r($accountID);
 
 $data = json_decode($response, true);
 

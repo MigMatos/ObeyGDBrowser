@@ -58,6 +58,7 @@ define('DELETE_VAULT_CODE', 1044);
 define('DELETE_EVENT', 1045);
 define('DELETE_DAILY', 1046);
 define('DELETE_RATE_LEVEL', 1047);
+define('CHANGE_DIFFICULTY_LEVEL', 1048);
 
 
 

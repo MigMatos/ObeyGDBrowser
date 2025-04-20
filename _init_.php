@@ -1,5 +1,8 @@
 <?php
-    
+    define('BASE_PATH', __DIR__ );
+    function parseVersionText($t) { return [($p=explode('|',$t,3))[0]!==""?$p[0]:(isset($p[1])?time()."-DEV":($t!==""?$t:time()."-DEV")),isset($p[1])?($p[1]!==""?$p[1]:0):0]; }
+    list($_OBEYGDBROWSER_VERSION, $_OBEYGDBROWSER_BINARYVERSION) =  parseVersionText(@file_get_contents(BASE_PATH."/update/version.txt") ?: "");
+
     $gdps_settings_path = "gdps_settings.json";
     global $json_content_settings;
     $json_content_settings = @file_get_contents("./$gdps_settings_path") ?:  
@@ -103,6 +106,20 @@
         if (in_array('commandVerifycoins', $newPerms)) $newPerms[] = 'coins';
         if (in_array('toolSuggestlist', $newPerms) || in_array('dashboardModTools', $newPerms)) $newPerms[] = 'suggest';
         if (in_array('dashboardVaultCodesManage', $newPerms) || in_array('ogdwManageVaultCodes', $newPerms)) $newPerms[] = 'vaultcodes';
+        // added in 1.1
+        if (in_array('commandDescriptionOwn', $newPerms) || in_array('ogdwDescriptionOwn', $newPerms)) $newPerms[] = 'lvldescriptionown';
+        if (in_array('commandDescriptionAll', $newPerms) || in_array('ogdwDescriptionAll', $newPerms)) $newPerms[] = 'lvldescriptionall';
+        if (in_array('commandRenameOwn', $newPerms) || in_array('ogdwRenameOwn', $newPerms)) $newPerms[] = 'lvlrenameown';
+        if (in_array('commandRenameAll', $newPerms) || in_array('ogdwRenameAll', $newPerms)) $newPerms[] = 'lvlrenameall';
+        if (in_array('commandPublicOwn', $newPerms) || in_array('ogdwPublicOwn', $newPerms)) $newPerms[] = 'lvlpublicown';
+        if (in_array('commandPublicAll', $newPerms) || in_array('ogdwPublicAll', $newPerms)) $newPerms[] = 'lvlpublicall';
+        if (in_array('commandUnlistOwn', $newPerms) || in_array('ogdwUnlistOwn', $newPerms)) $newPerms[] = 'lvlunlistown';
+        if (in_array('commandUnlistAll', $newPerms) || in_array('ogdwUnlistAll', $newPerms)) $newPerms[] = 'lvlunlistall';
+        // ext
+        if (in_array('commandDelete', $newPerms) || in_array('ogdwDeleteLevels', $newPerms)) $newPerms[] = 'lvldelete';
+        
+        
+
 
         $keysToRemove = [
             'toolSuggestlist', 'toolPackcreate', 'dashboardGauntletCreate', 'dashboardLevelPackCreate', 

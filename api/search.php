@@ -4,7 +4,7 @@ error_reporting(0);
 
 include("../_init_.php");
 
-function searchLevels($params, $db, $gdps_settings) {
+function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID) {
     $time_left_daily = 0;
     $feaID = 0;
     $type_lvl = "none";
@@ -12,6 +12,7 @@ function searchLevels($params, $db, $gdps_settings) {
     $bindings = [];
     $paramsSql = [];
     $downloadLevelData = false;
+    $isAdmin = in_array('admin', $userPermissions);
 
     if (isset($params['levelName']) && isset($params['list'])) {
         
@@ -102,7 +103,13 @@ function searchLevels($params, $db, $gdps_settings) {
     }
 
     // Default settings
-    $paramsSql[] = "unlisted = 0";
+    if(in_array('ogdwShowUnlistedLevels', $userPermissions)) {
+        // well... nothing here! hehe
+    } else {
+        // check if u are friend to show the level in the ogdw search 
+        $paramsSql[] = "levels.unlisted = 0 OR levels.unlisted2 = 0 OR levels.extID in (SELECT CASE WHEN friendships.person1 = ? THEN friendships.person2 WHEN friendships.person2 = ? THEN friendships.person1 ELSE NULL END AS friendID FROM friendships WHERE friendships.person1 = ? OR friendships.person2 = ?)";
+        $bindings = array_merge($bindings, [$accountID, $accountID, $accountID, $accountID]);
+    }
     $order = "likes";
 
     //Another configs
@@ -428,7 +435,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $file == $scriptFilename) {
     $params = $_GET;
 
     if (!empty($params)) {
-        $results = searchLevels($params, $db, $gdps_settings);
+        $results = searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID);
         echo $results;
     } else {
         echo json_encode(array("error" => "Please provide at least one search parameter in the GET request."));

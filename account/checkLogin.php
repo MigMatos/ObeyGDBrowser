@@ -50,7 +50,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
             
 
             $params = ["accountid" => $result['accountID']];
-            $response = getRoles($params, $db, $gdps_settings);
+            $response = getAccountMaxRole($params, $db, $gdps_settings);
             $resultroles = json_decode($response, true);
             
             $_SESSION['isAdmin'] = $resultroles['user']['isAdmin'] ?? $result['admin'];
@@ -95,6 +95,7 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
         max-height: 20vh;
         scrollbar-color: #fefefe33 #00000000;
         scrollbar-width: thin;
+        cursor: help;
     }
 
     .loading-main{
@@ -104,8 +105,8 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
 <body style="background: unset; background-color: transparent; width: 100%; height: 100%;">
 
 
-<div class="blueBox center supercenter" style="width: 135vh; height: auto; margin-top: -0.7%">
-    <h2>Login</h2>
+<div class="blueBox center supercenter" style="width: 135vh;height: auto;margin-top: -0.7%;backdrop-filter: blur(1vh);filter: drop-shadow(2px 4px 6px black);">
+    <h2 style="pointer-events: none;">Login</h2>
     <div><h3 id="alertLoginError" class="alertError">Username or password is incorrect.</h3></div>
     <div><h3 id="alertIPError" class="alertError">Too many attempts, account temporarily blocked from this IP.</h3></div>
     <div><h3 id="alertAccountError" class="alertError">Account disabled or unactivated.</h3></div>
@@ -116,17 +117,17 @@ if(isset($_POST['userName']) && isset($_POST['password'])) {
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="loginForm">
 
         <div style="margin-top: 4vh;">
-            <h3 for="userName">Username:</h3>
+            <h3 style="pointer-events: none;" for="userName">Username:</h3>
             <input type="text" id="userName" name="userName" style="height: 8%;" required>
         </div>
         <div style="margin-top: 4vh;">
-            <h3 for="password">Password:</h3>
+            <h3 style="pointer-events: none;" for="password">Password:</h3>
             <input type="password" id="password" name="password" style="height: 8%;" required>
         </div>
         <br>
-        <div style="display: flex; justify-content: center; height: 8vh;">
-        <div id="loginBtnForm" class="gdsButton" onclick="let form = document.getElementById('loginForm'); form.checkValidity() ? submitForm() : form.reportValidity(); return false;" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Login</h3></div>
-        <div class="gdsButton red" onclick="closeMessageCustomFrame();" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect">Exit</h3></div>
+        <div style="display: flex; justify-content: center;">
+        <div id="loginBtnForm" class="gdsButton" onclick="let form = document.getElementById('loginForm'); form.checkValidity() ? submitForm() : form.reportValidity(); return false;" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;"><h3 class="gdfont-Pusab" id="textContentFileSelect">Login</h3></div>
+        <div class="gdsButton red" onclick="closeMessageCustomFrame();" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;"><h3 class="gdfont-Pusab" id="textContentFileSelect">Exit</h3></div>
 
         </div>
     </form>

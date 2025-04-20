@@ -14,7 +14,7 @@ function CreateFLAlert(title, desc, idObject, maxOptions = 2, searchType="") {
     const descElement = document.getElementById('fllayerdesc-fancy');
     if (titleElement && descElement) {
         titleElement.textContent = title;
-        descElement.innerHTML = sanitizerCode(processHTMLContent(desc));
+        descElement.innerHTML = processHTMLtoMarkdown(desc);
         document.getElementById("gd-fancy-box").style.display = "flex";
         setTimeout(function() {
             document.querySelector(".fancy-box").style.transform = "scale(1)";
@@ -81,7 +81,7 @@ function genMoreFLElements(selectElement,optionsContainer,maxOptions) {
                 labelText.classList.add('gdfont-Pusab', 'small'); 
                 labelText.htmlFor = `fl${option.value}`; 
                 if(option.getAttribute('html')){
-                    labelText.innerHTML = sanitizerCode(processHTMLContent(option.getAttribute('html')));
+                    labelText.innerHTML = sanitizerCode(option.getAttribute('html'));
                 } else labelText.textContent = option.getAttribute('title') || option.textContent; 
                 div.appendChild(labelText);
 
@@ -124,7 +124,7 @@ function CreateFLBrownAlert(title, desc, frameurl) {
     iFrameElement.style.display = "none";
     if (titleElement && descElement) {
         titleElement.textContent = title;
-        descElement.innerHTML = sanitizerCode(processHTMLContent(desc));
+        descElement.innerHTML = processHTMLtoMarkdown(desc);
         document.getElementById("gd-brown-box").style.display = "flex";
         setTimeout(function() {
             document.querySelector(".brown-box").style.transform = "scale(1)";

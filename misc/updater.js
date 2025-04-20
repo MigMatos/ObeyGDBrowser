@@ -1,34 +1,20 @@
-async function fetchGithubVersion(owner, repo, branchType, versionFile) {
-    async function getCurrentVersionAndDate() {
-        try {
-            const response = await fetch(versionFile);
-            const text = await response.text();
-            const [version, date] = text.trim().split('|').map(part => part.trim());
-            return { version: version.trim(), date: date ? new Date(date.trim()) : new Date(0) };
-        } catch (error) {
-            console.error("Error reading version.txt:", error);
-            return { version: null, date: new Date(0) };
-        }
-    }
+async function fetchGithubVersion(owner, repo, branchType, currentVersion, currentDate) {
 
     const isNewerThan = (date1, date2) => date1 > date2;
+    const toUnixTimestamp = iso => isNaN(new Date(iso).getTime()) ? 0 : Math.floor(new Date(iso).getTime() / 1000);
 
     try {
-        const { version: currentVersion, date: currentDate } = await getCurrentVersionAndDate();
-
-		console.log(currentDate);
+		// console.log(currentDate);
 		
         if (currentVersion === null || currentDate === null) {
-            console.error("No se pudo obtener la versión actual o la fecha.");
+            console.error("Error getting actually version and binaryversion...");
             return {currentVersion: 0};
         } 
 
-        const cacheDuration = 10 * 60 * 1000; // 10 minutos en milisegundos
+        const cacheDuration = 10 * 60 * 1000; // 10 minutes in ml
+        function isCacheValid(cacheTime) { return (new Date().getTime() - cacheTime) < cacheDuration;}
 
-        function isCacheValid(cacheTime) {
-            return (new Date().getTime() - cacheTime) < cacheDuration;
-        }
-
+        // ------------ MAIN ------------
         if (branchType === 'master') {
             let masterCache = localStorage.getItem('branchMasterCache');
             let cacheTime = localStorage.getItem('branchMasterCacheTime');
@@ -40,16 +26,17 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 const masterResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/main`);
                 masterData = await masterResponse.json();
-                masterData.tag_name = masterData.commit.sha.substring(0, 10) + "-main"; 
+                masterData.tag_name = masterData.commit.sha.substring(0, 7) + "-MAIN"; 
                 masterData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/main`;
-                masterData.body = null;
+                masterData.body = masterData.commit.commit.message;
+                masterData.version_date = toUnixTimestamp(masterData.commit.commit.committer.date);
                 localStorage.setItem('branchMasterCache', JSON.stringify(masterData));
                 localStorage.setItem('branchMasterCacheTime', new Date().getTime().toString());
             }
 
-            const latestDate = new Date(masterData.commit.commit.committer.date);
-            if (isNewerThan(latestDate, currentDate) || latestVersion !== currentVersion) {
-                masterData.version_date = latestDate.toISOString();
+            const latestDate = masterData.version_date;
+            console.log("Converted date to:", latestDate);
+            if (isNewerThan(latestDate, currentDate)) {
                 return {
                     type: 'master',
                     currentVersion: currentVersion,
@@ -58,7 +45,7 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 return {currentVersion: currentVersion, updated: true};
             }
-
+        // ------------ LATEST ------------
         } else if (branchType === 'latest') {
             let latestCache = localStorage.getItem('branchLatestCache');
             let cacheTime = localStorage.getItem('branchLatestCacheTime');
@@ -70,14 +57,15 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 const latestResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
                 latestData = await latestResponse.json();
+                latestData.version_date = toUnixTimestamp(latestData.created_at);
                 localStorage.setItem('branchLatestCache', JSON.stringify(latestData));
                 localStorage.setItem('branchLatestCacheTime', new Date().getTime().toString());
             }
 
             const latestVersion = latestData.tag_name;
-            const latestDate = new Date(latestData.created_at);
+            const latestDate = latestData.version_date;
+            console.log("Converted date to:", latestDate);
             latestData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${latestVersion}`;
-
             if (latestVersion !== currentVersion || isNewerThan(latestDate, currentDate)) {
                 return {
                     type: 'latest',
@@ -87,7 +75,7 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 return {currentVersion: currentVersion, updated: true};
             }
-
+        // ------------ BETA / ALPHA ------------
         } else if (branchType === 'prerelease') {
             let prereleaseCache = localStorage.getItem('branchPrereleaseCache');
             let cacheTime = localStorage.getItem('branchPrereleaseCacheTime');
@@ -99,12 +87,9 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
             } else {
                 const releaseResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases`);
                 const releases = await releaseResponse.json();
-                prereleaseData = releases.find(release => 
-                    release.prerelease && 
-                    (release.tag_name.replace(/^v/, '') !== currentVersion || 
-                    isNewerThan(new Date(release.created_at), currentDate))
-                );
+                prereleaseData = releases.find(release => release.prerelease && isNewerThan(toUnixTimestamp(release.created_at), currentDate));
                 if (prereleaseData) {
+                    prereleaseData.version_date = toUnixTimestamp(prereleaseData.created_at);
                     localStorage.setItem('branchPrereleaseCache', JSON.stringify(prereleaseData));
                     localStorage.setItem('branchPrereleaseCacheTime', new Date().getTime().toString());
                 }
@@ -112,7 +97,9 @@ async function fetchGithubVersion(owner, repo, branchType, versionFile) {
 
             if (prereleaseData) {
                 const prereleaseVersion = prereleaseData.tag_name;
-                const prereleaseDate = new Date(prereleaseData.created_at);
+                const prereleaseDate = prereleaseData.version_date;
+                console.log("Converted date to:", prereleaseDate);
+                // const prereleaseDate = new Date(prereleaseData.created_at);
                 prereleaseData.zipball_url = `https://codeload.github.com/${owner}/${repo}/zip/refs/tags/${prereleaseVersion}`;
                 return {
                     type: 'prerelease',

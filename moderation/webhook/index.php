@@ -205,7 +205,7 @@
             case "webhook-content":
                 webhookContentMessage.innerHTML = '';
                 webhookContentMessage.textContent = '';
-                webhookContentMessage.innerHTML = sanitizerCode(processHTMLContent(ValueElement));
+                webhookContentMessage.innerHTML = processHTMLtoMarkdown(ValueElement);
                 break;
             case "embed-author-name":
                 webhookEmbedMessage.setAttribute("author-name", ValueElement);

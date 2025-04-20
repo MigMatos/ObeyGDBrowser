@@ -216,7 +216,7 @@
 	 -->
 
 	
-	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser 1.1 Alpha Version.<br><span id="randomStuffText"></span></p>
+	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser <?php print_r(@str_replace('-', ' ', $_OBEYGDBROWSER_VERSION)); ?> Version.<br><span id="randomStuffText"></span></p>
 
 	<div class="center" width="100%" style="margin-top: 1%">
     	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>
@@ -441,7 +441,7 @@ function searchRedirect(url_browser,type) {
 		else if(branch == 1) branch = "prerelease";
 		else if(branch == 2) branch = "master"
 		else branch = "latest"
-		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, './update/version.txt')
+		fetchGithubVersion('migmatos', 'ObeyGDBrowser', branch, '<?php print_r($_OBEYGDBROWSER_VERSION) ?>' , '<?php print_r($_OBEYGDBROWSER_BINARYVERSION) ?>')
 		.then(result => {
 			const event = new Event('finishLoadingAlert');
 			document.dispatchEvent(event);
@@ -475,7 +475,7 @@ function searchRedirect(url_browser,type) {
 	if (alertValue == "installed"){
 		let newURLpush = window.location.href.replace(new RegExp(`(\\?alert=${alertValue})`), '');
 		window.history.pushState(null, null, newURLpush);
-		CreateFLAlert("ObeyGDBrowser 1.0","# Update installed successfully! \n## Explore ObeyGDBrowser!\nWe recommend accessing GDPS Settings to update your GDPS configurations (just click in the button `save` and done!).\n\n\n# [Open GDPS Settings!](./gdpsettings/)")
+		CreateFLAlert("ObeyGDBrowser!","# Update installed successfully! \n## Explore ObeyGDBrowser!\nWe recommend accessing GDPS Settings to update your GDPS configurations (just click in the button `save` and done!).\n\n\n# [Open GDPS Settings!](./gdpsettings/)")
 	}
 
 </script>
