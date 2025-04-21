@@ -14,9 +14,14 @@ function escapeHTMLAttr(str) {
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
 }
+
+
   
 function processHTMLtoMarkdown(content) {
+    
     let output = escapeHTMLContent(content);
+
+    output = output.replace(/^- (.*)$/gm, (match, p1) => { return `<ul><li>${p1.trim()}</li></ul>`; });
 
     // Custom inline code with `a0`, `b1`, etc.
     output = output.replace(/`([a-z]\d)\s(.*?)`/g,
@@ -32,16 +37,9 @@ function processHTMLtoMarkdown(content) {
   
     // Blockquotes
     output = output.replace(/^> (.*)$/gim, '<blockquote>$1</blockquote>');
-  
-    // Unordered lists
-    output = output.replace(/^(\s*[-*+] .*)$/gim, '<ul>$1</ul>');
-    output = output.replace(/<ul>(.*?)<\/ul>/gs,
-        (_, items) => `${items.replace(/^[-*+] (.*)$/gm, '<li>$1</li>')}`);
+    
+    
 
-    // Ordered lists
-    output = output.replace(/^(\s*\d+\. .*)$/gim, '<ol>$1</ol>');
-    output = output.replace(/<ol>(.*?)<\/ol>/gs,
-        (_, items) => `${items.replace(/^\d+\. (.*)$/gm, '<li>$1</li>')}`);
   
     // Text formatting
     output = output.replace(/\*\*(.*?)\*\*/g, (_, t) => `<strong>${escapeHTMLContent(t)}</strong>`);
@@ -105,12 +103,14 @@ function processHTMLtoMarkdown(content) {
         return `<pre><code>${escapeHTMLContent(code)}</code></pre>`;
     });
 
+    output = output.replace(/\r\n\r\n/g, '<br><br>').replace(/(?<!\r)\n/g, '<br>');
+
     const blockTags = /<\/?(h\d|ul|ol|li|pre|code|blockquote|a|img|discord-mention|discord-spoiler|strong|i|u|em|del)[^>]*>/i;
     output = output
         .split(/\n{2,}/)
         .map(par => blockTags.test(par) ? par : `<p>${par}</p>`)
         .join('\n');
-    output = output.replace(/\r\n\r\n/g, '<br><br>').replace(/(?<!\r)\n/g, '<br>');         
+             
     
 
       

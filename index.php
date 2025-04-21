@@ -215,7 +215,7 @@
 	 -->
 
 	
-	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser <?php print_r(@str_replace('-', ' ', $_OBEYGDBROWSER_VERSION)); ?> Version.<br><span id="randomStuffText"></span></p>
+	<p style="color: #ffffff1f; font-size: 2.5vh; position: absolute; top: 95%; left: 50%; transform: translate(-50%, -50%); text-align: center;">ObeyGDBrowser <?php echo(@str_replace('-', ' ', $_OBEYGDBROWSER_VERSION)); ?> Version.<br><span id="randomStuffText"></span></p>
 
 	<div class="center" width="100%" style="margin-top: 1%">
     	<img src="<?php echo isset($gdps_settings["gdps_logo_url"]) ? $gdps_settings["gdps_logo_url"] : 'assets/gdlogo.png'; ?>" height="11.5%"><br>
@@ -309,7 +309,7 @@ if (typeof globalMismatch === 'undefined' || globalMismatch != "4") {
 
 function viewAdvMismatchAlert(obj) {
 	$(`#${obj}`).hide();
-	CreateFLAlert("Discrepancy!","# This may cause errors in new features or completely broken functionalities.\n`a0 Clear your browser cache for this site and refresh, or wait for your web host to sync the assets.`\n\n\n\n## If you're a GDPSFH user, changes may take up to 1 hour to appear.")
+	CreateFLAlert("","## ´r0 Discrepancy!´\n#### This may cause errors in new features or completely broken functionalities.\n#### ´a0 Clear your browser cache for this site and refresh, or wait for your web host to sync the assets.´\n#### If you're a GDPSFH user, changes may take up to 1 hour to appear.")
 }
 
 

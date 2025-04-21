@@ -44,7 +44,7 @@
     color: white;
 
     position: static;
-    font-size: clamp(100%, 1vw, 110%);
+    font-size: clamp(2.5vh, 1vw, 120%);
     margin-top: 0px;
     margin-bottom: 15px;
     overflow-wrap: break-word;

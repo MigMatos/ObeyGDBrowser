@@ -6,6 +6,44 @@ body code {
     font-size: clamp(87.5%, 4vw, 105%);
 }
 
+h1 > .codeFormat, .font-helvetica > h1 {
+    white-space: normal;
+    font-size: 6vh;
+    margin: 0;
+}
+
+h2 > .codeFormat, .font-helvetica > h2 {
+    white-space: normal;
+    font-size: 4.5vh;
+    margin: 0;
+}
+
+h3 > .codeFormat, .font-helvetica > h3 {
+    white-space: normal;
+    margin: 0;
+}
+
+h4 > .codeFormat, .font-helvetica > h4 {
+    white-space: normal;
+    margin: 0;
+}
+
+h5 > .codeFormat, .font-helvetica > h5 {
+    white-space: normal;
+    margin: 0;
+}
+
+h6 > .codeFormat, .font-helvetica > h6 {
+    white-space: normal;
+    margin: 0;
+}
+
+.font-helvetica > ul {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
 .codeFormat.g0,.codeFormat.default {
     color: #77e83e;
 }
@@ -86,13 +124,13 @@ body code {
 }
 
 .utils-customWidget img {
-    padding-top: 10px;
-    width: 100%;
+    width: 45vh;
+    padding: 1vh 0vh 1vh 0vh;
 }
 
 .utils-imgWidget {
-    padding-top: 10px;
-    width: 100%;
+    width: 45vh;
+    padding: 1vh 0vh 1vh 0vh;
 }
 
 .utils-imgWidget::after {

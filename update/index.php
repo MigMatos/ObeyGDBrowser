@@ -189,7 +189,7 @@ if ($isAdmin != "1" || $logged != true) {
             </div>
 		</div>
 
-		<p class="font-helvetica gitbody" id="body-github" style="text-wrap: auto; line-height: 1.5; background-color: #00000075;width: 70%;height: 40.5%;/* margin-left: 50%; *//* transform: translate(-50%, 0); */font-size: 2.3vh;overflow: auto;padding: 0 5% 0 5%;border-radius: 3.5vh;"></p>
+		<p class="font-helvetica gitbody" id="body-github" style="white-space: normal; line-height: 1.5; background-color: #00000075;width: 70%;height: 40.5%;/* margin-left: 50%; *//* transform: translate(-50%, 0); */font-size: 2.3vh;overflow: auto;padding: 0 5% 0 5%;border-radius: 3.5vh;"></p>
 
         <div id="data-info-1" class="center-div" style="width: 44%; display: flex; align-items: center;">
 
@@ -453,7 +453,7 @@ function finishedUpdate() {
         // document.getElementById('buttonLog').removeAttribute('readonly');
         // document.getElementById('body-github').style.height = "40.5%";
         document.getElementById('div-progress-bar').style.display = "none";
-        document.getElementById('last-version').textContent = "";
+        // document.getElementById('last-version').textContent = "";
         document.getElementById('last-version-txt').innerHTML = "<cg>Applying changes, please wait...</cg>"
     }, 350);
     setTimeout(function() {

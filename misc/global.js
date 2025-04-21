@@ -57,7 +57,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 	console.log("%c❌ ERROR IN OBEYGDBROWSER!", "font-size: 36px; color: red; font-weight: bold; -webkit-text-stroke: 1px black;");
 	console.log(`%c${message} at ${source}:${lineno}:${colno}`, "color: red; font-size: 16px;");
 
-    CreateFLAlert("Fatal Error in Browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)\n\n\n# `a0 **Click in OK to restart**` \n\n## `g0 **Log Error:**` \n`r0 "+`${error} at ${source}:${lineno}:${colno}`+"`")
+    CreateFLAlert("","## ´r0 Fatal Error in Browser!´\n### Join our support server and ´y0 report´\n [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B)\r\n\r\n### Click in ´y0 OK´ to ´a0 restart´ \n\n### ´g0 Log Error:´ \n`r0 "+`**${error} at** ${source}:${lineno}:${colno}`+"`")
 	$('#everything').hide(); 
 
 	document.addEventListener('FLlayerclosed', function() {
