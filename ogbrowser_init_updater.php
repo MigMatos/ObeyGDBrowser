@@ -31,6 +31,7 @@ if ($isAdmin != "1" || $logged != true) {
 }
 
 set_time_limit(0); 
+ob_start();
 
 /*
 
@@ -82,7 +83,7 @@ class OGDBrowserUpdater
         $this->progressPercentage = 100;
         $this->deleteUpdateFolder();
 
-        http_response_code(250);
+        http_response_code(201);
     }
 
     private function downloadAndExtractRepo()
@@ -339,7 +340,7 @@ class OGDBrowserUpdater
             $this->updateLogger("Flushing update directory: " . $this->updateDir, 100);
         }
 
-        http_response_code(250);
+        http_response_code(201);
 
         $installerFile = $this->targetDir . "/installer.php";
         if (file_exists($installerFile)) {
@@ -511,6 +512,7 @@ $updater->run();
 $version_file_path = "./" . $folder_browser . 'update/version.txt';
 file_put_contents($version_file_path , $version_ogdb . "|" . $date_ogdb);
 
-
-exit(250);
+ob_clean();
+echo "";
+exit(201);
 ?>
