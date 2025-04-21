@@ -326,6 +326,23 @@ let animationFrameId;
 let queue = []; 
 checkProgressBarPoll = null;
 
+let resultState = null;
+let lastChangeTime = Date.now();
+
+function setResultState(newValue) {
+  const now = Date.now();
+  if (now - lastChangeTime < 3000) {
+    console.log("Ignorating new results...");
+    return;
+  }
+  if (newValue !== resultState) {
+    resultState = newValue;
+    lastChangeTime = now;
+    console.log("New resultState:", resultState);
+  }
+}
+
+
 function updateOGDWCore(){
     initAnimationUpdate();
 	initUpdaterServer();
@@ -416,6 +433,8 @@ function checkProgressBar() {
 
 function errorUpdate(data) {
     clearInterval(checkProgressBarPoll);
+    setResultState(false);
+    if(resultState) return;
     setTimeout(function() {
         progressInfo.textContent = data;
         progressInfo.style.color = 'red';
@@ -447,6 +466,8 @@ function errorUpdate(data) {
 
 function finishedUpdate() {
     clearInterval(checkProgressBarPoll);
+    setResultState(true);
+    if(!resultState) return;
     setTimeout(function() {
         progressInfo.textContent = "Finishing update...";
         progressInfo.style.color = '#00ff22';
