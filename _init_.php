@@ -25,7 +25,7 @@
     }
     define('BASE_PATH', getRelativePath());
 
-    function parseVersionText($t) { return [($p=explode('|',$t,3))[0]!==""?$p[0]:(isset($p[1])?time()."-DEV":($t!==""?$t:time()."-DEV")),isset($p[1])?($p[1]!==""?$p[1]:0):0]; }
+    function parseVersionText($t) { return [($p=explode('|',$t,3))[0]!==""?$p[0]:(isset($p[1])?$p[1]:($t?:time()."-DEV")), isset($p[1]) ? intval($p[1]) : 0]; }
     list($_OBEYGDBROWSER_VERSION, $_OBEYGDBROWSER_BINARYVERSION) =  parseVersionText(@file_get_contents(BASE_PATH."update/version.txt",true) ?: "");
     $_OBEYGDBROWSER_FILEVERSION = intval($_OBEYGDBROWSER_BINARYVERSION) + max(0, intval($gdps_settings["cache_counter"] ?? 0));
     // echo(BASE_PATH."update/version.txt");
