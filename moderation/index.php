@@ -8,7 +8,7 @@
 <head>
 	<?php include("../customEmbed.php"); ?>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=6" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
     <!-- <link href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css?v=14" rel="stylesheet"> -->	
 	<?php
 		
@@ -105,11 +105,11 @@
 </div>
 
 </body>
-<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script type="text/javascript" src="../misc/global.js"></script>
-<script type="text/javascript" src="../misc/updater.js"></script>
-<script type="text/javascript" src="../misc/gdcustomframe.js"></script>
+
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../misc/global.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script type="text/javascript" src="../misc/updater.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script type="text/javascript" src="../misc/gdcustomframe.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 
 <script>
 let userNameUser = "<?php echo $userName; ?>"
@@ -276,4 +276,4 @@ let lastPage
 
 
 </script>
-<script type="text/javascript" src="../misc/versionadapter.js"></script>
+<script type="text/javascript" src="../misc/versionadapter.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>

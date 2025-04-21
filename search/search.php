@@ -3,8 +3,8 @@
 <head>
 	<title id="tabTitle">Level Search</title>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
-    <link href="../assets/css/utils.css" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
+    <link href="../assets/css/utils.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
 	<link rel="icon" href="../assets/coin.png">
 	<meta id="meta-title" property="og:title" content="Level Search">
 	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">
@@ -130,10 +130,10 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="../misc/global.js"></script>
-<script type="text/javascript" src="../misc/gdcustomframe.js"></script>
-<script type="text/javascript" src="../misc/dragscroll.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../misc/global.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script type="text/javascript" src="../misc/gdcustomframe.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script type="text/javascript" src="../misc/dragscroll.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 <script>
 
 $('#pageDown').hide()

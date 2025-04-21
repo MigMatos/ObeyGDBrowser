@@ -3,7 +3,7 @@
 <head>
 	<title>Level Search</title>
 	<meta charset="utf-8">
-	<link href="../assets/css/browser.css?v=1" type="text/css" rel="stylesheet">
+	<link href="../assets/css/browser.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
     
 	<link rel="icon" href="../assets/coin.png">
 	<meta id="meta-title" property="og:title" content="Level Search">
@@ -174,8 +174,8 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="../misc/global.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../misc/global.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 
 <script>
 

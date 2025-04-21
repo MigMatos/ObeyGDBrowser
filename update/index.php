@@ -177,7 +177,7 @@ if ($isAdmin != "1" || $logged != true) {
 		
 		<div class="center-div" style="padding: 2% 0 5% 0;height: auto;">
 			<img id="progress-rotate" class="noSelect searchingObjAnimation" src="../assets/settings.png" style="height: 13vh;"><h3 id="progress-info">Please wait...</h3>
-			<div style="display: none;" id="div-progress-bar"><div style="display:flex;">
+			<div style="display: none;" id="div-progress-bar"><div style="display:flex; justify-content: center;">
 				<div class="progress-container">
 					<div id="progress-bar-img" class="progress-bar"></div>
 					<img class="progress-contour" src="../assets/slider.png">
