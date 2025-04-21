@@ -27,10 +27,7 @@ if ($isAdmin != "1" || $logged != true) {
     <title>OGDW Updater</title>
     <link rel="icon" href="../assets/settings.png" type="image/png">
 	<meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=0.47"> -->
-	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
-    <!-- <link href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css?v=14" rel="stylesheet"> -->	
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" /> -->
+	<link href="../assets/css/browser.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
 	<?php
 		include("../assets/htmlext/flayeralert.php");
     ?>
@@ -213,7 +210,7 @@ if ($isAdmin != "1" || $logged != true) {
         </div>
 
         
-        <div id="data-info-2" style="display:flex;"><h3>Actual version: <ca id="act-version"><?php echo($_OBEYGDBROWSER_VERSION); ?></ca></h3></div>
+        <div id="data-info-2" style="display:flex;"><h3>Actual version: <ca id="act-version"><?php print_r($_OBEYGDBROWSER_VERSION); ?></ca></h3></div>
 	</div>
 
     
@@ -223,9 +220,9 @@ if ($isAdmin != "1" || $logged != true) {
 </div>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script type="text/javascript" src="../misc/global.js"></script>
-<script type="text/javascript" src="../misc/updater.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../misc/global.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script type="text/javascript" src="../misc/updater.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 <script>
 
 const progressInfo = document.getElementById('progress-info');

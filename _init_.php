@@ -1,58 +1,60 @@
 <?php
-    define('BASE_PATH', __DIR__ );
-    function parseVersionText($t) { return [($p=explode('|',$t,3))[0]!==""?$p[0]:(isset($p[1])?time()."-DEV":($t!==""?$t:time()."-DEV")),isset($p[1])?($p[1]!==""?$p[1]:0):0]; }
-    list($_OBEYGDBROWSER_VERSION, $_OBEYGDBROWSER_BINARYVERSION) =  parseVersionText(@file_get_contents(BASE_PATH."/update/version.txt") ?: "");
-
+    // Rewrite for PHP 7.0+ (better code! :D)
     $gdps_settings_path = "gdps_settings.json";
     global $json_content_settings;
     $json_content_settings = @file_get_contents("./$gdps_settings_path") ?:  
     (@file_get_contents("../$gdps_settings_path") ?: 
     (@file_get_contents("../../$gdps_settings_path") ?: 
-    @file_get_contents("./browser/$gdps_settings_path")));
-
+    (@file_get_contents("../../../$gdps_settings_path") ?: 
+    (@file_get_contents("../../../../$gdps_settings_path") ?: 
+    @file_get_contents("./browser/$gdps_settings_path" //Sorry custom installs from legacy
+    )))));
     global $gdps_settings;
     $gdps_settings = json_decode($json_content_settings, true);
+    define('BROWSER_PATH', isset($gdps_settings["browser_path"]) ? $gdps_settings["browser_path"] : 'browser/');
+    function getRelativePath($pathFile=null) {
+        $url = $_SERVER['SCRIPT_NAME'];
+        if(!isset($pathFile)) $base = BROWSER_PATH;
+        else $base = $pathFile;
+        if(strpos($url, $base) === false) {
+            if (!isset($pathFile)) { $base = BROWSER_PATH; }
+        }
+        $path = substr($url, strpos($url, $base) + strlen($base));
+        $count = substr_count($path, '/');
+        return $count === 0 ? './' : str_repeat('../', $count);
+    }
+    define('BASE_PATH', getRelativePath());
+
+    function parseVersionText($t) { return [($p=explode('|',$t,3))[0]!==""?$p[0]:(isset($p[1])?time()."-DEV":($t!==""?$t:time()."-DEV")),isset($p[1])?($p[1]!==""?$p[1]:0):0]; }
+    list($_OBEYGDBROWSER_VERSION, $_OBEYGDBROWSER_BINARYVERSION) =  parseVersionText(@file_get_contents(BASE_PATH."update/version.txt",true) ?: "");
+    $_OBEYGDBROWSER_FILEVERSION = intval($_OBEYGDBROWSER_BINARYVERSION) + max(0, intval($gdps_settings["cache_counter"] ?? 0));
+    // echo(BASE_PATH."update/version.txt");
+    // echo("<br>" . $_OBEYGDBROWSER_VERSION);
+    // echo("<br>" . $_OBEYGDBROWSER_BINARYVERSION);
 
     $failed_conn = false;
 
-    $includePath = isset($gdps_settings["path_connection"]) ? $gdps_settings["path_connection"] : "../../incl/lib/connection.php";
-    $includeFolder = isset($gdps_settings["path_lib_folder"]) ? $gdps_settings["path_lib_folder"] : "../../incl/lib/";
-
+    $includePath   = $gdps_settings["path_connection"]  ?? "../../incl/lib/connection.php";
+    $includeFolder = $gdps_settings["path_lib_folder"]  ?? "../../incl/lib/";
+    
     global $gdpsVersion;
-    $gdpsVersion = isset($gdps_settings["gdps_version"]) ? intval($gdps_settings["gdps_version"]) : 30;
+    $gdpsVersion = intval($gdps_settings["gdps_version"] ?? 30);
 
-    if (file_exists($includePath) && is_readable($includePath)) {
-        require_once($includePath);
-    } else {
-        if (file_exists("../" . $includePath) && is_readable("../" . $includePath)) {
-            require_once("../" . $includePath);
-            
-        } elseif (file_exists("../../" . $includePath) && is_readable("../../" . $includePath)) {
-            require_once("../../" . $includePath);
-        } else {
-            
-            if (file_exists("./incl/lib/connection.php") && is_readable("./incl/lib/connection.php")){
-                require_once("./incl/lib/connection.php");
-            } else {
-                $failed_conn = true;
-                echo '<script>alert("Failed including connection, please configure in browser/gdpsettings");</script>';
-            }
-            
-        }
-    }
+    ($included = @include_once($includePath)) ||
+    ($included = @include_once("../$includePath")) ||
+    ($included = @include_once("../../$includePath")) ||
+    ($included = @include_once("./incl/lib/connection.php")) ||
+    ($failed_conn = true) && print('<script>alert("Failed including connection, please configure in browser/gdpsettings");</script>');
 
     global $serverType;
-    $serverType = isset($gdps_settings["server_software"]) ? strval($gdps_settings["server_software"]) : "automatic";
-    $iconsJSON = json_encode(isset($gdps_settings["icons"]) ? $gdps_settings["icons"] : "");
-    $colorsJSON = json_encode(isset($gdps_settings["colors"]) ? $gdps_settings["colors"] : "");
+    $serverType = strval($gdps_settings["server_software"] ?? "automatic");
+    $iconsJSON  = json_encode($gdps_settings["icons"] ?? "");
+    $colorsJSON = json_encode($gdps_settings["colors"] ?? "");
 
     if (isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {
         $server_software = $_SERVER['SERVER_SOFTWARE'];
-        if (strpos($server_software, 'Apache') !== false) {
-            $serverType = "apache";
-        } else {
-            $serverType = "legacy";
-        }
+        if (strpos($server_software, 'Apache') !== false) { $serverType = "apache";
+        } else { $serverType = "legacy"; }
     }  else if (!isset($_SERVER['SERVER_SOFTWARE']) && $serverType == "automatic") {$serverType = "legacy";}
 
     $sessionLifetime = 15 * 24 * 60 * 60;
@@ -62,10 +64,10 @@
 
     
     $logged = false;
-    $userName = isset($_SESSION['userName']) ? $_SESSION['userName'] : "None";
-    $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : 0;
-    $accountID = isset($_SESSION['accountID']) ? $_SESSION['accountID'] : 0;
-    $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : 0;
+    $userName  = $_SESSION['userName']  ?? "None";
+    $userID    = $_SESSION['userID']    ?? 0;
+    $accountID = $_SESSION['accountID'] ?? 0;
+    $isAdmin   = $_SESSION['isAdmin']   ?? 0;
     if (isset($_SESSION['userName']) && isset($_SESSION['accountID']) && isset($_SESSION['userID'])) { $logged = true; }
     if($logged == true) {
         session_regenerate_id(true);
@@ -133,7 +135,7 @@
         $_SESSION['userPermissions'] = array_merge($userPermissions, $newPerms);
     }
 
-    $userPermissions = isset($_SESSION['userPermissions']) ? $_SESSION['userPermissions'] : [];
+    $userPermissions = $_SESSION['userPermissions'] ?? [];
     $userPermissionsJSON = json_encode($userPermissions);
 
 ?>

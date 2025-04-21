@@ -9,7 +9,6 @@
 	<meta charset="utf-8">
 	<link href="assets/css/browser.css?v=6" type="text/css" rel="stylesheet">
     <!-- <link href="https://migmatos.alwaysdata.net/legacy/cdn/css/dashboard.css?v=14" rel="stylesheet"> -->	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
 	<link rel="manifest" href="manifest.json">
 
 	<?php
@@ -89,7 +88,7 @@
     flex-direction: column;
 	width: 15%;">
 	<h1 class="smaller noSelect" style="font-size: 3vh; -webkit-text-stroke-width: 0.15vh;text-wrap: auto;text-align: center;">
-		<?php if(!$logged) echo 'Login here!'; else echo $userName; ?>
+		<?php if(!$logged) echo 'Login here!'; else print_r($userName); ?>
 	</h1>
 		<a onclick="openProfle()" style="width:30%;"><img class="gdButtonBrowser" src="assets/user.png" width = "100%"></a>
 	</div>
@@ -232,16 +231,16 @@
 </div>
 
 </body>
-<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+<script type="text/javascript" src="./misc/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="./misc/global.js"></script>
 <script type="text/javascript" src="./misc/updater.js"></script>
 <script type="text/javascript" src="./misc/gdcustomframe.js"></script>
 
 <script>
-let userNameUser = "<?php echo $userName; ?>"
-let isLoggedUser = "<?php echo $logged; ?>"
-let accountID = "<?php echo $accountID ?>" ;
+let userNameUser = "<?php print_r($userName); ?>"
+let isLoggedUser = "<?php print_r($logged); ?>"
+let accountID = "<?php print_r($accountID); ?>" ;
 
 function openProfle() {
 	
@@ -280,7 +279,7 @@ function darknessPage(){
 
 <script>
 
-let gdpsVersion = <?php echo $gdpsVersion; ?>;
+let gdpsVersion = <?php print_r($gdpsVersion); ?>;
 let legacyServer = true;
 let isAdmin = false;
 
