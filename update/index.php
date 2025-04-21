@@ -294,6 +294,7 @@ function fetchUpdate(branch) {
                 document.getElementById('last-version-div').style.display = "none";
 				document.getElementById('buttonUpdate').setAttribute('disabled','');
 				document.getElementById('buttonUpdate').setAttribute('readonly','');
+                document.getElementById('body-github').innerHTML = processHTMLtoMarkdown("`(without description)`")
 				return;
 			} 
 			lru_branch = result.data.zipball_url;
@@ -308,7 +309,7 @@ function fetchUpdate(branch) {
                 if(result.data.body){ 
                     document.getElementById('body-github').innerHTML = processHTMLtoMarkdown(result.data.body);
                     data_changelog = result.data.body;
-                } else { document.getElementById('body-github').innerHTML = processHTMLtoMarkdown("`(without description)`")}
+                } else { document.getElementById('body-github').innerHTML = processHTMLtoMarkdown("`(without description)`") }
 			} else {
                 progressInfo.textContent = "Error getting update file";
                 document.getElementById('progress-rotate').style.filter = "grayscale(1)";

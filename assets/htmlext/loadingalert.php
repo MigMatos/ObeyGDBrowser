@@ -3,8 +3,8 @@
 ?>
 
 
-<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/utils.css">
-<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/loadingalert.css?v=7">
+<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/utils.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>">
+<link rel="stylesheet" href="<?php echo $baseURL ?>assets/css/loadingalert.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>">
 <div class="loading-main" id="loading-main">
     <div class="rotating-loadermain-image">
       <img src="<?php echo $baseURL ?>assets/loading.png" alt="Loading" id="rotating-img">
@@ -19,4 +19,4 @@
     <p class="gdfont-Pusab small" id="loading-alert-buttom-display-text">Loading...</p>
   </div>
 </div>
-<script src="<?php echo $baseURL ?>assets/js/loadingalert.js?v=6"></script>
+<script src="<?php echo $baseURL ?>assets/js/loadingalert.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
