@@ -239,8 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {console.warn('Invalid changelog Base64:', e);}
     }
     
-    if (url.searchParams.has('nocache') || url.searchParams.has('changelog')) {
-        url.searchParams.delete('nocache');
+    if (url.searchParams.has('changelog')) {
         url.searchParams.delete('changelog');
         window.history.replaceState({}, '', url.pathname + url.search + url.hash);
         CreateFLAlert("Welcome to <?php print_r($_OBEYGDBROWSER_VERSION) ?> version!",`### ´g0 CHANGELOG´\n${changelogDecoded}`);
@@ -377,7 +376,9 @@ function initUpdaterServer() {
 	xhr.withCredentials = true;
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
-        if (xhr.status === 250 || xhr.status === 200) {
+        if (xhr.status === 200) {
+            // ignorating hehe...
+        } else if (xhr.status === 250) {
             console.log("Finished successfully");
             finishedUpdate();
         } else if (xhr.status === 401) {
@@ -417,8 +418,8 @@ function checkProgressBar() {
 
             const percentageValue = parseFloat(percentage.trim());
             if(!isNaN(percentageValue) && percentageValue >= 100) {
-                console.log("Finished successfully");
-                finishedUpdate();
+                // console.log("Finished successfully");
+                // finishedUpdate();
             }
             else if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
                 progressBarPercentage(percentageValue);
@@ -486,7 +487,6 @@ function finishedUpdate() {
     }, 2500);
     setTimeout(function() {
         const url = new URL(window.location.href);
-        url.searchParams.set('nocache', Date.now());
         url.searchParams.set('changelog', btoa(encodeURIComponent(data_changelog)) );
         window.location.href = url.toString();
     }, 4000)
