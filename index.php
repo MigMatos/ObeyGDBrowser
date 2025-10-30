@@ -351,26 +351,34 @@ function urlRedirect(url_browser) {
         }
     })
     .catch(error => {
-		if (window.location.protocol === 'https:' && error == "TypeError: Failed to fetch") { //FALSE HTTPS 
+		const isNetworkError =
+			error instanceof TypeError && (
+				error.message.includes("Failed to fetch") ||
+				error.message.includes("NetworkError") ||
+				error.message.includes("Load failed") ||
+				error.message === ""
+			);
+
+		if (window.location.protocol === 'https:' && isNetworkError) {
 			changeLoadingAlert(`Warning: Redirecting with HTTP due Web host errors`);
 			darknessPage();
 			setTimeout(function () {
-					const event = new Event('finishLoadingAlert');
-					document.dispatchEvent(event);
-					setTimeout(function () {
-						url_browser = url_browser.replace('https:', 'http:')
-						window.location.href = url_browser;
-					}, 500);
+				const event = new Event('finishLoadingAlert');
+				document.dispatchEvent(event);
+				setTimeout(function () {
+					url_browser = url_browser.replace('https:', 'http:');
+					window.location.href = url_browser;
+				}, 500);
 			}, 500);
 		} else {
 			changeLoadingAlert(`Browser fatal error`);
 			setTimeout(function () {
-					const event = new Event('finishLoadingAlert');
-					document.dispatchEvent(event);
-					CreateFLAlert("Fatal error in browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B) \n\n Log Error: `"+error+"`");
+				const event = new Event('finishLoadingAlert');
+				document.dispatchEvent(event);
+				CreateFLAlert("Fatal error in browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B) \n\n Log Error: `"+error+"`");
 			}, 500);
 		}
-    });
+	});
 }
 
 function profileRedirect(url_browser) {
