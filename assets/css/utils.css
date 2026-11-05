@@ -393,6 +393,22 @@ input[type="text"].gdsInput:read-only, input[type="number"].gdsInput:read-only {
     align-items: center;
 }
 
+.gdCustomFrame.gdSongFrame {
+    z-index: 10000;
+}
+
+.gdCustomFrame.gdSongFrame iframe,
+.gdCustomFrame.gdSongFrame > .brownBox {
+    width: min(720px, calc(100% - 16px));
+    height: min(620px, calc(100% - 16px));
+}
+
+.gdSongFrame.gdSongFrameCompact iframe,
+.gdSongFrame.gdSongFrameCompact > .brownBox {
+    width: min(540px, calc(100% - 16px));
+    height: min(460px, calc(100% - 16px));
+}
+
 .gdCustomFrame > .brownBox {
     width: 135vh;
     height: 82%;

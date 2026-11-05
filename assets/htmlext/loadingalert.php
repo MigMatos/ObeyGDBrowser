@@ -1,5 +1,5 @@
 <?php
-    require_once("_init_hext.php");
+    require_once __DIR__ . "/_init_hext.php";
 ?>
 
 

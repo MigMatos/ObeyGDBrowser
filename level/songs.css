@@ -1,0 +1,34 @@
+#songBox {
+    max-width: calc(100% - 32px);
+}
+
+#songBox #songname {
+    max-width: 86%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#songAuthorName {
+    display: inline-block;
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+#songInfo {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+#songBox [hidden] {
+    display: none !important;
+}
+
+#songBox #playSong,
+#songBox #moreSongs {
+    min-width: 44px;
+}

@@ -1,0 +1,12 @@
+.gd-emoji {
+    position: relative;
+    display: inline-block;
+    height: 1.25em;
+    vertical-align: -.25em;
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.gd-emoji-crop { position: absolute; display: block; overflow: hidden; }
+.gd-emoji-sprite { display: block; position: absolute; left: 0; top: 0; background-repeat: no-repeat; transform-origin: top left; }
+.gd-emoji[data-flipped="true"] { transform: scaleX(-1); }

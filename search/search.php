@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
     <link href="../assets/css/utils.css?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>" type="text/css" rel="stylesheet">
+    <link href="../assets/css/thumbnails.css" type="text/css" rel="stylesheet">
 	<link rel="icon" href="../assets/coin.png">
 	<meta id="meta-title" property="og:title" content="Level Search">
 	<meta id="meta-desc" property="og:description" content="Search for Geometry Dash levels, and filter by length, difficulty, song + more!">
@@ -133,6 +134,8 @@
 <script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../misc/global.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
+<script src="../misc/gdsongs.js"></script>
+<script src="../misc/gdthumbnails.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js?v=<?= $_OBEYGDBROWSER_FILEVERSION; ?>"></script>
 <script>
 
@@ -266,17 +269,7 @@ function Append(firstLoad, noCache) {
 			accID = x.playerID
 		}
 
-		let filteredSong = clean(x.songName.replace(/[^ -~]/g, ""))
-		if (!filteredSong) filteredSong = clean(x.songName)
-		let songColor = x.customSong == 0 ? "blue"
-			: (x.songLibrary == "Unknown") ? "unknownLibrary"
-			: (x.songLibrary == "NCS") ? "ncsLibrary"
-			: (x.songLibrary) ? "songLibrary"
-			: (x.songLink && !x.songLink.match(/^https?:\/\/\audio\.ngfiles\.com\//)) ? "nong"
-			: "whatIfItWasPurple"
-		let noLink = songColor == "blue"
-
-		$('#searchBox').append(`<div class="searchresult" title="${clean(x.description)}">
+		$('#searchBox').append(`<div class="searchresult" data-thumbnail-level="${Number(x.id) || 0}" title="${clean(x.description)}">
 			<h1 class="lessspaced pre" title="${x.name} by ${!x.author || x.author == "-" ? "some nerd" : x.author}" style="width: fit-content; padding-right: 1%">${clean(x.name || " ")}</h1>
 			<h2 class="pre smaller inline gdButton help ${hasAuthor ? "" : "green unregistered"}" title="Account ID: ${x.accountID}\nPlayer ID: ${x.playerID}"><!--
 				-->${hasAuthor && !onePointNine ? `<a style="margin-right: 0.66vh" onclick=profileRedirect('${x.accountID}')>By ${x.author || "-"}</a>` : `<a ${userSearch ? "" : `onclick=profileRedirect('${x.playerID}','userID')`}>By ${x.author || "-"}</a>`}</h2><!--
@@ -285,7 +278,7 @@ function Append(firstLoad, noCache) {
 				-->${x.large ? `<img class="help valign sideSpaceD" title="${x.objects}${x.objects == 65535 ? "+" : ""} objects" src="../assets/large.png" height="12%">` : ''}<!--
 				-->${x.twoPlayer ? `<img class="help valign sideSpaceD" title="Two player level" src="../assets/twoPlayer.png" height="12%">` : ''}
 			</h2>
-			<h3 class="lessSpaced help ${noLink ? "" : 'gdButton '}pre ${songColor}" title="${filteredSong} by ${x.songAuthor} (${x.songID})" style="overflow: hidden; max-height: 19%; width: fit-content; padding: 1% 1% 0% 0%">${noLink ? filteredSong : `<a onclick="playSong(this)" songID="${x.songID}" style="width: fit-content" >${filteredSong}</a>`}</h3>
+			<h3 class="lessSpaced help pre" data-song-label="${y}" style="overflow: hidden; max-height: 19%; width: fit-content; padding: 1% 1% 0% 0%"></h3>
 			<h3 class="lessSpaced" style="width: fit-content" title="">
 				<img class="help valign rightSpace" title="Length" src="../assets/time.png" height="14%">${x.length}
 				<img class="help valign rightSpace" title="Downloads" src="../assets/download.png" height="14%">${x.downloads}
@@ -321,9 +314,11 @@ function Append(firstLoad, noCache) {
 				<p title="Level ID" style="text-align: right; color: rgba(0, 0, 0, 0.4); font-size: 2.2vh; transform: translate(2.8vh, ${demonList ? -1.8 : 2.5}vh)">#${x.id}</p>
 			</div>
 		</div>`)
+		GDSongs.renderSearchLabel(document.querySelector(`[data-song-label="${y}"]`), x.song);
 	})
 
 	$('#searchBox').append('<div style="height: 4.5%"></div>').scrollTop(0)
+    GDThumbnails.renderSearch(document.getElementById('searchBox'));
 	$('#loading').hide()
 	loading = false;
 	}

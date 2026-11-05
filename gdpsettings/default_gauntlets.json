@@ -268,5 +268,35 @@
         "name": "Cosmos",
         "textColor": "#f9c800",
         "bgColor": "#2c2424"
+    },
+    "55": {
+        "name": "Random",
+        "textColor": "",
+        "bgColor": ""
+    },
+    "56": {
+        "name": "Chance",
+        "textColor": "",
+        "bgColor": ""
+    },
+    "57": {
+        "name": "Future",
+        "textColor": "",
+        "bgColor": ""
+    },
+    "58": {
+        "name": "Utopia",
+        "textColor": "",
+        "bgColor": ""
+    },
+    "59": {
+        "name": "Cinema",
+        "textColor": "",
+        "bgColor": ""
+    },
+    "60": {
+        "name": "Love",
+        "textColor": "",
+        "bgColor": ""
     }
 }

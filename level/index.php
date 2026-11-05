@@ -70,7 +70,16 @@ include("../assets/htmlext/flayeralert.php");
 $data["serverType"] = $serverType;
 $data["userpermissions"] = $userPermissionsJSON;
 $data["gdpsVersion"] = intval($gdps_settings["gdps_version"]);
+$data["gdpsBinaryVersion"] = max(0, intval($gdps_settings["gdps_binary_version"] ?? 0));
+$html = str_replace('[[SONGJSON]]', json_encode($data['song'] ?? array(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT), $html);
 foreach ($data as $key => $value) {
+    if ($key === 'song') {
+        continue;
+    }
+    if (in_array($key, array('songName', 'songAuthor', 'songSize', 'songLink', 'songListenLink'), true)) {
+        $html = str_replace('[[' . strtoupper($key) . ']]', htmlspecialchars(strval($value), ENT_QUOTES, 'UTF-8'), $html);
+        continue;
+    }
     $regex = '/\[\[' . strtoupper($key) . '\]\]/';
     $value = is_numeric($value) ? intval($value) : $value;
     if ($value === false) {$value = 0;} else if ($value === true) {$value = 1;} 

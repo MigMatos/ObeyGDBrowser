@@ -206,36 +206,23 @@ let renderedIcons = {}
 
 
 async function renderIcons() {
-
-	//cube - ship - ball - ufo - wave - robot - spider - swing - jetpack
-	let iconsToRender = $('gdicon:not([rendered], [dontload])')
-	if (iconsToRender.length < 1) return
-
-	console.log(iconsToRender.length);
-
-	for (let i = 0; i < iconsToRender.length; i++) {
-		let currentIcon = iconsToRender.eq(i);
-		var extraUrlIcon = "";
-		let iconConfig = {
-			id: +currentIcon.attr('iconID') || 1,
-			form: currentIcon.attr('iconForm') || "cube",
-			col1: +currentIcon.attr('col1') || 1,
-			col2: +currentIcon.attr('col2') || 1,
-			colg: (+currentIcon.attr('colg') !== 0 && +currentIcon.attr('colg')) || (+currentIcon.attr('col2') || 1),
-			glow: currentIcon.attr('glow') || 0
+	if (!document.querySelector('gdicon:not([rendered]):not([dontload])')) return;
+	if (!window.GDIcons) {
+		if (!window.gdIconLoader) {
+			window.gdIconLoader = new Promise((_resolve, _reject) => {
+				const _script = document.createElement('script');
+				_script.src = `${scriptPath}/misc/gdicons.js`;
+				_script.onload = _resolve;
+				_script.onerror = () => {
+					window.gdIconLoader = null;
+					_reject(new Error('Could not load the icon renderer.'));
+				};
+				document.head.appendChild(_script);
+			});
 		}
-
-		if (iconConfig.glow == 1) { extraUrlIcon = `&glow=${iconConfig.colg}`; }
-		let urlIcon = `https://gdicon.oat.zone/icon.png?type=${iconConfig.form}&value=${iconConfig.id}&color1=${iconConfig.col1}&color2=${iconConfig.col2}&color3=${iconConfig.colg}${extraUrlIcon}`
-
-
-
-		currentIcon.append(`<img title="${iconConfig.form}" style="${currentIcon.attr("imgStyle") || ""}" src="${urlIcon}">`)
-		currentIcon.attr("rendered", "true")
-
-		
+		await window.gdIconLoader;
 	}
-
+	return window.GDIcons.renderElements();
 }
 
 // reset scroll

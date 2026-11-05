@@ -1,0 +1,35 @@
+#iconsDiv {
+    --profile-icon-size: clamp(44px, 7vh, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(6px, 1vh, 12px);
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+}
+#iconsDiv gdicon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 var(--profile-icon-size);
+    width: var(--profile-icon-size);
+    height: var(--profile-icon-size);
+    line-height: 0;
+}
+#iconsDiv gdicon canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+#iconsDiv #deatheffect {
+    flex: 0 0 var(--profile-icon-size);
+    width: var(--profile-icon-size);
+    height: var(--profile-icon-size);
+    margin: 0;
+    object-fit: contain;
+    box-sizing: border-box;
+    padding: calc(var(--profile-icon-size) * .06);
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#737373">
+    <title>Geometry Dash Icon Kit</title>
+    <link rel="icon" href="../assets/iconkitbuttons/iconkit.png">
+    <link href="../assets/css/iconkit.css" type="text/css" rel="stylesheet">
+    <link href="../assets/css/flayers.css" type="text/css" rel="stylesheet">
+    <link href="../assets/css/colorselector.css" type="text/css" rel="stylesheet">
+    <link href="iconkit.css" type="text/css" rel="stylesheet">
+    <script id="iconKitSession" type="application/json">[[ICONKITSESSION]]</script>
+    <script src="../misc/versionadapter.js" defer></script>
+    <script src="../misc/colorselector.js" defer></script>
+    <script src="../misc/gdicons.js" defer></script>
+    <script src="iconkit.js" defer></script>
+</head>
+<body class="iconscroll icon-kit-page">
+    <a class="back-button" href="../index.php" aria-label="Back to browser">
+        <img class="gdButton" src="../assets/back.png" alt="">
+    </a>
+    <aside id="playerPanel" class="player-panel" aria-label="Your statistics" hidden>
+        <img id="playerLoading" class="spin" src="../assets/loading.png" alt="Loading statistics">
+        <dl id="playerStats"></dl>
+        <p id="playerStatus" role="status"></p>
+    </aside>
+    <main class="icon-kit center">
+        <header>
+            <h1 class="kit-title">
+                <img id="iconkitlogo" src="../assets/iconkit.png" alt="Online Icon Kit">
+                <span id="playerName" class="font-gold-pusab" hidden></span>
+            </h1>
+        </header>
+        <section class="preview-section" aria-label="Selected icon">
+            <div id="iconPreview" class="icon-preview" aria-busy="true">
+                <img class="spin kit-loading" src="../assets/loading.png" alt="Loading icon">
+            </div>
+            <hr id="gdfloor">
+            <div id="menuButtons" class="preview-tools">
+                <button id="downloadIcon" class="blankButton menuButton gdButton" type="button" aria-label="Download PNG" title="Download PNG" disabled>
+                    <img src="../assets/iconkitbuttons/save.png" alt="">
+                </button>
+                <button id="copyIcon" class="blankButton menuButton gdButton" type="button" aria-label="Copy image" title="Copy image" disabled>
+                    <img src="../assets/iconkitbuttons/copy.png" alt="">
+                </button>
+                <button id="copyLink" class="blankButton menuButton gdButton" type="button" aria-label="Copy link" title="Copy link" disabled>
+                    <img src="../assets/iconkitbuttons/link.png" alt="">
+                </button>
+                <button id="randomIcon" class="blankButton menuButton gdButton" type="button" aria-label="Random icon" title="Random icon" disabled>
+                    <img src="../assets/iconkitbuttons/shuffle.png" alt="">
+                </button>
+                <label class="id-control" for="iconValue">ID
+                    <input id="iconValue" type="number" min="1" value="1" disabled>
+                </label>
+            </div>
+            <input id="shareLink" type="text" readonly aria-label="Link to this icon setup" hidden>
+            <p id="iconStatus" role="status" aria-live="polite">Loading icons…</p>
+        </section>
+        <section class="selection-panel" aria-label="Icon selection">
+            <div id="modeTabs" class="mode-tabs" role="group" aria-label="Game mode"></div>
+            <div class="catalog">
+                <button id="previousPage" class="blankButton gdButton page-button" type="button" aria-label="Previous icons" disabled>
+                    <img src="../assets/back.png" alt="">
+                </button>
+                <div id="iconKitParent" class="iconKit noDarken">
+                    <div id="iconGrid" class="icon-grid" aria-label="Available icons" aria-busy="true"></div>
+                </div>
+                <button id="nextPage" class="blankButton gdButton page-button" type="button" aria-label="Next icons" disabled>
+                    <img class="mirror" src="../assets/back.png" alt="">
+                </button>
+            </div>
+            <nav id="pageDots" class="page-dots" aria-label="Icon pages"></nav>
+            <output id="pageLabel" class="screen-reader" aria-live="polite">1 / 1</output>
+        </section>
+        <section class="color-panel" aria-label="Icon colors">
+            <div class="color-slots colTypes" role="group" aria-label="Color layer">
+                <button class="color-slot colorLabel blankButton gdButton" data-slot="0" type="button" aria-label="Primary color" title="Primary color" aria-pressed="true" disabled>
+                    <img id="colorPrimary" src="../assets/col1.png" alt="">
+                </button>
+                <button class="color-slot colorLabel blankButton gdButton" data-slot="1" type="button" aria-label="Secondary color" title="Secondary color" aria-pressed="false" disabled>
+                    <img id="colorSecondary" src="../assets/col2.png" alt="">
+                </button>
+                <button class="color-slot colorLabel blankButton gdButton" data-slot="2" type="button" aria-label="Glow color" title="Glow color" aria-pressed="false" disabled>
+                    <img id="colorGlow" src="../assets/colG.png" alt="">
+                </button>
+            </div>
+            <div id="colors" class="iconKit">
+                <div id="colorGrid" role="group" aria-label="Available colors"></div>
+            </div>
+        </section>
+        <footer>
+            <a href="https://twitter.com/TheRealGDColon" target="_blank" rel="noopener noreferrer">GD Colon</a>
+        </footer>
+    </main>
+</body>
+</html>

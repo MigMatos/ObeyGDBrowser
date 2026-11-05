@@ -1,5 +1,8 @@
 <head>
 	<link href="../assets/css/browser.css?v=15" type="text/css" rel="stylesheet">
+	<link href="../level/songs.css" type="text/css" rel="stylesheet">
+    <link href="../assets/css/thumbnails.css" type="text/css" rel="stylesheet">
+    <script src="../misc/gdthumbnails.js"></script>
 	<title>[[NAME]] ([[ID]])</title>
 	<meta charset="utf-8">
 	
@@ -168,7 +171,7 @@
 			<div class="box-subopt box-events-items">
 				<div id="gdItem21"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="1" class="checkgroup gdItem21" type="checkbox" id="box-df-1"><label for="box-df-1" class="gdcheckbox gdButton"></label><img src="../assets/crown-daily.png" style="width: 4vh;">Daily</h1></div>
 				<div id="gdItem21"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="2" class="checkgroup gdItem22" type="checkbox" id="box-df-2"><label for="box-df-2" class="gdcheckbox gdButton"></label><img src="../assets/crown-weekly.png" style="width: 4vh;">Weekly</h1></div>
-				<div id="gdItem22"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="3" class="checkgroup gdItem22" type="checkbox" id="box-df-3"><label for="box-df-3" class="gdcheckbox gdButton"></label><img src="../assets/crown-event.png" style="width: 4vh;">Event</h1></div>
+				<div id="gdItem22" class="gdItemBinary37" data-enable-binary-version="45"><h1 class="box-subopt-checkbox"><input name="dailyfeature" value="3" class="checkgroup gdItem22" type="checkbox" id="box-df-3"><label for="box-df-3" class="gdcheckbox gdButton"></label><img src="../assets/crown-event.png" style="width: 4vh;">Event</h1></div>
 			</div>
 			<br>
 			<h2 class="smaller center eventDurationKey" style="display: none;justify-content: center;align-items: center;"><img src="../assets/time.png" style="width: 4vh; padding-right: 1vh;">Event duration:</h2>
@@ -319,22 +322,23 @@
 	<div class="brownBox" id="songBox" style="position:absolute; bottom: 4%; left: 0; right: 0; width: 85vh; height: 20%; margin-left: auto; margin-right: auto;">
 		<div style="margin-left: 0.5%">
 			<h1 class="pre slightlySmaller" id="songname">[[SONGNAME]]</h1>
-			<h2 class="pre smaller">By: [[SONGAUTHOR]]<!--
+			<h2 class="pre smaller">By: <span id="songAuthorName">[[SONGAUTHOR]]</span><!--
 			--><img id="scout" title="Artist is scouted" style="display: none; margin-left: 1.5%; filter: hue-rotate(-55deg);" class="help artistIcon valign" src="../assets/check.png" width="5%"><!--
 			--><img id="whitelist" title="Artist is whitelisted" style="display: none" class="help artistIcon valign" src="../assets/check.png" width="5%"><!--
-			--> <a class="songLink" href="https://[[SONGAUTHOR]].newgrounds.com" target="_blank"><img id="moreSongs" class="gdButton valign" src="../assets/more.png" width="12%"></a></h2>
+			--> <a id="moreSongsLink" class="songLink" target="_blank" rel="noopener noreferrer" hidden><img id="moreSongs" class="gdButton valign" src="../assets/more.png" width="12%"></a></h2>
 			<!-- <img id="checkSong" style="display: none; margin-top: 1%" title="Check song verification" class="gdButton valign" src="../assets/btn-check.png" width="16%"> -->
 			<h3 id="songLoading" style="display: none; margin-top: 0.5%;">Loading...</h3>
 			<h3 id="songAllowed" style="display: none; margin-top: 0.5%; color: lime">Song is allowed for use</h3>
 			<h3 id="songNotAllowed" style="display: none; margin-top: 0.5%; color: red">Song is not allowed for use</h3>
 			<h3 id="artistInfo" style="display: none; margin-top: 0.5%"></h3>
 		</div>
-		<a class="songLink"><img class="gdButton sideButton" songID="[[SONGID]]" title="Play Song" id="playSong" src="../assets/playsong.png" style="position:absolute; right: 1%; top: 50%; width: 11%; height: auto; z-index: auto;"></a>
+		<a id="playSongLink" class="songLink" role="button" tabindex="0" hidden><img class="gdButton sideButton" songID="[[SONGID]]" title="Play Song" id="playSong" src="../assets/playsong.png" style="position:absolute; right: 1%; top: 50%; width: 11%; height: auto; z-index: auto;"></a>
 	</div>
 
 	<div class="center" style="position:absolute; bottom: 5%; left: 0; right: 0">
 		<h1 id="songInfo" style="transform: scale(0.5);">SongID: [[SONGID]] &nbsp;&nbsp; Size: [[SONGSIZE]]</h1>
 	</div>
+	<script id="levelSongData" type="application/json">[[SONGJSON]]</script>
 
 	<div class="center noClick" style="position:absolute; top: 24%; right: 0%; min-width: 100%">
 		<img class="gdButton yesClick" id="playButton" src="../assets/play.png" width="11%">
@@ -374,7 +378,7 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 <script type="text/javascript" src="../misc/fileSaver.js"></script>
@@ -385,6 +389,8 @@
 $("#loading-main").hide()
 let legacyServer = true;
 let gdpsVersion = "[[GDPSVERSION]]";
+let gdpsBinaryVersion = "[[GDPSBINARYVERSION]]";
+GDThumbnails.renderLevel('[[ID]]', ['[[DAILY]]', '[[WEEKLY]]', '[[EVENT]]'].some(_value => _value === '1'));
 var maxGDPSVersion = 23;
 
 const gmdData = `[[GMDDATA]]`;
@@ -618,22 +624,11 @@ if (!'[[DAILYNUMBER]]'.startsWith("[")) {
 }
 else $('.dailyLevel').remove()
 
-if ("[[SONGID]]".startsWith("Level")) {
-	$('#songInfo').text('[[SONGID]]')
-	$('.songLink').hide()
-}
-else $('#checkSong').show()
-
 if (!"[[GDPS]]".startsWith("[")) {
-	if (!("[[SONGLINK]]").match(/^https?:\/\/\audio\.ngfiles\.com\//)) {
-		$('#playSong').hide()
-		$('#moreSongs').hide()
-	}
 	$('#leaderboardbtn').hide()
 	$('#checkSong').remove()
 } 
 
-if ("[[SONGAUTHOR]]" == "Unknown" || "[[INVALIDSONG]]" == "true") $('.songLink').hide()
 if ("[[DISLIKED]]" == "true") $('#likeImg').attr('src', '../assets/dislike.png').css('transform', 'translateY(20%)')
 
 if ($("#additional").hasClass('downloadDisabled')) {
@@ -688,32 +683,6 @@ function deleteLevel() {
   $('#saveButton').attr('src', '../assets/plus.png').attr('onclick', '$("#saveDiv").show(); saveLevel()')
   $('.popup').hide()
 }
-
-$('#playSong').click(function() {
-	console.warn("Ok?");
-	let songID = $('#playSong').attr('songID');
-	openGdCustomFrame("../songs/index.php?str="+songID+"&gdframe");
-})
-
-$('#checkSong').click(function() {
-	$('#checkSong').hide()
-	$('#songLoading').show()
-	fetch(`../api/song/[[SONGID]]`).then(res => res.json()).then(info => {
-		$('#songLoading').hide()
-		$(info && info != -1 ? '#songAllowed' : '#songNotAllowed').show().addClass('songStatus')
-		// if (info.error) return
-		// if (!info.artist.scouted) {
-		// 	$('#scout').attr('src', '../assets/x.png')
-		// 	$('#scout').attr('title', $('#scout').attr('title').replace('is ', 'is NOT '))
-		// 	$('#scout').css('filter', 'saturate(0.4)')
-		// }
-		// if (!info.artist.whitelisted) {
-		// 	$('#whitelist').attr('src', '../assets/x.png')
-		// 	$('#whitelist').attr('title', $('#whitelist').attr('title').replace('is ', 'is NOT '))
-		// }
-		// $('#scout').show(); $('#whitelist').show()
-	})
-})
 
 $('.artistIcon').hover(function() {
 	let title = $(this).attr('title')
@@ -837,4 +806,5 @@ $('.submitForm').click(function() {
 </script>
 
 <script type="text/javascript" src="../misc/versionadapter.js"></script>
+<script type="text/javascript" src="../misc/gdsongs.js"></script>
 <script type="text/javascript" src="../misc/checkperms.js"></script>

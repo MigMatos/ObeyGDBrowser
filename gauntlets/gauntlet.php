@@ -7,6 +7,7 @@
     <meta id="meta-desc" property="og:description" content="View the 5 levels in a Gauntlet!">
     <meta id="meta-image" name="og:image" itemprop="image" content="../coin.png">
     <meta name="twitter:card" content="summary">
+    <script src="../misc/gdgauntlets.js"></script>
 </head>
 <style>
     #levels {
@@ -98,7 +99,7 @@
 </div>
 
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../misc/global.js?"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 
@@ -113,11 +114,6 @@
     }
 
     let loading = false
-
-    function gauntletErrorImg(img) {
-		img.src = "../assets/gauntlets/1.png";
-		img.style.filter = 'grayscale(100%)';
-	}
 
     if (!gauntlet) {
         window.location.href = "./"
@@ -143,12 +139,14 @@
 
         Fetch(searchFilters).then(appendLevels).catch(e => $('#loading').hide())
 
-        function appendLevels(res) {
+        async function appendLevels(res) {
             res = res[0];
             console.log(res);
 
+            res.gauntlet = await GDGauntlets.getInfo(res.id);
+
             document.title = `${res.gauntlet.name} Gauntlet`
-            $('#gauntlet-title').html(`${res.gauntlet.name} Gauntlet`)
+            $('#gauntlet-title').text(`${res.gauntlet.name} Gauntlet`)
             $('#meta-desc').attr('content',  `View the 5 levels in the ${res.gauntlet.name} Gauntlet!`)
 
 
@@ -172,7 +170,7 @@
                
                 <p class="level-text name">${x.name}</p>
                 <div style="display: flex;justify-content: center;align-items: center;">
-                <img class="level-img" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${res.id}.png">
+                <img class="level-img" data-gauntlet-id="${res.id}">
                 ${y == 4 ? '<img class="level-last" src="../assets/gauntlets/icons/skull.png">' : ""}
                 </div>
                 <p class="level-text stars">${x.stars}

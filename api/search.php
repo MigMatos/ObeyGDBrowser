@@ -3,8 +3,13 @@ header('Access-Control-Allow-Methods: GET');
 error_reporting(0);
 
 include("../_init_.php");
+require_once __DIR__ . '/../misc/songs.php';
 
 function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID) {
+    if (isset($params['song']) && !isset($params['songID'])) {
+        $params['songID'] = $params['song'];
+    }
+    $songReader = new BrowserSongs($db, $gdps_settings);
     $time_left_daily = 0;
     $feaID = 0;
     $type_lvl = "none";
@@ -113,7 +118,10 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
     $order = "likes";
 
     //Another configs
-    $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID ";
+    $songColumns = 'songs.ID AS browserSongID, songs.name AS browserSongName, songs.authorID AS browserSongAuthorID, '
+        . 'songs.authorName AS browserSongAuthorName, songs.size AS browserSongSize, '
+        . 'songs.download AS browserSongDownload, songs.isDisabled AS browserSongDisabled';
+    $sql = "SELECT levels.*, $songColumns, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID ";
     
     $lvlDiffs = ["-1" => "starDifficulty = 0", "-2" => "starDemon = 1 AND starDifficulty = 50", "-3" => "starAuto = 1 AND starDifficulty = 50", "1" => "starDemon = 0  AND starDifficulty = 10", "2" => "starDifficulty = 20", "3" => "starDifficulty = 30", "4" => "starDifficulty = 40", "5" => "starDemon = 0 AND starAuto = 0 AND starDifficulty = 50"];
     
@@ -156,13 +164,20 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
             } elseif ($key == 'noStar') {
                 if ($value == '1') {$paramsSql[] = "starStars = 0";}
                 else if ($value == '0') {$paramsSql[] = "NOT starStars = 0";}
-            } elseif ($key == 'songID' && is_numeric($value)) {
-                if(isset($params['customSong'])){
-                    $paramsSql[] = "songID = ?";
-                    $bindings[] = $value;
+            } elseif ($key == 'songID') {
+                $_songId = normalizeBrowserSongId($value, true);
+                if ($_songId === null) {
+                    return json_encode(array('error' => 'Invalid song ID.'));
+                }
+                if ($_songId === 0 && !isCustomSongFilter($params)) {
+                    continue;
+                }
+                if (isCustomSongFilter($params)) {
+                    $paramsSql[] = "levels.songID = ?";
+                    $bindings[] = $_songId;
                 } else {
-                    $paramsSql[] = "audioTrack = ?";
-                    $bindings[] = $value;
+                    $paramsSql[] = "levels.audioTrack = ?";
+                    $bindings[] = $_songId - 1;
                 }
             } elseif ($key == 'user' && is_numeric($value)) {
                 $paramsSql[] = "levels.userID = ?";
@@ -183,7 +198,7 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
                 $paramsSql[] = "NOT starStars = 0";
                 $order = "rateDate DESC, uploadDate";
             } elseif ($key == 'thesafe') {
-                $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN dailyfeatures ON levels.levelID = dailyfeatures.levelID ";
+                $sql = "SELECT levels.*, $songColumns, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN dailyfeatures ON levels.levelID = dailyfeatures.levelID ";
                 $order = "dailyfeatures.feaID";
                 if($value == "daily") {
                     $paramsSql[] = "dailyfeatures.type = 0";
@@ -191,7 +206,7 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
                     $paramsSql[] = "dailyfeatures.type = 1";
                 } else if($value == "events") {
                     $order = "events.feaID";
-                    $sql = "SELECT levels.*, songs.*, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN events ON levels.levelID = events.levelID ";
+                    $sql = "SELECT levels.*, $songColumns, users.userName AS originaluserName FROM levels LEFT JOIN songs ON levels.songID = songs.ID LEFT JOIN users ON levels.userID = users.userID INNER JOIN events ON levels.levelID = events.levelID ";
                 }
             }
             
@@ -225,6 +240,7 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
 
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $songReader->preload(array_column($results, 'songID'));
 
 
     // print_r($results);
@@ -308,7 +324,7 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
         else return 0;
     }
 
-    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $eventReward, $type_lvl, $downloadLevelData) {
+    $json_data = array_map(function ($result) use ($orbs_get, $gdps_settings, $time_left_daily, $feaID, $eventReward, $type_lvl, $downloadLevelData, $songReader) {
 
         $level = [];
 
@@ -410,17 +426,12 @@ function searchLevels($params, $db, $gdps_settings, $userPermissions, $accountID
             "password" => "",
             "uploaded" => "",
             "updated" => "",
-            "songName" => isset($result["name"]) ? $result["name"] : "",
-            "songAuthor" => isset($result["authorName"]) ? $result["authorName"] : "",
-            "songSize" => isset($result["size"]) ? $result["size"]."MB" : "0.00MB",
-            "songID" => $songID,
-            "songLink" => isset($result["download"]) ? $result["download"] : "",
             "results" => 9999, // Placeholder value
             "pages" => 1000 // Placeholder value
         ]);
 
 
-        return $level;
+        return array_replace($level, $songReader->readLevel($result));
     }, $results);
 
 

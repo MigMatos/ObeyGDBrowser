@@ -1,0 +1,30 @@
+.has-result-thumbnail {
+    background-image: linear-gradient(110deg, #a1582c 0%, #a1582c 60%, #0003 60.2%, #0003 100%), var(--level-thumbnail);
+    background-position: center, right center;
+    background-size: 100% 100%, auto 100%;
+    background-repeat: no-repeat;
+}
+
+.has-result-thumbnail:nth-child(odd) {
+    background-image: linear-gradient(110deg, #c1743f 0%, #c1743f 60%, #0003 60.2%, #0003 100%), var(--level-thumbnail);
+}
+
+body.has-level-thumbnail {
+    background-image: linear-gradient(#0008, #000a), var(--level-thumbnail) !important;
+    background-size: cover;
+}
+
+.special-level-thumbnail {
+    position: fixed;
+    inset: 18% 0 20% 50%;
+    pointer-events: none;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    mask-image: linear-gradient(to right, transparent, black 40%);
+    opacity: .65;
+}
+
+.has-special-thumbnail {
+    background-image: var(--level-thumbnail);
+}

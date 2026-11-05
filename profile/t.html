@@ -1,7 +1,9 @@
 <head>
+	<base href="[[PROFILEBASE]]">
 	<title>[[USERNAME]]'s Profile</title>
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css?v=14" type="text/css" rel="stylesheet">
+	<link href="icons.css" type="text/css" rel="stylesheet">
     
 	<link rel="icon" href="" sizes="96x96" type="image/png">
 	<meta id="meta-title" property="og:title" content="[[USERNAME]]'s profile">
@@ -346,14 +348,14 @@
 
 		<div class="lightBox center profilePostHide" id="iconsDiv" style="margin: 2% auto; width: 105vh">
 			<gdicon iconID=[[CUBE]] iconForm="cube" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]" id="mainIcon"></gdicon>
-			<gdicon iconID=[[SHIP]] iconForm="ship" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]" imgStyle="height: 7%"></gdicon>
-			<gdicon iconID=[[BALL]] iconForm="ball" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
-			<gdicon iconID=[[UFO]] iconForm="ufo" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
-			<gdicon iconID=[[WAVE]] iconForm="wave" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]" imgStyle="height: 6%"></gdicon>
-			<gdicon iconID=[[ROBOT]] iconForm="robot" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
-			<gdicon iconID=[[SPIDER]] iconForm="spider" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
-			<gdicon iconID=[[SWING]] iconForm="swing" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
-			<gdicon iconID=[[JETPACK]] iconForm="jetpack" col1="[[COL1]]" col2="[[COL2]]" glow="[[GLOW]]"></gdicon>
+			<gdicon iconID=[[SHIP]] iconForm="ship" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem12" iconID=[[BALL]] iconForm="ball" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem15" iconID=[[UFO]] iconForm="ufo" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem19" iconID=[[WAVE]] iconForm="wave" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem20" iconID=[[ROBOT]] iconForm="robot" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem21" iconID=[[SPIDER]] iconForm="spider" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem22" iconID=[[SWING]] iconForm="swing" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
+			<gdicon class="gdItem22" iconID=[[JETPACK]] iconForm="jetpack" col1="[[COL1]]" col2="[[COL2]]" colg="[[COLG]]" glow="[[GLOW]]"></gdicon>
 			<img src="../assets/deatheffects/[[DEATHEFFECT]].png" title="Death Effect [[DEATHEFFECT]]" id="deatheffect">
 		</div>
 
@@ -406,18 +408,19 @@
 </div>
 
 </body>
-<script
-  src="https://code.jquery.com/jquery-3.7.1.min.js"
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-  crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.2/browser/pixi.js"></script>
-<!-- <script type="text/javascript" src="../iconkit/icon.js"></script> -->
+<script>
+let gdpsVersion = Number("[[GDPSVERSION]]");
+let gdpsBinaryVersion = Number("[[GDPSBINARYVERSION]]");
+</script>
+<script src="../misc/versionadapter.js"></script>
+<script src="../misc/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../misc/gdicons.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
 <script>
-$('#mainIcon').on('DOMNodeInserted', 'img', function () {
-	$("link[rel='icon']").attr("href", $(this).attr("src"));
+document.getElementById('mainIcon').addEventListener('gdiconrendered', function(_event) {
+	$("link[rel='icon']").attr("href", _event.detail.canvas.toDataURL("image/png"));
 });
 $("#loading-main").hide();
 </script>
@@ -438,20 +441,13 @@ document.addEventListener('loadedTheme', function(e) {
 function getColors() {
 	if(localStorage.getItem('profileTheme') == "colored"){
 
-		fetch('../assets/json/colors.json')
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Error loading JSON');
-			}
-			return response.json(); 
-		})
-		.then(data => {
-
-			let col1 = data[Number("[[COL1]]")];
-			let col2 = data[Number("[[COL2]]")];
-			let colg = data[Number("[[COLG]]")];
-
-			recolorProfile(col1,col2,colg)
+		GDIcons.getConfig().then(_config => {
+			const _firstColor = _config.colors[Object.keys(_config.colors)[0]];
+			const _colors = ["[[COL1]]", "[[COL2]]", "[[COLG]]"].map(_id => {
+				const _color = _config.colors[Number(_id)] || _firstColor;
+				return {r: _color[0], g: _color[1], b: _color[2]};
+			});
+			recolorProfile(..._colors);
 		})
 		.catch(error => {
 			console.error('JSON Error:', error);
@@ -662,7 +658,13 @@ function confirmLogout() {
         });
 }
 
-renderIcons()
+GDVersionAdapter.apply();
+for (const _icon of document.querySelectorAll('#iconsDiv gdicon')) {
+	if (!GDVersionAdapter.isModeAvailable(_icon.getAttribute('iconForm'), {gameVersion: gdpsVersion})) {
+		_icon.setAttribute('dontload', 'true');
+	}
+}
+renderIcons();
 
 
 let messageText = 'Your <cy>Geometry Dash password</cy> will <cg>not be stored</cg> anywhere on the site, both <ca>locally and server-side.</ca> You can view the code used for profile posts <a class="menuLink" target="_blank" href="https://github.com/GDColon/GDBrowser/blob/master/api/post/postProfileComment.js">here</a>.'

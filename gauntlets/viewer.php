@@ -4,12 +4,7 @@
 	<meta charset="utf-8">
 	<link href="../assets/css/browser.css" type="text/css" rel="stylesheet">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-	<script>
-		function gauntletErrorImg(img) {
-			img.src = "../assets/gauntlets/1.png";
-			img.style.filter = 'grayscale(100%)';
-		}
-	</script>
+	<script src="../misc/gdgauntlets.js"></script>
 </head>
 
 <?php include("../assets/htmlext/flayeralert.php"); ?>
@@ -177,7 +172,7 @@
 			<input type="text" id="editgID2" name="id" value="0" hidden>
 			<div class="transparentbox" style="display: contents;">
 				
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 25%;"><img src="../assets/gauntlets/6.png" style="filter:grayscale(1);" class="smallMapDivIcon">Gauntlet: <div onclick="CreateFLAlertGauntletsAPI(this,'5')" style="width: 60%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editGauntletID" name="newid" min-options="1" max-options="1" api-url="../api/gauntlets.php" required>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 25%;"><img data-gauntlet-id="6" style="filter:grayscale(1);" class="smallMapDivIcon">Gauntlet: <div onclick="CreateFLAlertGauntletsAPI(this,'5')" style="width: 60%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="editGauntletID" name="newid" min-options="1" max-options="1" api-url="../api/gauntlets.php" required>
 				</select></div></h3>
 
 				
@@ -199,7 +194,7 @@
 			<input type="text" name="act" value="create" hidden>
 			<div class="transparentbox" style="display: contents;">
 				
-				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 25%;"><img src="../assets/gauntlets/6.png" style="filter:grayscale(1);" class="smallMapDivIcon">Gauntlet: <div onclick="CreateFLAlertGauntletsAPI(this,'5')" style="width: 60%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="createGauntletID" name="id" min-options="1" max-options="1" api-url="../api/gauntlets.php" required>
+				<h3 style="display: flex;justify-content: center; align-items: center; margin-left: 3vh; height: 25%;"><img data-gauntlet-id="6" style="filter:grayscale(1);" class="smallMapDivIcon">Gauntlet: <div onclick="CreateFLAlertGauntletsAPI(this,'5')" style="width: 60%;"><select class="gdsInput select" size="1" style="margin-left: 3vh;" id="createGauntletID" name="id" min-options="1" max-options="1" api-url="../api/gauntlets.php" required>
 				</select></div></h3>
 
 				
@@ -219,7 +214,7 @@
 			<h2 class="smaller center" style="font-size: 5.5vh; margin-top: 1%; display: block;">Delete Gauntlet #<span id="delgID"></span></h2>
 			<form id="formDelGauntlet">
 				<input type="text" name="act" value="delete" hidden>
-				<img id="delgauntletImage" onerror="gauntletErrorImg(this)" style="margin-top: 1.5vh; width: 10vh;" src="../assets/gauntlets/0.png">
+				<img id="delgauntletImage" data-gauntlet-id="0" style="margin-top: 1.5vh; width: 10vh;">
 				<p class="bigger center" style="line-height: 5vh; margin-top: 1vh;">
 					Are you sure to delete this Gauntlet?<br><cr>This action cannot be reversed.</cr>
 				</p>
@@ -234,7 +229,7 @@
 	<div style="position:absolute;bottom: 83.9%;left: -44.8%;width: 100%"><img class="cornerPiece" src="../assets/corner.png" width=10%; style="transform: scaleY(-1)"></div>
 	<div style="position:absolute;bottom: 83.9%;left: 44.9%;width: 100%"><img class="cornerPiece" src="../assets/corner.png" width=10%; style="transform: scaleX(-1) scaleY(-1)"></div>
 
-	<div style="position:absolute;width: 100%"><img class="groundPiece" src="../assets/gauntlets/gauntletGround.png" style="width: 100%;"></div>
+	<div style="position:absolute;width: 100%"><img class="groundPiece" src="../assets/gauntlets/icons/gauntletGround.png" style="width: 100%;"></div>
 
 	<!-- -->
 
@@ -274,7 +269,7 @@
 	
 </div>
 </body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
 
 <script type="text/javascript" src="../misc/gdcustomalerts.js"></script>
 <script type="text/javascript" src="../misc/customselects.js"></script>
@@ -361,7 +356,10 @@ pages = 0;
 
 const imageExists = url => fetch(url, { method: 'HEAD' }).then(res => res.ok).catch(() => false);
 
-fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
+fetch('../api/gauntlets.php').then(res => res.json()).then(async gauntlets => {
+	gauntlets = await Promise.all(gauntlets.map(async _gauntlet => {
+		return {..._gauntlet, gauntlet: await GDGauntlets.getInfo(_gauntlet.id)};
+	}));
 	
 	
 
@@ -394,11 +392,11 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 	
 			<div class="gauntlet transparentBox gauntletBGCustom" id="div-g-${x.id}" style="animation-delay: ${animationDelay};">
 			
-			<img class="gauntlet bg" id="img-g-alt-${x.id}" style="transform: translate(${posX}vh, ${posY}vh) scale(${scale});" onerror="gauntletNoBGIMG(this, '${x.id}' , '${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'}')" src="../assets/gauntlets/backgrounds/${x.id}.png"><br>
+			<img class="gauntlet bg" id="img-g-alt-${x.id}" style="transform: translate(${posX}vh, ${posY}vh) scale(${scale});" onerror="gauntletNoBGIMG(this, '${x.id}' , '${x.gauntlet.bgColor ? x.gauntlet.bgColor : '#c8c8c8'}')" ${x.gauntlet.isKnown ? `src="../assets/gauntlets/backgrounds/${x.id}.png"` : ''}><br>
 
-			<h3 class="gauntletTitle" id="h3-g-${x.id}" style="display:none; color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'};">${x.gauntlet.name}<br>Gauntlet</h3><br>
+			<h3 class="gauntletTitle" id="h3-g-${x.id}" style="display:none; color: ${x.gauntlet.textColor ? x.gauntlet.textColor : '#ffffff'};"></h3><br>
 
-			<img class="gauntlet icon" id="img-g-${x.id}" style="display:none;" onerror="gauntletErrorImg(this)" src="../assets/gauntlets/${x.id}.png"><br>
+			<img class="gauntlet icon" id="img-g-${x.id}" style="display:none;" data-gauntlet-id="${x.id}"><br>
 			
 			<div class="checkperm-gauntlets" id="perms-g-${x.id}" onclick="event.stopPropagation();" style="pointer-events: unset; cursor: default; background-color: #0000007d; border-radius: 2vh; padding: 0.5vh; top: 48.5vh; position: relative;">
 				<h3 class="lessSpaced">Mod actions</h3>
@@ -407,6 +405,10 @@ fetch('../api/gauntlets.php').then(res => res.json()).then(gauntlets => {
 			</div>
 
 			</div></a>`)
+		$(`#h3-g-${x.id}`).empty().append(document.createTextNode(x.gauntlet.name), document.createElement('br'), document.createTextNode('Gauntlet'));
+		if (!x.gauntlet.isKnown) {
+			gauntletNoBGIMG(null, x.id, '#c8c8c8');
+		}
 	})
 
 	if(pages > 0) {
@@ -447,7 +449,7 @@ function editGauntlet(id) {
 	$('#editgID2').val(`${dataGauntlet.id}`);
 	$('#editgID').text(`${dataGauntlet.id}`);
 	
-	editGauntlet.append(`<option html="${dataGauntlet.gauntlet.name} Gauntlet" value="${dataGauntlet.id}" selected>${dataGauntlet.gauntlet.name} Gauntlet</option>`); 
+	editGauntlet.append(new Option(`${dataGauntlet.gauntlet.name} Gauntlet`, dataGauntlet.id, true, true));
 
 
 	let editgLevels = $('#editGauntletLevels').empty();
@@ -464,7 +466,7 @@ function deleteGauntlet(id) {
 	dataGauntlet = pageCache[id];
 
 	let editGauntlet = $('#editGauntletID').empty();
-	$('#delgauntletImage').attr('src',`../assets/gauntlets/${dataGauntlet.id}.png`)
+	$('#delgauntletImage').attr('data-gauntlet-id', String(dataGauntlet.id));
 	$('#delgauntletImage').css("filter", "unset");
 	$('#delgID').text(`${dataGauntlet.id}`);
 	$('#delgID2').val(`${dataGauntlet.id}`);

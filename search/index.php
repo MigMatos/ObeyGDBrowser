@@ -1,4 +1,7 @@
-<?php include("../_init_.php"); ?>
+<?php
+include("../_init_.php");
+require_once __DIR__ . '/../misc/songs.php';
+?>
 
 <head>
 	<title>Level Search</title>
@@ -183,7 +186,8 @@ let filters = []
 let demons = []
 let demonMode = false
 let customSong = true
-let officialSong = null
+let officialSong = 1
+const officialSongs = <?php echo json_encode(getOfficialSongCatalog($gdps_settings), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 let serverType = "<?php print_r($serverType); ?>"
 let gdpsVersion = "<?php print_r($gdpsVersion); ?>"
 var maxGDPSVersion = 23;
@@ -205,8 +209,8 @@ $('#box-song').click(function() {
 })
 
 function songOptionView() {
-	checkedSong = JSON.parse(localStorage.filters);
-	if(checkedSong.checked.includes("song")) document.getElementById('songOption').style.display = "inline";
+	const _checkedFilters = savedFilters;
+	if((_checkedFilters.checked || []).includes("song")) document.getElementById('songOption').style.display = "inline";
 	else {
 		document.getElementById('songOption').style.display = "none";
 		$('#songID').val("");
@@ -274,7 +278,7 @@ $('.levelSearch').click(function() {
 
 	if (selectedSong) {
 		url += "&songID=" + selectedSong
-		if (customSong) url += "&customSong"
+		url += "&customSong=" + (customSong ? '1' : '0')
 	}
 
 	// === FINISHING UP === //
@@ -391,6 +395,7 @@ $('#normalSong').click(function() {
 	$('#normalSong').removeClass('gray')
 	$('#songSelect').show()
 	$('#songID').hide()
+	updateOfficialSong()
 	checkExtraFilters()
 })
 
@@ -465,6 +470,30 @@ else if (+savedFilters.song && +savedFilters.song > 0) $('#songID').val(savedFil
 
 checkExtraFilters()
 songOptionView()
+
+function updateOfficialSong() {
+	let _song = officialSongs.find(_entry => _entry.id === Number(officialSong));
+	if (!_song) {
+		_song = officialSongs[0];
+		officialSong = _song ? _song.id : 1;
+	}
+	$('#songName').text(`${officialSong}: ${_song ? _song.name : 'Unknown'}`);
+	if (!customSong && document.getElementById('box-song').checked) {
+		savedFilters.song = officialSong;
+		savedFilters.defaultSong = true;
+	}
+}
+
+$('.songChange').click(function() {
+	const _current = officialSongs.findIndex(_entry => _entry.id === Number(officialSong));
+	const _index = Math.max(0, Math.min(officialSongs.length - 1, _current + Number($(this).attr('jump'))));
+	if (officialSongs[_index]) {
+		officialSong = officialSongs[_index].id;
+	}
+	updateOfficialSong();
+	checkExtraFilters();
+});
+updateOfficialSong();
 // Fetch(`../api/music`).then(music => {
 
 // 	$('#songName').html("1: " + music[1][0])

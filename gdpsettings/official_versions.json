@@ -1,0 +1,37 @@
+{
+    "versions": [
+        {"version": "1.0", "gameVersion": 1, "binaryVersion": 0},
+        {"version": "1.1", "gameVersion": 2, "binaryVersion": 0},
+        {"version": "1.2", "gameVersion": 3, "binaryVersion": 0},
+        {"version": "1.3", "gameVersion": 4, "binaryVersion": 0},
+        {"version": "1.4", "gameVersion": 5, "binaryVersion": 0},
+        {"version": "1.5", "gameVersion": 6, "binaryVersion": 0},
+        {"version": "1.6", "gameVersion": 7, "binaryVersion": 0},
+        {"version": "1.7", "gameVersion": 10, "binaryVersion": 0},
+        {"version": "1.8", "gameVersion": 18, "binaryVersion": 0},
+        {"version": "1.9", "gameVersion": 19, "binaryVersion": 0},
+        {"version": "1.93", "gameVersion": 19, "binaryVersion": 25},
+        {"version": "2.0", "gameVersion": 20, "binaryVersion": 27},
+        {"version": "2.011", "gameVersion": 20, "binaryVersion": 29},
+        {"version": "2.1", "gameVersion": 21, "binaryVersion": 33},
+        {"version": "2.111", "gameVersion": 21, "binaryVersion": 34},
+        {"version": "2.113", "gameVersion": 21, "binaryVersion": 35},
+        {"version": "2.2", "gameVersion": 22, "binaryVersion": 37},
+        {"version": "2.204", "gameVersion": 22, "binaryVersion": 40},
+        {"version": "2.205", "gameVersion": 22, "binaryVersion": 41},
+        {"version": "2.206", "gameVersion": 22, "binaryVersion": 42},
+        {"version": "2.207", "gameVersion": 22, "binaryVersion": 45},
+        {"version": "2.208", "gameVersion": 22, "binaryVersion": 46},
+        {"version": "2.2081", "gameVersion": 22, "binaryVersion": 47},
+        {"version": "2.2082", "gameVersion": 22, "binaryVersion": 48},
+        {"version": "2.209", "gameVersion": 22, "binaryVersion": 51},
+        {"version": "2.2091", "gameVersion": 22, "binaryVersion": 51}
+    ],
+    "sources": [
+        "https://github.com/Wyliemaster/gddocs/blob/master/docs/resources/server/level.md",
+        "https://github.com/A-Zalt/dashtools/blob/master/constants.js",
+        "https://github.com/Alex1304/jdash/releases",
+        "https://github.com/gd-docs/gd-docs",
+        "https://boomlings.dev/changelog"
+    ]
+}

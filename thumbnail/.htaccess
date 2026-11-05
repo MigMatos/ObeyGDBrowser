@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^([1-9][0-9]*(?:\.(?:png|webp))?(?:/(?:SMALL|FULL|HIGH)(?:\.(?:png|webp))?)?)/?$ index.php/$1 [L,NC]
+</IfModule>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Song player</title>
+    <link rel="icon" href="../../assets/song/disc.png">
+    <link rel="stylesheet" href="../../assets/css/browser.css">
+    <link rel="stylesheet" href="../../assets/css/utils.css">
+    <link rel="stylesheet" href="../../assets/css/flayers.css">
+    <link rel="stylesheet" href="../../assets/css/gdslider.css">
+    <link rel="stylesheet" href="player.css">
+    <script src="../../misc/gdslider.js" defer></script>
+    <script src="../../misc/gdsongs.js" defer></script>
+    <script src="../../misc/song-player.js" defer></script>
+    <script src="player.js" defer></script>
+</head>
+<body class="song-player-page levelBG">
+    <main id="songPlayer" class="song-player invisibleBox" aria-busy="true">
+        <button id="closePlayer" class="player-close" type="button" aria-label="Close player">
+            <img class="gdButton" src="../../assets/close.png" alt="">
+        </button>
+        <header class="player-heading">
+            <img class="player-art" src="../../assets/song/disc.png" alt="">
+            <div>
+                <h1 id="playerTitle" class="font-gold-pusab">Song player</h1>
+                <h3 class="lessSpaced"><a id="playerArtist" class="gdButton" title="Find songs by this artist"></a></h3>
+                <h3 id="playerDetails" class="lessSpaced"></h3>
+                <a id="playerMore" class="player-more" target="_blank" rel="noopener noreferrer" title="Artist website" hidden><img class="gdButton" src="../../assets/site.png" alt="Artist website"></a>
+            </div>
+        </header>
+        <div class="playback-row">
+            <button id="togglePlayback" class="player-play" type="button" aria-label="Play" disabled>
+                <img class="gdButton" src="../../assets/playsong.png" alt="">
+                <img id="playerLoading" class="spin" src="../../assets/loading.png" alt="Loading">
+            </button>
+            <div class="timeline">
+                <input id="songProgress" type="range" aria-label="Playback position" min="0" max="0" step="0.01" value="0" disabled>
+                <div class="player-times gdfont-Pusab small" aria-hidden="true"><output id="currentTime">00:00</output><output id="totalTime">--:--</output></div>
+            </div>
+        </div>
+        <div class="volume-row">
+            <label class="gdfont-Pusab small" for="songVolume"><img src="../../assets/GJ_sSFXIcon_001.png" alt=""><span>Volume</span></label>
+            <input id="songVolume" type="range" min="0" max="1" step="0.01" value="1">
+            <output id="volumeValue" class="gdfont-Pusab small" for="songVolume">100%</output>
+        </div>
+        <footer class="player-footer">
+            <div id="playerWarning" class="player-warning" hidden>
+                <img src="../../assets/exclamation.png" alt="">
+                <h3 class="lessSpaced"><cr>Warning:</cr> <span></span></h3>
+            </div>
+            <div id="playerError" class="player-warning">
+                <img src="../../assets/exclamation.png" alt="">
+                <h3 class="lessSpaced"><cr>Error:</cr> <span id="playerStatus" role="alert" hidden></span></h3>
+            </div>
+        </footer>
+        <audio id="songAudio" preload="metadata"></audio>
+    </main>
+</body>
+</html>

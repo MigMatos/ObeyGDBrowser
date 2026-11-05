@@ -3,6 +3,7 @@ header('Access-Control-Allow-Methods: GET, POST');
 
 include_once("../_init_.php");
 include_once("./utils.php");
+require_once __DIR__ . '/../misc/gauntlet-settings.php';
 
 error_reporting(0);
 
@@ -106,7 +107,7 @@ function getGauntlets($params, $db, $gdps_settings) {
     
     function getGauntletsInfo($id) {
         global $gdps_settings;
-        return $gdps_settings["gauntlets"]["$id"] ?? array("name" => "Unknown", "textColor" => "", "bgColor" => "");
+        return getGauntletInfo($id, $gdps_settings);
     }
 
     function returnStringLevels($level1,$level2,$level3,$level4,$level5) {
@@ -152,12 +153,12 @@ function getAvailableGauntlets($params, $gdps_settings) {
         unset($gauntlets["-1"]);
         unset($gauntlets["0"]);
     }
-    $search = strval($params["search"]);
+    $search = strval($params["search"] ?? '');
     $results = [];
     
     if (is_numeric($search)) {
         if (isset($gauntlets[$search])) {
-            $item = $gauntlets[$search];
+            $item = getGauntletInfo($search, $gdps_settings);
 
             return json_encode([[
                 'id' => $search,
@@ -169,6 +170,7 @@ function getAvailableGauntlets($params, $gdps_settings) {
     } else {
         $searchLower = strtolower($search);
         foreach ($gauntlets as $id => $item) {
+            $item = getGauntletInfo($id, $gdps_settings);
             if (stripos($item['name'], $searchLower) !== false) {
                 $results[] = [
                     'id' => $id,

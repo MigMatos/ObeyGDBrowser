@@ -1,27 +1,20 @@
 <?php
-    // function getRelativePath($to, $from) { return str_repeat("../", max(0, substr_count($to, '/') - substr_count($from, '/'))); }
-    // global $baseURL;
-    // $baseURL = getRelativePath(dirname($_SERVER['SCRIPT_NAME']), 'assets/');
 
-    function getPath() {
-        $url = $_SERVER['SCRIPT_NAME'];
-        $base = 'browser/';
-        if (strpos($url, $base) === false) {
-            global $gdps_settings;
-            $base = isset($gdps_settings["browser_path"]) ? $gdps_settings["browser_path"] : 'browser/';
-            echo '<p style="display:none" id="browser_path">'.$base.'</p>';
+function getPath() {
+    $_browserRoot = str_replace('\\', '/', realpath(__DIR__ . '/../..'));
+    $_scriptFile = realpath($_SERVER['SCRIPT_FILENAME'] ?? '');
+    if ($_scriptFile) {
+        $_folder = str_replace('\\', '/', dirname($_scriptFile));
+        if ($_folder === $_browserRoot) {
+            return './';
         }
-        
-        $path = substr($url, strpos($url, $base) + strlen($base));
-        $count = substr_count($path, '/');
-        
-        return $count === 0 ? './' : str_repeat('../', $count);
+        if (strpos($_folder, $_browserRoot . '/') === 0) {
+            $_relative = substr($_folder, strlen($_browserRoot) + 1);
+            return str_repeat('../', substr_count($_relative, '/') + 1);
+        }
     }
+    return defined('BASE_PATH') ? BASE_PATH : './';
+}
 
-    global $baseURL;
-
-    
-
-    $baseURL = getPath();
-
-?>
+global $baseURL;
+$baseURL = getPath();

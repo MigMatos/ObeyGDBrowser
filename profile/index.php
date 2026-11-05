@@ -28,7 +28,11 @@ if (isset($_GET["u"])) {
 }
 
 
-$html = file_get_contents('./t.html');
+$html = file_get_contents(__DIR__ . '/t.html');
+$_profileScript = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
+$_profilePosition = strrpos($_profileScript, '/profile/');
+$_profileBase = $_profilePosition !== false ? substr($_profileScript, 0, $_profilePosition) . '/profile/' : './';
+$html = str_replace('[[PROFILEBASE]]', htmlspecialchars($_profileBase, ENT_QUOTES, 'UTF-8'), $html);
 
 
 $response = profileUsers($params, $db, $gdps_settings);
@@ -50,7 +54,8 @@ if(isset($_GET["gdframe"])) {
 
 $data["USERPERMISSIONS"] = $userPermissionsJSON;
 
-// $data["GDPSVERSION"] = strval($gdps_settings["gdps_version"]);
+$data["GDPSVERSION"] = intval($gdps_settings["gdps_version"] ?? 22);
+$data["GDPSBINARYVERSION"] = max(0, intval($gdps_settings["gdps_binary_version"] ?? 0));
 include("../assets/htmlext/flayeralert.php");
 include("../assets/htmlext/loadingalert.php");
 

@@ -1,0 +1,91 @@
+.gd-slider {
+    --slider-thumb-size: 54.4px;
+    position: relative;
+    min-width: 60px;
+    height: 56px;
+    width: 100%;
+}
+
+.gd-slider-visual {
+    position: absolute;
+    left: calc(var(--slider-thumb-size) / 2);
+    right: calc(var(--slider-thumb-size) / 2);
+    top: 50%;
+    height: 32px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.gd-slider-fill {
+    position: absolute;
+    inset: 11px 6px;
+    background-image: url('../sliderBar-uhd.png');
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    border-radius: 5px;
+    clip-path: inset(0 calc(100% - var(--slider-progress, 0%)) 0 0);
+}
+
+.gd-slider-contour {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    border: solid transparent;
+    border-width: 0 16px;
+    border-image: url('../slider.png') 0 32 fill / 0 16px stretch;
+}
+
+.gd-slider-thumb {
+    position: absolute;
+    left: var(--slider-progress, 0%);
+    top: 50%;
+    width: var(--slider-thumb-size);
+    height: var(--slider-thumb-size);
+    transform: translate(-50%, -50%);
+    background: url('../sliderthumb-uhd.png') center / contain no-repeat;
+}
+
+.gd-slider:focus-within .gd-slider-thumb,
+.gd-slider:active .gd-slider-thumb {
+    background-image: url('../sliderthumbsel-uhd.png');
+}
+
+.gd-slider input[type='range'] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 56px;
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    opacity: 0;
+    cursor: pointer;
+    touch-action: pan-y;
+}
+
+.gd-slider input::-webkit-slider-thumb {
+    appearance: none;
+    width: var(--slider-thumb-size);
+    height: var(--slider-thumb-size);
+}
+
+.gd-slider input::-moz-range-thumb {
+    width: var(--slider-thumb-size);
+    height: var(--slider-thumb-size);
+    border: 0;
+}
+
+.gd-slider:focus-within {
+    outline: 2px solid white;
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+.gd-slider.is-disabled {
+    opacity: .5;
+    filter: grayscale(1);
+}
+
+.gd-slider.is-disabled input {
+    cursor: default;
+}

@@ -37,6 +37,8 @@
     
     global $gdpsVersion;
     $gdpsVersion = intval($gdps_settings["gdps_version"] ?? 30);
+    global $gdpsBinaryVersion;
+    $gdpsBinaryVersion = max(0, intval($gdps_settings["gdps_binary_version"] ?? 0));
 
     ($included = @include_once($includePath)) ||
     ($included = @include_once("../$includePath")) ||
@@ -106,6 +108,9 @@
         if (in_array('commandVerifycoins', $newPerms)) $newPerms[] = 'coins';
         if (in_array('toolSuggestlist', $newPerms) || in_array('dashboardModTools', $newPerms)) $newPerms[] = 'suggest';
         if (in_array('dashboardVaultCodesManage', $newPerms) || in_array('ogdwManageVaultCodes', $newPerms)) $newPerms[] = 'vaultcodes';
+        if (in_array('ogdwApproveThumbnails', $newPerms) || in_array('admin', $newPerms)) {
+            $newPerms[] = 'thumbnails';
+        }
         // added in 1.1
         if (in_array('commandDescriptionOwn', $newPerms) || in_array('ogdwDescriptionOwn', $newPerms)) $newPerms[] = 'lvldescriptionown';
         if (in_array('commandDescriptionAll', $newPerms) || in_array('ogdwDescriptionAll', $newPerms)) $newPerms[] = 'lvldescriptionall';

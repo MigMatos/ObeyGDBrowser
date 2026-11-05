@@ -390,6 +390,8 @@ class OGDBrowserUpdater
                 "
             ];
             
+            require_once $this->targetDir . '/misc/thumbnail-schema.php';
+            $tables = array_merge($tables, getThumbnailSchema());
             foreach ($tables as $tableName => $createSql) {
                 $checkTable = $this->db->query("SHOW TABLES LIKE '$tableName'");
                 if ($checkTable->rowCount() == 0) {
@@ -423,6 +425,7 @@ class OGDBrowserUpdater
                     'ogdwUnlistAll' => "ALTER TABLE roles ADD ogdwUnlistAll INT NOT NULL DEFAULT '0'",
                     'ogdwDeleteLevels' => "ALTER TABLE roles ADD ogdwDeleteLevels INT NOT NULL DEFAULT '0'",
                     'ogdwShowUnlistedLevels' => "ALTER TABLE roles ADD ogdwShowUnlistedLevels INT NOT NULL DEFAULT '0'",
+                    'ogdwApproveThumbnails' => "ALTER TABLE roles ADD ogdwApproveThumbnails INT NOT NULL DEFAULT '0' COMMENT 'Approve or reject level thumbnails in ObeyGDBrowser.'",
                 ],
             ];
             

@@ -54,6 +54,9 @@ function getAccountMaxRole($params, $db, $gdps_settings) {
     if ($result) {
     // remove columns
     $resultPermissions = array_values(array_diff(array_keys($result), ['roleID', 'priority', 'roleName', 'isDefault', 'commentColor', 'modBadgeLevel', 'userName', 'accountID']));
+    if (intval($result['ogdwApproveThumbnails'] ?? 0) !== 1) {
+        $resultPermissions = array_values(array_diff($resultPermissions, array('ogdwApproveThumbnails')));
+    }
 
 
     $roleInfo = [

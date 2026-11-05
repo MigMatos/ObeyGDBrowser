@@ -1,6 +1,7 @@
 <?php
 
 	include("_init_.php");
+    require_once __DIR__ . '/misc/thumbnail-settings.php';
 
 ?>
 
@@ -154,9 +155,12 @@
 		<a href="../messages"><img class="iconRope" src="assets/messagerope.png" width="40%"></a>
 	</div>  
 
+	-->
+	<?php if (filter_var($gdps_settings['iconkit']['enabled'] ?? true, FILTER_VALIDATE_BOOLEAN)) { ?>
 	<div style="position:absolute; top: -1.5%; right: 10%; text-align: right; width: 10%;">
-		<a href="./iconkit"><img class="iconRope" src="assets/iconrope.png" width="40%"></a>
-	</div> -->
+		<a href="./iconkit/index.php" aria-label="Icon Kit"><img class="iconRope" src="assets/iconrope.png" width="40%" alt="Icon Kit"></a>
+	</div>
+	<?php } ?>
 	
 	<div class="supercenter center" id="menuButtons">
 			<table>
@@ -165,7 +169,7 @@
 						
 						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!daily')"><img class="menubutton menu-daily" src="assets/category-daily.png" title="Daily Level"></a></td>
 						<td id="gdItem21"><a tabindex="1" onclick="openSpecialLvl('!weekly')"><img class="menubutton menu-weekly" src="assets/category-weekly.png" title="Weekly Demon"></a></td>
-						<td id="gdItem22"><a tabindex="1" onclick="openSpecialLvl('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
+						<td id="gdItem22" class="gdItemBinary37" data-enable-binary-version="45"><a tabindex="1" onclick="openSpecialLvl('!event')"><img class="menubutton menu-event" src="assets/category-event.png" title="Event level"></a></td>
 						
 						<td id="gdItem19"><a tabindex="1" onclick="urlRedirect('./songs/?')"><img class="menubutton menu-songs" src="assets/category-songs.png" title="Songs"></a></td>
 
@@ -194,6 +198,9 @@
 					<tr class="menuButtonList">
 
 					<td class="notfinishedBtn"><a tabindex="1" onclick="urlRedirect('./requests')"><img class="menubutton menu-request" src="assets/category-levelreq.png" title="Level Request"></a></td>
+                        <?php if (getThumbnailSettings($gdps_settings)['enabled']) { ?>
+                        <td><a href="./thumbnails/index.php"><img class="menubutton" src="assets/category-level-thumbs-temp.png" title="Level thumbnails" alt="Level thumbnails"></a></td>
+                        <?php } ?>
 
 					<td class="checkperm-gauntlets"><a tabindex="1" onclick="urlRedirect('./moderation')"><img class="menubutton menu-moderator" src="assets/category-moderator.png" title="Moderators"></a></td>
 					
@@ -280,6 +287,7 @@ function darknessPage(){
 <script>
 
 let gdpsVersion = <?php print_r($gdpsVersion); ?>;
+let gdpsBinaryVersion = <?php echo $gdpsBinaryVersion; ?>;
 let legacyServer = true;
 let isAdmin = false;
 
@@ -351,34 +359,26 @@ function urlRedirect(url_browser) {
         }
     })
     .catch(error => {
-		const isNetworkError =
-			error instanceof TypeError && (
-				error.message.includes("Failed to fetch") ||
-				error.message.includes("NetworkError") ||
-				error.message.includes("Load failed") ||
-				error.message === ""
-			);
-
-		if (window.location.protocol === 'https:' && isNetworkError) {
+		if (window.location.protocol === 'https:' && error == "TypeError: Failed to fetch") { //FALSE HTTPS 
 			changeLoadingAlert(`Warning: Redirecting with HTTP due Web host errors`);
 			darknessPage();
 			setTimeout(function () {
-				const event = new Event('finishLoadingAlert');
-				document.dispatchEvent(event);
-				setTimeout(function () {
-					url_browser = url_browser.replace('https:', 'http:');
-					window.location.href = url_browser;
-				}, 500);
+					const event = new Event('finishLoadingAlert');
+					document.dispatchEvent(event);
+					setTimeout(function () {
+						url_browser = url_browser.replace('https:', 'http:')
+						window.location.href = url_browser;
+					}, 500);
 			}, 500);
 		} else {
 			changeLoadingAlert(`Browser fatal error`);
 			setTimeout(function () {
-				const event = new Event('finishLoadingAlert');
-				document.dispatchEvent(event);
-				CreateFLAlert("Fatal error in browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B) \n\n Log Error: `"+error+"`");
+					const event = new Event('finishLoadingAlert');
+					document.dispatchEvent(event);
+					CreateFLAlert("Fatal error in browser!","**Join our support server and report:** [![Geometry Dash](https://invidget.switchblade.xyz/EbYKSHh95B)](https://discord.gg/EbYKSHh95B) \n\n Log Error: `"+error+"`");
 			}, 500);
 		}
-	});
+    });
 }
 
 function profileRedirect(url_browser) {

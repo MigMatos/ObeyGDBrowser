@@ -1,3 +1,34 @@
+<?php
+
+require_once __DIR__ . '/../_init_.php';
+require_once __DIR__ . '/../misc/icon-settings.php';
+require_once __DIR__ . '/../misc/emoji-settings.php';
+require_once __DIR__ . '/../misc/song-settings.php';
+require_once __DIR__ . '/../misc/thumbnail-settings.php';
+
+if (empty($_SESSION['settingsToken'])) $_SESSION['settingsToken'] = bin2hex(random_bytes(32));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($failed_conn || !$logged || !$isAdmin || !is_string($_POST['settingsToken'] ?? null) || !hash_equals($_SESSION['settingsToken'], $_POST['settingsToken'])) {
+        http_response_code(403);
+        exit('No permissions.');
+    }
+    try {
+        $postedIconSettings = getPostedIconSettings($_POST, $gdps_settings);
+        $postedEmojiSettings = getPostedEmojiSettings($_POST, $gdps_settings);
+        $postedVersionSettings = getPostedGameVersionSettings($_POST, $gdps_settings);
+        $postedSongSettings = getPostedSongSettings($_POST, $gdps_settings);
+        $postedThumbnailSettings = getPostedThumbnailSettings($_POST, $gdps_settings);
+    } catch (InvalidArgumentException $_error) {
+        http_response_code(422);
+        exit(htmlspecialchars($_error->getMessage(), ENT_QUOTES, 'UTF-8'));
+    }
+}
+if (!$failed_conn && (!$logged || !$isAdmin)) {
+    header('Location: ../');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +41,6 @@
 
     <?php
 
-    include("../_init_.php");
     include("../assets/htmlext/flayeralert.php");
 	include("../assets/htmlext/loadingalert.php");
 
@@ -43,6 +73,7 @@
     <fieldset><legend><h2>GDPS Configuration</h2></legend>
 
     <form id="levelForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <input type="hidden" name="settingsToken" value="<?php echo htmlspecialchars($_SESSION['settingsToken'], ENT_QUOTES, 'UTF-8'); ?>">
 
 
     <fieldset><legend><h3>Lengths (String)</h3></legend> <button type="button" class="toggle-btn"><strong class="content-btn-viewer">View/Hide</strong><span>▼</span></button>
@@ -195,6 +226,63 @@
 
 
 
+    <fieldset><legend><h3>Icon Kit</h3></legend>
+        <input type="hidden" name="iconSettingsSubmitted" value="1">
+        <p><a href="../iconkit/index.php" target="_blank" rel="noopener">Open Icon Kit</a> to choose colors and download an icon.</p>
+        <label for="iconkitEnabled"><input type="checkbox" id="iconkitEnabled" name="iconkitEnabled" value="1" <?php echo isIconOptionEnabled($gdps_settings['iconkit']['enabled'] ?? true) ? 'checked' : ''; ?>> Show Icon Kit and its home button</label>
+        <label for="customIconsEnabled"><input type="checkbox" id="customIconsEnabled" name="customIconsEnabled" value="1" <?php echo isIconOptionEnabled($gdps_settings['customIcons']['enabled'] ?? true) ? 'checked' : ''; ?>> Enable custom icon folder</label>
+        <label for="customIconsPath">Custom icon folder:</label>
+        <input type="text" id="customIconsPath" name="customIconsPath" value="<?php echo htmlspecialchars($gdps_settings['customIcons']['path'] ?? 'customfiles/gdicons', ENT_QUOTES, 'UTF-8'); ?>">
+        <p>We recommend keeping custom icons in <strong>customfiles/gdicons</strong>. Leave this field empty to use the included icons.</p>
+        <label for="iconCacheSeconds">Icon cache duration in seconds (0–3600)</label>
+        <input type="number" id="iconCacheSeconds" name="iconCacheSeconds" min="0" max="3600" value="<?php echo intval($gdps_settings['iconkit']['cacheSeconds'] ?? 300); ?>">
+        <fieldset><legend>Maximum icon IDs</legend>
+        <?php foreach (array('cube', 'ship', 'ball', 'ufo', 'wave', 'robot', 'spider', 'swing', 'jetpack') as $_iconType) { ?>
+            <label for="icons-<?php echo $_iconType; ?>"><?php echo ucfirst($_iconType); ?></label>
+            <input type="number" id="icons-<?php echo $_iconType; ?>" name="icons-<?php echo $_iconType; ?>" min="1" max="10000" required value="<?php echo max(1, intval($gdps_settings['icons'][$_iconType] ?? 1)); ?>">
+        <?php } ?>
+        </fieldset>
+        <p>Add the PNG and PLIST files for each custom icon, then set the highest icon ID for its mode. If an icon is missing, the included version will be used. Save your changes to apply them.</p>
+    </fieldset>
+
+    <fieldset><legend><h3>Level thumbnails</h3></legend>
+        <input type="hidden" name="thumbnailSettingsSubmitted" value="1">
+        <p>The thumbnail API is unstable. Enable PHP GD with PNG/WebP support and Fileinfo. The server owner can create its tables from <a href="../moderation/thumbnails/index.php">thumbnail moderation</a>. Grant <strong>ogdwApproveThumbnails</strong> to roles allowed to review images; server owners always have access.</p>
+        <label for="thumbnailsEnabled"><input type="checkbox" id="thumbnailsEnabled" name="thumbnailsEnabled" value="1" <?php echo getThumbnailSettings($gdps_settings)['enabled'] ? 'checked' : ''; ?>> Enable thumbnail requests and menu buttons</label>
+        <label for="thumbnailDefaultFormat">Default image format:</label>
+        <select id="thumbnailDefaultFormat" name="thumbnailDefaultFormat"><option value="webp" <?php echo getThumbnailSettings($gdps_settings)['defaultFormat'] === 'webp' ? 'selected' : ''; ?>>WebP</option><option value="png" <?php echo getThumbnailSettings($gdps_settings)['defaultFormat'] === 'png' ? 'selected' : ''; ?>>PNG</option></select>
+        <p>Without rewrite rules, use <strong>thumbnail/index.php?id=123&amp;size=small&amp;format=webp</strong>. With Apache rewrites, use <strong>thumbnail/123</strong>, <strong>thumbnail/123/SMALL</strong> or <strong>thumbnail/123.png</strong>. Paths start at this browser's installation folder. See <a href="../thumbnail/routing.php">routing examples</a> for Nginx and subfolder installations.</p>
+    </fieldset>
+
+    <fieldset><legend><h3>Song information</h3></legend>
+        <input type="hidden" name="songSettingsSubmitted" value="1">
+        <p>The song information API is unstable. It reads existing records and library files without importing songs or updating the database.</p>
+        <label for="songLibraryEnabled"><input type="checkbox" id="songLibraryEnabled" name="songLibraryEnabled" value="1" <?php echo isIconOptionEnabled($gdps_settings['songs']['libraryEnabled'] ?? true) ? 'checked' : ''; ?>> Read music library</label>
+        <label for="songLibraryPath">Music library index:</label>
+        <input type="text" id="songLibraryPath" name="songLibraryPath" value="<?php echo htmlspecialchars($gdps_settings['songs']['libraryPath'] ?? 'music/ids.json', ENT_QUOTES, 'UTF-8'); ?>">
+        <label for="songLibraryConfigPath">Library server configuration:</label>
+        <input type="text" id="songLibraryConfigPath" name="songLibraryConfigPath" value="<?php echo htmlspecialchars($gdps_settings['songs']['libraryConfigPath'] ?? 'config/dashboard.php', ENT_QUOTES, 'UTF-8'); ?>">
+        <p>Paths are relative to the browser folder, regardless of the current page. For sibling folders, use <strong>../music/ids.json</strong> and <strong>../config/dashboard.php</strong>. Absolute local paths also work. Leave a path empty to skip that source.</p>
+        <p>The index accepts an existing ids.json or a music library DAT file. The configuration accepts a literal customLibrary array from dashboard.php, read without executing PHP, or a JSON array such as <strong>[{"id":1,"name":"My library","baseUrl":"https://music.example.com"}]</strong>. Protected download URLs may require authentication that this API cannot generate.</p>
+    </fieldset>
+
+    <fieldset><legend><h3>Comment emojis</h3></legend>
+        <input type="hidden" name="emojiSettingsSubmitted" value="1">
+        <input type="hidden" name="updateEmojiCatalog" id="updateEmojiCatalog" value="0">
+        <p>Live comment rendering is not enabled yet. <a href="../tests/emojis.html" target="_blank" rel="noopener">Open the local preview</a> to try the catalog and sample comments.</p>
+        <label for="emojiMaxPerMessage">Emojis per message (0 means no message limit):</label>
+        <input type="number" id="emojiMaxPerMessage" name="emojiMaxPerMessage" min="0" max="50" value="<?php echo intval($gdps_settings['emojis']['maxPerMessage'] ?? 5); ?>">
+        <label for="emojiCustomEnabled"><input type="checkbox" id="emojiCustomEnabled" name="emojiCustomEnabled" value="1" <?php echo isIconOptionEnabled($gdps_settings['emojis']['customEnabled'] ?? true) ? 'checked' : ''; ?>> Enable custom emoji atlas</label>
+        <label for="emojiCustomPath">Custom emoji folder:</label>
+        <input type="text" id="emojiCustomPath" name="emojiCustomPath" value="<?php echo htmlspecialchars($gdps_settings['emojis']['customPath'] ?? 'customfiles/emojis', ENT_QUOTES, 'UTF-8'); ?>">
+        <p>Keep your custom emojis together in one PNG/PLIST atlas named <strong>GJ_ParticleSheet-uhd.png</strong> and <strong>GJ_ParticleSheet-uhd.plist</strong>. We recommend <strong>customfiles/emojis</strong>. Only pack your new or replacement frames; included emojis remain available.</p>
+        <label for="emojiCustomAliases">Custom shortcode names:</label>
+        <textarea id="emojiCustomAliases" name="emojiCustomAliases" rows="5" spellcheck="false"><?php echo htmlspecialchars(json_encode((object) ($gdps_settings['emojis']['customAliases'] ?? array()), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8'); ?></textarea>
+        <p>Use a JSON object without colons, for example <strong>{"my_logo":"brand_logo.png"}</strong>. The value must match a frame name inside your PLIST. A numeric value such as <strong>"308"</strong> uses a particle ID; adding <strong>f</strong> flips it horizontally. Unknown names remain plain text.</p>
+        <button type="button" id="prepareEmojiUpdate">Update included emoji names on save</button>
+        <p>After replacing <strong>official_emojis.json</strong>, use this button and save to update the included names. Custom shortcode names are preserved.</p>
+    </fieldset>
+
     <fieldset><legend><h3>GDBrowser Settings</h3></legend>
 
         <h2>Basic Settings</h2><br>
@@ -205,8 +293,18 @@
         <input type="text" id="gdbrowser_name" name="gdbrowser_name"><br>
         <label for="gdbrowser_icon">GDPS Icon:</label>
         <input type="text" id="gdbrowser_icon" name="gdbrowser_icon"><br>
-        <label for="gdps_version">GDPS Version:</label>
+        <label for="gdps_game_release">Game release:</label>
+        <select id="gdps_game_release" name="gdps_game_release">
+            <option value="">Custom or unspecified release</option>
+            <?php foreach (getGameVersionCatalog() as $_gameRelease) { ?>
+            <option value="<?php echo htmlspecialchars($_gameRelease['version'], ENT_QUOTES, 'UTF-8'); ?>" data-game-version="<?php echo intval($_gameRelease['gameVersion']); ?>" data-binary-version="<?php echo intval($_gameRelease['binaryVersion']); ?>"><?php echo htmlspecialchars($_gameRelease['version'], ENT_QUOTES, 'UTF-8'); ?> (binary <?php echo $_gameRelease['binaryVersion'] > 0 ? intval($_gameRelease['binaryVersion']) : 'unspecified'; ?>)</option>
+            <?php } ?>
+        </select>
+        <label for="gdps_version">Game protocol version:</label>
         <input type="number" id="gdps_version" required name="gdps_version"><br>
+        <label for="gdps_binary_version">Game binary version:</label>
+        <input type="number" id="gdps_binary_version" name="gdps_binary_version" min="0" max="100000" value="<?php echo intval($gdps_settings['gdps_binary_version'] ?? 0); ?>">
+        <p>Choose a release to fill both version fields. For example, 2.209 and 2.2091 use protocol 22 and binary 51. A binary value of 0 means unspecified.</p>
         <label for="show_level_passwords">Show Level Passwords:</label>
         <label for="">
             <input type="radio" id="show_level_passwords-0" name="show_level_passwords" value="0">
@@ -637,6 +735,20 @@ function loadValues() {
 
 loadValues();
 
+document.getElementById('gdps_game_release').addEventListener('change', function() {
+    const _option = this.selectedOptions[0];
+    if (!_option.dataset.binaryVersion) return;
+    document.getElementById('gdps_version').value = _option.dataset.gameVersion;
+    document.getElementById('gdps_binary_version').value = _option.dataset.binaryVersion;
+});
+for (const _name of ['gdps_version', 'gdps_binary_version']) {
+    document.getElementById(_name).addEventListener('input', function() { document.getElementById('gdps_game_release').value = ''; });
+}
+document.getElementById('prepareEmojiUpdate').addEventListener('click', function() {
+    document.getElementById('updateEmojiCatalog').value = '1';
+    this.textContent = 'Included emoji names will update when you save';
+});
+
 // Manifest
 
 fetch('../manifest.json')
@@ -829,7 +941,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $gdps_settings = array(
+    $gdps_settings = array_replace($gdps_settings, array(
+        "icons" => $postedIconSettings['icons'],
+        "customIcons" => $postedIconSettings['customIcons'],
+        "iconkit" => $postedIconSettings['iconkit'],
+        "emojis" => $postedEmojiSettings,
+        "songs" => $postedSongSettings,
+        "thumbnails" => $postedThumbnailSettings,
         "length" => array(
             "-1" => "",
             "0" => get_post_value("length-0"),
@@ -882,16 +1000,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "gdps_level_browser_logo_url" => get_post_value("gdps_level_browser_logo_url"),
         "disable_colored_texture_level_browser" => get_post_value("disable_colored_texture_level_browser"),
         "path_connection" => get_post_value("path_connection"),
-        "gdps_version" => get_post_value("gdps_version"),
+        "gdps_version" => $postedVersionSettings['gdps_version'],
+        "gdps_binary_version" => $postedVersionSettings['gdps_binary_version'],
+        "gdps_game_release" => $postedVersionSettings['gdps_game_release'],
         "path_lib_folder" => get_post_value("path_lib_folder"),
         "path_folder_levels" => get_post_value("path_folder_levels"),
         "browser_path" => get_post_value("browser_path"),
         "browser_theme_path" => get_post_value("browser_theme_path"),
         "browser_theme" => get_post_value("browser_theme")
-    );
+    ));
 
     $json_data = json_encode($gdps_settings, JSON_PRETTY_PRINT);
-    file_put_contents("../gdps_settings.json", $json_data);
+    file_put_contents(__DIR__ . "/../gdps_settings.json", $json_data, LOCK_EX);
 
 
     $jsonFile = '../manifest.json';

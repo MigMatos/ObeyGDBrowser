@@ -1,6 +1,15 @@
 <?php
 
 	include("../_init_.php");
+    require_once __DIR__ . '/../misc/thumbnails.php';
+    $_thumbnailIdentity = array('canModerate' => false);
+    if (getThumbnailSettings($gdps_settings)['enabled'] && !$failed_conn && isset($db) && $db instanceof PDO) {
+        try {
+            $_thumbnailIdentity = thumbnailIdentity($db, $_SESSION);
+        } catch (Throwable $_error) {
+            $_thumbnailIdentity = array('canModerate' => false);
+        }
+    }
 
 ?>
 
@@ -68,6 +77,9 @@
 						<td><a tabindex="1" onclick="locked()"><img class="menubutton menu-webhooks" src="../assets/mod-webhooks.png" title="Create webhooks!"></a></td>
 						<td><a tabindex="1" onclick="urlRedirect('./devapps/')"><img class="menubutton menu-developerapps" src="../assets/mod-devapps.png" title="Add developer apps!"></a></td>
 						<td><a tabindex="1" onclick="urlRedirect('./vaultcodes/')"><img class="menubutton menu-vaultcodes" src="../assets/mod-vaultcodes.png" title="Add vault codes!"></a></td>
+                        <?php if (getThumbnailSettings($gdps_settings)['enabled'] && $_thumbnailIdentity['canModerate']) { ?>
+                        <td><a href="./thumbnails/index.php"><img class="menubutton" src="../assets/category-level-thumbs-temp.png" title="Moderate thumbnails" alt="Moderate thumbnails"></a></td>
+                        <?php } ?>
 						
 
 					</tr>

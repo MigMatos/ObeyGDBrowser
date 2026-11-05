@@ -136,7 +136,7 @@
 			</div>
 
 			<div class="supercenter songDatapopup" style="top: 85%; height: 5%; display: inline-flex; align-items: center;">
-				<div class="gdsButton" onclick="playSong(this.getAttribute('src'))" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/song/playButton.png" style="height:4vh;width: min-content;">Play song</h3></div>
+				<div class="gdsButton" onclick="playSong()" src="none" id="songLink" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/song/playButton.png" style="height:4vh;width: min-content;">Play song</h3></div>
 				<div class="gdsButton" onclick="copySongID(this.getAttribute('idSong'))" id="songCopyID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;margin-right: 3vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" style="height:4vh;width: min-content;">Copy songID</h3></div>
 				<div class="gdsButton" onclick="searchLevelSong(this.getAttribute('idSong'))" id="songLevelID" idSong="0" style="padding-left:1.5vh;padding-right:1.5vh;height: 5vh; padding-top: 0.8vh;"><h3 class="gdfont-Pusab" style="align-items: center;" id="textContentFileSelect"><img class="valign rightSpace" src="../assets/iconkitbuttons/copy.png" style="height:4vh;width: min-content;">Levels</h3></div>
 			</div>
@@ -268,10 +268,11 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.1/fetch-jsonp.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.1/fetch-jsonp.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../misc/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../misc/global.js"></script>
 <script type="text/javascript" src="../misc/dragscroll.js"></script>
 <script type="text/javascript" src="../misc/gdcustomframe.js"></script>
+<script src="../misc/gdsongs.js"></script>
 
 <script>
 $("#loading-main").hide();
@@ -489,7 +490,7 @@ let apiURL = "../api/songs.php"
 let searchFilters = apiURL + "?str=" + path + "&page=[PAGE]";
 
 
-if(authorSong) { searchFilters = searchFilters + "&author=" + authorSong; }
+if(authorSong) { searchFilters = searchFilters + "&author=" + encodeURIComponent(authorSong); }
 if(filterSong) {
 	searchFilters = searchFilters + "&filter=" + filterSong;
 	document.getElementById(`tab-${filterSong}`).setAttribute("activetab","on");
@@ -551,6 +552,8 @@ function Append(firstLoad, noCache) {
 
 		changeLoadingAlert("Loading levels...");
 		x.songAuthorT = x.name + " - " + x.authorName.replace("ObeyGDBot","").replace("ObeyGDMusic","");
+		const _songName = x.name;
+		const _songAuthor = x.authorName;
 		x.name = clean(x.name);
 		x.authorName = clean(x.authorName);
 
@@ -572,7 +575,7 @@ function Append(firstLoad, noCache) {
 			</div>
 
 			<div class="center" style="position:absolute; right: 7%; transform:translateY(-13vh); height: 10%">
-				<a title="View level" id="song${x.id}" onclick="showSong('${btoa(encodeURIComponent(x.name))}','${btoa(x.downloadLink)}','${btoa(x.id)}','${btoa(encodeURIComponent(x.songAuthorT))}','${btoa(encodeURIComponent(x.authorName))}','${btoa(x.levelsCount)}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
+				<a title="View level" id="song${x.id}" onclick="showSong('${btoa(encodeURIComponent(_songName))}','${btoa(x.downloadLink)}','${btoa(x.id)}','${btoa(encodeURIComponent(x.songAuthorT))}','${btoa(encodeURIComponent(_songAuthor))}','${btoa(x.levelsCount)}')" ><img style="margin-bottom: 4.5%" class="valign gdButton" src="../assets/view.png" height="105%"></a>
 			</div>
 
 		</div>`)
@@ -703,9 +706,8 @@ function debounceLoadingEvent(type) {
 }
 
 
-function playSong(src){
-	if(src.includes("audio.ngfiles.com")) src = `https://www.newgrounds.com/audio/listen/${getNGSongID(src)}`;
-	window.open(src,"_blank");
+function playSong() {
+	GDSongs.openPlayer({id: Number(document.getElementById('songLink').dataset.songId), songType: 'custom'}, {compact: true});
 }
 
 function copySongID(id){
@@ -741,11 +743,8 @@ function showSong(name,link,id,songAltName,author, songCount) {
 	songAltName = decodeURIComponent(atob(songAltName));
 	author = decodeURIComponent(atob(author));
 	songCount = atob(songCount);
-	if(link.includes("cdn.discordapp.com")) textPlatform = "Discord";
-	else if (author.includes("ObeyGDMusic") || author.includes("ObeyGDBot") || link.includes("library.obeygdbot")) textPlatform = "ObeyGDMusic Library";
-	else if(link.includes("audio.ngfiles.com")) textPlatform = "Newgrounds"; 
-	else if(link.includes("dl.dropboxusercontent.com")) textPlatform = "Dropbox";
-	else if(link.includes("geometrydashcontent.b-cdn.net")) textPlatform = "RobTop Music Library";
+	const _platform = GDSongs.platformInfo({downloadLink: link, authorName: author});
+	textPlatform = _platform.name;
 
 	const songData = getAlbumFromCache(songAltName);
 	if (songData) {
@@ -762,10 +761,11 @@ function showSong(name,link,id,songAltName,author, songCount) {
 		document.getElementById("songImageAuthor").src = document.getElementById(`dFace${id}`).src;
 	}
 
-	if (textPlatform == "Discord" || textPlatform == "Unknown") $('#songWarning').show();
+	if (_platform.warning) $('#songWarning').show();
 	else $('#songWarning').hide();
 
 	document.getElementById("songLink").setAttribute('src',link);
+	document.getElementById('songLink').dataset.songId = id;
 	document.getElementById("songCopyID").setAttribute('idsong',id);
 	document.getElementById("songName").textContent = name;
 	document.getElementById("songAuthor").textContent = author;
@@ -841,7 +841,7 @@ $('#searchSongBtn').click(function() {
 
 function searchArtist(str,encoded) {
 	if(encoded == "1") str = decodeURIComponent(atob(str))
-	searchFilters = apiURL + "?str=&author=" + str + "&page=[PAGE]" + advURLFilter;
+	searchFilters = apiURL + "?str=&author=" + encodeURIComponent(str) + "&page=[PAGE]" + advURLFilter;
 	if(filterSong) searchFilters = searchFilters + "&filter=" + filterSong;
 	Append(true, true);
 	pushNewStateURL();

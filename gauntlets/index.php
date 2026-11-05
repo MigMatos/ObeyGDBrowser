@@ -12,12 +12,6 @@
 	<meta id="meta-image" name="og:image" itemprop="image" content="https://gdbrowser.com/assets/gauntlet.png">
 	<meta name="twitter:card" content="summary">
 
-	<script>
-		function gauntletErrorImg(img) {
-			img.src = "../assets/gauntlets/1.png";
-			img.style.filter = 'grayscale(100%)';
-		}
-	</script>
 </head>
 
 <?php include("../assets/htmlext/flayeralert.php"); ?>

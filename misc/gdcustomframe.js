@@ -75,10 +75,14 @@ function openGdCustomFrame(url,typo=false) {
     }
 
     registerMessageListener();
+    iframeContainer.addEventListener('gdframeclose', unregisterMessageListener, {once: true});
 
     // Handler Events
 
     function handleGDCustomFrame(expectedOrigin, event) {
+        if (event.source !== iframe.contentWindow || !event.data || typeof event.data !== 'object') {
+            return;
+        }
         if (event.origin === expectedOrigin) {
             if (event.data.type === 'ObeyGDBrowser' && event.data.origin === expectedOrigin && event.data.data === 'closeWindow') {
                 console.log('MD iframe:', event.data.data);
@@ -98,18 +102,20 @@ function openGdCustomFrame(url,typo=false) {
         }
     }
 
+    return iframeContainer;
 }
 
 function closeGdCustomFrame(iframeContainer) {
-    document.body.removeChild(iframeContainer); 
+    iframeContainer.dispatchEvent(new Event('gdframeclose'));
+    iframeContainer.remove();
 }
 
 function closeMessageCustomFrame() {
     const originUrl = window.location.origin;
-    window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'closeWindow' }, '*');
+    window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'closeWindow' }, originUrl);
 }
 
 function closeandrestartMessageCustomFrame() {
     const originUrl = window.location.origin;
-    window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'restartWindow' }, '*');
+    window.parent.postMessage({ type: 'ObeyGDBrowser', origin: originUrl, data: 'restartWindow' }, originUrl);
 }
