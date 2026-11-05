@@ -6,6 +6,57 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+#gameVersionSettings {
+    min-width: 0;
+}
+
+#levelForm,
+#levelForm fieldset {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#levelForm input[type="text"],
+#levelForm input[type="url"],
+#levelForm textarea,
+#levelForm select {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+#gameVersionSettings select,
+#gameVersionSettings input[type="number"] {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 520px;
+    min-height: 44px;
+    padding: 8px;
+    margin: 6px 0 12px;
+    font: inherit;
+    color: inherit;
+    background-color: inherit;
+}
+
+#gameVersionSettings [hidden] {
+    display: none;
+}
+
+.version-custom-field {
+    max-width: 100%;
+}
+
+#gameVersionSummary,
+#savedEmojiStatus,
+#savedEmojiPreview {
+    overflow-wrap: anywhere;
+}
+
+#savedEmojiPreview:not(:empty) {
+    padding: 10px;
+    border: 1px solid currentColor;
+    white-space: pre-wrap;
+}
+
 label {
     text-wrap: wrap;
 }
@@ -60,6 +111,7 @@ button.radiusdesing {
 }
 
 fieldset {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

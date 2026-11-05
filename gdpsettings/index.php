@@ -36,6 +36,7 @@ if (!$failed_conn && (!$logged || !$isAdmin)) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GDPS Configuration</title>
     <link href="../assets/css/gdpssettings.css" type="text/css" rel="stylesheet">
+    <link href="../misc/gdemojis.css" type="text/css" rel="stylesheet">
 </head>
 <body bgcolor="#999999">
 
@@ -269,7 +270,12 @@ if (!$failed_conn && (!$logged || !$isAdmin)) {
     <fieldset><legend><h3>Comment emojis</h3></legend>
         <input type="hidden" name="emojiSettingsSubmitted" value="1">
         <input type="hidden" name="updateEmojiCatalog" id="updateEmojiCatalog" value="0">
-        <p>Live comment rendering is not enabled yet. <a href="../tests/emojis.html" target="_blank" rel="noopener">Open the local preview</a> to try the catalog and sample comments.</p>
+        <p>Live comment rendering is not enabled yet. This preview reads the browser's saved configuration; unsaved form changes are not applied.</p>
+        <label for="savedEmojiMessage">Preview text:</label>
+        <input type="text" id="savedEmojiMessage" maxlength="500" value="Hello :gg: :heart:">
+        <button type="button" id="previewSavedEmojis">Preview saved configuration</button>
+        <p id="savedEmojiStatus" role="status"></p>
+        <p id="savedEmojiPreview" aria-live="polite"></p>
         <label for="emojiMaxPerMessage">Emojis per message (0 means no message limit):</label>
         <input type="number" id="emojiMaxPerMessage" name="emojiMaxPerMessage" min="0" max="50" value="<?php echo intval($gdps_settings['emojis']['maxPerMessage'] ?? 5); ?>">
         <label for="emojiCustomEnabled"><input type="checkbox" id="emojiCustomEnabled" name="emojiCustomEnabled" value="1" <?php echo isIconOptionEnabled($gdps_settings['emojis']['customEnabled'] ?? true) ? 'checked' : ''; ?>> Enable custom emoji atlas</label>
@@ -293,18 +299,7 @@ if (!$failed_conn && (!$logged || !$isAdmin)) {
         <input type="text" id="gdbrowser_name" name="gdbrowser_name"><br>
         <label for="gdbrowser_icon">GDPS Icon:</label>
         <input type="text" id="gdbrowser_icon" name="gdbrowser_icon"><br>
-        <label for="gdps_game_release">Game release:</label>
-        <select id="gdps_game_release" name="gdps_game_release">
-            <option value="">Custom or unspecified release</option>
-            <?php foreach (getGameVersionCatalog() as $_gameRelease) { ?>
-            <option value="<?php echo htmlspecialchars($_gameRelease['version'], ENT_QUOTES, 'UTF-8'); ?>" data-game-version="<?php echo intval($_gameRelease['gameVersion']); ?>" data-binary-version="<?php echo intval($_gameRelease['binaryVersion']); ?>"><?php echo htmlspecialchars($_gameRelease['version'], ENT_QUOTES, 'UTF-8'); ?> (binary <?php echo $_gameRelease['binaryVersion'] > 0 ? intval($_gameRelease['binaryVersion']) : 'unspecified'; ?>)</option>
-            <?php } ?>
-        </select>
-        <label for="gdps_version">Game protocol version:</label>
-        <input type="number" id="gdps_version" required name="gdps_version"><br>
-        <label for="gdps_binary_version">Game binary version:</label>
-        <input type="number" id="gdps_binary_version" name="gdps_binary_version" min="0" max="100000" value="<?php echo intval($gdps_settings['gdps_binary_version'] ?? 0); ?>">
-        <p>Choose a release to fill both version fields. For example, 2.209 and 2.2091 use protocol 22 and binary 51. A binary value of 0 means unspecified.</p>
+        <?php require __DIR__ . '/version-fields.php'; ?>
         <label for="show_level_passwords">Show Level Passwords:</label>
         <label for="">
             <input type="radio" id="show_level_passwords-0" name="show_level_passwords" value="0">
@@ -418,7 +413,7 @@ if (!$failed_conn && (!$logged || !$isAdmin)) {
     </fieldset>
 
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="../misc/jquery-3.7.1.min.js"></script>
     <script>
 
     $("#loading-main").hide();
@@ -668,6 +663,9 @@ if (!$failed_conn && (!$logged || !$isAdmin)) {
 
 function loadValues() {
     for (const key in jsonData) {
+        if (['gdps_version', 'gdps_binary_version', 'gdps_game_release'].includes(key)) {
+            continue;
+        }
         let keyData = jsonData[key];
 
         console.log(keyData);
@@ -735,15 +733,6 @@ function loadValues() {
 
 loadValues();
 
-document.getElementById('gdps_game_release').addEventListener('change', function() {
-    const _option = this.selectedOptions[0];
-    if (!_option.dataset.binaryVersion) return;
-    document.getElementById('gdps_version').value = _option.dataset.gameVersion;
-    document.getElementById('gdps_binary_version').value = _option.dataset.binaryVersion;
-});
-for (const _name of ['gdps_version', 'gdps_binary_version']) {
-    document.getElementById(_name).addEventListener('input', function() { document.getElementById('gdps_game_release').value = ''; });
-}
 document.getElementById('prepareEmojiUpdate').addEventListener('click', function() {
     document.getElementById('updateEmojiCatalog').value = '1';
     this.textContent = 'Included emoji names will update when you save';
@@ -873,6 +862,9 @@ function showConfirmation(callback) {
 
 </script>
 
+
+<script src="../misc/gdemojis.js"></script>
+<script src="../misc/gdps-settings.js"></script>
 
 <!-- 
 
