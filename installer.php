@@ -112,6 +112,11 @@ $translations = [
 
 $workflowTranslations = [
     'en' => [
+        'temporaryStorageError' => 'PHP cannot use a private temporary folder. Ask the host to configure a writable sys_temp_dir or upload_tmp_dir outside the public directory and permitted by open_basedir. Send the error code and support log.',
+        'permissionError' => 'PHP was denied access to a file or folder. Check ownership and write permissions for the PHP service account. Send the error code and support log.',
+        'hostingRestrictionError' => 'The PHP open_basedir restriction blocked a file operation. Ask the host to permit the installation and private temporary folders. Send the error code and support log.',
+        'readOnlyError' => 'The filesystem is read-only. Ask the host to provide writable installation and private temporary folders.',
+        'quotaError' => 'The hosting disk quota was exceeded. Free space or ask the host to increase the quota before trying again.',
         'signIn' => 'Sign in', 'repairTitle' => 'Repair ObeyGDBrowser', 'selectionHint' => 'Choose a version and review the download before confirming.',
         'branch' => 'Version channel', 'stableBranch' => 'Stable', 'betaBranch' => 'Pre-release (beta)', 'masterBranch' => 'Unstable (main)',
         'betaWarning' => 'Pre-release versions may contain incomplete features and bugs.', 'masterWarning' => 'The main branch is intended for development and may be unstable.',
@@ -149,6 +154,11 @@ $workflowTranslations = [
         'requiresJavascript' => 'JavaScript is required to review and confirm the installation safely.',
     ],
     'es' => [
+        'temporaryStorageError' => 'PHP no puede usar una carpeta temporal privada. Pide al alojamiento configurar sys_temp_dir o upload_tmp_dir con permisos de escritura, fuera del directorio público y permitido por open_basedir. Envía el código y el registro a soporte.',
+        'permissionError' => 'PHP no tiene permiso para acceder a un archivo o carpeta. Revisa el propietario y los permisos de escritura de la cuenta que ejecuta PHP. Envía el código y el registro a soporte.',
+        'hostingRestrictionError' => 'La restricción open_basedir de PHP bloqueó una operación de archivos. Pide al alojamiento permitir la carpeta de instalación y el temporal privado. Envía el código y el registro a soporte.',
+        'readOnlyError' => 'El sistema de archivos es de solo lectura. Pide al alojamiento habilitar escritura en la carpeta de instalación y el temporal privado.',
+        'quotaError' => 'Se agotó la cuota de disco del alojamiento. Libera espacio o pide ampliar la cuota antes de volver a intentarlo.',
         'signIn' => 'Iniciar sesión', 'repairTitle' => 'Corregir instalación de ObeyGDBrowser', 'selectionHint' => 'Elige una versión y revisa la descarga antes de confirmar.',
         'branch' => 'Canal de versión', 'stableBranch' => 'Estable', 'betaBranch' => 'Pre-release (beta)', 'masterBranch' => 'Inestable (main)',
         'betaWarning' => 'Las versiones preliminares pueden tener funciones incompletas y errores.', 'masterWarning' => 'La rama main está destinada al desarrollo y puede ser inestable.',
@@ -186,6 +196,11 @@ $workflowTranslations = [
         'requiresJavascript' => 'Se necesita JavaScript para revisar y confirmar la instalación de forma segura.',
     ],
     'ru' => [
+        'temporaryStorageError' => 'PHP не может использовать приватную временную папку. Попросите хостинг настроить доступную для записи sys_temp_dir или upload_tmp_dir вне публичного каталога и разрешить её в open_basedir. Передайте код ошибки и журнал поддержке.',
+        'permissionError' => 'PHP не имеет доступа к файлу или папке. Проверьте владельца и права записи для учётной записи службы PHP. Передайте код ошибки и журнал поддержке.',
+        'hostingRestrictionError' => 'Ограничение PHP open_basedir заблокировало операцию с файлами. Попросите хостинг разрешить папку установки и приватную временную папку. Передайте код ошибки и журнал поддержке.',
+        'readOnlyError' => 'Файловая система доступна только для чтения. Попросите хостинг разрешить запись в папку установки и приватную временную папку.',
+        'quotaError' => 'Превышена дисковая квота хостинга. Освободите место или попросите увеличить квоту перед повторной попыткой.',
         'signIn' => 'Войти', 'repairTitle' => 'Восстановление ObeyGDBrowser', 'selectionHint' => 'Выберите версию и проверьте загрузку перед подтверждением.',
         'branch' => 'Канал версии', 'stableBranch' => 'Стабильная', 'betaBranch' => 'Предварительная (бета)', 'masterBranch' => 'Нестабильная (main)',
         'betaWarning' => 'Предварительные версии могут содержать незавершённые функции и ошибки.', 'masterWarning' => 'Ветка main предназначена для разработки и может работать нестабильно.',
@@ -236,11 +251,13 @@ class InstallerFailure extends \RuntimeException {
     public $messageKey;
     public $errorCode;
     public $httpStatus;
+    public $details;
 
-    public function __construct($messageKey, $errorCode = 'OGDW-INTERNAL', $httpStatus = 500) {
+    public function __construct($messageKey, $errorCode = 'OGDW-INTERNAL', $httpStatus = 500, $details = []) {
         $this->messageKey = $messageKey;
         $this->errorCode = $errorCode;
         $this->httpStatus = $httpStatus;
+        $this->details = $details;
         parent::__construct($messageKey);
     }
 }
@@ -254,7 +271,52 @@ function installerAlertKeys() {
         15 => 'verificationError', 16 => 'githubRejectedError', 17 => 'memoryError', 18 => 'storageError',
         19 => 'placementError', 20 => 'rollbackError', 21 => 'sessionError', 22 => 'requestError',
         23 => 'pathError', 24 => 'lockedError', 25 => 'confirmationError', 26 => 'noReleaseError',
+        27 => 'temporaryStorageError', 28 => 'permissionError', 29 => 'hostingRestrictionError',
+        30 => 'readOnlyError', 31 => 'quotaError',
     ];
+}
+
+function installerFilesystemFailure($message, $operation = '', $area = 'filesystem') {
+    $operations = ['is_link', 'is_file', 'is_dir', 'file_exists', 'realpath', 'mkdir', 'fopen', 'fwrite', 'fread', 'fclose', 'flock', 'fflush', 'ftruncate', 'file_put_contents', 'file_get_contents', 'copy', 'rename', 'unlink', 'rmdir', 'scandir', 'filesize', 'chmod', 'disk_free_space', 'hash_file'];
+    if ($operation === '' && preg_match('/^([a-z_]+)\(/i', $message, $match)) {
+        $operation = strtolower($match[1]);
+    }
+    if (!in_array($operation, $operations, true)) {
+        return null;
+    }
+    $reason = 'operation-failed';
+    $key = 'filesystemError';
+    foreach ([
+        'open_basedir' => ['open-basedir', 'hostingRestrictionError'],
+        'permission denied' => ['permission-denied', 'permissionError'],
+        'operation not permitted' => ['operation-not-permitted', 'permissionError'],
+        'read-only file system' => ['read-only', 'readOnlyError'],
+        'no space left' => ['disk-full', 'storageError'],
+        'disk quota exceeded' => ['quota-exceeded', 'quotaError'],
+        'no such file or directory' => ['not-found', 'filesystemError'],
+        'too many open files' => ['file-limit', 'filesystemError'],
+    ] as $pattern => $result) {
+        if (stripos($message, $pattern) !== false) {
+            list($reason, $key) = $result;
+            break;
+        }
+    }
+    $details = ['operation' => str_replace('_', '-', $operation), 'area' => $area, 'reason' => $reason];
+    return new InstallerFailure($key, 'OGDW-FS-' . strtoupper($details['operation'] . '-' . $reason), 500, $details);
+}
+
+function installerFilesystemAttempt($operation, $area, $callback, &$failure) {
+    $failure = installerFilesystemFailure('', $operation, $area);
+    set_error_handler(function ($severity, $message, $file, $line) use ($operation, $area, &$failure) {
+        $failure = installerFilesystemFailure($message, $operation, $area);
+        $failure->details['sourceLine'] = $line;
+        return true;
+    });
+    try {
+        return $callback();
+    } finally {
+        restore_error_handler();
+    }
 }
 
 function installerFailureKey($failure, $stage) {
@@ -331,14 +393,49 @@ function installerTarget($relative, $allowCustom) {
 }
 
 function installerWorkRoot() {
-    $root = rtrim(sys_get_temp_dir(), '/\\') . '/ogdw-installer-' . substr(hash('sha256', __DIR__), 0, 24);
-    if (is_link($root) || file_exists($root) && !is_dir($root)) {
-        throw new InstallerFailure('filesystemError', 'OGDW-WORK-UNSAFE');
+    $candidates = array_unique([sys_get_temp_dir(), (string) ini_get('upload_tmp_dir')]);
+    $publicRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?? __DIR__) ?: __DIR__;
+    $publicRoot = rtrim(str_replace('\\', '/', $publicRoot), '/') . '/';
+    $failure = new InstallerFailure('temporaryStorageError', 'OGDW-TEMP-UNAVAILABLE', 500, ['area' => 'temporary', 'reason' => 'not-writable']);
+    foreach ($candidates as $candidate) {
+        if ($candidate === '') {
+            continue;
+        }
+        $parent = installerFilesystemAttempt('realpath', 'temporary', function () use ($candidate) {
+            return realpath($candidate);
+        }, $failure);
+        if ($parent === false) {
+            if ($failure->details['reason'] === 'operation-failed') {
+                $failure->details['reason'] = 'not-found';
+            }
+            $failure->messageKey = 'temporaryStorageError';
+            $failure->errorCode = 'OGDW-TEMP-' . strtoupper($failure->details['reason']);
+            continue;
+        }
+        $normalized = rtrim(str_replace('\\', '/', $parent), '/') . '/';
+        $isPublic = PHP_OS_FAMILY === 'Windows' ? stripos($normalized, $publicRoot) === 0 : strpos($normalized, $publicRoot) === 0;
+        if ($isPublic) {
+            $failure = new InstallerFailure('temporaryStorageError', 'OGDW-TEMP-PUBLIC', 500, ['area' => 'temporary', 'reason' => 'public-directory']);
+            continue;
+        }
+        $root = rtrim($parent, '/\\') . '/ogdw-installer-' . substr(hash('sha256', __DIR__), 0, 24);
+        if (is_link($root) || file_exists($root) && !is_dir($root)) {
+            throw new InstallerFailure('filesystemError', 'OGDW-WORK-UNSAFE');
+        }
+        $ready = installerFilesystemAttempt('mkdir', 'temporary', function () use ($root) {
+            return (is_dir($root) || mkdir($root, 0700)) && is_readable($root) && is_writable($root);
+        }, $failure);
+        if (!$ready) {
+            if ($failure->details['reason'] === 'operation-failed') {
+                $failure->details['reason'] = 'not-writable';
+            }
+            $failure->messageKey = 'temporaryStorageError';
+            $failure->errorCode = 'OGDW-TEMP-' . strtoupper($failure->details['reason']);
+            continue;
+        }
+        return $root;
     }
-    if (!is_dir($root) && !mkdir($root, 0700)) {
-        throw new InstallerFailure('filesystemError', 'OGDW-WORK-CREATE');
-    }
-    return $root;
+    throw $failure;
 }
 
 function installerWriteJson($path, $data) {
@@ -391,8 +488,18 @@ function installerRemoveWork($path, $root) {
 
 function installerLog($code, $stage, $details = []) {
     $safeDetails = [];
-    foreach (['attempt', 'bytes', 'total', 'http', 'commit', 'archiveSha256'] as $key) {
+    foreach (['attempt', 'bytes', 'total', 'http', 'commit', 'archiveSha256', 'sourceLine'] as $key) {
         if (isset($details[$key]) && (is_int($details[$key]) || is_string($details[$key]) && preg_match('/^[a-f0-9]{40,64}$/', $details[$key]))) {
+            $safeDetails[$key] = $details[$key];
+        }
+    }
+    $allowedDetails = [
+        'operation' => ['is-link', 'is-file', 'is-dir', 'file-exists', 'realpath', 'mkdir', 'fopen', 'fwrite', 'fread', 'fclose', 'flock', 'fflush', 'ftruncate', 'file-put-contents', 'file-get-contents', 'copy', 'rename', 'unlink', 'rmdir', 'scandir', 'filesize', 'chmod', 'disk-free-space', 'hash-file'],
+        'area' => ['filesystem', 'temporary', 'job-lock'],
+        'reason' => ['operation-failed', 'open-basedir', 'permission-denied', 'operation-not-permitted', 'read-only', 'disk-full', 'quota-exceeded', 'not-found', 'file-limit', 'not-writable', 'public-directory'],
+    ];
+    foreach ($allowedDetails as $key => $values) {
+        if (isset($details[$key]) && in_array($details[$key], $values, true)) {
             $safeDetails[$key] = $details[$key];
         }
     }
@@ -409,8 +516,10 @@ function installerLog($code, $stage, $details = []) {
     $entries[] = $entry;
     $encoded = base64_encode(json_encode($entries, JSON_UNESCAPED_SLASHES));
     if (!is_link($path)) {
-        file_put_contents($path, $encoded, LOCK_EX);
-        @chmod($path, 0600);
+        @file_put_contents($path, $encoded, LOCK_EX);
+        if (function_exists('chmod')) {
+            @chmod($path, 0600);
+        }
     }
     return $encoded;
 }
@@ -1013,9 +1122,10 @@ function installerExecute($plan, $jobDirectory, $emit) {
                     throw $failure;
                 }
                 installerLog('OGDW-PLACE-ATTEMPT-' . $attempt, 'placing', ['attempt' => $attempt]);
-                installerLog($failure instanceof InstallerFailure ? $failure->errorCode : 'OGDW-PHP-PLACEMENT', 'placing', ['attempt' => $attempt]);
+                $details = $failure instanceof InstallerFailure ? $failure->details : [];
+                installerLog($failure instanceof InstallerFailure ? $failure->errorCode : 'OGDW-PHP-PLACEMENT', 'placing', array_merge($details, ['attempt' => $attempt]));
                 if ($attempt === 2) {
-                    throw new InstallerFailure('placementError', 'OGDW-PLACE-FAILED-TWICE');
+                    throw new InstallerFailure('placementError', 'OGDW-PLACE-FAILED-TWICE', 500, $details);
                 }
             }
         }
@@ -1089,8 +1199,14 @@ function installerAction($action, &$stage, &$view, &$activeJob, $beginStream, $e
     }
     $stage = 'files';
     $root = installerWorkRoot();
-    $lock = fopen($root . '/installer.lock', 'c+b');
-    if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
+    $lockFailure = null;
+    $lock = installerFilesystemAttempt('fopen', 'job-lock', function () use ($root) {
+        return fopen($root . '/installer.lock', 'c+b');
+    }, $lockFailure);
+    if (!$lock) {
+        throw $lockFailure;
+    }
+    if (!flock($lock, LOCK_EX | LOCK_NB)) {
         throw new InstallerFailure('lockedError', 'OGDW-INSTALL-BUSY', 409);
     }
     $jobId = bin2hex(random_bytes(16));
@@ -1103,8 +1219,12 @@ function installerAction($action, &$stage, &$view, &$activeJob, $beginStream, $e
     $_SESSION['installer']['job'] = ['id' => $jobId];
     unset($_SESSION['installer']['plan']);
     session_write_close();
-    ignore_user_abort(true);
-    set_time_limit(600);
+    if (function_exists('ignore_user_abort')) {
+        ignore_user_abort(true);
+    }
+    if (function_exists('set_time_limit')) {
+        set_time_limit(600);
+    }
     $beginStream();
     $stage = 'download';
     installerExecute($plan, $directory, $emit);
@@ -1130,9 +1250,6 @@ function installerAction($action, &$stage, &$view, &$activeJob, $beginStream, $e
 }
 
 function runInstaller($translations, $language) {
-    ini_set('display_errors', '0');
-    ini_set('display_startup_errors', '0');
-    error_reporting(E_ALL);
     $initialBufferLevel = ob_get_level();
     $installerRendering = false;
     $installerFinished = false;
@@ -1198,7 +1315,7 @@ function runInstaller($translations, $language) {
         $view['code'] = $code;
         $view['log'] = '';
         try {
-            $log = installerLog($code, $stage);
+            $log = installerLog($code, $stage, $failure instanceof InstallerFailure ? $failure->details : []);
             if (installerHasOwner() || $activeJob) {
                 $view['log'] = $log;
             }
@@ -1241,6 +1358,11 @@ function runInstaller($translations, $language) {
         if (!(error_reporting() & $severity) || in_array($severity, [E_DEPRECATED, E_USER_DEPRECATED, E_STRICT], true)) {
             return true;
         }
+        $filesystemFailure = installerFilesystemFailure($message);
+        if ($filesystemFailure) {
+            $filesystemFailure->details['sourceLine'] = $line;
+            throw $filesystemFailure;
+        }
         throw new \ErrorException($message, 0, $severity, $file, $line);
     });
     set_exception_handler($showFailure);
@@ -1257,6 +1379,11 @@ function runInstaller($translations, $language) {
         }
     });
     try {
+        if (function_exists('ini_set')) {
+            ini_set('display_errors', '0');
+            ini_set('display_startup_errors', '0');
+        }
+        error_reporting(E_ALL);
         $stage = 'session';
         installerSession();
         $view['csrf'] = $_SESSION['installer']['csrf'];
